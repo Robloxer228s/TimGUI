@@ -59,7 +59,7 @@ tween:Play()
 end
 end) 
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/service.lua"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/service.lua"))()
 
 AGF(FA)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
