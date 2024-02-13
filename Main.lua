@@ -89,7 +89,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-local function ABF(name, text, group, yy) 
+function _G.ABF(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -114,7 +114,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-local function ATBF(name, text, group, yy) 
+local function _G.ATBF(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -149,7 +149,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-local function ATBF(name, text, group, yy) 
+local function _G.ATBF(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -184,7 +184,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-local function AGF(name) 
+local function _G.AGF(name) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Folders
 Temp.Name = name
@@ -217,7 +217,7 @@ if FA == "TP to player" then
 local fix = 0
 for k, v in pairs(game.Players:GetChildren()) do 
 if not (v == game.Players.LocalPlayer) then
-local buttonka = ABF(k, v.Name, FA, k + fix) 
+local buttonka = _G.ABF(k, v.Name, FA, k + fix) 
 buttonka.Activated:Connect(function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 end) 
@@ -231,7 +231,7 @@ Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * #FoldersT)
 FoldersT[name] = {}
 end
 
-AGF(FA) 
+_G.AGF(FA) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 local gameURL = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.PlaceId ..".lua")()
 if gameURL == "404: Not found" then
