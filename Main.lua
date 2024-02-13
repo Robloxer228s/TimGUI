@@ -113,7 +113,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-_G.ACBF = function(name, text, group, yy) 
+_G.ATBF = function(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -131,7 +131,7 @@ But.TextColor3 = Color3.new(1, 1, 1)
 local ButTab = FoldersT[group]
 ButTab[name] = Instance.new("TextBox") 
 ButTab[name].Parent = Temp
-ButTab[name].BackgroundTransparency = 100
+ButTab[name].BackgroundColor3 = Color3.new(0, 0, 0) 
 ButTab[name].Size = UDim2.new(0.5, 0, 1, 0) 
 ButTab[name].Position = UDim2.new(0.5, 0, 0, 0)
 ButTab[name].Text = ""
