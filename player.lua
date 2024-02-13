@@ -1,1 +1,1 @@
-_G.AGF("Main",2)
+_G.AGF("Main")
