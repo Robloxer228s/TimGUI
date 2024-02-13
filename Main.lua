@@ -77,8 +77,8 @@ ButTabb.TextColor3 = Color3.new(1, 0, 0)
 ButTab[name] = Instance.new("BoolValue") 
 ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
-ButTab[name].Activated:Connect(function() 
-ButTabb.Value = not ButTabb.Value
+ButTab.Activated:Connect(function() 
+ButTab[name].Value = not ButTab[name].Value
 end) 
 local ftpmc = FoldersT[FA]
 if FA == group then
@@ -156,8 +156,6 @@ Temp.BackgroundTransparency = 100
 Temp.Image = "rbxassetid://16342149164"
 Temp.Size = UDim2.new(1, -5, 0, 50)
 FoldersT[name] = {}
-local yy = Folders:GetChildren() 
-yy = #yy
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 local Tmp = Instance.new("TextButton") 
 Tmp.Parent = Temp
@@ -173,7 +171,6 @@ v.Parent.Visible = false
 end
 end
 FA = name
-Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 for k,v in pairs(FoldersT[FA]) do
 if v.Parent then
 v.Parent.Visible = true
@@ -195,6 +192,13 @@ fix = -1
 end
 end
 end
+local yy = Folders:GetChildren() 
+for k,v in pairs(yy) do
+if v.Visible then
+yy += 1
+end
+end
+Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end) 
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
