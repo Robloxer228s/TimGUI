@@ -1,4 +1,14 @@
 _G.AGF("Main")
+local WST = _G.ATBF("WalkspeedV","Walkspeed:","Main",1) 
+local WSB = _G.ABF("WalkspeedB", "Set walkspeed", "Main", 2)
+WSB.Activated:Connect(function()
+game.Players.LocalPlayer.Character.Humanoid.Walkspeed = WST.Text
+end)
+local JT = _G.ATBF("WalkspeedV","JampPower:","Main",3) 
+local JB = _G.ABF("WalkspeedB", "Set jampPower", "Main", 4)
+JB.Activated:Connect(function()
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
+end)
 _G.AGF("ESP")
 local espLoad = false
 local ESPV = _G.ACBF("Esp","ESP-Main","ESP",1) 
