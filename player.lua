@@ -67,7 +67,7 @@ ESP.FillTransparency = 0.5
 ESP.OutlineColor = ESP.FillColor
 ESP.OutlineTransparency = 0
 else
-local Esp = player.Character:FindFirstChildForClass("Highlight") 
+local Esp = player.Character:FindFirstChildOfClass("Highlight") 
 if Esp then
 Esp:Destroy()
 end
