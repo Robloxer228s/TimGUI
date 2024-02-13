@@ -14,11 +14,14 @@ local PP = _G.ATBF("SpinV","SpinPower:","Main",5)
 local PB = _G.ACBF("SpinB", "Spining", "Main", 6)
 PB.Changed:Connect(function()
 if PB.Value then
-game:GetService('RunService').Stepped:connect(function()
-game.Players.LocalPlayer.Character.Head.CanCollide = false
-game.Players.LocalPlayer.Character.UpperTorso.CanCollide = false
-game.Players.LocalPlayer.Character.LowerTorso.CanCollide = false
-game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+wait(.1)
+local bambam = Instance.new("BodyThrust")
+bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bambam.Force = Vector3.new(PP.Text,0,PP.Text)
+bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
+end
 end)
 
 local TPT = _G.ABF("TPT", "TPTool", "Main", 7)
@@ -35,15 +38,6 @@ game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CF
 end
 end)
 end)
-end)
-wait(.1)
-local bambam = Instance.new("BodyThrust")
-bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bambam.Force = Vector3.new(PP.Text,0,PP.Text)
-bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-else
-game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
-end
 end)
 
 
