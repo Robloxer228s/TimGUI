@@ -73,12 +73,17 @@ ButTabb.BackgroundTransparency = 100
 ButTabb.Text = text
 ButTabb.Size = UDim2.new(1, 0, 1, 0) 
 ButTabb.TextScaled = true
-ButTabb.TextColor3 = Color3.new(1, 0, 0) 
+ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
 ButTab[name] = Instance.new("BoolValue") 
 ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
 ButTabb.Activated:Connect(function() 
 ButTab[name].Value = not ButTab[name].Value
+if ButTab[name].Value then
+ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25) 
+else
+ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+end
 end) 
 local ftpmc = FoldersT[FA]
 if FA == group then
