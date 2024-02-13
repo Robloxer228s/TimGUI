@@ -24,7 +24,33 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
 end
 end)
 
-local TPT = _G.ABF("TPT", "TPTool", "Main", 7)
+local IJ = _G.ACBF("IJ", "Infinity Jump", "Main", 7)
+IJ.Changed:Connect(function()
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+Mouse.KeyDown:connect(function(k)
+if IJ.Value then
+if k:byte() == 32 then
+Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+Humanoid:ChangeState("Jumping")
+wait(0.1)
+Humanoid:ChangeState("Seated")
+end
+end
+end)
+local button = plr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+local function onButtonActivated()
+if IJ.Value then
+Humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+Humanoid:ChangeState("Jumping")
+wait(0.1)
+Humanoid:ChangeState("Seated")
+end
+end
+button.Activated:Connect(onButtonActivated)
+end)
+
+local TPT = _G.ABF("TPT", "TPTool", "Main", 8)
 TPT.Activated:Connect(function()
 local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
 Tele.RequiresHandle = false
