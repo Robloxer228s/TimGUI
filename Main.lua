@@ -77,7 +77,7 @@ ButTabb.TextColor3 = Color3.new(1, 0, 0)
 ButTab[name] = Instance.new("BoolValue") 
 ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
-ButTab.Activated:Connect(function() 
+ButTabb.Activated:Connect(function() 
 ButTab[name].Value = not ButTab[name].Value
 end) 
 local ftpmc = FoldersT[FA]
@@ -194,8 +194,8 @@ fix = -1
 end
 end
 end
-yy = Func:GetChildren() 
-for k,v in pairs(yy) do
+yy = 0
+for k,v in pairs(Func:GetChildren()) do
 if v.Visible then
 yy += 1
 end
