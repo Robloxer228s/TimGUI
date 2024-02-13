@@ -60,6 +60,9 @@ end
 end) 
 
 _G.ACBF = function(name, text, group, yy) 
+if not (group == "TP to player") then
+Temp.Visible = false
+end
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -95,6 +98,9 @@ return ButTab[name]
 end
 
 _G.ABF = function(name, text, group, yy) 
+if not (group == "TP to player") then
+Temp.Visible = false
+end
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -120,6 +126,9 @@ end
 
 _G.ATBF = function(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
+if not (group == "TP to player") then
+Temp.Visible = false
+end
 Temp.Parent = Func
 Temp.Name = name
 Temp.BackgroundTransparency = 100
