@@ -149,7 +149,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-local function _G.AGF(name) 
+_G.AGF = function(name) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Folders
 Temp.Name = name
