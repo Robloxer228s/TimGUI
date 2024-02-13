@@ -64,3 +64,4 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/m
 AGF(FA)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 local gameURL = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.PlaceId ..".lua")()
+loadstring(gameURL)() 
