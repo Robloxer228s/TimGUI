@@ -4,11 +4,49 @@ local WSB = _G.ABF("WalkspeedB", "Set walkSpeed", "Main", 2)
 WSB.Activated:Connect(function()
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
 end)
-local JT = _G.ATBF("WalkspeedV","JampPower:","Main",3) 
-local JB = _G.ABF("WalkspeedB", "Set jampPower", "Main", 4)
+local JT = _G.ATBF("JumpPowerV","JampPower:","Main",3) 
+local JB = _G.ABF("JumpPowerB", "Set jampPower", "Main", 4)
 JB.Activated:Connect(function()
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
 end)
+
+local PP = _G.ATBF("SpinV","SpinPower:","Main",5) 
+local PB = _G.ACBF("SpinB", "Spining", "Main", 6)
+PB.Changed:Connect(function()
+if PB.Value then
+game:GetService('RunService').Stepped:connect(function()
+game.Players.LocalPlayer.Character.Head.CanCollide = false
+game.Players.LocalPlayer.Character.UpperTorso.CanCollide = false
+game.Players.LocalPlayer.Character.LowerTorso.CanCollide = false
+game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+end)
+
+local TPT = _G.ABF("TPT", "TPTool", "Main", 7)
+TPT.Activated:Connect(function()
+local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+Tele.RequiresHandle = false
+Tele.RobloxLocked = true
+Tele.Name = "TPTool"
+Tele.ToolTip = "Teleport Tool"
+Tele.Equipped:connect(function(Mouse)
+Mouse.Button1Down:connect(function()
+if Mouse.Target then
+game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame = (CFrame.new(Mouse.Hit.x, Mouse.Hit.y + 5, Mouse.Hit.z))
+end
+end)
+end)
+end)
+wait(.1)
+local bambam = Instance.new("BodyThrust")
+bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bambam.Force = Vector3.new(PP.Text,0,PP.Text)
+bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
+end
+end)
+
+
 _G.AGF("ESP")
 local espLoad = false
 local ESPV = _G.ACBF("Esp","ESP-Main","ESP",1) 
