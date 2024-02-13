@@ -78,9 +78,9 @@ game.Workspace.Water:Destroy()
 end)
 
 
-local BDel = _G.ACBF("BDel","Remove obstacles","Build a boat",2)
+local BDel = _G.ACBF("BDel","Remove obstacles","Build a boat",3)
 
-local WS = _G.ATBF("WS","WaterSpeed","Build a boat",2)
+local WS = _G.ATBF("WS","WaterSpeed","Build a boat",4)
 WS.Changed:Connect(function()
 if not AFK.Value then
 aw.Velocity = Vector3.new(0,0,25*WS.Text) 
