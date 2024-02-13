@@ -232,3 +232,10 @@ FoldersT[name] = {}
 end
 
 AGF(FA) 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
+local gameURL = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.PlaceId ..".lua")()
+if gameURL == "404: Not found" then
+print(game.PlaceId) 
+else 
+loadstring(gameURL)() 
+end
