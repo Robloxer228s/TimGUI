@@ -44,11 +44,11 @@ end
 ESP.FillTransparency = 0.5
 ESP.OutlineColor = ESP.FillColor
 ESP.OutlineTransparency = 0
-elseif player.Character:FindFirstChild("NotEsp") then
+else
 player.Character.NotEsp:Destroy()
 end
 end
-end) 
+end)
 
 ESPTC.Changed:Connect(function() 
 if ESPV.Value then
