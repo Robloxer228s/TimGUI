@@ -1,8 +1,8 @@
 _G.AGF("Main")
-local WST = _G.ATBF("WalkspeedV","Walkspeed:","Main",1) 
-local WSB = _G.ABF("WalkspeedB", "Set walkspeed", "Main", 2)
+local WST = _G.ATBF("WalkspeedV","WalkSpeed:","Main",1) 
+local WSB = _G.ABF("WalkspeedB", "Set walkSpeed", "Main", 2)
 WSB.Activated:Connect(function()
-game.Players.LocalPlayer.Character.Humanoid.Walkspeed = WST.Text
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
 end)
 local JT = _G.ATBF("WalkspeedV","JampPower:","Main",3) 
 local JB = _G.ABF("WalkspeedB", "Set jampPower", "Main", 4)
