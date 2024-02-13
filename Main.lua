@@ -59,10 +59,7 @@ tween:Play()
 end
 end) 
 
-local ABF
-local ATBF
-local ACBF
-local AGF
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/service.lua"))()
 AGF(FA)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
