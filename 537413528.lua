@@ -77,10 +77,11 @@ end
 game.Workspace.Water:Destroy() 
 end)
 
-
+local AFK
 local BDel = _G.ACBF("BDel","Remove obstacles","Build a boat",3)
 
 local WS = _G.ATBF("WS","WaterSpeed","Build a boat",4)
+WS.Text = 0
 WS.Changed:Connect(function()
 if not AFK.Value then
 aw.Velocity = Vector3.new(0,0,25*WS.Text) 
@@ -92,19 +93,15 @@ awf.Velocity = Vector3.new(0,0,25*WS.Text)
 end
 end)
 
-local AFK = _G.ACBF("AFK","AFK","Build a boat",1)
+AFK = _G.ACBF("AFK","AFK","Build a boat",1)
 AFK.Changed:Connect(function()
 if AFK.Value then
-AFK.BackgroundColor3 = Color3.new(0, 1, 0) 
-gui.Enabled = false
-
 aw.Velocity = Vector3.new(0,0,250) 
 awl.Velocity = Vector3.new(0,0,250) 
 awm.Velocity = Vector3.new(0,0,250) 
 awb.Velocity = Vector3.new(0,0,250) 
 awv.Velocity = Vector3.new(0,0,250) 
 awf.Velocity = Vector3.new(0,0,250) 
-
 aw.CanCollide = true
 awl.CanCollide = true
 awm.CanCollide = true
@@ -112,16 +109,12 @@ awb.CanCollide = true
 awv.CanCollide = true
 awf.CanCollide = true
 else
-AFK.BackgroundColor3 = Color3.new(1, 0, 0) 
-gui.Enabled = true
-
 aw.Velocity = Vector3.new(0,0,25*WS.Text) 
 awl.Velocity = Vector3.new(0,0,25*WS.Text) 
 awm.Velocity = Vector3.new(0,0,25*WS.Text) 
 awb.Velocity = Vector3.new(0,0,25*WS.Text) 
 awv.Velocity = Vector3.new(0,0,25*WS.Text) 
 awf.Velocity = Vector3.new(0,0,25*WS.Text) 
-
 aw.CanCollide = WH.Value
 awl.CanCollide = WH.Value
 awm.CanCollide = WH.Value
