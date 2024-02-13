@@ -109,7 +109,6 @@ local ftpmc = FoldersT[FA]
 if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
-print(yy - 1) 
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 return ButTab[name]
 end
@@ -155,7 +154,11 @@ Temp.Parent = Folders
 Temp.Name = name
 Temp.BackgroundTransparency = 100
 Temp.Image = "rbxassetid://16342149164"
-Temp.Size = UDim2.new(1, 0, 0, 50) 
+Temp.Size = UDim2.new(1, -5, 0, 50)
+FoldersT[name] = {}
+local yy = Folders:GetChildren() 
+yy = #yy
+Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 local Tmp = Instance.new("TextButton") 
 Tmp.Parent = Temp
 Tmp.BackgroundTransparency = 100
@@ -165,15 +168,16 @@ Tmp.TextScaled = true
 Tmp.TextColor3 = Color3.new(1, 1, 1) 
 Tmp.Activated:Connect(function() 
 for k,v in pairs(FoldersT[FA]) do
-v.Visible = false
+if v.Parent then
+v.Parent.Visible = false
+end
 end
 FA = name
-local ftpmc = FoldersT[FA]
-Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
+Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 for k,v in pairs(FoldersT[FA]) do
-v.Visible = true
+if v.Parent then
+v.Parent.Visible = true
 if FA == "TP to player" then
-if v then
 v.Parent:Destroy() 
 end
 end
@@ -192,15 +196,10 @@ end
 end
 end
 end) 
-Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * #FoldersT) 
-FoldersT[name] = {}
+Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
 
 _G.AGF(FA) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
-local gameURL = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.PlaceId ..".lua")()
-if gameURL == "404: Not found" then
 print(game.PlaceId) 
-else 
-loadstring(gameURL)() 
-end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.PlaceId ..".lua"))()
