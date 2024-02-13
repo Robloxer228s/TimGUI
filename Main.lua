@@ -59,7 +59,7 @@ tween:Play()
 end
 end) 
 
-function _G.ACBF(name, text, group, yy) 
+_G.ACBF = function(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -89,7 +89,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-function _G.ABF(name, text, group, yy) 
+_G.ABF = function(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
@@ -114,42 +114,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-local function _G.ATBF(name, text, group, yy) 
-local Temp = Instance.new("ImageLabel") 
-Temp.Parent = Func
-Temp.Name = name
-Temp.BackgroundTransparency = 100
-Temp.Image = "rbxassetid://16342149164"
-Temp.Size = UDim2.new(1, 0, 0, 50)
-local ButTab = FoldersT[group]
-local But = Instance.new("TextButton") 
-But.Parent = Temp
-But.BackgroundTransparency = 100
-But.Text = text
-But.Size = UDim2.new(0.5, 0, 1, 0) 
-But.TextScaled = true
-But.TextColor3 = Color3.new(1, 1, 1) 
-local ButTab = FoldersT[group]
-ButTab[name] = Instance.new("TextBox") 
-ButTab[name].Parent = Temp
-ButTab[name].BackgroundTransparency = 100
-ButTab[name].Size = UDim2.new(0.5, 0, 1, 0) 
-ButTab[name].Position = UDim2.new(0.5, 0, 0, 0)
-ButTab[name].Text = ""
-ButTab[name].ClearTextOnFocus = false 
-ButTab[name].TextScaled = true
-ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
-FoldersT[group] = ButTab
-local ftpmc = FoldersT[FA]
-if FA == group then
-Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
-end
-print(yy - 1) 
-Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
-return ButTab[name]
-end
-
-local function _G.ATBF(name, text, group, yy) 
+_G.ACBF = function(name, text, group, yy) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Func
 Temp.Name = name
