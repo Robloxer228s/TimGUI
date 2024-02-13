@@ -25,6 +25,7 @@ ESP.FillTransparency = 0.5
 ESP.OutlineColor = ESP.FillColor
 ESP.OutlineTransparency = 0
 end
+end
 end) 
 end
 game.Players.PlayerAdded:Connect(function(player)
