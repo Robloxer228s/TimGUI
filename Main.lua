@@ -156,6 +156,8 @@ Temp.BackgroundTransparency = 100
 Temp.Image = "rbxassetid://16342149164"
 Temp.Size = UDim2.new(1, -5, 0, 50)
 FoldersT[name] = {}
+local yy = Folders:GetChildren() 
+yy = #yy
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 local Tmp = Instance.new("TextButton") 
 Tmp.Parent = Temp
@@ -192,7 +194,7 @@ fix = -1
 end
 end
 end
-local yy = Folders:GetChildren() 
+yy = Func:GetChildren() 
 for k,v in pairs(yy) do
 if v.Visible then
 yy += 1
