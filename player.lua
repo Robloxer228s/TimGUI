@@ -44,8 +44,8 @@ end
 ESP.FillTransparency = 0.5
 ESP.OutlineColor = ESP.FillColor
 ESP.OutlineTransparency = 0
-else
-player.Character:FindFirstChild("NotEsp"):Destroy()
+elseif player.Character:FindFirstChild("NotEsp")
+player.Character.NotEsp:Destroy()
 end
 end
 end) 
