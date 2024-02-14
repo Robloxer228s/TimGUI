@@ -26,9 +26,7 @@ end)
 
 local IJ = _G.ACBF("IJ", "Infinity Jump", "Main", 7)
 IJ.Changed:Connect(function()
-    local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
-function getplatform()
 if (GuiService:IsTenFootInterface()) then
 print("Console error(Infinity jump)")
 elseif (UserInputService.TouchEnabled and not UserInputService.MouseEnabled) then
@@ -52,7 +50,6 @@ Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClas
 Humanoid:ChangeState("Jumping")
 wait(0.1)
 Humanoid:ChangeState("Seated")
-end
 end
 end)
 end
