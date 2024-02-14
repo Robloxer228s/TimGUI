@@ -25,33 +25,35 @@ end
 end)
 
 local IJ = _G.ACBF("IJ", "Infinity Jump", "Main", 7)
+local plr = game.Players.LocalPlayer  -- Переменная для игрока
 IJ.Changed:Connect(function()
-local UserInputService = game:GetService("UserInputService")
-if (UserInputService.TouchEnabled and not UserInputService.MouseEnabled) then
-local button = plr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
-local function onButtonActivated()
-if IJ.Value then
-Humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
-Humanoid:ChangeState("Jumping")
-wait(0.1)
-Humanoid:ChangeState("Seated")
-end
-end
-button.Activated:Connect(onButtonActivated)
-else
-local Player = game:GetService("Players").LocalPlayer
-local Mouse = Player:GetMouse()
-Mouse.KeyDown:connect(function(k)
-if IJ.Value then
-if k:byte() == 32 then
-Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-Humanoid:ChangeState("Jumping")
-wait(0.1)
-Humanoid:ChangeState("Seated")
-end
-end
-end)
-end
+ local UserInputService = game:GetService("UserInputService")
+ if (UserInputService.TouchEnabled and not UserInputService.MouseEnabled) then
+  local button = plr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+  local function onButtonActivated()
+   if IJ.Value then
+    local Humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
+    Humanoid:ChangeState("Jumping")
+    wait(0.1)
+    Humanoid:ChangeState("Seated")
+   end
+  end
+  button.Activated:Connect(onButtonActivated)
+ else
+  local Player = game:GetService("Players").LocalPlayer
+  local Mouse = Player:GetMouse()
+  
+  Mouse.KeyDown:Connect(function(k)
+   if IJ.Value then
+    if k.KeyCode == Enum.KeyCode.Space then  -- Использование Enum.KeyCode для клавиши Space
+     local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+     Humanoid:ChangeState("Jumping")
+     wait(0.1)
+     Humanoid:ChangeState("Seated")
+    end
+   end
+  end)
+ end
 end)
 
 local TPT = _G.ABF("TPT", "TPTool", "Main", 8)
