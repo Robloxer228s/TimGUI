@@ -86,7 +86,6 @@ if v:IsA("BasePart") then
 v.CanCollide = false
 end
 end
-end
 else
 Stepped:Disconnect()
 end
