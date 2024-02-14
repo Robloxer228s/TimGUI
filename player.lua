@@ -27,9 +27,7 @@ end)
 local IJ = _G.ACBF("IJ", "Infinity Jump", "Main", 7)
 IJ.Changed:Connect(function()
 local UserInputService = game:GetService("UserInputService")
-if (GuiService:IsTenFootInterface()) then
-print("Console error(Infinity jump)")
-elseif (UserInputService.TouchEnabled and not UserInputService.MouseEnabled) then
+if (UserInputService.TouchEnabled and not UserInputService.MouseEnabled) then
 local button = plr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
 local function onButtonActivated()
 if IJ.Value then
@@ -51,9 +49,9 @@ Humanoid:ChangeState("Jumping")
 wait(0.1)
 Humanoid:ChangeState("Seated")
 end
+end
+end
 end)
-end
-end
 end)
 
 local TPT = _G.ABF("TPT", "TPTool", "Main", 8)
