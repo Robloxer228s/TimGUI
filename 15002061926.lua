@@ -11,12 +11,9 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Spaw
 end) 
 radios.Text = 0
 radios:GetPropertyChangedSignal("Text"):Connect(function()
-local without_letters = string.gsub(TextBox.Text, "[A-z]","")
+local without_letters = string.gsub(radios.Text, "[A-z]","")
 if without_letters == radios.Text then
 return
-end
-if without_letters = "" then
-without_letters = 1
 end
 radios.Text = without_letters
 end)
@@ -67,6 +64,9 @@ if Check < 0 then
 Check = - Check
 end
 pos = pos + Check
+if radios.Text == "" then
+radios.Text = 1
+end
 if Auto.Value == true then
 rad = 0
 if not prev == 0 then
@@ -103,7 +103,7 @@ wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = ball.CFrame
 end
 end
-elseif pos < radios.Value*50
+elseif pos < radios.Text*50 then
 CLC() 
 end
 elseif not (ball.Highlight.FillColor == RB) then
