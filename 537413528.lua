@@ -63,6 +63,8 @@ Final.Position = Vector3.new(-56.22, -340.33, 9490.73)
 local Start = Instance.new("Part")
 Start.Position = Vector3.new(-55, 19.52, 1306.33) 
 
+local AFK
+
 _G.AGF("Build a boat")
 local WH = _G.ACBF("WH","WaterHacks","Build a boat",2)
 WH.Changed:Connect(function()
@@ -77,7 +79,6 @@ end
 game.Workspace.Water:Destroy() 
 end)
 
-local AFK
 local BDel = _G.ACBF("BDel","Remove obstacles","Build a boat",3)
 
 local WS = _G.ATBF("WS","WaterSpeed","Build a boat",4)
