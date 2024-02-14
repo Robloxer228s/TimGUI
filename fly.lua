@@ -5,7 +5,7 @@ speeds = 1
 local speaker = game:GetService("Players").LocalPlayer
 local chr = game.Players.LocalPlayer.Character
 local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-	if not fly.Value then
+	if not fly.Text then
 		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
 		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
 		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
