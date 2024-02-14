@@ -163,4 +163,3 @@ local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 		tpwalking = false
 	end
 end)
-end)
