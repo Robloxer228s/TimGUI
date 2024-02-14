@@ -50,7 +50,6 @@ wait(0.1)
 Humanoid:ChangeState("Seated")
 end
 end
-end
 end)
 end)
 
