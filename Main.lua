@@ -222,6 +222,6 @@ end
 
 _G.AGF(FA) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/fly.lua"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/fly.lua"))()
 print(game.PlaceId) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.PlaceId ..".lua"))()
