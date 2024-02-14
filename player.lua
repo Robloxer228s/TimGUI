@@ -75,6 +75,27 @@ end)
 end)
 end)
 
+local Noclip = _G.ACBF("Noclip","Noclip","Main",9)
+local Stepped
+Noclip.Changed:Connect(function()
+if Noclip.Value then
+Stepped = game:GetService("RunService").Stepped:Connect(function()
+if Noclip.Value then
+for a, b in pairs(Workspace:GetChildren()) do
+if b.Name == Plr.Name then
+for i, v in pairs(Workspace[Plr.Name]:GetChildren()) do
+if v:IsA("BasePart") then
+v.CanCollide = false
+end end end end
+else
+Stepped:Disconnect()
+end
+end)
+else
+Clipon = false
+Status.TextColor3 = Color3.new(170,0,0)
+end
+end)
 
 _G.AGF("ESP")
 local espLoad = false
