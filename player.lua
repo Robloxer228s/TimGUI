@@ -93,8 +93,8 @@ Status.TextColor3 = Color3.new(170,0,0)
 end
 end)
 
-local WSB = _G.ABF("WalkspeedB", "TP to random player", "Main", 10)
-WSB.Activated:Connect(function()
+local TPRP = _G.ABF("TPRP", "TP to random player", "Main", 10)
+TPRP.Activated:Connect(function()
 local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())]
 game.Players.LocalPlayer.Character.HumanoidRootPart = pl.Character.HumanoidRootPart.CFrame
 end)
