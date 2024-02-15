@@ -75,6 +75,8 @@ ESPn.FillColor = Color3.new(0,1,0)
 ESPn.FillTransparency = 0.5
 ESPn.OutlineColor = ESPn.FillColor
 ESPn.OutlineTransparency = 0
+else
+char.NotEsp.FillColor = Color3.new(0,1,0) 
 end
 elseif char:FindFirstChild("NotEsp") then
 char.NotEsp:Destroy()
