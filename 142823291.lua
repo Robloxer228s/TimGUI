@@ -29,6 +29,7 @@ end)
 
 while true do 
 wait(1) 
+pcall(function()
 local char = game.Workspace:FindFirstChild("GunDrop") 
 if char then
 print(1) 
@@ -104,4 +105,5 @@ end
 end
 end
 end
+end) --pcall
 end
