@@ -7,6 +7,12 @@ local ESPGD = _G.ACBF("ESPGD", "ESP Dropped gun", "ESP", 7)
 local murd
 local sher 
 _G.AGF("MM2") 
+local TDG = _G.ABF("TPM", "TP to dropped gun", "MM2", 4)
+TDG.Activated:Connect(function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.GunDrop.CFrame
+end) 
+
+
 local TPM = _G.ABF("TPM", "TP to murder", "MM2", 1)
 TPM.Activated:Connect(function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = murd.Character.HumanoidRootPart.CFrame
@@ -22,13 +28,13 @@ KA.Activated:Connect(function()
 for k,v in pairs(game.Players:GetChildren()) do
 if not (v == game.Players.LocalPlayer) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
-wait(1) 
+wait(0.75) 
 end
 end
 end) 
 
 while true do 
-wait(1) 
+wait(3) 
 pcall(function()
 local char = game.Workspace:FindFirstChild("GunDrop") 
 if char then
