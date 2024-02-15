@@ -96,7 +96,7 @@ end)
 local TPRP = _G.ABF("TPRP", "TP to random player", "Main", 10)
 TPRP.Activated:Connect(function()
 local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())]
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pl.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = pl.Character.HumanoidRootPart.CFrame
 end)
 
 _G.AGF("ESP")
