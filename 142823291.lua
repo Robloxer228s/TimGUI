@@ -38,11 +38,8 @@ wait(3)
 pcall(function()
 local char = game.Workspace:FindFirstChild("GunDrop") 
 if char then
-print(1) 
 if ESP.Value and ESPGD.Value then
-print(2) 
 if not char:FindFirstChild("NotEsp") then
-print(3) 
 local ESPn = Instance.new("Highlight")
 ESPn.Parent = char
 ESPn.Name = "NotEsp"
