@@ -7,7 +7,7 @@ local ESPGD = _G.ACBF("ESPGD", "ESP Dropped gun", "ESP", 7)
 local murd
 local sher 
 _G.AGF("MM2") 
-local TDG = _G.ABF("TPM", "TP to dropped gun", "MM2", 4)
+local TDG = _G.ABF("TDG", "TP to dropped gun", "MM2", 4)
 TDG.Activated:Connect(function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.GunDrop.CFrame
 end) 
