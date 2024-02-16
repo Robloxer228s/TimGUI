@@ -92,7 +92,6 @@ local ftpmc = FoldersT[FA]
 if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
-print(yy - 1) 
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 return ButTab[name]
 end
@@ -158,7 +157,6 @@ local ftpmc = FoldersT[FA]
 if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
-print(yy - 1) 
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 return ButTab[name]
 end
