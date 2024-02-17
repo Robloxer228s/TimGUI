@@ -66,7 +66,7 @@ Start.Position = Vector3.new(-55, 19.52, 1306.33)
 local AFK
 
 _G.AGF("Build a boat")
-local WH = _G.ACBF("WH","WaterHacks","Build a boat",2)
+local WH = _G.ACBF("WH","WaterHacks","Build a boat",2,"Взлом ж*пы(воды)")
 WH.Changed:Connect(function()
 if not AFK.Value then
 aw.CanCollide = WH.Value
@@ -79,9 +79,9 @@ end
 game.Workspace.Water:Destroy() 
 end)
 
-local BDel = _G.ACBF("BDel","Remove obstacles","Build a boat",3)
+local BDel = _G.ACBF("BDel","Remove obstacles","Build a boat",3,"Удалять препятствия(каждые 30 сек)")
 
-local WS = _G.ATBF("WS","WaterSpeed","Build a boat",4)
+local WS = _G.ATBF("WS","WaterSpeed:","Build a boat",4,"Скорость воды:")
 WS.Text = 0
 WS.Changed:Connect(function()
 if not AFK.Value then
@@ -94,7 +94,7 @@ awf.Velocity = Vector3.new(0,0,25*WS.Text)
 end
 end)
 
-AFK = _G.ACBF("AFK","AFK","Build a boat",1)
+AFK = _G.ACBF("AFK","AFK","Build a boat",1,"АФК (сдохни чтоб начать)")
 AFK.Changed:Connect(function()
 if AFK.Value then
 aw.Velocity = Vector3.new(0,0,250) 
