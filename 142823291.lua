@@ -8,15 +8,15 @@ local murd
 local sher 
 _G.AGF("MM2") 
 local TDG = _G.ABF("TDG", "TP to dropped gun", "MM2", 4)
-local TPM = _G.ABF("TPM", "TP to spawn", "MM2", 5) 
-local TPS = _G.ABF("TPS", "TP to map", "MM2", 6) 
+local TPMM = _G.ABF("TPMM", "TP to spawn", "MM2", 5) 
+local TPSM = _G.ABF("TPSM", "TP to map", "MM2", 6) 
 
-TPM.Activated:Connect(function() 
+TPMM.Activated:Connect(function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[mach.random(1, #rand)].CFrame
 end) 
 
-TPS.Activated:Connect(function() 
+TPSM.Activated:Connect(function() 
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[mach.random(1, #rand)].CFrame
 end)
