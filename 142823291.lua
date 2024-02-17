@@ -8,17 +8,17 @@ local murd
 local sher 
 _G.AGF("MM2") 
 local TDG = _G.ABF("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету")
-local TPMM = _G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн") 
-local TPSM = _G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту") 
+local TPSM = _G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн") 
+local TPMM = _G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту") 
 
 TPMM.Activated:Connect(function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end) 
 
 TPSM.Activated:Connect(function() 
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0
 end)
 
 TDG.Activated:Connect(function()
