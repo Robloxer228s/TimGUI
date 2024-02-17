@@ -64,7 +64,8 @@ Tele.RobloxLocked = true
 Tele.Name = "TPTool"
 Tele.ToolTip = "Teleport Tool"
 if not _G.eng then
-Tele.Name = "Подотри ей, чтоб тепнутся"
+Tele.Name = "ТПВтулка"
+Tele.ToolTip = "Подотри ей, чтоб тепнутся"
 end
 Tele.Equipped:connect(function(Mouse)
 Mouse.Button1Down:connect(function()
