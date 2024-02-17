@@ -45,7 +45,7 @@ local args = {
     [3] = math.huge,
 }
 pcall(function()
-pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
+pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end
 end
@@ -59,6 +59,6 @@ local args = {
     [3] = math.huge,
 }
 pcall(function()
-pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
+pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end) 
