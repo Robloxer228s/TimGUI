@@ -45,7 +45,8 @@ local args = {
     [3] = math.huge,
 }
 pcall(function()
-pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
+local pist = pistol()
+pist.GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end
 end
