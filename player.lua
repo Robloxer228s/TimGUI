@@ -1,17 +1,17 @@
-_G.AGF("Main")
-local WST = _G.ATBF("WalkspeedV","WalkSpeed:","Main",1) 
-local WSB = _G.ABF("WalkspeedB", "Set walkSpeed", "Main", 2)
+_G.AGF("Main","Стандартные")
+local WST = _G.ATBF("WalkspeedV","WalkSpeed:","Main",1,"Скорость ходьбы:") 
+local WSB = _G.ABF("WalkspeedB", "Set walkSpeed", "Main", 2,"Установить скорость")
 WSB.Activated:Connect(function()
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
 end)
-local JT = _G.ATBF("JumpPowerV","JampPower:","Main",3) 
-local JB = _G.ABF("JumpPowerB", "Set jampPower", "Main", 4)
+local JT = _G.ATBF("JumpPowerV","JampPower:","Main",3,"Сила прыжка:") 
+local JB = _G.ABF("JumpPowerB", "Set jampPower", "Main", 4,"Установить силу")
 JB.Activated:Connect(function()
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
 end)
 
-local PP = _G.ATBF("SpinV","SpinPower:","Main",5) 
-local PB = _G.ACBF("SpinB", "Spining", "Main", 6)
+local PP = _G.ATBF("SpinV","SpinPower:","Main",5,"Скорость кружения") 
+local PB = _G.ACBF("SpinB", "Spining", "Main", 6,"Крутиться") 
 PB.Changed:Connect(function()
 if PB.Value then
 wait(.1)
@@ -20,11 +20,11 @@ bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
 bambam.Force = Vector3.new(PP.Text,0,PP.Text)
 bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 else
-game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
+game.Players.LocalPlayer.Character.HumanoidRootPart:WaitForChild("BodyThrust"):Destroy()
 end
 end)
 
-local IJ = _G.ACBF("IJ", "Infinity Jump", "Main", 7)
+local IJ = _G.ACBF("IJ", "Infinity Jump", "Main", 7,"Бесконечный прыжок")
 local plr = game.Players.LocalPlayer  -- Переменная для игрока
 IJ.Changed:Connect(function()
  local UserInputService = game:GetService("UserInputService")
@@ -56,13 +56,16 @@ IJ.Changed:Connect(function()
  end
 end)
 
-local TPT = _G.ABF("TPT", "TPTool", "Main", 8)
+local TPT = _G.ABF("TPT", "TPTool", "Main", 8,"ТПвтулка")
 TPT.Activated:Connect(function()
 local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
 Tele.RequiresHandle = false
 Tele.RobloxLocked = true
 Tele.Name = "TPTool"
 Tele.ToolTip = "Teleport Tool"
+if not _G.eng then
+Tele.ToolTip = "Подотри ей, чтоб тепнутся"
+end
 Tele.Equipped:connect(function(Mouse)
 Mouse.Button1Down:connect(function()
 if Mouse.Target then
@@ -72,7 +75,7 @@ end)
 end)
 end)
 
-local Noclip = _G.ACBF("Noclip","Noclip","Main",9)
+local Noclip = _G.ACBF("Noclip","Noclip","Main",9,"Проходка сквозь стены(Чтоб убрать нужно убрать и умереть)")
 local Stepped
 Noclip.Changed:Connect(function()
 if Noclip.Value then
@@ -93,16 +96,16 @@ Status.TextColor3 = Color3.new(170,0,0)
 end
 end)
 
-local TPRP = _G.ABF("TPRP", "TP to random player", "Main", 10)
+local TPRP = _G.ABF("TPRP", "TP to random player", "Main", 10,"ТП к случайному игроку")
 TPRP.Activated:Connect(function()
 local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())]
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = pl.Character.HumanoidRootPart.CFrame
 end)
 
-_G.AGF("ESP")
+_G.AGF("ESP","Подсветка(esp) ")
 local espLoad = false
-local ESPV = _G.ACBF("Esp","ESP-Main","ESP",1) 
-local ESPTC = _G.ACBF("Esptc", "Use Team Color(esp-main)", "ESP", 2) 
+local ESPV = _G.ACBF("Esp","ESP-Main","ESP",1,"Обычный esp(для любой игры)") 
+local ESPTC = _G.ACBF("Esptc", "Use Team Color(esp-main)", "ESP", 2,"Использовать цвет команды (для обычной esp) ") 
 
 ESPV.Changed:Connect(function() 
 if not espLoad then
