@@ -45,7 +45,7 @@ Func.Size = UDim2.new(1, -100, 1, -25)
 Func.Position = UDim2.new(0, 100, 0, 25) 
 
 local OC = false
-AO.Activated:Connect(function () 
+AO.Activated:Connect(function() 
 OC = not OC
 if OC then
 local goal = {}
@@ -239,7 +239,7 @@ end)
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
 
-_G.AGF(FA) 
+_G.AGF(FA,"ТП к игрокам") 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/fly.lua"))()
