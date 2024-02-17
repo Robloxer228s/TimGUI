@@ -30,7 +30,7 @@ pist = v
 end
 end
 if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
-pist = v
+pist = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
 end
 return pist
 end
