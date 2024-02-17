@@ -1,5 +1,5 @@
 _G.AGF("LuckyBlocks") 
-local count = _G.ATBF("count", "Quantity:", "LuckyBlocks", 1) 
+local count = _G.ATBF("count", "Quantity:", "LuckyBlocks", 1,"Количество:") 
 count.Text = 1
 local zero = _G.ABF("zero", "LuckyBlock", "LuckyBlocks", 2) 
 local one = _G.ABF("one", "SuperBlock", "LuckyBlocks", 3) 
