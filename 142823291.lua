@@ -18,7 +18,7 @@ end)
 
 TPSM.Activated:Connect(function() 
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end)
 
 TDG.Activated:Connect(function()
