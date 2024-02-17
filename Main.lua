@@ -219,6 +219,7 @@ Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
 end
 
 _G.AGF(FA) 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/fly.lua"))()
 print(game.PlaceId) 
