@@ -25,15 +25,19 @@ end)
 local function pistol() 
 local pist
 for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-if v:FindFirstChild("GunScript_Server") then
-pist = v
-end
-print(v.Name) 
-end
+local pist = false
+pcall(function() 
 if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
 pist = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
 end
+end) 
+if pist then
 return pist
+end
+if v:FindFirstChild("GunScript_Server") then
+return v
+end
+end
 end
 
 kaz.Activated:Connect(function() 
