@@ -1,24 +1,24 @@
 --MM2
 local ESP = _G.ACBF("ESP", "MM2", "ESP", 3)
-local ESPM = _G.ACBF("ESPM", "ESP Murder", "ESP", 4)
-local ESPS = _G.ACBF("ESPS", "ESP Sheriff", "ESP", 5)
-local ESPA = _G.ACBF("ESPA", "ESP All", "ESP", 6)
-local ESPGD = _G.ACBF("ESPGD", "ESP Dropped gun", "ESP", 7)
+local ESPM = _G.ACBF("ESPM", "ESP Murder", "ESP", 4, "ESP на убийцу")
+local ESPS = _G.ACBF("ESPS", "ESP Sheriff", "ESP", 5, "ESP на шерифа")
+local ESPA = _G.ACBF("ESPA", "ESP All", "ESP", 6, "ESP на всех")
+local ESPGD = _G.ACBF("ESPGD", "ESP Dropped gun", "ESP", 7, "ESP на пистолет")
 local murd
 local sher 
 _G.AGF("MM2") 
-local TDG = _G.ABF("TDG", "TP to dropped gun", "MM2", 4)
-local TPMM = _G.ABF("TPMM", "TP to spawn", "MM2", 5) 
-local TPSM = _G.ABF("TPSM", "TP to map", "MM2", 6) 
+local TDG = _G.ABF("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету")
+local TPMM = _G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн") 
+local TPSM = _G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту") 
 
 TPMM.Activated:Connect(function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[mach.random(1, #rand)].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame
 end) 
 
 TPSM.Activated:Connect(function() 
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[mach.random(1, #rand)].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame
 end)
 
 TDG.Activated:Connect(function()
@@ -26,17 +26,17 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.GunD
 end) 
 
 
-local TPM = _G.ABF("TPM", "TP to murder", "MM2", 1)
+local TPM = _G.ABF("TPM", "TP to murder", "MM2", 1, "ТП к убийце")
 TPM.Activated:Connect(function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = murd.Character.HumanoidRootPart.CFrame
 end) 
 
-local TPS = _G.ABF("TPS", "TP to sheriff", "MM2", 2)
+local TPS = _G.ABF("TPS", "TP to sheriff", "MM2", 2, "ТП к шерифу")
 TPS.Activated:Connect(function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = sher.Character.HumanoidRootPart.CFrame
 end) 
 
-local KA = _G.ABF("KA", "Kill All", "MM2", 3)
+local KA = _G.ABF("KA", "Kill All", "MM2", 3, "Убить всех")
 KA.Activated:Connect(function()
 for k,v in pairs(game.Players:GetChildren()) do
 if not (v == game.Players.LocalPlayer) then
