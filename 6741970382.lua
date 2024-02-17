@@ -28,6 +28,7 @@ for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 if v:FindFirstChild("GunScript_Server") then
 pist = v
 end
+print(v.Name) 
 end
 if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
 pist = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
