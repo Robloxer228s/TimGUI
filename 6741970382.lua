@@ -22,6 +22,19 @@ ds.Activated:Connect(function()
 game.Workspace.AntiWeaponZone:Destroy()
 end) 
 
+local function pistol() 
+local pist
+for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v:FindFirstChild("GunScript_Server") then
+pist = v
+end
+end
+if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
+pist = v
+end
+return pist
+end
+
 kaz.Activated:Connect(function() 
 for i=2,#game.Players:GetPlayers() do
 v=game.Players:GetPlayers()[i]
@@ -32,11 +45,7 @@ local args = {
     [3] = math.huge,
 }
 pcall(function()
-if not game.Players.LocalPlayer.Backpack:FindFirstChild("Pistol") then
-game:GetService("Players").LocalPlayer.Character.Pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
-else
-game:GetService("Players").LocalPlayer.Backpack.Pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
-end
+pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end
 end
@@ -50,10 +59,6 @@ local args = {
     [3] = math.huge,
 }
 pcall(function()
-if not game.Players.LocalPlayer.Backpack:FindFirstChild("Pistol") then
-game:GetService("Players").LocalPlayer.Character.Pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
-else
-game:GetService("Players").LocalPlayer.Backpack.Pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
-end
+pistol.GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end) 
