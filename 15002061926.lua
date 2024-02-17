@@ -2,11 +2,11 @@
 local userInputService = game:GetService("UserInputService")
 local attach = true
 _G.AGF("DeathBall")
-local Auto = _G.ACBF("Auto","Auto","DeathBall",2)
-local Arabic = _G.ACBF("Arabic","Arabic","DeathBall",3)
-local AFK = _G.ACBF("AFK","AFK","DeathBall",4)
-local radios = _G.ATBF("rad","Radius:","DeathBall",1)
-local spawn = _G.ABF("spawn","TP to spawn","DeathBall",5)
+local Auto = _G.ACBF("Auto","Auto(bug)","DeathBall",2,"Авто(баганый)")
+local Arabic = _G.ACBF("Arabic","Arabic","DeathBall",3,"Арабик")
+local AFK = _G.ACBF("AFK","AFK(tp to intermission)","DeathBall",4,"АФК(ТП в интермиссию)")
+local radios = _G.ATBF("rad","Radius(0-off):","DeathBall",1,"Радиус(0-выкл):")
+local spawn = _G.ABF("spawn","TP to spawn","DeathBall",5,"ТП на спавн")
 spawn.Activated:Connect(function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SpawnLocation.CFrame
 end) 
