@@ -60,7 +60,7 @@ end
 end) 
 
 _G.ACBF = function(name, text, group, yy, rus) 
-if not _G.eng then
+if not _G.eng and not (rus == nil) then
 text = rus
 end
 local Temp = Instance.new("ImageLabel") 
@@ -100,7 +100,7 @@ return ButTab[name]
 end
 
 _G.ABF = function(name, text, group, yy, rus)
-if not _G.eng then
+if not _G.eng and not (rus == nil) then
 text = rus
 end
 local Temp = Instance.new("ImageLabel") 
@@ -130,7 +130,7 @@ return ButTab[name]
 end
 
 _G.ATBF = function(name, text, group, yy, rus) 
-if not _G.eng then
+if not _G.eng and not (rus == nil) then
 text = rus
 end
 local Temp = Instance.new("ImageLabel") 
@@ -185,7 +185,7 @@ local Tmp = Instance.new("TextButton")
 Tmp.Parent = Temp
 Tmp.BackgroundTransparency = 100
 Tmp.Text = name
-if not _G.eng
+if not _G.eng and not (rus == nil) then 
 Tmp.Text = rus
 end
 Tmp.Size = UDim2.new(1, 0, 1, 0) 
