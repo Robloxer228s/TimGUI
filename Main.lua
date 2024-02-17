@@ -59,7 +59,10 @@ tween:Play()
 end
 end) 
 
-_G.ACBF = function(name, text, group, yy) 
+_G.ACBF = function(name, text, group, yy, rus) 
+if not _G.eng then
+text = rus
+end
 local Temp = Instance.new("ImageLabel") 
 if not (group == "TP to player") then
 Temp.Visible = false
@@ -96,7 +99,10 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-_G.ABF = function(name, text, group, yy) 
+_G.ABF = function(name, text, group, yy, rus)
+if not _G.eng then
+text = rus
+end
 local Temp = Instance.new("ImageLabel") 
 if not (group == "TP to player") then
 Temp.Visible = false
@@ -123,7 +129,10 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-_G.ATBF = function(name, text, group, yy) 
+_G.ATBF = function(name, text, group, yy, rus) 
+if not _G.eng then
+text = rus
+end
 local Temp = Instance.new("ImageLabel") 
 if not (group == "TP to player") then
 Temp.Visible = false
@@ -161,7 +170,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-_G.AGF = function(name) 
+_G.AGF = function(name, rus) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Folders
 Temp.Name = name
@@ -176,6 +185,9 @@ local Tmp = Instance.new("TextButton")
 Tmp.Parent = Temp
 Tmp.BackgroundTransparency = 100
 Tmp.Text = name
+if not _G.eng
+Tmp.Text = rus
+end
 Tmp.Size = UDim2.new(1, 0, 1, 0) 
 Tmp.TextScaled = true
 Tmp.TextColor3 = Color3.new(1, 1, 1) 
