@@ -1,8 +1,8 @@
-_G.AGF("TP to Waypoint") 
-_G.AGF("Waypoints Settings") 
+_G.AGF("TP to Waypoint","ТП к точке") 
+_G.AGF("Waypoints Settings","Настроить точку") 
 
-local Name = _G.ATBF("Name", "Name:", "Waypoints Settings", 1) 
-local Create = _G.ABF("Create", "Create and set or set", "Waypoints Settings", 2) 
+local Name = _G.ATBF("Name", "Name:", "Waypoints Settings", 1, "Имя:") 
+local Create = _G.ABF("Create", "Create and set or set", "Waypoints Settings", 2, "Создать или изменить") 
 -- local SetW = _G.ABF("Set", "Set", "Waypoints Settings", 1) 
 -- local Delete = _G.ABF("Delete", "Delete", "Waypoints Settings", 3) 
 
