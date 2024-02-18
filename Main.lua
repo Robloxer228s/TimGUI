@@ -7,6 +7,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/m
 
 
 ]]
+local atpp
+local autotp
 local FoldersT = {}
 local FA = "TP to player"
 local TweenService = game:GetService("TweenService")
@@ -216,12 +218,17 @@ end
 end
 end
 if FA == "TP to player" then
-local fix = 0
+local fix = 1
 for k, v in pairs(game.Players:GetChildren()) do 
 if not (v == game.Players.LocalPlayer) then
 local buttonka = _G.ABF(k, v.Name, FA, k + fix) 
 buttonka.Activated:Connect(function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+atpp = v
+autotp.Parent.TextButton.Text = "Auto spam tp to " .. v.Name
+if not _G.eng then 
+autotp.Parent.TextButton.Text = "Авто спам тп к " .. v.Name
+end
 end) 
 else
 fix = -1
@@ -240,6 +247,8 @@ Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
 end
 
 _G.AGF(FA,"ТП к игрокам") 
+local autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/fly.lua"))()
