@@ -248,7 +248,11 @@ end
 
 _G.AGF(FA,"ТП к игрокам") 
 local autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
-
+game:GetService("RunService").Stepped:Connect(function()
+if autotp.Value then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = atpp.Character.HumanoidRootPart.CFrame
+end
+end) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/fly.lua"))()
