@@ -20,7 +20,8 @@ bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
 bambam.Force = Vector3.new(PP.Text,0,PP.Text)
 bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 else
-game.Players.LocalPlayer.Character.HumanoidRootPart:WaitForChild("BodyThrust"):Destroy()
+wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
 end
 end)
 
