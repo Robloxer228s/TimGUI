@@ -47,7 +47,7 @@ end
 end) 
 
 while true do 
-wait(1) 
+wait(1.5) 
 pcall(function()
 local char = game.Workspace:FindFirstChild("GunDrop") 
 if char then
@@ -71,10 +71,10 @@ end
 end
 for k,v in pairs(game.Players:GetChildren()) do
 if v.Character then
-if v.Backpack:FindFirstChild("Knife") and v.Character:FindFirstChild("Knife") then
+if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then
 murd = v
 end
-if v.Backpack:FindFirstChild("Gun") and v.Character:FindFirstChild("Gun") then
+if v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then
 sher = v
 end
 local char = v.Character
