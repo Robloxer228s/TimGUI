@@ -217,7 +217,7 @@ v.Parent:Destroy()
 end
 end
 end
-if FA == "TP to player" the
+if FA == "TP to player" then
 local fix = 1
 autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
 for k, v in pairs(game.Players:GetChildren()) do 
