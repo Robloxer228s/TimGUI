@@ -1,4 +1,4 @@
-local ESPM = _G.ACBF("ESPM", "ESP Monsters", "ESP", 1, "ESP на монстров") 
+local ESPM = _G.ACBF("ESPM", "ESP Monsters", "ESP", 3, "ESP на монстров") 
 ESPM.Changed:Connect(function()
 for k, char in pairs(game.Workspace.Monsters:GetChildren()) do
 if ESPM.Value then
@@ -37,7 +37,7 @@ ESP.OutlineTransparency = 0
 end
 end) 
 
-local ESPI = _G.ACBF("ESPI", "ESP Items", "ESP", 2, "ESP на предметы") 
+local ESPI = _G.ACBF("ESPI", "ESP Items", "ESP", 4, "ESP на предметы") 
 ESPI.Changed:Connect(function()
 for k, char in pairs(game.Workspace:GetChildren()) do
 if ESPI.Value and char.ClassName == "Model" then
