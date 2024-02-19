@@ -212,17 +212,16 @@ FA = name
 for k,v in pairs(FoldersT[FA]) do
 if v.Parent then
 v.Parent.Visible = true
-if FA == "TP to player" then
+if FA == "TP to player" and not (v.ClassName == "BoolValue") then
 v.Parent:Destroy() 
 end
 end
 end
 if FA == "TP to player" then
-local fix = 1
-autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
+local fix = 0
 for k, v in pairs(game.Players:GetChildren()) do 
 if not (v == game.Players.LocalPlayer) then
-local buttonka = _G.ABF(k, v.Name, FA, k + fix) 
+local buttonka = _G.ABF(k, v.Name, FA, k + fix + 1) 
 buttonka.Activated:Connect(function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 atpp = v
@@ -246,8 +245,8 @@ Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
 end) 
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
-
-_G.AGF(FA,"ТП к игрокам") 
+_G.AGF(FA,"ТП к игрокам")
+autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
 if autotp.Value then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = atpp.Character.HumanoidRootPart.CFrame
