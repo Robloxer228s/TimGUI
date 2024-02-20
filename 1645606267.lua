@@ -42,7 +42,7 @@ player.CharacterAdded:Connect(function(char)
 if ESPV.Value then
 CESP(char) 
 elseif char.Name == "Frogge" and ESPF.Value then
-char.NotEsp:Destroy() 
+CESP(char) 
 end
 end) 
 end) 
@@ -53,7 +53,7 @@ local char = player.Character
 if ESPV.Value and not (player == game.Players.LocalPlayer) then
 CESP(char) 
 elseif not ESPV.Value and char:FindFirstChild("NotEsp") then
-CESP(char) 
+char.NotEsp:Destroy() 
 end
 end
 end) 
