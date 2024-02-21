@@ -27,6 +27,7 @@ end
 end) 
 
 local ESPI = _G.ACBF("ESPI", "ESP Items", "ESP", 24,"ESP На предметы") 
+ESPI.Changed:Connect(function()
 for k, chr in pairs(game.Workspace.Maps:GetChildren()) do
 for k, char in pairs(chr:GetChildren()) do
 if char.Name == "Collections" then
