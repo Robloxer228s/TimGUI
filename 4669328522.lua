@@ -26,7 +26,7 @@ end
 end
 end) 
 
-local ESPI = _G.ACBF("ESPI", "ESP Items", "ESP", 24,"ESP На предметы") 
+local ESPI = _G.ACBF("ESPI", "ESP Items", "ESP", 4,"ESP На предметы") 
 ESPI.Changed:Connect(function()
 for k, chr in pairs(game.Workspace.Maps:GetChildren()) do
 for k, char in pairs(chr:GetChildren()) do
