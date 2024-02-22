@@ -96,5 +96,4 @@ pcall(function()
 pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end
-end
 end 
