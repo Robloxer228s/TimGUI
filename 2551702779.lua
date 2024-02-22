@@ -8,6 +8,12 @@ local ZN = _G.ATBF("ZN", "Zombie:", "Zombie lab", 6,"Зомби:")
 local kz = _G.ABF("kz", "Kill Zombie", "Zombie lab", 7,"Убить зомби")
 local knz = _G.ABF("knz", "Kill NPC Zombies", "Zombie lab", 8,"Убить НПС зомби")
 local aknz = _G.ACBF("aknz", "Kill NPC Zombies(auto)", "Zombie lab", 8,"Убить НПС зомби(авто)")
+local hn = _G.ACBF("hn", "Hide notifications", "Zombie lab", 10,"Спрятать уведомления")
+local cf = _G.ABF("cf", "Change face", "Zombie lab", 11,"Изменить лицо")
+local cs = _G.ABF("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи")
+
+local pathIDK = game.Players.LocalPlayer.PlayerGui
+
 virus.Activated:Connect(function() 
 game.ReplicatedStorage.Events.GiveVirus:FireServer()
 end) 
@@ -86,7 +92,7 @@ end)
 
 while true do 
 wait(1) 
-if aknz then
+if aknz.Value then
 local args = {
     [1] = v:WaitForChild("Humanoid"),
     [2] = v:WaitForChild("HumanoidRootPart"),
