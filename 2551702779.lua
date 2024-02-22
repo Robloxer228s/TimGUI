@@ -12,7 +12,14 @@ local hn = _G.ACBF("hn", "Hide notifications", "Zombie lab", 10,"Спрятат�
 local cf = _G.ABF("cf", "Change face", "Zombie lab", 11,"Изменить лицо")
 local cs = _G.ABF("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи")
 
-local pathIDK = game.Players.LocalPlayer.PlayerGui
+local pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
+cf.Activated:Connect(function() 
+pathIDK.ChooseFaceFrame.Visible = true
+end) 
+
+cs.Activated:Connect(function() 
+pathIDK.ChooseSkinFrame.Visible = true
+end) 
 
 virus.Activated:Connect(function() 
 game.ReplicatedStorage.Events.GiveVirus:FireServer()
@@ -92,6 +99,7 @@ end)
 
 while true do 
 wait(1) 
+pathIDK.MessageFrame.Visible = hn
 if aknz.Value then
 local args = {
     [1] = v:WaitForChild("Humanoid"),
