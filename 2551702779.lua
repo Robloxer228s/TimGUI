@@ -102,14 +102,16 @@ wait(1)
 pathIDK.MessageFrame.Visible = hn.Value
 if aknz.Value then
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
+if v.Character:FindFirstChild("Humanoid") then
 local args = {
-    [1] = v:WaitForChild("Humanoid"),
-    [2] = v:WaitForChild("HumanoidRootPart"),
+    [1] = v.Humanoid,
+    [2] = v.HumanoidRootPart,
     [3] = math.huge,
 }
 pcall(function()
 pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
+end 
 end
 end
 end 
