@@ -13,6 +13,12 @@ local cf = _G.ABF("cf", "Change face", "Zombie lab", 11,"Изменить лиц
 local cs = _G.ABF("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи")
 
 local pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
+pathIDK.ChildAdded:Connect(function(child) 
+if child.Name = "MoveUp" then
+child.Visible = hn.Value
+end
+end) 
+
 cf.Activated:Connect(function() 
 pathIDK.ChooseFaceFrame.Visible = true
 end) 
@@ -99,7 +105,6 @@ end)
 
 while true do 
 wait(1) 
-pathIDK.MessageFrame.Visible = hn.Value
 if aknz.Value then
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
 if v:FindFirstChild("Humanoid") and  v:FindFirstChild("HumanoidRootPart") then
