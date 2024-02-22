@@ -102,7 +102,7 @@ wait(1)
 pathIDK.MessageFrame.Visible = hn.Value
 if aknz.Value then
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
-if v.Character:FindFirstChild("Humanoid") then
+if v:FindFirstChild("Humanoid") and  v:FindFirstChild("HumanoidRootPart") then
 local args = {
     [1] = v.Humanoid,
     [2] = v.HumanoidRootPart,
