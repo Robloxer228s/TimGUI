@@ -6,6 +6,7 @@ local ds = _G.ABF("ds", "Delete safe virus zone", "Zombie lab", 4,"Удалит�
 local kaz = _G.ABF("kaz", "Kill All Zombies", "Zombie lab", 5,"Убить всех зомби")
 local ZN = _G.ATBF("ZN", "Zombie:", "Zombie lab", 6,"Зомби:") 
 local kz = _G.ABF("kz", "Kill Zombie", "Zombie lab", 7,"Убить зомби")
+local knz = _G.ABF("knz", "Kill NPC Zombies", "Zombie lab", 8,"Убить НПС зомби")
 virus.Activated:Connect(function() 
 game.ReplicatedStorage.Events.GiveVirus:FireServer()
 end) 
@@ -67,4 +68,17 @@ local args = {
 pcall(function()
 pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
+end) 
+
+knz.Activated:Connect(function()
+for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
+local args = {
+    [1] = v:WaitForChild("Humanoid"),
+    [2] = v:WaitForChild("HumanoidRootPart"),
+    [3] = math.huge,
+}
+pcall(function()
+pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
+end)
+end
 end) 
