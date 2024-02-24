@@ -106,8 +106,16 @@ down.Position = UDim2.new(0,0,0,0)
 up.Position = UDim2.new(0.5,0,0,0)
 down.Size = UDim2.new(0.5,0,1,0)
 up.Size = UDim2.new(0.5,0,1,0)
-down.BackgroundColor = Color3.new(1,0.5,0.5)
-up.BackgroundColor = Color3.new(0.5,0.5,1)
+down.Text = "Down"
+up.Text = "Up"
+if not _G.eng then
+down.Text = "Вниз"
+up.Text = "Вверх"
+end
+down.TextScaled = true
+up.TextScaled = true
+down.BackgroundColor3 = Color3.new(1,0.5,0.5)
+up.BackgroundColor3 = Color3.new(0.5,0.5,1)
 down.Parent = y
 up.Parent = y
 
