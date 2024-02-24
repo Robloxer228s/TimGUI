@@ -120,13 +120,13 @@ down.Parent = y
 up.Parent = y
 
 down.MouseButton1Down:Connect(function()
-ypos = -1
+ypos = -0.5
 end)
 down.MouseButton1Up:Connect(function()
 ypos = 0
 end)
 up.MouseButton1Down:Connect(function()
-ypos = 1
+ypos = 0.5
 end)
 up.MouseButton1Up:Connect(function()
 ypos = 0
@@ -141,9 +141,9 @@ end
 end)
 u.InputBegan:Connect(function(input)
 if input.KeyCode == Enum.KeyCode.Q then
-ypos = -1
+ypos = -0.5
 elseif input.KeyCode == Enum.KeyCode.E then
-ypos = 1
+ypos = 0.5
 end
 end)
 
