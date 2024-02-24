@@ -13,6 +13,7 @@ local FoldersT = {}
 local FA = "TP to player"
 local TweenService = game:GetService("TweenService")
 local gui = Instance.new("ScreenGui") 
+gui.Name = "TimGUI"
 gui.Parent = game.CoreGui
 gui.ResetOnSpawn = false
 local f = Instance.new("Frame") 
