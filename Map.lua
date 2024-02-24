@@ -94,9 +94,55 @@ else
 lp.Character.HumanoidRootPart.Anchored = false
 end
 end) 
+--Up/Down
+local y = Instance.new("Frame")
+y.Parent = game.CoreGui.TimGUI
+y.Name = "SpectateY"
+y.Size = UDim2.new(0,100,0,50)
+local ypos = 0
+local down = Instance.new("TextButton")
+local up = Instance.new("TextButton")
+down.Position = UDim2.new(0,0,0,0)
+up.Position = UDim2.new(0.5,0,0,0)
+down.Size = UDim2.new(0.5,0,1,0)
+up.Size = UDim2.new(0.5,0,1,0)
+down.BackgroundColor = Color3.new(1,0.5,0.5)
+up.BackgroundColor = Color3.new(0.5,0.5,1)
+down.Parent = y
+up.Parent = y
 
+down.MouseButton1Down:Connect(function()
+ypos = -1
+end)
+down.MouseButton1Up:Connect(function()
+ypos = 0
+end)
+up.MouseButton1Down:Connect(function()
+ypos = 1
+end)
+up.MouseButton1Up:Connect(function()
+ypos = 0
+end)
+local u = game:GetService("UserInputService")
+u.InputEnded:Connect(function(input)
+if input.KeyCode == Enum.KeyCode.Q then
+ypos = 0
+elseif input.KeyCode == Enum.KeyCode.E then
+ypos = 0
+end
+end)
+u.InputBegan:Connect(function(input)
+if input.KeyCode == Enum.KeyCode.Q then
+ypos = -1
+elseif input.KeyCode == Enum.KeyCode.E then
+ypos = 1
+end
+end)
+
+--While spectator
 game:GetService("RunService").Stepped:Connect(function()
 local act = actv.Value
+y.Visible = act
 if not (lp.Character.Humanoid.JumpPower == 0) and act then
 jp = lp.Character.Humanoid.JumpPower
 lp.Character.Humanoid.JumpPower = 0
