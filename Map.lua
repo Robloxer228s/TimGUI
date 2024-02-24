@@ -161,7 +161,7 @@ if act then
 p.CFrame = game.Workspace.Camera.CFrame
 p.Position = lp.Character.HumanoidRootPart.Position
 p.Position += lp.Character.Humanoid.MoveDirection
-p.Position.Y += ypos
+p.Position += Vector3.new(0,ypos,0)
 lp.Character.HumanoidRootPart.CFrame = p.CFrame
 end
 end)
