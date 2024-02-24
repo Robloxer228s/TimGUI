@@ -252,8 +252,8 @@ if autotp.Value then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = atpp.Character.HumanoidRootPart.CFrame
 end
 end) 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Map.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 print(game.GameId) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.GameId ..".lua"))()
