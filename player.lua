@@ -57,7 +57,7 @@ IJ.Changed:Connect(function()
  end
 end)
 
-local TPT = _G.ABF("TPT", "TPTool", "Main", 8,"ТПвтулка")
+local TPT = _G.ABF("TPT", "TPTool", "Map", 6,"ТПвтулка")
 TPT.Activated:Connect(function()
 local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
 Tele.RequiresHandle = false
@@ -77,7 +77,7 @@ end)
 end)
 end)
 
-local Noclip = _G.ACBF("Noclip","Noclip","Main",9,"Проходка сквозь стены(Чтоб убрать нужно убрать и умереть)")
+local Noclip = _G.ACBF("Noclip","Noclip","Main",8,"Проходка сквозь стены")
 local Stepped
 Noclip.Changed:Connect(function()
 if Noclip.Value then
@@ -98,7 +98,7 @@ Status.TextColor3 = Color3.new(170,0,0)
 end
 end)
 
-local TPRP = _G.ABF("TPRP", "TP to random player", "Main", 10,"ТП к случайному игроку")
+local TPRP = _G.ABF("TPRP", "TP to random player", "Main", 9,"ТП к случайному игроку")
 TPRP.Activated:Connect(function()
 local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())]
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = pl.Character.HumanoidRootPart.CFrame
