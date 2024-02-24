@@ -104,7 +104,7 @@ local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = pl.Character.HumanoidRootPart.CFrame
 end)
 
-_G.AGF("ESP","Подсветка(esp) ")
+_G.AGF("ESP","Подсветка(esp)")
 local espLoad = false
 local ESPV = _G.ACBF("Esp","ESP-Main","ESP",1,"Обычный esp(для любой игры)") 
 local ESPTC = _G.ACBF("Esptc", "Use Team Color(esp-main)", "ESP", 2,"Использовать цвет команды (для обычной esp) ") 
