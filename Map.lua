@@ -73,3 +73,41 @@ end)
 _G.ABF("CP", "Copy path", "Map", 4, "Копировать путь").Activated:Connect(function()
 setclipboard(tostring(getPath(obj, true)))
 end) 
+
+
+--Spectate
+local lp = game.Players.LocalPlayer
+local p = Instance.new("Part")
+local actv = _G.ACBF("SFly", "Spectate(visual)", "Map", 5, "Наблюдать(только для тебя)") 
+local jp
+local safe = Instance.new("Part") 
+safe.Position = Vector3.new(0, 1000000, 0) 
+safe.Size = Vector3.new(5, 0.1, 5)
+
+actv.Changed:Connect(function() 
+if actv.Value then
+local pos = lp.Character.HumanoidRootPart.CFrame
+lp.Character.HumanoidRootPart.CFrame = safe.CFrame
+wait(0.1) 
+lp.Character.HumanoidRootPart.Anchored = true
+lp.Character.HumanoidRootPart.CFrame = pos
+else
+lp.Character.HumanoidRootPart.Anchored = false
+end
+end) 
+
+game:GetService("RunService").Stepped:Connect(function()
+local act = actv.Value
+if not (lp.Character.Humanoid.JumpPower == 0) and act then
+jp = lp.Character.Humanoid.JumpPower
+lp.Character.Humanoid.JumpPower = 0
+elseif lp.Character.Humanoid.JumpPower == 0 and not act then
+lp.Character.Humanoid.JumpPower = jp
+end
+if act then
+p.CFrame = game.Workspace.Camera.CFrame
+p.Position = lp.Character.HumanoidRootPart.Position
+p.Position += lp.Character.Humanoid.MoveDirection
+lp.Character.HumanoidRootPart.CFrame = p.CFrame
+end
+end)
