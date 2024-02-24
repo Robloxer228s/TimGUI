@@ -82,7 +82,6 @@ local actv = _G.ACBF("SFly", "Spectate(visual)", "Map", 5, "Наблюдать(�
 local jp
 local safe = Instance.new("Part") 
 safe.Position = Vector3.new(0, 1000000, 0) 
-safe.Size = Vector3.new(5, 0.1, 5)
 
 actv.Changed:Connect(function() 
 if actv.Value then
