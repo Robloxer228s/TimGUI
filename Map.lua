@@ -61,9 +61,9 @@ _G.ABF("SB", "Select", "Map", 1, "Выбрать").Activated:Connect(function()
 nada = true
 end) 
 
-local Name = _G.ATBF("Name", "Name:", "Map", 8, "Имя:") 
-local Create = _G.ABF("Create", "Create and set or set", "Map", 9, "Создать или изменить") 
--- local Delete = _G.ABF("Delete", "Delete", "Map", 3) 
+local Name = _G.ATBF("NameW", "Name:", "Map", 8, "Имя:") 
+local Create = _G.ABF("CreateW", "Create and set or set", "Map", 9, "Создать или изменить") 
+-- local Delete = _G.ABF("DeleteW", "Delete", "Map", 3) 
 
 local Waypoints = {}
 local Created = {}
@@ -80,7 +80,26 @@ end)
 Created[Name.Text] = true
 end
 Waypoints[Name.Text] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-end) 
+end)
+
+_G.ABF("TPT", "TPTool", "Map", 5,"ТПвтулка").Activated:Connect(function()
+local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+Tele.RequiresHandle = false
+Tele.RobloxLocked = true
+Tele.Name = "TPTool"
+Tele.ToolTip = "Teleport Tool"
+if not _G.eng then
+Tele.Name = "ТПВтулка"
+Tele.ToolTip = "Подотри ей, чтоб тепнутся"
+end
+Tele.Equipped:connect(function(Mouse)
+Mouse.Button1Down:connect(function()
+if Mouse.Target then
+game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame = (CFrame.new(Mouse.Hit.x, Mouse.Hit.y + 5, Mouse.Hit.z))
+end
+end)
+end)
+end)
 
 _G.ABF("USB", "Unselect", "Map", 2, "Убрать выбор").Activated:Connect(function()
 if sb then sb:Destroy() end
