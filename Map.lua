@@ -55,9 +55,31 @@ hl.OutlineTransparency = 0
 nada = false
 end)
 
+_G.AGF("TP to Waypoint","ТП к точке") 
 _G.AGF("Map", "Карта") 
 _G.ABF("SB", "Select", "Map", 1, "Выбрать").Activated:Connect(function() 
 nada = true
+end) 
+
+local Name = _G.ATBF("Name", "Name:", "Map", 8, "Имя:") 
+local Create = _G.ABF("Create", "Create and set or set", "Map", 9, "Создать или изменить") 
+-- local Delete = _G.ABF("Delete", "Delete", "Map", 3) 
+
+local Waypoints = {}
+local Created = {}
+local count = 1
+
+Create.Activated:Connect(function() 
+if not Created[Name.Text] then
+local tmp = _G.ABF(Name.Text, Name.Text, "TP to Waypoint", count) 
+count += 1
+local Nam = Name.Text
+tmp.Activated:Connect(function() 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Waypoints[Nam]
+end) 
+Created[Name.Text] = true
+end
+Waypoints[Name.Text] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end) 
 
 _G.ABF("USB", "Unselect", "Map", 2, "Убрать выбор").Activated:Connect(function()
@@ -78,7 +100,9 @@ end)
 --Spectate
 local lp = game.Players.LocalPlayer
 local p = Instance.new("Part")
-local actv = _G.ACBF("SFly", "Spectate(visual)", "Map", 5, "Наблюдать(только для тебя)") 
+local actv = _G.ACBF("SFly", "Spectate(visual)", "Map", 7, "Наблюдать(только для тебя)")
+local sst = _G.ATBF("SSFly", "Speed for spectate", "Map", 6, "Скорость для наблюдения")
+sst.Text = "1"
 local jp
 local safe = Instance.new("Part") 
 safe.Position = Vector3.new(0, 1000000, 0) 
@@ -160,7 +184,7 @@ end
 if act then
 p.CFrame = game.Workspace.Camera.CFrame
 p.Position = lp.Character.HumanoidRootPart.Position
-p.Position += lp.Character.Humanoid.MoveDirection
+p.Position += lp.Character.Humanoid.MoveDirection * Vector3.new(sst.Text, sst.Text, sst.Text)
 p.Position += Vector3.new(0,ypos,0)
 lp.Character.HumanoidRootPart.CFrame = p.CFrame
 end
