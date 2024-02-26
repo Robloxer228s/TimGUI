@@ -115,6 +115,38 @@ _G.ABF("CP", "Copy path", "Map", 4, "Копировать путь").Activated:C
 setclipboard(tostring(getPath(obj, true)))
 end) 
 
+local SB = _G.ACBF("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
+local Folder = Instance.new("Folder") 
+local count
+Folder.Parent = game.Workspace
+game:GetService("RunService").Stepped:Connect(function()
+if SB.Value then
+local char = game.Players.LocalPlayer.Character
+local tmp = Instance.new("Part") 
+tmp.CFrame = char.HumanoidRootPart.CFrame
+if char.Humanoid.MoveDirection == Vector3.new(0, 0, 0) then
+wait(0.1)
+count = char.HumanoidRootPart.CFrame.Y - char.LeftFoot.CFrame.Y
+local vtc = char.LeftFoot.Size * Vector3.new(0, 1, 0) 
+count += vtc.Y
+local countt = char.HumanoidRootPart.CFrame.Y - char.RightFoot.CFrame.Y
+local vtc = char.RightFoot.Size * Vector3.new(0, 1, 0) 
+countt += vtc.Y
+if countt > count then
+count = countt
+end
+end
+tmp.Position += Vector3.new(0, -count * 1.10675, 0) 
+tmp.Anchored = true
+tmp.Parent = Folder
+end
+end) 
+
+_G.ABF("DB", "Clear blocks", "Map", 6, "Очистить блоки").Activated:Connect(function() 
+for k, v in pairs(Folder:GetChildren()) do
+v:Destroy()
+end
+end)
 --Spectate
 _G.AGF("Player","Игрок")
 local lp = game.Players.LocalPlayer
