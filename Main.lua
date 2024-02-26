@@ -257,4 +257,4 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/m
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 print(game.GameId) 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/".. game.GameId ..".lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua"))()
