@@ -147,9 +147,11 @@ for k, v in pairs(Folder:GetChildren()) do
 v:Destroy()
 end
 end)
+
+_G.AGF("Player","Игрок")
 --Fly/Spactate   end in 414
-local speed = _G.ATBF("FS","FlySpeed:","Player",12,"СкоростьПолёта:")
-local Fly = _G.ACBF("Fly","Fly","Player",13,"Полёт")
+local speed = _G.ATBF("FS","FlySpeed:","Player",10,"СкоростьПолёта:")
+local Fly = _G.ACBF("Fly","Fly","Player",11,"Полёт")
 local lp = game.Players.LocalPlayer
 local safe = Instance.new("Part") 
 safe.Position = Vector3.new(0, 1000000, 0) 
@@ -160,7 +162,7 @@ local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 speed.Changed:Connect(function() 
 speeds = speed.Text
 end) 
-local actv = _G.ACBF("Invisible", "Invisible fly", "Player", 14, "Невидимый полëт") 
+local actv = _G.ACBF("Invisible", "Invisible fly", "Player", 12, "Невидимый полëт") 
 actv.Changed:Connect(function() 
 if actv.Value and Fly.Value then
 local pos = lp.Character.HumanoidRootPart.CFrame
@@ -273,7 +275,6 @@ end
 		end
 		while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
 			game:GetService("RunService").RenderStepped:Wait()
-
 			if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
 				speed = speed+.5+(speed/maxspeed)
 				if speed > maxspeed then
