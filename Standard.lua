@@ -151,6 +151,7 @@ end)
 _G.AGF("Player","Игрок")
 --Fly/Spactate   end in 414
 local speed = _G.ATBF("FS","FlySpeed:","Player",10,"СкоростьПолёта:")
+speed.Text = "1"
 local Fly = _G.ACBF("Fly","Fly","Player",11,"Полёт")
 local lp = game.Players.LocalPlayer
 local safe = Instance.new("Part") 
@@ -164,6 +165,7 @@ speeds = speed.Text
 end) 
 local actv = _G.ACBF("Invisible", "Invisible fly", "Player", 12, "Невидимый полëт") 
 actv.Changed:Connect(function() 
+wait(0.1)
 if actv.Value and Fly.Value then
 local pos = lp.Character.HumanoidRootPart.CFrame
 lp.Character.HumanoidRootPart.CFrame = safe.CFrame
