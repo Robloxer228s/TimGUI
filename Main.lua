@@ -257,4 +257,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/m
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 print(game.GameId) 
+local success, response = pcall(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua"))()
+end)
+if not success then
+warn("Error load game script:\n" .. response)
+end
