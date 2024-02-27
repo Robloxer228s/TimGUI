@@ -256,10 +256,14 @@ end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Standard.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
-print(game.GameId) 
+print(game.GameId)
 local success, response = pcall(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua"))()
 end)
 if not success then
+if response == "HTTP 404 (Not Found)" then
+print("game script not found")
+else
 warn("Error load game script:\n" .. response)
+end
 end
