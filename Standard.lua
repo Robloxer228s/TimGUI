@@ -165,7 +165,6 @@ speeds = speed.Text
 end) 
 local actv = _G.ACBF("Invisible", "Invisible fly", "Player", 12, "Невидимый полëт") 
 actv.Changed:Connect(function() 
-wait(0.1)
 if actv.Value and Fly.Value then
 local pos = lp.Character.HumanoidRootPart.CFrame
 lp.Character.HumanoidRootPart.CFrame = safe.CFrame
@@ -188,6 +187,7 @@ lp.Character.HumanoidRootPart.CFrame = p.CFrame
 end
 end)
 Fly.Changed:connect(function()
+wait(0.1)
 local nowe = not Fly.Value
 if actv.Value then
 local pos = lp.Character.HumanoidRootPart.CFrame
