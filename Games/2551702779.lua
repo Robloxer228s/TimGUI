@@ -13,6 +13,9 @@ local cf = _G.ABF("cf", "Change face", "Zombie lab", 11,"Изменить лиц
 local cs = _G.ABF("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи")
 
 local pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
+game.Players.LocalPlayer.CharacterAdded:Connect(function () 
+pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
+end) 
 pathIDK.ChildAdded:Connect(function(child) 
 if child.Name == "MoveUp" then
 child.Visible = not hn.Value
