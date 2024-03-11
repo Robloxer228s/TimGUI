@@ -97,16 +97,18 @@ ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
 ButTabb.Activated:Connect(function() 
 ButTab[name].Value = not ButTab[name].Value
+end) 
+ButTab[name].Changed:Connect(function() 
 if ButTab[name].Value then
 ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25) 
 else
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
 end
-end) 
 local ftpmc = FoldersT[FA]
 if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
+end) 
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 return ButTab[name]
 end
