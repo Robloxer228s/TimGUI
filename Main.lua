@@ -105,7 +105,9 @@ ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25)
 else
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
 end
+if not (func == nil) then
 func(ButTab[name])
+end
 end)
 local ftpmc = FoldersT[FA]
 if FA == group then
@@ -137,7 +139,9 @@ ButTab[name].Size = UDim2.new(1, 0, 1, 0)
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
 ButTab[name].Activated:Connect(function() 
+if not (func == nil) then
 func(ButTab[name])
+end
 end) 
 FoldersT[group] = ButTab
 local ftpmc = FoldersT[FA]
