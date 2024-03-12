@@ -10,6 +10,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/m
 local atpp
 local autotp
 local FoldersT = {}
+_G.TFuncs = {}
 local FA = "TP to player"
 local TweenService = game:GetService("TweenService")
 local gui = Instance.new("ScreenGui") 
@@ -144,6 +145,9 @@ if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+if not (func == nil) then
+_G.TFuncs[group .. "." .. name] = func
+end
 return ButTab[name]
 end
 
