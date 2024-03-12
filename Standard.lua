@@ -1,6 +1,5 @@
 _G.AGF("TP to Waypoint","ТП к точке") 
 _G.AGF("Teleports", "Телепорты") 
-local TPRP = _G.ABF("TPRP", "TP to random player", "Teleports", 3,"ТП к случайному игроку")
 local Name = _G.ATBF("NameW", "Name:", "Teleports", 1, "Имя:") 
 -- local Delete = _G.ABF("DeleteW", "Delete", "Teleports", 0) 
 local Waypoints = {}
@@ -19,11 +18,11 @@ end
 Waypoints[Name.Text] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
 
-TPRP.Activated:Connect(function()
+_G.ABF("TPRP", "TP to random player", "Teleports", 3,"ТП к случайному игроку", function(TPRP)
 local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())]
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = pl.Character.HumanoidRootPart.CFrame
 end) 
-_G.ABF("TPT", "TPTool", "Teleports", 4,"ТПвтулка").Activated:Connect(function()
+_G.ABF("TPT", "TPTool", "Teleports", 4,"ТПвтулка", function()
 local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
 Tele.RequiresHandle = false
 Tele.RobloxLocked = true
@@ -96,28 +95,28 @@ hl.OutlineTransparency = 0
 nada = false
 end)
 _G.AGF("Map", "Карта") 
-_G.ABF("SB", "Select", "Map", 1, "Выбрать").Activated:Connect(function() 
+_G.ABF("SB", "Select", "Map", 1, "Выбрать", function() 
 nada = true
 end) 
 
-_G.ABF("USB", "Unselect", "Map", 2, "Убрать выбор").Activated:Connect(function()
+_G.ABF("USB", "Unselect", "Map", 2, "Убрать выбор", function()
 if sb then sb:Destroy() end
 if hl then hl:Destroy() end
 obj = nil
 end) 
 
-_G.ABF("DSB", "delete select", "Map", 3, "Удалить выбронное").Activated:Connect(function()
+_G.ABF("DSB", "delete select", "Map", 3, "Удалить выбронное", function()
 obj:Destroy()
 end) 
 
-_G.ABF("CP", "Copy path", "Map", 4, "Копировать путь").Activated:Connect(function()
+_G.ABF("CP", "Copy path", "Map", 4, "Копировать путь", function()
 setclipboard(tostring(getPath(obj, true)))
 end) 
 
-local SB = _G.ACBF("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
 local Folder = Instance.new("Folder") 
 local count
 Folder.Parent = game.Workspace
+local SB = _G.ACBF("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
 game:GetService("RunService").Stepped:Connect(function()
 if SB.Value then
 local char = game.Players.LocalPlayer.Character
@@ -141,7 +140,7 @@ tmp.Parent = Folder
 end
 end) 
 
-_G.ABF("DB", "Clear blocks", "Map", 6, "Очистить блоки").Activated:Connect(function() 
+_G.ABF("DB", "Clear blocks", "Map", 6, "Очистить блоки", function() 
 for k, v in pairs(Folder:GetChildren()) do
 v:Destroy()
 end
@@ -361,11 +360,11 @@ end
 end)
 
 local WST = _G.ATBF("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
-_G.ABF("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость").Activated:Connect(function()
+_G.ABF("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
 end)
 local JT = _G.ATBF("JumpPowerV","JampPower:","Player",3,"Сила прыжка:") 
-_G.ABF("JumpPowerB", "Set jampPower", "Player", 4,"Установить силу").Activated:Connect(function()
+_G.ABF("JumpPowerB", "Set jampPower", "Player", 4,"Установить силу", function()
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
 end)
 
@@ -436,7 +435,7 @@ Status.TextColor3 = Color3.new(170,0,0)
 end
 end)
 
-_G.ABF("GM", "GodMode", "Player", 9, "Бесмертие").Activated:Connect(function()
+_G.ABF("GM", "GodMode", "Player", 9, "Бесмертие", function()
 local speaker = game.Players.LocalPlayer
 local Cam = workspace.CurrentCamera
 local Pos, Char = Cam.CFrame, speaker.Character
