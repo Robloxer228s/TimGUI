@@ -2,12 +2,11 @@ _G.AGF("TP to Waypoint","ТП к точке")
 _G.AGF("Teleports", "Телепорты") 
 local TPRP = _G.ABF("TPRP", "TP to random player", "Teleports", 3,"ТП к случайному игроку")
 local Name = _G.ATBF("NameW", "Name:", "Teleports", 1, "Имя:") 
-local Create = _G.ABF("CreateW", "Create and set or set", "Teleports", 2, "Создать или изменить") 
 -- local Delete = _G.ABF("DeleteW", "Delete", "Teleports", 0) 
 local Waypoints = {}
 local Created = {}
 local count = 1
-Create.Activated:Connect(function() 
+_G.ABF("CreateW", "Create and set or set", "Teleports", 2, "Создать или изменить", function(Create) 
 if not Created[Name.Text] then
 local tmp = _G.ABF(Name.Text, Name.Text, "TP to Waypoint", count) 
 count += 1
