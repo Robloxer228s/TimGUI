@@ -135,7 +135,7 @@ ButTab[name].Text = text
 ButTab[name].Size = UDim2.new(1, 0, 1, 0) 
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
-ButTabb.Activated:Connect(function() 
+ButTab[name].Activated:Connect(function() 
 func(ButTab[name])
 end) 
 FoldersT[group] = ButTab
