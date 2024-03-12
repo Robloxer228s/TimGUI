@@ -71,7 +71,7 @@ tween:Play()
 end
 end) 
 
-_G.ACBF = function(name, text, group, yy, rus) 
+_G.ACBF = function(name, text, group, yy, rus, func) 
 if not _G.eng and not (rus == nil) then
 text = rus
 end
@@ -104,16 +104,17 @@ ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25)
 else
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
 end
+func(ButTab[name])
+end)
 local ftpmc = FoldersT[FA]
 if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
-end) 
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 return ButTab[name]
 end
 
-_G.ABF = function(name, text, group, yy, rus)
+_G.ABF = function(name, text, group, yy, rus, func)
 if not _G.eng and not (rus == nil) then
 text = rus
 end
@@ -134,6 +135,9 @@ ButTab[name].Text = text
 ButTab[name].Size = UDim2.new(1, 0, 1, 0) 
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
+ButTabb.Activated:Connect(function() 
+func(ButTab[name])
+end) 
 FoldersT[group] = ButTab
 local ftpmc = FoldersT[FA]
 if FA == group then
