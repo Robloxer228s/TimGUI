@@ -191,6 +191,7 @@ ButTab[name].Text = ""
 ButTab[name].ClearTextOnFocus = false 
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
+_G.TCBs[group .. "." .. name] = ButTab[name]
 FoldersT[group] = ButTab
 local ftpmc = FoldersT[FA]
 if FA == group then
