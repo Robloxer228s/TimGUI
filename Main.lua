@@ -11,6 +11,7 @@ local atpp
 local autotp
 local FoldersT = {}
 _G.TFuncs = {}
+_G.TCBs = {}
 local FA = "TP to player"
 local TweenService = game:GetService("TweenService")
 local gui = Instance.new("ScreenGui") 
@@ -94,6 +95,7 @@ ButTabb.Size = UDim2.new(1, 0, 1, 0)
 ButTabb.TextScaled = true
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
 ButTab[name] = Instance.new("BoolValue") 
+_G.TCBs[group .. "." .. name] = ButTab[name]
 ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
 ButTabb.Activated:Connect(function() 
