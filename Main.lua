@@ -152,7 +152,9 @@ Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc)
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 if not (func == nil) then
-_G.TFuncs[group .. "." .. name] = func
+_G.TFuncs[group .. "." .. name] = function() 
+funct(ButTab[name])
+end
 end
 return ButTab[name]
 end
