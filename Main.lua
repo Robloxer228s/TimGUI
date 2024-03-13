@@ -62,6 +62,52 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
+_G.ACBF = function(name, text, group, yy, rus, func) 
+if not _G.eng and not (rus == nil) then
+text = rus
+end
+local Temp = Instance.new("ImageLabel") 
+if not (group == "TP to player") then
+Temp.Visible = false
+end
+Temp.Parent = Func
+Temp.Name = name
+Temp.BackgroundTransparency = 100
+Temp.Image = "rbxassetid://16342149164"
+Temp.Size = UDim2.new(1, 0, 0, 50)
+local ButTab = FoldersT[group]
+local ButTabb = Instance.new("TextButton") 
+ButTabb.Parent = Temp
+ButTabb.BackgroundTransparency = 100
+ButTabb.Text = text
+ButTabb.Size = UDim2.new(1, 0, 1, 0) 
+ButTabb.TextScaled = true
+ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+ButTab[name] = Instance.new("BoolValue") 
+_G.TCBs[group .. "." .. name] = ButTab[name]
+ButTab[name].Parent = Temp
+FoldersT[group] = ButTab
+ButTabb.Activated:Connect(function() 
+ButTab[name].Value = not ButTab[name].Value
+end) 
+ButTab[name].Changed:Connect(function() 
+if ButTab[name].Value then
+ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25) 
+else
+ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+end
+if not (func == nil) then
+func(ButTab[name])
+end
+end)
+local ftpmc = FoldersT[FA]
+if FA == group then
+Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
+end
+Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+return ButTab[name]
+end
+
 _G.ABF = function(name, text, group, yy, rus, func)
 if not _G.eng and not (rus == nil) then
 text = rus
