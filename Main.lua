@@ -115,6 +115,7 @@ if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+_G.TCBs[group .. "." .. name] = ButTab[name]
 return ButTab[name]
 end
 
