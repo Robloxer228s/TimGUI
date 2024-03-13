@@ -106,7 +106,7 @@ ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25)
 else
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
 end
-if not (func == nil) then
+if not (funct == nil) then
 funct(ButTab[name])
 end
 end)
