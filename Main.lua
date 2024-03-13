@@ -38,29 +38,40 @@ AO.Parent = f
 local Folders = Instance.new("ScrollingFrame") 
 Folders.Parent = f
 Folders.ScrollBarThickness = 5
-Folders.BackgroundColor3 = Color3.new(0.15, 0.15, 0.25)
-ButTab[name].Parent = Temp
-FoldersT[group] = ButTab
-ButTabb.Activated:Connect(function() 
-ButTab[name].Value = not ButTab[name].Value
-end) 
-ButTab[name].Changed:Connect(function() 
-if ButTab[name].Value then
-ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25) 
+Folders.BackgroundColor3 = Color3.new(0.15, 0.15, 0.25) 
+Folders.Size = UDim2.new(0, 100, 1, -25) 
+Folders.Position = UDim2.new(0, 0, 0, 25) 
+
+local Func = Instance.new("ScrollingFrame") 
+Func.Parent = f
+Func.ScrollBarThickness = 5
+Func.BackgroundColor3 = Color3.new(0.15, 0.15, 0.3) 
+Func.Size = UDim2.new(1, -100, 1, -25) 
+Func.Position = UDim2.new(0, 100, 0, 25) 
+
+local OC = false
+AO.Activated:Connect(function() 
+OC = not OC
+if OC then
+local goal = {}
+goal.Position = UDim2.new(1, -400, 0, 0) 
+local tween = TweenService:Create(f, TweenInfo.new(0.5), goal)
+tween:Play() 
+local goal = {}
+goal.Rotation = 180
+local tween = TweenService:Create(AO, TweenInfo.new(0.5), goal)
+tween:Play() 
 else
-ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+local goal = {}
+goal.Position = UDim2.new(1, -400, 1, -25) 
+local tween = TweenService:Create(f, TweenInfo.new(0.5), goal)
+tween:Play() 
+local goal = {}
+goal.Rotation = 0
+local tween = TweenService:Create(AO, TweenInfo.new(0.5), goal)
+tween:Play() 
 end
-if not (func == nil) then
-func(ButTab[name])
-end
-end)
-local ftpmc = FoldersT[FA]
-if FA == group then
-Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
-end
-Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
-return ButTab[name]
-end
+end) 
 
 _G.ACBF = function(name, text, group, yy, rus, func) 
 if not _G.eng and not (rus == nil) then
