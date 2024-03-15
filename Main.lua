@@ -273,7 +273,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = atpp.Character.Huma
 end
 end) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Standard.lua"))()
---loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/player.lua"))()
+loadstring(game:HttpGet("https://https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimControl/Main.lua"))()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/WayPoints.lua"))()
 print(game.GameId)
 local success, response = pcall(function()
