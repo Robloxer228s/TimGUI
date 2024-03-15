@@ -184,6 +184,11 @@ p.Position += lp.Character.Humanoid.MoveDirection * Vector3.new(0.01, 0.01, 0.01
 lp.Character.HumanoidRootPart.CFrame = p.CFrame
 end
 end)
+
+game.Players.LocalPlayer.ChildAdded:Connect(function()
+Fly.Value = false
+end) 
+
 Fly.Changed:connect(function()
 wait(0.1)
 local nowe = not Fly.Value
@@ -348,7 +353,6 @@ end
 			end
 			bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
 		end
-		Fly.Value = false
 		ctrl = {f = 0, b = 0, l = 0, r = 0}
 		lastctrl = {f = 0, b = 0, l = 0, r = 0}
 		speed = 0
