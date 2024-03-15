@@ -24,7 +24,7 @@ return 0
 end
 
 local code = 0
-_G.ACBF("TC", "TimConnect", "Player", 14, "TimConnect", function(TC)
+_G.ACBF("TC", "TimConnect", "Player", 13, "TimConnect", function(TC)
 if TC.Value then 
 TC.Parent.TextButton.Text = "Connecting"
 code = Connect()
