@@ -65,6 +65,9 @@ _G.TCBs[name].Text = text
 end
 end
 
+local Armatura = Instance.new("BoolValue")
+
+Armatura.Changed:Connect(function() 
 while true do
 wait(0.25) 
 if not (code == 0) then
@@ -88,3 +91,7 @@ game:HttpGet("http://d90930x1.beget.tech/PocketCodeDB/DATABASE/get/get.php?slot=
 end 
 end
 end
+end) 
+
+
+Armatura.Value = true
