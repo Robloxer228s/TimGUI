@@ -1,11 +1,11 @@
 _G.AGF("Items", "Предметы") 
 _G.AGF("Game", "Игра") 
 _G.AGF("Lobby", "лобби") 
-_G.ABF("FHR", "Free hacker role", "Lobby", 1, "Бесплатная роль: хакер").Activated:Connect(function() 
+_G.ABF("FHR", "Free hacker role", "Lobby", 1, "Бесплатная роль: хакер", function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("Phone", false, false)
 end) 
 
-_G.ABF("FNR", "Free nerd role", "Lobby", 2, "Бесплатная роль: нерд").Activated:Connect(function() 
+_G.ABF("FNR", "Free nerd role", "Lobby", 2, "Бесплатная роль: нерд", function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("Book", false, false)
 end) 
 
@@ -35,7 +35,7 @@ local Items = {
 }
 
 for k, v in Items do
-_G.ABF(k, v, "Items", k).Activated:Connect(function() 
+_G.ABF(k, v, "Items", k, v, function() 
 if v == "Armor" then
 Events:WaitForChild("Vending"):FireServer(3, "Armor2", "Armor", tostring(LocalPlayer), 1)
 else
@@ -44,7 +44,7 @@ end
 end) 
 end
 
-_G.ABF("KE", "Kill enemies", "Game", 1, "Убить врагов").Activated:Connect(function() 
+_G.ABF("KE", "Kill enemies", "Game", 1, "Убить врагов", function() 
 pcall(function()
 for i, v in pairs(game:GetService("Workspace").BadGuys:GetChildren()) do
 Events:WaitForChild("HitBadguy"):FireServer(v, 64.8, 4)
@@ -64,10 +64,10 @@ end
 end)
 end) 
 
-_G.ABF("TSp", "Train speed", "Game", 2, "Прокачать скорость").Activated:Connect(function() 
+_G.ABF("TSp", "Train speed", "Game", 2, "Прокачать скорость", function() 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Speed")
 end) 
 
-_G.ABF("TSt", "Train strength", "Game", 3, "Прокачать силу").Activated:Connect(function() 
+_G.ABF("TSt", "Train strength", "Game", 3, "Прокачать силу", function() 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Strength")
 end) 
