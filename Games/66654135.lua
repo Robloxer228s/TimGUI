@@ -8,12 +8,12 @@ local murd
 local sher 
 _G.AGF("MM2") 
 
-_G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн", function() 
+ _G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end) 
 
-_G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
+_G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн", function()
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end)
