@@ -7,37 +7,31 @@ local ESPGD = _G.ACBF("ESPGD", "ESP Dropped gun", "ESP", 7, "ESP на писто
 local murd
 local sher 
 _G.AGF("MM2") 
-local TDG = _G.ABF("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету")
-local TPSM = _G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн") 
-local TPMM = _G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту") 
 
-TPMM.Activated:Connect(function() 
+_G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн", function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end) 
 
-TPSM.Activated:Connect(function() 
+_G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end)
 
-TDG.Activated:Connect(function()
+_G.ABF("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.GunDrop.CFrame
 end) 
 
 
-local TPM = _G.ABF("TPM", "TP to murder", "MM2", 1, "ТП к убийце")
-TPM.Activated:Connect(function()
+_G.ABF("TPM", "TP to murder", "MM2", 1, "ТП к убийце", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = murd.Character.HumanoidRootPart.CFrame
 end) 
 
-local TPS = _G.ABF("TPS", "TP to sheriff", "MM2", 2, "ТП к шерифу")
-TPS.Activated:Connect(function()
+local TPS = _G.ABF("TPS", "TP to sheriff", "MM2", 2, "ТП к шерифу", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = sher.Character.HumanoidRootPart.CFrame
 end) 
 
-local KA = _G.ABF("KA", "Kill All", "MM2", 3, "Убить всех")
-KA.Activated:Connect(function()
+local KA = _G.ABF("KA", "Kill All", "MM2", 3, "Убить всех", function()
 for k,v in pairs(game.Players:GetChildren()) do
 if not (v == game.Players.LocalPlayer) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
