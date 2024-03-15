@@ -66,7 +66,7 @@ Start.Position = Vector3.new(-55, 19.52, 1306.33)
 local AFK
 
 _G.AGF("Build a boat")
-local WH = _G.ACBF("WH","WaterHacks","Build a boat",2,"Взлом ж*пы(воды)")
+local WH = _G.ACBF("WH","WaterHacks","Build a boat",2,"Взлом воды")
 WH.Changed:Connect(function()
 if not AFK.Value then
 aw.CanCollide = WH.Value
