@@ -185,10 +185,6 @@ lp.Character.HumanoidRootPart.CFrame = p.CFrame
 end
 end)
 
-game.Players.LocalPlayer.ChildAdded:Connect(function()
-Fly.Value = false
-end) 
-
 Fly.Changed:connect(function()
 wait(0.1)
 local nowe = not Fly.Value
@@ -387,6 +383,11 @@ wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
 end
 end)
+
+game.Players.LocalPlayer.ChildAdded:Connect(function()
+Fly.Value = false
+PB.Value = false 
+end) 
 
 local IJ = _G.ACBF("IJ", "Infinity Jump", "Player", 7,"Бесконечный прыжок")
 local plr = game.Players.LocalPlayer  -- Переменная для игрока
