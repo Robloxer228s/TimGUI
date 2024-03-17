@@ -40,9 +40,67 @@ end
 end
 end) 
 
+local Money = _G.ACBF("Money", "Farm (with fly)", "MM2", 8, "АФК(С полëтом)") 
+local Time = _G.ATBF("Time", "Farm time: ", "MM2", 7, "АФК таймер: ") 
+Time.Text = 1
+local lastmon
+
+local MoneyGet = function() 
+local poss
+local mon
+if game.Workspace:FindFirstChild("Normal") == nil then return nil end
+if game.Workspace.Normal:FindFirstChild("CoinContainer") then
+for k, v in pairs(game.Workspace.Normal.CoinContainer:GetChildren()) do
+local monn = v.CFrame
+local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local pos = 0
+local Check = monn.X - playerPos.X
+if Check < 0 then
+Check = - Check
+end
+pos = pos + Check
+local Check = monn.Y - playerPos.Y
+if Check < 0 then
+Check = - Check
+end
+pos = pos + Check
+local Check = monn.Z - playerPos.Z
+if Check < 0 then
+Check = - Check
+end
+pos = pos + Check
+if poss == nil and not (lastmon == v) then
+poss = pos
+mon = v
+elseif not (lastmon == v) then
+if poss > pos then
+poss = pos
+mon = v
+end
+end
+end
+end
+if not (lastmon == nil) then lastmon:Destroy() end
+lastmon = mon
+return mon
+end
+
 while true do 
-wait(1.5) 
+wait(0.5) 
 pcall(function()
+local MoneyOb = MoneyGet()
+if Money.Value and MoneyOb then
+local timer = tonumber(Time.Text) 
+if timer == nil then timer = 1 end
+if timer < 1 then timer = 1 end
+local pos = Instance.new("Part") 
+pos.Position = MoneyOb.Position + Vector3.new(0, -2.5, 0) 
+pos.Orientation = Vector3.new(0, 180, 0)
+local goal = {}
+goal.CFrame = pos.CFrame
+game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(timer), goal):Play() 
+wait(timer)
+end
 local char = game.Workspace:FindFirstChild("GunDrop") 
 if char then
 if ESP.Value and ESPGD.Value then
