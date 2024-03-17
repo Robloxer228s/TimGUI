@@ -88,7 +88,7 @@ end
 while true do 
 wait(0.5) 
 pcall(function()
-local MoneyOb = MoneyGet()
+if Money.Value then local MoneyOb = MoneyGet() end
 if Money.Value and MoneyOb then
 local timer = tonumber(Time.Text) 
 if timer == nil then timer = 1 end
