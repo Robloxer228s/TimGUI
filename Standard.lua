@@ -113,12 +113,16 @@ _G.ABF("CP", "Copy path", "Map", 4, "Копировать путь", function()
 setclipboard(tostring(getPath(obj, true)))
 end) 
 
-local Folder = Instance.new("Folder") 
+local Folder
 local count
-Folder.Parent = game.Workspace
 local SB = _G.ACBF("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
 game:GetService("RunService").Stepped:Connect(function()
 if SB.Value then
+if Folder == nil then
+Folder = Instance.new("Folder") 
+Folder.Name = "TimGui"
+Folder.Parent = game.Workspace
+end
 local char = game.Players.LocalPlayer.Character
 local tmp = Instance.new("Part") 
 tmp.CFrame = char.HumanoidRootPart.CFrame
@@ -141,9 +145,7 @@ end
 end) 
 
 _G.ABF("DB", "Clear blocks", "Map", 6, "Очистить блоки", function() 
-for k, v in pairs(Folder:GetChildren()) do
-v:Destroy()
-end
+Folder:Destroy()
 end)
 
 _G.AGF("Player","Игрок")
