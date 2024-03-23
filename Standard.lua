@@ -219,7 +219,7 @@ end
 	else 
 		nowe = true
 		for i = 1, speeds do
-	1		spawn(function()
+			spawn(function()
 				local hb = game:GetService("RunService").Heartbeat
 				tpwalking = true
 				local chr = game.Players.LocalPlayer.Character
