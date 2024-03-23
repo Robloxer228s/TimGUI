@@ -145,7 +145,9 @@ end
 end) 
 
 _G.ABF("DB", "Clear blocks", "Map", 6, "Очистить блоки", function() 
+if Folder == nil then return end
 Folder:Destroy()
+Folder = nil
 end)
 
 _G.AGF("Player","Игрок")
