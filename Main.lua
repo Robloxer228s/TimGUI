@@ -269,7 +269,9 @@ _G.AGF(FA,"ТП к игрокам")
 autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
 if autotp.Value then
+pcall(function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = atpp.Character.HumanoidRootPart.CFrame
+end)
 end
 end) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Standard.lua"))()
