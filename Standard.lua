@@ -219,7 +219,7 @@ end
 	else 
 		nowe = true
 		for i = 1, speeds do
-			spawn(function()
+	1		spawn(function()
 				local hb = game:GetService("RunService").Heartbeat
 				tpwalking = true
 				local chr = game.Players.LocalPlayer.Character
@@ -385,8 +385,14 @@ end
 end)
 
 game.Players.LocalPlayer.ChildAdded:Connect(function()
+local Flyy = Fly.Value
+local Speeen = PB.Value
 Fly.Value = false
 PB.Value = false 
+wait(0.5) 
+Fly.Value = Flyy
+wait(0.5) 
+PB.Value = Speeen
 end) 
 
 local IJ = _G.ACBF("IJ", "Infinity Jump", "Player", 7,"Бесконечный прыжок")
