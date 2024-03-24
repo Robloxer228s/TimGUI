@@ -82,17 +82,23 @@ end
 end
 if not (lastmon == nil) then lastmon:Destroy() end
 lastmon = mon
-return mon
+local send = {}
+send.obj = mon
+send.pos = poss
+return send
 end
 
 while true do 
 wait(0.5) 
 pcall(function()
-if Money.Value then local MoneyOb = MoneyGet() end
-if Money.Value and MoneyOb then
+local Moneyy
+if Money.Value then Moneyy = MoneyGet() end
+if Money.Value then
+local MoneyOb = Moneyy.obj
 local timer = tonumber(Time.Text) 
 if timer == nil then timer = 1 end
 if timer < 1 then timer = 1 end
+timer = timer * (Money.pos / 350)
 local pos = Instance.new("Part") 
 pos.Position = MoneyOb.Position + Vector3.new(0, -2.5, 0) 
 pos.Orientation = Vector3.new(0, 180, 0)
