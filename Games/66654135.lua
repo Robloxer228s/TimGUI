@@ -88,6 +88,8 @@ send.pos = poss
 return send
 end
 
+local whileee = Instance.new("BoolValue")
+whileee.Changed:Connect(function() 
 while true do 
 wait(0.5) 
 pcall(function()
@@ -108,6 +110,14 @@ goal.CFrame = pos.CFrame
 game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(timer), goal):Play() 
 wait(timer)
 end
+end) 
+end
+end) 
+whileee.Value = true
+
+while true do 
+wait(1) 
+pcall(function()
 local char = game.Workspace:FindFirstChild("GunDrop") 
 if char then
 if ESP.Value and ESPGD.Value then
