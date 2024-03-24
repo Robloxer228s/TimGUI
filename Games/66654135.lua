@@ -90,15 +90,16 @@ end
 
 while true do 
 wait(0.5) 
-local respose, success = pcall(function()
+pcall(function()
 local Moneyy
 if Money.Value then Moneyy = MoneyGet() end
-if Money.Value then
+if Money.Value and not (Moneyy == nil) then
 local MoneyOb = Moneyy.obj
 local timer = tonumber(Time.Text) 
 if timer == nil then timer = 1 end
 if timer < 1 then timer = 1 end
-timer = timer * (Money.pos / 350)
+timer = timer * (Moneyy.pos / 350)
+print(Moneyy.pos)
 local pos = Instance.new("Part") 
 pos.Position = MoneyOb.Position + Vector3.new(0, -2.5, 0) 
 pos.Orientation = Vector3.new(0, 180, 0)
@@ -179,8 +180,5 @@ end
 end
 end
 end
-end) --ppcall
-if not success then
-warn("MM2 script error: " .. response)
-end
+end) --pcall
 end
