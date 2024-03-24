@@ -90,7 +90,7 @@ end
 
 while true do 
 wait(0.5) 
-pcall(function()
+local respose, success = pcall(function()
 local Moneyy
 if Money.Value then Moneyy = MoneyGet() end
 if Money.Value then
@@ -179,5 +179,8 @@ end
 end
 end
 end
-end) --pcall
+end) --ppcall
+if not success then
+warn("MM2 script error: " .. response)
+end
 end
