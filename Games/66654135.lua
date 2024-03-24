@@ -102,7 +102,6 @@ if timer == nil then timer = 1 end
 if timer < 1 then timer = 1 end
 timer = timer * (Moneyy.pos / 100)
 if timer > 30 then timer = 30 end
-print(Moneyy.pos)
 local pos = Instance.new("Part") 
 pos.Position = MoneyOb.Position + Vector3.new(0, -2.75, 0) 
 pos.Orientation = Vector3.new(0, 180, 0)
