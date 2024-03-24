@@ -100,7 +100,7 @@ local MoneyOb = Moneyy.obj
 local timer = tonumber(Time.Text) 
 if timer == nil then timer = 1 end
 if timer < 1 then timer = 1 end
-timer = timer * (Moneyy.pos / 1000)
+timer = timer * (Moneyy.pos / 100)
 print(Moneyy.pos)
 local pos = Instance.new("Part") 
 pos.Position = MoneyOb.Position + Vector3.new(0, -2.75, 0) 
