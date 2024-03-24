@@ -100,10 +100,10 @@ local MoneyOb = Moneyy.obj
 local timer = tonumber(Time.Text) 
 if timer == nil then timer = 1 end
 if timer < 1 then timer = 1 end
-timer = timer * (Moneyy.pos / 350)
+timer = timer * (Moneyy.pos / 1000)
 print(Moneyy.pos)
 local pos = Instance.new("Part") 
-pos.Position = MoneyOb.Position + Vector3.new(0, -2.5, 0) 
+pos.Position = MoneyOb.Position + Vector3.new(0, -2.75, 0) 
 pos.Orientation = Vector3.new(0, 180, 0)
 local goal = {}
 goal.CFrame = pos.CFrame
