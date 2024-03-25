@@ -98,7 +98,7 @@ if Money.Value then Moneyy = MoneyGet() end
 if Money.Value and not (Moneyy == nil) then
 local MoneyOb = Moneyy.obj
 --local timer = tonumber(Time.Text) 
-local timer = 1
+local timer = 2.25
 if timer == nil then timer = 1 end
 if timer < 1 then timer = 1 end
 timer = timer * (Moneyy.pos / 100)
