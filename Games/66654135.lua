@@ -117,6 +117,22 @@ end
 end) 
 whileee.Value = true
 
+local cam = game.Workspace.Camera
+
+local AIM = _G.ACBF("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function()
+if AIM.Value then
+cam.CameraMode = 1
+else
+cam.CameraMode = 0
+end
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+if AIM.Value then
+cam.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.Head.Position, murd.Character.HumanoidRootPart.Position) 
+end
+end) 
+
 while true do 
 wait(1) 
 pcall(function()
@@ -173,7 +189,6 @@ elseif char:FindFirstChild("NotEsp") then
 char.NotEsp:Destroy()
 end
 end
-_G.murd = murd
 if murd then
 if murd.Character then
 if murd.Character:FindFirstChild("NotEsp") and not ESPM.Value then
