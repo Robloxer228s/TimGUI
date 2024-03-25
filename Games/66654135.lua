@@ -117,19 +117,17 @@ end
 end) 
 whileee.Value = true
 
-local cam = game.Workspace.Camera
-
 local AIM = _G.ACBF("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function(AIMV)
 if AIMV.Value then
-cam.CameraMode = 1
+game.Players.LocalPlayer.CameraMode = 1
 else
-cam.CameraMode = 0
+game.Players.LocalPlayer.CameraMode = 0
 end
 end)
 
 game:GetService("RunService").RenderStepped:Connect(function()
 if AIM.Value then
-cam.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.Head.Position, murd.Character.HumanoidRootPart.Position) 
+game.Workspace.Camera.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.Head.Position, murd.Character.HumanoidRootPart.Position) 
 end
 end) 
 
