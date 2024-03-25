@@ -119,8 +119,8 @@ whileee.Value = true
 
 local cam = game.Workspace.Camera
 
-local AIM = _G.ACBF("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function()
-if AIM.Value then
+local AIM = _G.ACBF("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function(AIMV)
+if AIMV.Value then
 cam.CameraMode = 1
 else
 cam.CameraMode = 0
