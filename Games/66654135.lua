@@ -173,6 +173,7 @@ elseif char:FindFirstChild("NotEsp") then
 char.NotEsp:Destroy()
 end
 end
+_G.murd = murd
 if murd then
 if murd.Character then
 if murd.Character:FindFirstChild("NotEsp") and not ESPM.Value then
