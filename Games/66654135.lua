@@ -125,7 +125,14 @@ game.Players.LocalPlayer.CameraMode = 0
 end
 end)
 
+local AAIM = _G.ACBF("AAIMM", "Auto AIM to murd", "MM2", 8, "АвтоАИМ на марда")
+
 game:GetService("RunService").RenderStepped:Connect(function()
+if AAIM.Value and game.Player.LocalPlayer.Character:FindFirstChild("Gun") then
+AIM.Value = true
+elseif AAIM.Value then
+AIM.Value = false
+end
 if AIM.Value then
 game.Workspace.Camera.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.Head.Position, murd.Character.HumanoidRootPart.Position) 
 end
@@ -187,21 +194,21 @@ elseif char:FindFirstChild("NotEsp") then
 char.NotEsp:Destroy()
 end
 end
-if murd then
-if murd.Character then
-if murd.Character:FindFirstChild("NotEsp") and not ESPM.Value then
-murd.Character.NotEsp:Destroy() 
-elseif murd.Character:FindFirstChild("NotEsp") and ESPM.Value then
-murd.Character.NotEsp.FillColor = Color3.new(1, 0, 0) 
-end
-end
-end
 if sher then
 if sher.Character then
 if sher.Character:FindFirstChild("NotEsp") and not ESPS.Value then
 sher.Character.NotEsp:Destroy() 
 elseif sher.Character:FindFirstChild("NotEsp") and ESPS.Value then
 sher.Character.NotEsp.FillColor = Color3.new(0, 0, 1) 
+end
+end
+end
+if murd then
+if murd.Character then
+if murd.Character:FindFirstChild("NotEsp") and not ESPM.Value then
+murd.Character.NotEsp:Destroy() 
+elseif murd.Character:FindFirstChild("NotEsp") and ESPM.Value then
+murd.Character.NotEsp.FillColor = Color3.new(1, 0, 0) 
 end
 end
 end
