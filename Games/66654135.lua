@@ -125,7 +125,7 @@ game.Players.LocalPlayer.CameraMode = 0
 end
 end)
 
-local AAIM = _G.ACBF("AAIMM", "Auto AIM to murd", "MM2", 8, "АвтоАИМ на марда")
+local AAIM = _G.ACBF("AAIMM", "Auto AIM to murd", "MM2", 9, "АвтоАИМ на марда")
 
 game:GetService("RunService").RenderStepped:Connect(function()
 if AAIM.Value and game.Player.LocalPlayer.Character:FindFirstChild("Gun") then
