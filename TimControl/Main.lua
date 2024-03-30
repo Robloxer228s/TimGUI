@@ -26,14 +26,14 @@ end
 local code = 0
 _G.TimGui.Add.CB("TC", "TimConnect", "Player", 13, "TimConnect", function(TC)
 if TC.Value then 
-TC.Parent.TextButton.Text = "Connecting"
+TC.Parent.Text.Text = "Connecting"
 code = Connect()
-TC.Parent.TextButton.Text = "Code: ".. code
+TC.Parent.Text.Text = "Code: ".. code
 if code == 0 then
 TC.Value = false
 end
 else
-TC.Parent.TextButton.Text = "TimConnect"
+TC.Parent.Text.Text = "TimConnect"
 if not (code == 0) then
 game:HttpGet("http://d90930x1.beget.tech/PocketCodeDB/DATABASE/get/get.php?slot=1&token=52307216790Robloxer228s35873790094&get_pe=".. code+1 .."|null")
 code = 0
