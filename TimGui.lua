@@ -243,7 +243,7 @@ if FA == "TP to player" then
 local fix = 0
 for k, v in pairs(game.Players:GetChildren()) do 
 if not (v == game.Players.LocalPlayer) then
-_G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, function() 
+_G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, v.Name, function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 atpp = v
 autotp.Parent.TextButton.Text = "Auto spam tp to " .. v.Name
