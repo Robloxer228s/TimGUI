@@ -243,8 +243,7 @@ if FA == "TP to player" then
 local fix = 0
 for k, v in pairs(game.Players:GetChildren()) do 
 if not (v == game.Players.LocalPlayer) then
-local buttonka = _G.ABF(k, v.Name, FA, k + fix + 1) 
-buttonka.Activated:Connect(function() 
+_G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 atpp = v
 autotp.Parent.TextButton.Text = "Auto spam tp to " .. v.Name
@@ -267,8 +266,8 @@ Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
 end) 
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
-_G.AGF(FA,"ТП к игрокам")
-autotp = _G.ACBF("atp", "Auto spam", FA, 1, "Авто спам") 
+_G.TimGui.Add.G(FA,"ТП к игрокам")
+autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 1, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
 if autotp.Value then
 pcall(function()
