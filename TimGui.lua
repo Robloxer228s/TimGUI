@@ -234,28 +234,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-_G.TimGui.Add.G = function(name, rus) 
-local Temp = Instance.new("ImageLabel") 
-Temp.Parent = Folders
-Temp.Name = name
-Temp.BackgroundTransparency = 100
-Temp.Image = "rbxassetid://16342149164"
-Temp.Size = UDim2.new(1, -5, 0, 50)
-FoldersT[name] = {}
-local yy = Folders:GetChildren() 
-yy = #yy
-Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
-local Tmp = Instance.new("TextButton") 
-Tmp.Parent = Temp
-Tmp.BackgroundTransparency = 100
-Tmp.Text = name
-if not _G.eng and not (rus == nil) then 
-Tmp.Text = rus
-end
-Tmp.Size = UDim2.new(1, 0, 1, 0) 
-Tmp.TextScaled = true
-Tmp.TextColor3 = Color3.new(1, 1, 1) 
-Tmp.Activated:Connect(function() 
+_G.TimGui.SetGroup = function(name)
 for k,v in pairs(FoldersT[FA]) do
 if v.Parent then
 v.Parent.Visible = false
@@ -293,7 +272,32 @@ if v.Visible then
 yy += 1
 end
 end
-Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
+Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
+end
+
+_G.TimGui.Add.G = function(name, rus) 
+local Temp = Instance.new("ImageLabel") 
+Temp.Parent = Folders
+Temp.Name = name
+Temp.BackgroundTransparency = 100
+Temp.Image = "rbxassetid://16342149164"
+Temp.Size = UDim2.new(1, -5, 0, 50)
+FoldersT[name] = {}
+local yy = Folders:GetChildren() 
+yy = #yy
+Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+local Tmp = Instance.new("TextButton") 
+Tmp.Parent = Temp
+Tmp.BackgroundTransparency = 100
+Tmp.Text = name
+if not _G.eng and not (rus == nil) then 
+Tmp.Text = rus
+end
+Tmp.Size = UDim2.new(1, 0, 1, 0) 
+Tmp.TextScaled = true
+Tmp.TextColor3 = Color3.new(1, 1, 1) 
+Tmp.Activated:Connect(function() 
+_G.TimGui.SetGroup(name)
 end) 
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
