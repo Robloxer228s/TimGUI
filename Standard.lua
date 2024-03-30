@@ -7,7 +7,7 @@ local Created = {}
 local count = 1
 _G.TimGui.Add.B("CreateW", "Create and set or set", "Teleports", 2, "Создать или изменить", function(Create) 
 if not Created[Name.Text] then
-local tmp = _G.ABF(Name.Text, Name.Text, "TP to Waypoint", count) 
+local tmp = _G.TimGui.Add.B(Name.Text, Name.Text, "TP to Waypoint", count) 
 count += 1
 local Nam = Name.Text
 tmp.Activated:Connect(function() 
