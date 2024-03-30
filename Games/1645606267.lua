@@ -1,5 +1,5 @@
-local ESPV = _G.ACBF("ESPV", "ESP all", "ESP", 3, "ESP все") 
-local ESPF = _G.ACBF("ESPF", "ESP froggy", "ESP", 4, "ESP к лягушке") 
+local ESPV = _G.TimGui.Add.CB("ESPV", "ESP all", "ESP", 3, "ESP все") 
+local ESPF = _G.TimGui.Add.CB("ESPF", "ESP froggy", "ESP", 4, "ESP к лягушке") 
 
 local function CESP(char)
 local ESP = Instance.new("Highlight")
