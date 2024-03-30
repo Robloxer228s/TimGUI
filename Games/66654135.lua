@@ -1,37 +1,37 @@
 --MM2
-local ESP = _G.ACBF("ESP", "MM2", "ESP", 3)
-local ESPM = _G.ACBF("ESPM", "ESP Murder", "ESP", 4, "ESP на убийцу")
-local ESPS = _G.ACBF("ESPS", "ESP Sheriff", "ESP", 5, "ESP на шерифа")
-local ESPA = _G.ACBF("ESPA", "ESP All", "ESP", 6, "ESP на всех")
-local ESPGD = _G.ACBF("ESPGD", "ESP Dropped gun", "ESP", 7, "ESP на пистолет")
+local ESP = __G.TimGui.Add.CB("ESP", "MM2", "ESP", 3)
+local ESPM = _G.TimGui.Add.CB("ESPM", "ESP Murder", "ESP", 4, "ESP на убийцу")
+local ESPS = _G.TimGui.Add.CB("ESPS", "ESP Sheriff", "ESP", 5, "ESP на шерифа")
+local ESPA = _G.TimGui.Add.CB("ESPA", "ESP All", "ESP", 6, "ESP на всех")
+local ESPGD = _G.TimGui.Add.CB("ESPGD", "ESP Dropped gun", "ESP", 7, "ESP на пистолет")
 local murd
 local sher 
 _G.AGF("MM2") 
 
- _G.ABF("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
+_G.TimGui.Add.B("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end) 
 
-_G.ABF("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн", function()
+_G.TimGui.Add.B("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн", function()
 local rand = game.Workspace.Lobby.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
 end)
 
-_G.ABF("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету", function()
+_G.TimGui.Add.B("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.GunDrop.CFrame
 end) 
 
 
-_G.ABF("TPM", "TP to murder", "MM2", 1, "ТП к убийце", function()
+_G.TimGui.Add.B("TPM", "TP to murder", "MM2", 1, "ТП к убийце", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = murd.Character.HumanoidRootPart.CFrame
 end) 
 
-local TPS = _G.ABF("TPS", "TP to sheriff", "MM2", 2, "ТП к шерифу", function()
+_G.TimGui.Add.B("TPS", "TP to sheriff", "MM2", 2, "ТП к шерифу", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = sher.Character.HumanoidRootPart.CFrame
 end) 
 
-local KA = _G.ABF("KA", "Kill All", "MM2", 3, "Убить всех", function()
+_G.TimGui.Add.B("KA", "Kill All", "MM2", 3, "Убить всех", function()
 for k,v in pairs(game.Players:GetChildren()) do
 if not (v == game.Players.LocalPlayer) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
@@ -40,7 +40,7 @@ end
 end
 end) 
 
-local Money = _G.ACBF("Money", "Farm (with fly)", "MM2", 7, "АФК(С полëтом)") 
+local Money = _G.TimGui.Add.CB("Money", "Farm (with fly)", "MM2", 7, "АФК(С полëтом)") 
 --local Time = _G.ATBF("Time", "Farm time: ", "MM2", 7, "АФК таймер: ") 
 --Time.Text = 1
 local lastmon
@@ -117,7 +117,7 @@ end
 end) 
 whileee.Value = true
 
-local AIM = _G.ACBF("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function(AIMV)
+local AIM = _G.TimGui.Add.CB("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function(AIMV)
 if AIMV.Value then
 game.Players.LocalPlayer.CameraMode = 1
 else
@@ -125,7 +125,7 @@ game.Players.LocalPlayer.CameraMode = 0
 end
 end)
 
-local AAIM = _G.ACBF("AAIMM", "Auto AIM to murd", "MM2", 9, "АвтоАИМ на марда")
+local AAIM = _G.TimGui.Add.CB("AAIMM", "Auto AIM to murd", "MM2", 9, "АвтоАИМ на марда")
 
 game:GetService("RunService").RenderStepped:Connect(function()
 if AAIM.Value and game.Players.LocalPlayer.Character:FindFirstChild("Gun") then
