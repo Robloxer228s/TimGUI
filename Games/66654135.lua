@@ -6,7 +6,7 @@ local ESPA = _G.TimGui.Add.CB("ESPA", "ESP All", "ESP", 6, "ESP на всех")
 local ESPGD = _G.TimGui.Add.CB("ESPGD", "ESP Dropped gun", "ESP", 7, "ESP на пистолет")
 local murd
 local sher 
-_G.AGF("MM2") 
+_G.TimGui.Add.G("MM2") 
 
 _G.TimGui.Add.B("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
