@@ -75,10 +75,10 @@ if v:FindFirstChild("Value") then
 buttab[4] = "CB" --type
 buttab[5] = v.Text.Text -- text
 buttab[6] = v.Value.Value -- Value
-elseif v.Text.ClassName == "TextBox" then
+elseif v:FindFirstChild("TextBox") then
 buttab[4] = "TB" --type
-buttab[5] = v.TextLabel.Text -- text
-buttab[6] = v.Text.Text -- Value
+buttab[5] = v.Text.Text -- text
+buttab[6] = v.TextBox.Text -- Value
 else
 buttab[4] = "B" --type
 buttab[5] = v.Text.Text -- text
