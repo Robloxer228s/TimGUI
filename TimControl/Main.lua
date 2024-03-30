@@ -47,21 +47,18 @@ game:HttpGet("http://d90930x1.beget.tech/PocketCodeDB/DATABASE/get/get.php?slot=
 end
 
 if string.sub(get, 1, 2) == "F." then
-_G.TCBs[string.sub(get, 3, string.len(get)+1)].Value = false
+_G.TimGui.TimControlSet(string.sub(get, 3, string.len(get)+1), "CB", false)
 end
 if string.sub(get, 1, 2) == "T." then
-_G.TCBs[string.sub(get, 3, string.len(get)+1)].Value = true
+_G.TimGui.TimControlSet(string.sub(get, 3, string.len(get)+1), "CB", true)
 end
 if string.sub(get, 1, 2) == "B." then
-local funct = _G.TFuncs[string.sub(get, 3, string.len(get)+1)]
-pcall(funct) 
+_G.TimGui.TimControlSet(string.sub(get, 3, string.len(get)+1), "B")
 end
 if string.sub(get, 1, 3) == "TB." then
 local name = string.sub(get, 4, string.len(get)+1)
 local split = name:split(':')
-name = split[1]
-local text = split[2]
-_G.TCBs[name].Text = text
+_G.TimGui.TimControlSet(split[1], "CB", split[2])
 end
 end
 
