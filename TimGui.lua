@@ -18,7 +18,7 @@ _G.TimGui.TimControlSet = function(GN, mode, data)
 if mode == "CB" then
 TOCB[GN].Value.Value = data
 elseif mode == "TB" then
-TOCB[GN].Text.Text = data
+TOCB[GN].TextBox.Text = data
 elseif mode == "B" then
 local temp = BFuncs[GN]
 pcall(temp)
