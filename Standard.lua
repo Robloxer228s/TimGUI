@@ -365,11 +365,11 @@ end
 end)
 
 local WST = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
-_G.TimGui.Add.G("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
+_G.TimGui.Add.B("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
 end)
 local JT = _G.TimGui.Add.TB("JumpPowerV","JampPower:","Player",3,"Сила прыжка:") 
-_G.ABF("JumpPowerB", "Set jampPower", "Player", 4,"Установить силу", function()
+_G.TimGui.Add.B("JumpPowerB", "Set jampPower", "Player", 4,"Установить силу", function()
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
 end)
 
