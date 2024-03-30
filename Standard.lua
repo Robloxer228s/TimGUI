@@ -1,11 +1,11 @@
-_G.AGF("TP to Waypoint","ТП к точке") 
-_G.AGF("Teleports", "Телепорты") 
-local Name = _G.ATBF("NameW", "Name:", "Teleports", 1, "Имя:") 
+_G.TimGui.Add.G("TP to Waypoint","ТП к точке") 
+_G.TimGui.Add.G("Teleports", "Телепорты") 
+local Name = _G.TimGui.Add.TB("NameW", "Name:", "Teleports", 1, "Имя:") 
 -- local Delete = _G.ABF("DeleteW", "Delete", "Teleports", 0) 
 local Waypoints = {}
 local Created = {}
 local count = 1
-_G.ABF("CreateW", "Create and set or set", "Teleports", 2, "Создать или изменить", function(Create) 
+_G.TimGui.Add.B("CreateW", "Create and set or set", "Teleports", 2, "Создать или изменить", function(Create) 
 if not Created[Name.Text] then
 local tmp = _G.ABF(Name.Text, Name.Text, "TP to Waypoint", count) 
 count += 1
@@ -18,11 +18,11 @@ end
 Waypoints[Name.Text] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
 
-_G.ABF("TPRP", "TP to random player", "Teleports", 3,"ТП к случайному игроку", function(TPRP)
+_G.TimGui.Add.B("TPRP", "TP to random player", "Teleports", 3,"ТП к случайному игроку", function(TPRP)
 local pl = game.Players:GetChildren()[math.random(1,#game.Players:GetChildren())]
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = pl.Character.HumanoidRootPart.CFrame
 end) 
-_G.ABF("TPT", "TPTool", "Teleports", 4,"ТПвтулка", function()
+_G.TimGui.Add.B("TPT", "TPTool", "Teleports", 4,"ТПвтулка", function()
 local Tele = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
 Tele.RequiresHandle = false
 Tele.RobloxLocked = true
@@ -94,28 +94,28 @@ hl.OutlineColor = hl.FillColor
 hl.OutlineTransparency = 0
 nada = false
 end)
-_G.AGF("Map", "Карта") 
-_G.ABF("SB", "Select", "Map", 1, "Выбрать", function() 
+_G.TimGui.Add.G("Map", "Карта") 
+_G.TimGui.Add.B("SB", "Select", "Map", 1, "Выбрать", function() 
 nada = true
 end) 
 
-_G.ABF("USB", "Unselect", "Map", 2, "Убрать выбор", function()
+_G.TimGui.Add.B("USB", "Unselect", "Map", 2, "Убрать выбор", function()
 if sb then sb:Destroy() end
 if hl then hl:Destroy() end
 obj = nil
 end) 
 
-_G.ABF("DSB", "delete select", "Map", 3, "Удалить выбронное", function()
+_G.TimGui.Add.B("DSB", "delete select", "Map", 3, "Удалить выбронное", function()
 obj:Destroy()
 end) 
 
-_G.ABF("CP", "Copy path", "Map", 4, "Копировать путь", function()
+_G.TimGui.Add.B("CP", "Copy path", "Map", 4, "Копировать путь", function()
 setclipboard(tostring(getPath(obj, true)))
 end) 
 
 local Folder
 local count
-local SB = _G.ACBF("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
+local SB = _G.TimGui.Add.CB("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
 game:GetService("RunService").Stepped:Connect(function()
 if SB.Value then
 if Folder == nil then
@@ -144,17 +144,17 @@ tmp.Parent = Folder
 end
 end) 
 
-_G.ABF("DB", "Clear blocks", "Map", 6, "Очистить блоки", function() 
+_G.TimGui.Add.B("DB", "Clear blocks", "Map", 6, "Очистить блоки", function() 
 if Folder == nil then return end
 Folder:Destroy()
 Folder = nil
 end)
 
-_G.AGF("Player","Игрок")
+_G.TimGui.Add.G("Player","Игрок")
 --Fly/Spactate   end in 414
-local speed = _G.ATBF("FS","FlySpeed:","Player",10,"СкоростьПолёта:")
+local speed = _G.TimGui.Add.TB("FS","FlySpeed:","Player",10,"СкоростьПолёта:")
 speed.Text = "1"
-local Fly = _G.ACBF("Fly","Fly","Player",11,"Полёт")
+local Fly = _G.TimGui.Add.CB("Fly","Fly","Player",11,"Полёт")
 local lp = game.Players.LocalPlayer
 local safe = Instance.new("Part") 
 safe.Position = Vector3.new(0, 1000000, 0) 
@@ -165,7 +165,7 @@ local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 speed.Changed:Connect(function() 
 speeds = speed.Text
 end) 
-local actv = _G.ACBF("Invisible", "Invisible fly", "Player", 12, "Невидимый полëт") 
+local actv = _G.TimGui.Add.CB("Invisible", "Invisible fly", "Player", 12, "Невидимый полëт") 
 actv.Changed:Connect(function() 
 if actv.Value and Fly.Value then
 local pos = lp.Character.HumanoidRootPart.CFrame
@@ -364,17 +364,17 @@ end
 	end
 end)
 
-local WST = _G.ATBF("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
+local WST = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
 _G.ABF("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
 end)
-local JT = _G.ATBF("JumpPowerV","JampPower:","Player",3,"Сила прыжка:") 
+local JT = _G.TimGui.Add.TB("JumpPowerV","JampPower:","Player",3,"Сила прыжка:") 
 _G.ABF("JumpPowerB", "Set jampPower", "Player", 4,"Установить силу", function()
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
 end)
 
-local PP = _G.ATBF("SpinV","SpinPower:","Player",5,"Скорость кружения") 
-local PB = _G.ACBF("SpinB", "Spining", "Player", 6,"Крутиться") 
+local PP = _G.TimGui.Add.TB("SpinV","SpinPower:","Player",5,"Скорость кружения") 
+local PB = _G.TimGui.Add.CB("SpinB", "Spining", "Player", 6,"Крутиться") 
 PB.Changed:Connect(function()
 if PB.Value then
 wait(.1)
@@ -399,7 +399,7 @@ wait(0.5)
 PB.Value = Speeen
 end) 
 
-local IJ = _G.ACBF("IJ", "Infinity Jump", "Player", 7,"Бесконечный прыжок")
+local IJ = _G.TimGui.Add.CB("IJ", "Infinity Jump", "Player", 7,"Бесконечный прыжок")
 local plr = game.Players.LocalPlayer  -- Переменная для игрока
 IJ.Changed:Connect(function()
  local UserInputService = game:GetService("UserInputService")
@@ -430,7 +430,7 @@ IJ.Changed:Connect(function()
  end
 end)
 
-local Noclip = _G.ACBF("Noclip","Noclip","Player",8,"Проходка сквозь стены")
+local Noclip = _G.TimGui.Add.CB("Noclip","Noclip","Player",8,"Проходка сквозь стены")
 local Stepped
 Noclip.Changed:Connect(function()
 if Noclip.Value then
@@ -451,7 +451,7 @@ Status.TextColor3 = Color3.new(170,0,0)
 end
 end)
 
-_G.ABF("GM", "GodMode", "Player", 9, "Бесмертие", function()
+_G.TimGui.Add.B("GM", "GodMode", "Player", 9, "Бесмертие", function()
 local speaker = game.Players.LocalPlayer
 local Cam = workspace.CurrentCamera
 local Pos, Char = Cam.CFrame, speaker.Character
@@ -473,10 +473,10 @@ end
 nHuman.Health = nHuman.MaxHealth
 end)
 
-_G.AGF("ESP","Подсветка(esp)")
+_G.TimGui.Add.G("ESP","Подсветка(esp)")
 local espLoad = false
-local ESPV = _G.ACBF("Esp","ESP-Main","ESP",1,"Обычный esp(для любой игры)") 
-local ESPTC = _G.ACBF("Esptc", "Use Team Color(esp-main)", "ESP", 2,"Использовать цвет команды (для обычной esp) ") 
+local ESPV = _G.TimGui.Add.CB("Esp","ESP-Main","ESP",1,"Обычный esp(для любой игры)") 
+local ESPTC = _G.TimGui.Add.CB("Esptc", "Use Team Color(esp-main)", "ESP", 2,"Использовать цвет команды (для обычной esp) ") 
 
 ESPV.Changed:Connect(function() 
 if not espLoad then
