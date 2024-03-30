@@ -232,6 +232,7 @@ local But = Instance.new("TextLabel")
 But.Parent = Temp
 But.BackgroundTransparency = 100
 But.Text = text
+But.Name = "Text"
 But.Size = UDim2.new(0.5, 0, 1, 0) 
 But.TextScaled = true
 But.TextColor3 = Color3.new(1, 1, 1) 
@@ -250,7 +251,6 @@ ButTab[name].BackgroundColor3 = Color3.new(38 / 255, 38 / 255, 76 / 255)
 ButTab[name].BackgroundTransparency = 0.4
 ButTab[name].Size = UDim2.new(0.5, -40, 1, 0) 
 ButTab[name].Position = UDim2.new(0.5, 0, 0, 0)
-ButTab[name].Name = "Text"
 ButTab[name].Text = ""
 ButTab[name].ClearTextOnFocus = false 
 ButTab[name].TextScaled = true
@@ -287,9 +287,9 @@ if not (v == game.Players.LocalPlayer) then
 _G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, v.Name, function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 atpp = v
-autotp.Parent.TextButton.Text = "Auto spam tp to " .. v.Name
+autotp.Parent.Text.Text = "Auto spam tp to " .. v.Name
 if not _G.eng then 
-autotp.Parent.TextButton.Text = "Авто спам тп к " .. v.Name
+autotp.Parent.Text.Text = "Авто спам тп к " .. v.Name
 end
 end) 
 else
