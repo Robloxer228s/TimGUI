@@ -41,14 +41,14 @@ end
 end)
 end) 
 
-_G.TimGui.Add.B(2, "The Swat(Lobby) ", "Game/Lobby", 2, function() 
+_G.TimGui.Add.B(2, "The Swat(Lobby)", "Game/Lobby", 2, nil, function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("SwatGun", false)
 end) 
 
-_G.TimGui.Add.B(3, "The Officer(Lobby) ", "Game/Lobby", 3, function() 
+_G.TimGui.Add.B(3, "The Officer(Lobby)", "Game/Lobby", 3, nil, function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("SwatGun", false)
 end) 
 
-_G.TimGui.Add.B(4, "The Fighter(Lobby) ", "Game/Lobby", 4).Activated:Connect(function() 
+_G.TimGui.Add.B(4, "The Fighter(Lobby)", "Game/Lobby", 4, nil, function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("SwatGun", false)
 end) 
