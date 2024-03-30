@@ -21,7 +21,7 @@ elseif mode == "TB" then
 TOCB[GN].Text = data
 elseif mode == "B" then
 local temp = BFuncs[GN]
-temp()
+pcall(temp)
 end
 end
 
