@@ -10,10 +10,41 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/m
 local atpp
 local autotp
 local FoldersT = {}
+local BFuncs = {}
+local TOCB = {}
 _G.TimGui = {}
 _G.TimGui.Add = {}
-_G.TFuncs = {}
-_G.TCBs = {}
+_G.TimGui.TimControlSet = function(GN, mode, data)
+if mode == "CB" then
+TOCB[GN].Value = data
+elseif mode == "TB" then
+TOCB[GN].Text = data
+elseif mode == "B" then
+local temp = BFuncs[GN]
+temp()
+end
+end
+
+_G.TimGui.Set = function(name, group, data)
+local ButTab = FoldersT[group]
+if ButTab[name].ClassName == "BoolValue" then
+if data == nil then
+ButTab[name].Value = not ButTab[name].Value
+else
+ButTab[name].Value = data
+end
+elseif ButTab[name].ClassName == "TextBox" then
+ButTab[name].Text = data
+else
+local temp = BFuncs[group .. "." .. name]
+temp()
+end
+end
+
+_G.TimGui.Get = function(name, group)
+local ButTab = FoldersT[group]
+return ButTab[name]
+end
 local FA = "TP to player"
 local TweenService = game:GetService("TweenService")
 local gui = Instance.new("ScreenGui") 
@@ -117,7 +148,7 @@ if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
-_G.TCBs[group .. "." .. name] = ButTab[name]
+TOCB[group .. "." .. name] = ButTab[name]
 return ButTab[name]
 end
 
@@ -154,7 +185,7 @@ Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc)
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 if not (funct == nil) then
-_G.TFuncs[group .. "." .. name] = function() 
+BFuncs[group .. "." .. name] = function() 
 funct(ButTab[name])
 end
 end
@@ -193,7 +224,7 @@ ButTab[name].Text = ""
 ButTab[name].ClearTextOnFocus = false 
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
-_G.TCBs[group .. "." .. name] = ButTab[name]
+TOCB[group .. "." .. name] = ButTab[name]
 FoldersT[group] = ButTab
 local ftpmc = FoldersT[FA]
 if FA == group then
