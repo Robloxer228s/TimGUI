@@ -1,4 +1,4 @@
-_G.AGF("Zombie lab") 
+_G.TimGui.Add.G("Zombie lab") 
 local ZN = _G.TimGui.Add.TB("ZN", "Zombie:", "Zombie lab", 6,"Зомби:") 
 local aknz = _G.TimGui.Add.CB("aknz", "Kill NPC Zombies(auto)", "Zombie lab", 9,"Убить НПС зомби(авто)")
 local hn = _G.TimGui.Add.CB("hn", "Hide notifications", "Zombie lab", 10,"Спрятать уведомления")
