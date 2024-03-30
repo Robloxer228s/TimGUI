@@ -1,4 +1,4 @@
-local ESPM = _G.ACBF("ESPM", "ESP Monsters", "ESP", 3, "ESP на монстров") 
+local ESPM = _G.TimGui.Add.CB("ESPM", "ESP Monsters", "ESP", 3, "ESP на монстров") 
 ESPM.Changed:Connect(function()
 for k, chr in pairs(game.Workspace.Maps:GetChildren()) do
 chr = chr:FindFirstChild("Killers") 
@@ -26,7 +26,7 @@ end
 end
 end) 
 
-local ESPI = _G.ACBF("ESPI", "ESP Items", "ESP", 4,"ESP На предметы") 
+local ESPI = _G.TimGui.Add.CB("ESPI", "ESP Items", "ESP", 4,"ESP На предметы") 
 ESPI.Changed:Connect(function()
 for k, chr in pairs(game.Workspace.Maps:GetChildren()) do
 for k, char in pairs(chr:GetChildren()) do
