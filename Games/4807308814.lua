@@ -72,6 +72,6 @@ _G.TimGui.Add.B("TSt", "Train strength", "Game", 3, "Прокачать силу
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Strength")
 end) 
 
-_G.ABF("TSt", "Train strength", "Game", 3, "Прокачать силу", function() 
+_G.TimGui.Add.B("TSt", "Train strength", "Game", 3, "Прокачать силу", function() 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Strength")
 end) 
