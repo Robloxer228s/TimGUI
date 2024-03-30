@@ -65,7 +65,7 @@ _G.TimGui.SetGroup(string.sub(get, 3, string.len(get)+1))
 wait(0.1)
 local tab = {}
 local i = 0
-for k,v in pairs(_G.TimGui.Path.Buttons:GetChildern()) do
+for k,v in pairs(_G.TimGui.Path.Buttons:GetChilderen()) do
 if v.Visible then
 local buttab = {}
 buttab[1] = v.group.Value -- group name
