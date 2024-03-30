@@ -51,11 +51,13 @@ local gui = Instance.new("ScreenGui")
 gui.Name = "TimGUI"
 gui.Parent = game.CoreGui
 gui.ResetOnSpawn = false
+_G.TimGui.Path = {}
 local f = Instance.new("Frame") 
 f.Position = UDim2.new(1, -400, 1,-25) 
 f.Size = UDim2.new(0, 400, 1, 0) 
 f.BackgroundColor3 = Color3.new(0.15, 0.15, 0.3) 
 f.Parent = gui
+_G.TimGui.Path.Main = f
 local Open = Instance.new("ImageLabel") 
 Open.Size = UDim2.new(0, 400, 0, 25)
 Open.Position = UDim2.new(0, 0, 0, 0) 
@@ -74,6 +76,7 @@ Folders.ScrollBarThickness = 5
 Folders.BackgroundColor3 = Color3.new(0.15, 0.15, 0.25) 
 Folders.Size = UDim2.new(0, 100, 1, -25) 
 Folders.Position = UDim2.new(0, 0, 0, 25) 
+_G.TimGui.Path.Groups = Folders
 
 local Func = Instance.new("ScrollingFrame") 
 Func.Parent = f
@@ -81,6 +84,7 @@ Func.ScrollBarThickness = 5
 Func.BackgroundColor3 = Color3.new(0.15, 0.15, 0.3) 
 Func.Size = UDim2.new(1, -100, 1, -25) 
 Func.Position = UDim2.new(0, 100, 0, 25) 
+_G.TimGui.Path.Buttons = Func
 
 local OC = false
 AO.Activated:Connect(function() 
