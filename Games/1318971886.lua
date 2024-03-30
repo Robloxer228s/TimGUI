@@ -22,12 +22,12 @@ local Items = {
 }
 
 for k, v in Items do
-_G.ABF(k, v, "Items", k, function() 
+_G.TimGui.Add.B(k, v, "Items", k, function() 
 Events:WaitForChild("GiveTool"):FireServer(tostring(v:gsub(" ", "")))
 end) 
 end
 
-_G.ABF("KE", "Kill bad guys", "Game/Lobby", 1, "Убить плохих челов", function() 
+_G.TimGui.Add.B("KE", "Kill bad guys", "Game/Lobby", 1, "Убить плохих челов", function() 
 pcall(function()
 for i, v in pairs(game:GetService("Workspace").BadGuys:GetChildren()) do
 for i = 1, 50 do
@@ -41,14 +41,14 @@ end
 end)
 end) 
 
-_G.ABF(2, "The Swat(Lobby) ", "Game/Lobby", 2, function() 
+_G.TimGui.Add.B(2, "The Swat(Lobby) ", "Game/Lobby", 2, function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("SwatGun", false)
 end) 
 
-_G.ABF(3, "The Officer(Lobby) ", "Game/Lobby", 3, function() 
+_G.TimGui.Add.B(3, "The Officer(Lobby) ", "Game/Lobby", 3, function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("SwatGun", false)
 end) 
 
-_G.ABF(4, "The Fighter(Lobby) ", "Game/Lobby", 4).Activated:Connect(function() 
+_G.TimGui.Add.B(4, "The Fighter(Lobby) ", "Game/Lobby", 4).Activated:Connect(function() 
 game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("SwatGun", false)
 end) 
