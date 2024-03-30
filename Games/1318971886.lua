@@ -1,5 +1,5 @@
-_G.AGF("Items", "Предметы") 
-_G.AGF("Game/Lobby", "Игра/лобби") 
+_G.TimGui.Add.G("Items", "Предметы") 
+_G.TimGui.Add.G("Game/Lobby", "Игра/лобби") 
 
 local Events = game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents")
 local Items = {
