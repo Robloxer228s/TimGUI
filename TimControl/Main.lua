@@ -60,6 +60,30 @@ local name = string.sub(get, 4, string.len(get)+1)
 local split = name:split(':')
 _G.TimGui.TimControlSet(split[1], "CB", split[2])
 end
+if string.sub(get, 1, 2) == "G." then
+_G.TimGui.SetGroup(string.sub(get, 3, string.len(get)+1))
+wait(0.1)
+local tab = {}
+for k,v in pairs(_G.TimGui.Path.Buttons:GetChildern()) do
+local buttab = {}
+buttab[1] = v.Name -- group name
+buttab[2] = v.pos -- y pos
+if v:FindFirstChild("Value") then
+buttab[3] = "CB" --type
+buttab[4] = v.Text.Text -- text
+buttab[4] = v.Value.Value -- Value
+elseif v.Text.ClassName == "TextBox" then
+buttab[3] = "TB" --type
+buttab[4] = v.TextLabel.Text -- text
+buttab[4] = v.Text.Text -- Value
+else
+buttab[3] = "B" --type
+buttab[4] = v.Text.Text -- text
+end
+local gg = "SG." .. string.gsub(game:GetService("HttpService"):JSONEncode(buttab),"\n","")
+game:HttpGet("http://d90930x1.beget.tech/PocketCodeDB/DATABASE/get/get.php?slot=1&token=52307216790Robloxer228s35873790094&get_pe=".. code+1 .."|" .. gg)
+end
+end
 end
 
 local Armatura = Instance.new("BoolValue")
