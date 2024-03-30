@@ -70,7 +70,7 @@ if v.Visible then
 local buttab = {}
 buttab[1] = v.group.Value -- group name
 buttab[2] = v.Name -- name
-buttab[3] = v.pos -- y pos
+buttab[3] = v.pos.Value -- y pos
 if v:FindFirstChild("Value") then
 buttab[4] = "CB" --type
 buttab[5] = v.Text.Text -- text
