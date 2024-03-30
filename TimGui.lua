@@ -10,6 +10,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/m
 local atpp
 local autotp
 local FoldersT = {}
+_G.TimGui = {}
+_G.TimGui.Add = {}
 _G.TFuncs = {}
 _G.TCBs = {}
 local FA = "TP to player"
@@ -73,7 +75,7 @@ tween:Play()
 end
 end) 
 
-_G.ACBF = function(name, text, group, yy, rus, funct) 
+_G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
 if not _G.eng and not (rus == nil) then
 text = rus
 end
@@ -119,7 +121,7 @@ _G.TCBs[group .. "." .. name] = ButTab[name]
 return ButTab[name]
 end
 
-_G.ABF = function(name, text, group, yy, rus, funct)
+_G.TimGui.Add.B = function(name, text, group, yy, rus, funct)
 if not _G.eng and not (rus == nil) then
 text = rus
 end
@@ -159,7 +161,7 @@ end
 return ButTab[name]
 end
 
-_G.ATBF = function(name, text, group, yy, rus) 
+_G.TimGui.Add.TB = function(name, text, group, yy, rus) 
 if not _G.eng and not (rus == nil) then
 text = rus
 end
@@ -201,7 +203,7 @@ Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
 return ButTab[name]
 end
 
-_G.AGF = function(name, rus) 
+_G.TimGui.Add.G = function(name, rus) 
 local Temp = Instance.new("ImageLabel") 
 Temp.Parent = Folders
 Temp.Name = name
