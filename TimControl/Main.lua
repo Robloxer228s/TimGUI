@@ -89,6 +89,7 @@ end
 end
 local gg = "SG." .. string.gsub(game:GetService("HttpService"):JSONEncode(tab),"\n","")
 game:HttpGet("http://d90930x1.beget.tech/PocketCodeDB/DATABASE/get/get.php?slot=1&token=52307216790Robloxer228s35873790094&get_pe=".. code+1 .."|" .. gg)
+print(code+1 .."|" .. gg)
 end
 end
 
