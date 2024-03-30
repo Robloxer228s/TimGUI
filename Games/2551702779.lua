@@ -1,7 +1,7 @@
 _G.AGF("Zombie lab") 
-local ZN = _G.ATBF("ZN", "Zombie:", "Zombie lab", 6,"Зомби:") 
-local aknz = _G.ACBF("aknz", "Kill NPC Zombies(auto)", "Zombie lab", 9,"Убить НПС зомби(авто)")
-local hn = _G.ACBF("hn", "Hide notifications", "Zombie lab", 10,"Спрятать уведомления")
+local ZN = _G.TimGui.Add.TB("ZN", "Zombie:", "Zombie lab", 6,"Зомби:") 
+local aknz = _G.TimGui.Add.CB("aknz", "Kill NPC Zombies(auto)", "Zombie lab", 9,"Убить НПС зомби(авто)")
+local hn = _G.TimGui.Add.CB("hn", "Hide notifications", "Zombie lab", 10,"Спрятать уведомления")
 
 local pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
 game.Players.LocalPlayer.CharacterAdded:Connect(function () 
@@ -19,27 +19,27 @@ child.Visible = not hn.Value
 end
 end) 
 
-_G.ABF("cf", "Change face", "Zombie lab", 11,"Изменить лицо", function() 
+_G.TimGui.Add.B("cf", "Change face", "Zombie lab", 11,"Изменить лицо", function() 
 pathIDK.ChooseFaceFrame.Visible = true
 end) 
 
-_G.ABF("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи", function() 
+_G.TimGui.Add.B("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи", function() 
 pathIDK.ChooseSkinFrame.Visible = true
 end) 
 
-_G.ABF("virus", "Get virus", "Zombie lab", 1,"Получить вирус", function() 
+_G.TimGui.Add.B("virus", "Get virus", "Zombie lab", 1,"Получить вирус", function() 
 game.ReplicatedStorage.Events.GiveVirus:FireServer()
 end) 
 
-_G.ABF("cure", "Get cure", "Zombie lab", 2,"Получить инъекцию", function() 
+_G.TimGui.Add.B("cure", "Get cure", "Zombie lab", 2,"Получить инъекцию", function() 
 game.ReplicatedStorage.Events.GiveCure:FireServer()
 end) 
 
-_G.ABF("dh", "Delete human only", "Zombie lab", 3,"Удалить только для людей", function() 
+_G.TimGui.Add.B("dh", "Delete human only", "Zombie lab", 3,"Удалить только для людей", function() 
 game.Workspace.HumanOnlyDoor:Destroy()
 end) 
 
-_G.ABF("ds", "Delete safe virus zone", "Zombie lab", 4,"Удалить антивирус", function() 
+_G.TimGui.Add.B("ds", "Delete safe virus zone", "Zombie lab", 4,"Удалить антивирус", function() 
 game.Workspace.AntiWeaponZone:Destroy()
 end) 
 
@@ -61,7 +61,7 @@ end
 end
 end
 
-_G.ABF("kaz", "Kill All Zombies", "Zombie lab", 5,"Убить всех зомби", function() 
+_G.TimGui.Add.B("kaz", "Kill All Zombies", "Zombie lab", 5,"Убить всех зомби", function() 
 for i=2,#game.Players:GetPlayers() do
 v=game.Players:GetPlayers()[i]
 if v.Character:FindFirstChild("Humanoid") then
@@ -78,7 +78,7 @@ end
 end
 end) 
 
-_G.ABF("kz", "Kill Zombie", "Zombie lab", 7,"Убить зомби", function() 
+_G.TimGui.Add.B("kz", "Kill Zombie", "Zombie lab", 7,"Убить зомби", function() 
 v=game.Players:FindFirstChild(ZN.Text) 
 local args = {
     [1] = v.Character:WaitForChild("Humanoid"),
@@ -90,7 +90,7 @@ pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
 end)
 end) 
 
- _G.ABF("knz", "Kill NPC Zombies", "Zombie lab", 8,"Убить НПС зомби", function()
+_G.TimGui.Add.B("knz", "Kill NPC Zombies", "Zombie lab", 8,"Убить НПС зомби", function()
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
 local args = {
     [1] = v:WaitForChild("Humanoid"),
