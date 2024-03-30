@@ -58,7 +58,7 @@ end
 if string.sub(get, 1, 3) == "TB." then
 local name = string.sub(get, 4, string.len(get)+1)
 local split = name:split(':')
-_G.TimGui.TimControlSet(split[1], "CB", split[2])
+_G.TimGui.TimControlSet(split[1], "TB", split[2])
 end
 if string.sub(get, 1, 2) == "G." then
 _G.TimGui.SetGroup(string.sub(get, 3, string.len(get)+1))
