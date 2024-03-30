@@ -1,5 +1,5 @@
-_G.AGF("UP","Доберись до вершины")
-_G.ABF("UP", "TP to finish", "UP", 1, "ТП в конец", function() 
+_G.TimGui.Add.G("UP","Доберись до вершины")
+_G.TimGui.Add.B("UP", "TP to finish", "UP", 1, "ТП в конец", function() 
 local tp = game.Workspace:WaitForChild("TowerSpawn")
 tp = tp:WaitForChild("TowerTop")
 tp = tp:WaitForChild("EndingButton")
