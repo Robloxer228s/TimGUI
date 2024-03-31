@@ -1,5 +1,5 @@
 --MM2
-local ESP = __G.TimGui.Add.CB("ESP", "MM2", "ESP", 3)
+local ESP = _G.TimGui.Add.CB("ESP", "MM2", "ESP", 3)
 local ESPM = _G.TimGui.Add.CB("ESPM", "ESP Murder", "ESP", 4, "ESP на убийцу")
 local ESPS = _G.TimGui.Add.CB("ESPS", "ESP Sheriff", "ESP", 5, "ESP на шерифа")
 local ESPA = _G.TimGui.Add.CB("ESPA", "ESP All", "ESP", 6, "ESP на всех")
