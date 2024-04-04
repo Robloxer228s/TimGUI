@@ -333,7 +333,7 @@ local Tmp = Instance.new("TextButton")
 Tmp.Parent = Temp
 Tmp.BackgroundTransparency = 100
 Tmp.Text = name
-Tmo.Name = "Text"
+Tmp.Name = "Text"
 local TmpTwo = Instance.new("StringValue")
 TmpTwo.Parent = Tmp
 if not (rus == nil) then
