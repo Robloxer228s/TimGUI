@@ -300,7 +300,7 @@ _G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, v.Name, function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 atpp = v
 autotp.Parent.Text.Text = "Auto spam tp to " .. v.Name
-if not _G.eng then 
+if _G.TimGui.ru then 
 autotp.Parent.Text.Text = "Авто спам тп к " .. v.Name
 end
 end) 
@@ -333,8 +333,13 @@ local Tmp = Instance.new("TextButton")
 Tmp.Parent = Temp
 Tmp.BackgroundTransparency = 100
 Tmp.Text = name
-if not _G.eng and not (rus == nil) then 
-Tmp.Text = rus
+Tmo.Name = "Text"
+local TmpTwo = Instance.new("StringValue")
+TmpTwo.Parent = Tmp
+if not (rus == nil) then
+TmpTwo.Value = rus
+else
+TmpTwo.Value = text
 end
 Tmp.Size = UDim2.new(1, 0, 1, 0) 
 Tmp.TextScaled = true
