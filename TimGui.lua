@@ -301,7 +301,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.Humanoi
 atpp = v
 autotp.Parent.Text.Text = "Auto spam tp to " .. v.Name
 autotp.Parent.Text.Value.Value = "Авто спам тп к " .. v.Name
-if _G.TimGui.ru == true then 
+if _G.TimGui.ru then 
 autotp.Parent.Text.Text = "Авто спам тп к " .. v.Name
 autotp.Parent.Text.Value.Value = "Auto spam tp to " .. v.Name
 end
