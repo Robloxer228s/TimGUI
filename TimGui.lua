@@ -111,9 +111,6 @@ end
 end) 
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
-if not _G.eng and not (rus == nil) then
-text = rus
-end
 local Temp = Instance.new("ImageLabel") 
 if not (group == "TP to player") then
 Temp.Visible = false
@@ -139,6 +136,13 @@ ButTabb.Text = text
 ButTabb.Size = UDim2.new(1, 0, 1, 0) 
 ButTabb.TextScaled = true
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+local TmpTwo = Instance.new("StringValue")
+TmpTwo.Parent = ButTabb
+if not (rus == nil) then
+TmpTwo.Value = rus
+else
+TmpTwo.Value = text
+end
 local ButTab = FoldersT[group]
 ButTab[name] = Instance.new("BoolValue") 
 ButTab[name].Parent = Temp
@@ -166,9 +170,6 @@ return ButTab[name]
 end
 
 _G.TimGui.Add.B = function(name, text, group, yy, rus, funct)
-if not _G.eng and not (rus == nil) then
-text = rus
-end
 local Temp = Instance.new("ImageLabel") 
 if not (group == "TP to player") then
 Temp.Visible = false
@@ -192,6 +193,13 @@ ButTab[name].Parent = Temp
 ButTab[name].BackgroundTransparency = 100
 ButTab[name].Name = "Text"
 ButTab[name].Text = text
+local TmpTwo = Instance.new("StringValue")
+TmpTwo.Parent = ButTab[name]
+if not (rus == nil) then
+TmpTwo.Value = rus
+else
+TmpTwo.Value = text
+end
 ButTab[name].Size = UDim2.new(1, 0, 1, 0) 
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
@@ -215,9 +223,6 @@ return ButTab[name]
 end
 
 _G.TimGui.Add.TB = function(name, text, group, yy, rus) 
-if not _G.eng and not (rus == nil) then
-text = rus
-end
 local Temp = Instance.new("ImageLabel") 
 if not (group == "TP to player") then
 Temp.Visible = false
@@ -236,6 +241,13 @@ But.Name = "Text"
 But.Size = UDim2.new(0.5, 0, 1, 0) 
 But.TextScaled = true
 But.TextColor3 = Color3.new(1, 1, 1) 
+local TmpTwo = Instance.new("StringValue")
+TmpTwo.Parent = But
+if not (rus == nil) then
+TmpTwo.Value = rus
+else
+TmpTwo.Value = text
+end
 local Tempp = Instance.new("StringValue") 
 Tempp.Name = "group"
 Tempp.Value = group
