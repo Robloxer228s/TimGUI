@@ -299,11 +299,11 @@ if not (v == game.Players.LocalPlayer) then
 _G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, v.Name, function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 atpp = v
-autotp.Parent.Text.Text = "Auto spam tp to " .. v.Name
-autotp.Parent.Text.Value.Value = "Авто спам тп к " .. v.Name
+autotp.Text.Text = "Auto spam tp to " .. v.Name
+autotp.Text.Value.Value = "Авто спам тп к " .. v.Name
 if _G.TimGui.ru then 
-autotp.Parent.Text.Text = "Авто спам тп к " .. v.Name
-autotp.Parent.Text.Value.Value = "Auto spam to to " .. v.Name
+autotp.Text.Text = "Авто спам тп к " .. v.Name
+autotp.Text.Value.Value = "Auto spam tp to " .. v.Name
 end
 end) 
 else
