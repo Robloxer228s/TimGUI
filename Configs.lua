@@ -1,5 +1,6 @@
 local getF = function(name)
-local post = {"operation": "fileget",
+local post = {
+    "operation": "fileget",
     "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ==",
     "file": name
 }
