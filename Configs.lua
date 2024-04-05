@@ -18,6 +18,22 @@ post = {"operation": "savefile", "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYy
 response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):DecodeJSON(post))
 end
 
+local plset = getF("Settings")
+
+_G.TimGui.Add.B("sc", "Set config", 4, "Настроить конфиг", function()
+local tab = {}
+for k,v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do 
+if not (v.group.Value == "Settings") then
+if v:FindFirstChild("Value") then
+tab[v.group.Value .. v.Name] = v.Value.Value
+elseif v.Text.ClassName == "TextBox" then
+tab[v.group.Value .. v.Name] = v.Text.Text
+end
+end -- group not settings
+end
+setF("Config" .. plset.Config, tab)
+end)
+
 local SetConfig = function(Conf)
 for k,v in pairs(Conf) do
 if v == false or v == true then
@@ -28,7 +44,6 @@ end
 end
 end
 
-local plset = getF("Settings")
 if plset == nil then
 plset = {}
 plset.ru = _G.TimGui.Get("rus", "Settings").Value
@@ -45,18 +60,21 @@ _G.TimGui.Set(plset.Config, "Settings", false)
 Tmp.Value = true
 plset.Config = 1
 SetConfig(getF("Config1"))
+setF("Settings", plset)
 end)
 _G.TimGui.Add.CB(2, plset.Configs[2], "Settings", 6, plset.Configs[2], function(Tmp)
 _G.TimGui.Set(plset.Config, "Settings", false)
 Tmp.Value = true
 plset.Config = 2
 SetConfig(getF("Config2"))
+setF("Settings", plset)
 end)
 _G.TimGui.Add.CB(3, plset.Configs[3], "Settings", 7, plset.Configs[3], function(Tmp)
 _G.TimGui.Set(plset.Config, "Settings", false)
 Tmp.Value = true
 plset.Config = 3
 SetConfig(getF("Config3"))
+setF("Settings", plset)
 end)
 _G.TimGui.Set(plset.Config, "Settings", true)
 _G.TimGui.Set("rus", "Settings", plset.ru)
