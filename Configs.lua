@@ -30,7 +30,7 @@ end
 
 local plset = getF("Settings")
 
-local ren = _G.TimGui.Add.TB("sc", "Rename(if not null)", "Settings", 3, "Переименовать конфиг \n (ничего = ненадо)")
+local ren = _G.TimGui.Add.TB("sc", "Rename(if not null)", "Settings", 3, "Переименовать конфиг (ничего = ненадо)")
 _G.TimGui.Add.B("sc", "Set config", "Settings", 4, "Настроить конфиг", function()
 if not (ren == "") then
 plset.Configs[plset.Config] = ren.Text
@@ -38,9 +38,10 @@ end
 local tab = {}
 for k,v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do 
 if not (v.group.Value == "Settings") then
-if v:FindFirstChild("Value") then
-tab[v.group.Value .. v.Name] = v.Value.Value
-elseif v.Text.ClassName == "TextBox" then
+--if v:FindFirstChild("Value") then
+--tab[v.group.Value .. v.Name] = v.Value.Value
+--else
+if v.Text.ClassName == "TextBox" then
 tab[v.group.Value .. v.Name] = v.Text.Text
 end
 end -- group not settings
@@ -50,11 +51,11 @@ end)
 
 local SetConfig = function(Conf)
 for k,v in pairs(Conf) do
-if v == false or v == true then
-_G.TimGui.TimControlSet(k, "CB", v)
-else
+--if v == false or v == true then
+--_G.TimGui.TimControlSet(k, "CB", v)
+--else
 _G.TimGui.TimControlSet(k, "TB", v)
-end
+--end
 end
 end
 
@@ -94,6 +95,7 @@ end)
 _G.TimGui.Set(plset.Config, "Settings", true)
 _G.TimGui.Set("rus", "Settings", plset.ru)
 _G.TimGui.Set("x2", "Settings", plset.xtwo)
+SetConfig(getF("Config" .. plset.Config))
 end)
 if not success then
 warn("Error get plr data:\n" .. response)
