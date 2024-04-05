@@ -1,3 +1,4 @@
+local plset
 local getF = function(name)
 local post = {}
 post.operation = "fileget"
@@ -31,8 +32,6 @@ post.content = response
 response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
 end
 
-local plset = getF("Settings")
-
 local ren = _G.TimGui.Add.TB("sc", "Rename(if not null)", "Settings", 3, "Переименовать конфиг (ничего = ненадо)")
 _G.TimGui.Add.B("sc", "Set config", "Settings", 4, "Настроить конфиг", function()
 if not (ren == "") then
@@ -62,6 +61,7 @@ _G.TimGui.TimControlSet(k, "TB", v)
 end
 end
 
+plset = getF("Settings")
 print(game:GetService("HttpService"):JSONEncode(plset))
 if plset == {} then
 plset = {}
