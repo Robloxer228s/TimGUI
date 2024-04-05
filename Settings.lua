@@ -36,4 +36,4 @@ v.Position = UDim2.new(0, 0, 0, 50 * (pos - 1))
 end
 end
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Configs.lua"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Configs.lua"))()
