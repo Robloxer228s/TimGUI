@@ -172,7 +172,7 @@ end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 if _G.TimGui.XTwo then
 local poss = math.ceil(yy / 2) 
-if poss == yy then
+if poss == yy / 2 then
 Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
 else
 Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
@@ -229,7 +229,7 @@ end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
 if _G.TimGui.XTwo then
 local poss = math.ceil(yy / 2) 
-if poss == yy then
+if poss == yy / 2 then
 Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
 else
 Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
@@ -305,7 +305,7 @@ end
 end
 if _G.TimGui.XTwo then
 local poss = math.ceil(yy / 2) 
-if poss == yy then
+if poss == yy / 2 then
 Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
 else
 Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
