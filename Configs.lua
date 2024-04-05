@@ -19,7 +19,13 @@ response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("Ht
 end
 
 local SetConfig = function(Conf)
-
+for k,v in pairs(Conf) do
+if v == false or v == true then
+_G.TimGui.TimControlSet(k, "CB", v)
+else
+_G.TimGui.TimControlSet(k, "TB", v)
+end
+end
 end
 
 local plset = getF("Settings")
