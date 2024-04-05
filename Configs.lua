@@ -30,8 +30,8 @@ end
 
 local plset = getF("Settings")
 
-local ren = _G.TimGui.Add.TB("sc", "Rename(if not null)", 3, "Переименовать конфиг \n (ничего = ненадо)")
-_G.TimGui.Add.B("sc", "Set config", 4, "Настроить конфиг", function()
+local ren = _G.TimGui.Add.TB("sc", "Rename(if not null)", "Settings", 3, "Переименовать конфиг \n (ничего = ненадо)")
+_G.TimGui.Add.B("sc", "Set config", "Settings", 4, "Настроить конфиг", function()
 if not (ren == "") then
 plset.Configs[plset.Config] = ren.Text
 end
