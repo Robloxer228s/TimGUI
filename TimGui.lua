@@ -1,8 +1,7 @@
 --[[
-Please, use this script(for english language):
+Please, use this script:
 
 
-_G.eng = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
 
 
@@ -92,6 +91,9 @@ OC = not OC
 if OC then
 local goal = {}
 goal.Position = UDim2.new(1, -400, 0, 0) 
+if _G.TimGui.XTwo then
+goal.Position = UDim2.new(1, -700, 0, 0) 
+end
 local tween = TweenService:Create(f, TweenInfo.new(0.5), goal)
 tween:Play() 
 local goal = {}
@@ -101,6 +103,9 @@ tween:Play()
 else
 local goal = {}
 goal.Position = UDim2.new(1, -400, 1, -25) 
+if _G.TimGui.XTwo then
+goal.Position = UDim2.new(1, -700, 1, -25) 
+end
 local tween = TweenService:Create(f, TweenInfo.new(0.5), goal)
 tween:Play() 
 local goal = {}
