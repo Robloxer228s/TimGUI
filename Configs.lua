@@ -28,7 +28,7 @@ post.operation = "savefile"
 post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
 post.file = name
 post.content = response
-response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):JSONEncode(post))
+response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
 end
 
 local plset = getF("Settings")
@@ -62,6 +62,7 @@ _G.TimGui.TimControlSet(k, "TB", v)
 end
 end
 
+print(game:GetService("HttpService"):JSONEncode(plset))
 if plset == {} then
 plset = {}
 plset.ru = _G.TimGui.Get("rus", "Settings").Value
