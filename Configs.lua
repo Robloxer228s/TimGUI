@@ -1,19 +1,27 @@
 local getF = function(name)
-local response = game:HttpPost("http://bagirovict.temp.swtest.ru", '{"operation": "fileget", "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ==", "file": ' .. name .. "}")
+local post = {}
+post.operation = "fileget"
+post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
+post.file = name
+local response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):JSONEncode(post))
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
-print(response)
+print(post.id)
 response = game:GetService("HttpService"):JSONDecode(response)
 return response[game.Players.LocalPlayer.Name]
 end
 
 local setF = function(name, data)
-local response = game:HttpPost("http://bagirovict.temp.swtest.ru", '{"operation": "fileget", "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ==", "file": ' .. name .. ', "content": ' .. data .. "}")
+local post = {}
+post.operation = "fileget"
+post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
+post.file = name
+local response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):JSONEncode(post))
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
 response = game:GetService("HttpService"):JSONDecode(response)
 response[game.Players.LocalPlayer.Name] = data
-local post = {}
+post = {}
 post.operation = "savefile"
 post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
 post.file = name
