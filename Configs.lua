@@ -1,9 +1,8 @@
 local getF = function(name)
-local post = {
-    "operation": "fileget",
-    "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ==",
-    "file": name
-}
+local post = {}
+post.operation = "fileget"
+post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
+post.file = name
 local response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):DecodeJSON(post))
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
@@ -12,13 +11,20 @@ return response[game.Players.LocalPlayer.Name]
 end
 
 local setF = function(name, data)
-local post = {"operation": "fileget", "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ==", "file": name}
+local post = {}
+post.operation = "fileget"
+post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
+post.file = name
 local response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):DecodeJSON(post))
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
 response = game:GetService("HttpService"):EncodeJSON(response)
 response[game.Players.LocalPlayer.Name] = data
-post = {"operation": "savefile", "id": "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ==", "file": name, "content": response}
+post = {}
+post.operation = "savefile"
+post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
+post.file = name
+post.content = response
 response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):DecodeJSON(post))
 end
 
