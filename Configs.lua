@@ -63,6 +63,7 @@ plset = {}
 plset.ru = _G.TimGui.Get("rus", "Settings").Value
 plset.xtwo = _G.TimGui.Get("x2", "Settings").Value
 plset.Config = 1
+plset.Configs = {}
 plset.Configs[1] = "1"
 plset.Configs[2] = "2"
 plset.Configs[3] = "3"
