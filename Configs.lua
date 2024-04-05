@@ -6,7 +6,7 @@ post.file = name
 local response = game:HttpPost("http://bagirovict.temp.swtest.ru", game:GetService("HttpService"):JSONEncode(post))
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
-print(game:GetService("HttpService"):JSONEncode(post))
+print(post.id)
 response = game:GetService("HttpService"):JSONDecode(response)
 return response[game.Players.LocalPlayer.Name]
 end
