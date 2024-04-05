@@ -117,7 +117,7 @@ end)
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
 local Temp = Instance.new("ImageLabel") 
-if not (group == "TP to player") then
+if not (group == FA) then
 Temp.Visible = false
 end
 Temp.Parent = Func
@@ -170,13 +170,21 @@ if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+if _G.TimGui.XTwo then
+local poss = math.ceil(yy / 2) 
+if poss == yy then
+Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
+else
+Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
+end
+end
 TOCB[group .. "." .. name] = ButTab[name]
 return ButTab[name]
 end
 
 _G.TimGui.Add.B = function(name, text, group, yy, rus, funct)
 local Temp = Instance.new("ImageLabel") 
-if not (group == "TP to player") then
+if not (group == FA) then
 Temp.Visible = false
 end
 Temp.Parent = Func
@@ -219,6 +227,14 @@ if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+if _G.TimGui.XTwo then
+local poss = math.ceil(yy / 2) 
+if poss == yy then
+Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
+else
+Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
+end
+end
 if not (funct == nil) then
 BFuncs[group .. "." .. name] = function() 
 funct(ButTab[name])
@@ -229,7 +245,7 @@ end
 
 _G.TimGui.Add.TB = function(name, text, group, yy, rus) 
 local Temp = Instance.new("ImageLabel") 
-if not (group == "TP to player") then
+if not (group == FA) then
 Temp.Visible = false
 end
 Temp.Parent = Func
@@ -279,6 +295,22 @@ if FA == group then
 Func.CanvasSize = UDim2.new(0, 0, 0, 50 * #ftpmc) 
 end
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+if _G.TimGui.XTwo then
+local poss = math.ceil(yy / 2) 
+if poss == yy then
+Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
+else
+Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
+end
+end
+if _G.TimGui.XTwo then
+local poss = math.ceil(yy / 2) 
+if poss == yy then
+Temp.Position = UDim2.new(1, -300, 0, 50 * (poss - 1))
+else
+Temp.Position = UDim2.new(0, 0, 0, 50 * (poss - 1))
+end
+end
 return ButTab[name]
 end
 
