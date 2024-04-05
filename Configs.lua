@@ -62,7 +62,7 @@ _G.TimGui.TimControlSet(k, "TB", v)
 end
 end
 
-if plset == nil then
+if plset == {} then
 plset = {}
 plset.ru = _G.TimGui.Get("rus", "Settings").Value
 plset.xtwo = _G.TimGui.Get("x2", "Settings").Value
