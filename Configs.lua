@@ -63,7 +63,7 @@ end
 
 plset = getF("Settings")
 print(game:GetService("HttpService"):JSONEncode(plset))
-if plset == {} then
+if plset == [] then
 plset = {}
 plset.ru = _G.TimGui.Get("rus", "Settings").Value
 plset.xtwo = _G.TimGui.Get("x2", "Settings").Value
