@@ -41,6 +41,7 @@ if not (ren == "") then
 plset.Configs[plset.Config] = ren.Text
 _G.TimGui.Get(plset.Config, "Settings").Parent.Text.Text = ren.Text
 setF("Settings", plset)
+ren.Text = ""
 end
 local tab = {}
 for k,v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do 
