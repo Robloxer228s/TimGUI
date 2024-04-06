@@ -15,9 +15,15 @@ _G.TimGui.Add.CB("x2", "X2 interface", "Settings", 2, "2 кнопки", function
 if interface.Value then
 _G.TimGui.Path.Main.Size = UDim2.new(0, 700, 1, 0)
 _G.TimGui.Path.Main.Position = UDim2.new(1, -700, 0, 0)
+if not _G.TimGui.Opened then
+goal.Position = UDim2.new(1, -700, 1, -25)
+end
 else
 _G.TimGui.Path.Main.Size = UDim2.new(0, 400, 1, 0)
 _G.TimGui.Path.Main.Position = UDim2.new(1, -400, 0, 0)
+if not _G.TimGui.Opened then
+goal.Position = UDim2.new(1, -400, 1, -25)
+end
 end
 
 for k,v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do
