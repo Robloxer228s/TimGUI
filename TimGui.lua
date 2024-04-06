@@ -12,6 +12,7 @@ local FoldersT = {}
 local BFuncs = {}
 local TOCB = {}
 _G.TimGui = {}
+_G.TimGui.Opened = false
 _G.TimGui.Add = {}
 _G.TimGui.TimControlSet = function(GN, mode, data)
 if mode == "CB" then
@@ -88,6 +89,7 @@ _G.TimGui.Path.Buttons = Func
 local OC = false
 AO.Activated:Connect(function() 
 OC = not OC
+_G.TimGui.Opened = OC
 if OC then
 local goal = {}
 goal.Position = UDim2.new(1, -400, 0, 0) 
