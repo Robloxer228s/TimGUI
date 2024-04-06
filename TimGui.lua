@@ -118,6 +118,11 @@ end
 end) 
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
+if _G.TimGui.ru then
+local tmpp = text
+text = rus
+rus = tmpp
+end
 local Temp = Instance.new("ImageLabel") 
 if not (group == FA) then
 Temp.Visible = false
@@ -185,6 +190,11 @@ return ButTab[name]
 end
 
 _G.TimGui.Add.B = function(name, text, group, yy, rus, funct)
+if _G.TimGui.ru then
+local tmpp = text
+text = rus
+rus = tmpp
+end
 local Temp = Instance.new("ImageLabel") 
 if not (group == FA) then
 Temp.Visible = false
@@ -246,6 +256,11 @@ return ButTab[name]
 end
 
 _G.TimGui.Add.TB = function(name, text, group, yy, rus) 
+if _G.TimGui.ru then
+local tmpp = text
+text = rus
+rus = tmpp
+end
 local Temp = Instance.new("ImageLabel") 
 if not (group == FA) then
 Temp.Visible = false
@@ -380,7 +395,11 @@ TmpTwo.Parent = Tmp
 if not (rus == nil) then
 TmpTwo.Value = rus
 else
-TmpTwo.Value = text
+TmpTwo.Value = name
+end
+if _G.TimGui.ru then
+Tmp.Text = TmpTwo.Value
+TmpTwo.Value = name
 end
 Tmp.Size = UDim2.new(1, 0, 1, 0) 
 Tmp.TextScaled = true
