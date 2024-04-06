@@ -39,8 +39,8 @@ local ren = _G.TimGui.Add.TB("ren", "Rename(if not null)", "Settings", 3, "Пе�
 _G.TimGui.Add.B("sc", "Set config", "Settings", 4, "Настроить конфиг", function()
 if not (ren == "") then
 plset.Configs[plset.Config] = ren.Text
-_G.TimGui.Get(plset.Config, "Settings").Parent.Text.Text = ren.Text
 setF("Settings", plset)
+_G.TimGui.Get(plset.Config, "Settings").Parent.Text.Text = ren.Text
 ren.Text = ""
 end
 local tab = {}
