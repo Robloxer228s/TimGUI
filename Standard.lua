@@ -28,7 +28,7 @@ Tele.RequiresHandle = false
 Tele.RobloxLocked = true
 Tele.Name = "TPTool"
 Tele.ToolTip = "Teleport Tool"
-if not _G.eng then
+if _G.TimGui.ru then
 Tele.Name = "ТПВтулка"
 Tele.ToolTip = "Подотри ей, чтоб тепнутся"
 end
