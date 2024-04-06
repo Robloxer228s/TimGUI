@@ -24,7 +24,7 @@ return 0
 end
 
 local code = 0
-_G.TimGui.Add.CB("TC", "TimConnect", "Player", 13, "TimConnect", function(TC)
+_G.TimGui.Add.CB("TC", "TimConnect", "Settings", 8, "TimConnect", function(TC)
 if TC.Value then 
 TC.Parent.Text.Text = "Connecting"
 code = Connect()
@@ -106,7 +106,7 @@ Control(v)
 end
 elseif get == "GC" then
 local tab = {}
-tab[1] = not _G.eng
+tab[1] = _G.TimGui.ru
 tab[2] = game.GameId
 if not (_G.UBF == nil) then
 tab[3] = _G.UBF
