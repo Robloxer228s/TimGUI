@@ -122,6 +122,9 @@ if _G.TimGui.ru then
 local tmpp = text
 text = rus
 rus = tmpp
+if text == nil then
+text = rus
+end
 end
 local Temp = Instance.new("ImageLabel") 
 if not (group == FA) then
@@ -194,6 +197,9 @@ if _G.TimGui.ru then
 local tmpp = text
 text = rus
 rus = tmpp
+if text == nil then
+text = rus
+end
 end
 local Temp = Instance.new("ImageLabel") 
 if not (group == FA) then
@@ -260,6 +266,9 @@ if _G.TimGui.ru then
 local tmpp = text
 text = rus
 rus = tmpp
+if text == nil then
+text = rus
+end
 end
 local Temp = Instance.new("ImageLabel") 
 if not (group == FA) then
