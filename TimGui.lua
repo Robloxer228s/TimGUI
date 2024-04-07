@@ -86,6 +86,82 @@ Func.Size = UDim2.new(1, -100, 1, -25)
 Func.Position = UDim2.new(0, 100, 0, 25) 
 _G.TimGui.Path.Buttons = Func
 
+_G.TimGui.askYN = function(name, rusname, text, rustxt, onyes)
+local Menu = Instance.new("ImageLabel") 
+Menu.Size = UDim2.new(0, 425, 0, 300)
+Menu.Position = UDim2.new(0.5, -212.5, -2, 0) 
+Menu.BackgroundTransparency = 100
+if _G.TimGui.ru then
+Menu.Image = "rbxassetid://17041335616"
+else
+Menu.Image = "rbxassetid://17041343700"
+end
+Menu.Parent = _G.TimGui.Path.Main.Parent
+
+local Tempp = Instance.new("StringValue") 
+Tempp.Name = "name"
+Tempp.Value = text
+Tempp.Parent = Menu
+
+local nm = Instance.new("TextLabel") 
+nm.Parent = Menu
+nm.BackgroundTransparency = 1
+nm.Name = "Nametxt"
+nm.Text = name
+if _G.TimGui.ru then nm.Text = rusname end
+nm.Size = UDim2.new(0, 300, 0, 50) 
+nm.TextScaled = true
+nm.Position = UDim2.new(0, 57, 0, 0) 
+nm.TextColor3 = Color3.new(1, 1, 1) 
+
+local textt = Instance.new("TextLabel") 
+textt.Parent = Menu
+textt.BackgroundTransparency = 1
+textt.Name = "text"
+textt.Text = text
+if _G.TimGui.ru then textt.Text = rustxt end
+textt.TextScaled = true
+textt.Size = UDim2.new(0, 350, 0, 100) 
+textt.Position = UDim2.new(0, 3, 0, 70) 
+textt.TextColor3 = Color3.new(1, 1, 1) 
+
+local No = Instance.new("TextButton") 
+No.Parent = Menu
+No.BackgroundTransparency = 1
+No.Name = "N"
+No.Text = ""
+No.Size = UDim2.new(0, 115, 0, 85) 
+No.Position = UDim2.new(0, 70, 0, 185) 
+
+local Yes = Instance.new("TextButton") 
+Yes.Parent = Menu
+Yes.BackgroundTransparency = 1
+Yes.Name = "Y"
+Yes.Text = ""
+Yes.Size = UDim2.new(0, 115, 0, 85) 
+Yes.Position = UDim2.new(0, 190, 0, 185)
+
+No.Activated:Connect(function()
+local goal = {}
+goal.Position = UDim2.new(0.5, -212.5, 2, 0) 
+game:GetService("TweenService"):Create(Menu, TweenInfo.new(1), goal):Play() 
+wait(1) 
+Menu:Destroy()
+end) 
+
+Yes.Activated:Connect(function()
+local goal = {}
+goal.Position = UDim2.new(0.5, -212.5, 2, 0) 
+game:GetService("TweenService"):Create(Menu, TweenInfo.new(1), goal):Play() 
+wait(1)
+Menu:Destroy()
+onyes()
+end) 
+local goal = {}
+goal.Position = UDim2.new(0.5, -212.5, 0.5, -150) 
+game:GetService("TweenService"):Create(Menu, TweenInfo.new(1), goal):Play() 
+end
+
 local OC = false
 AO.Activated:Connect(function() 
 OC = not OC
