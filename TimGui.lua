@@ -495,6 +495,7 @@ Tmp.TextColor3 = Color3.new(1, 1, 1)
 Tmp.Activated:Connect(function() 
 _G.TimGui.SetGroup(name)
 end) 
+if not (_G.TimGui.MGF == nil) then _G.TimGui.MGF.Created(name, yy) end
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
 _G.TimGui.Add.G("Settings","Настройки") 
