@@ -82,7 +82,7 @@ end)
 local BDel = _G.TimGui.Add.CB("BDel","Remove obstacles","Build a boat",3,"Удалять препятствия(каждые 30 сек)")
 
 local WS = _G.TimGui.Add.TB("WS","WaterSpeed:","Build a boat",4,"Скорость воды:")
-WS.Text = 0
+if WS.Text == "" then WS.Text = 0 end
 WS.Changed:Connect(function()
 if not AFK.Value then
 aw.Velocity = Vector3.new(0,0,25*WS.Text) 
