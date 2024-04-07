@@ -36,7 +36,7 @@ response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
 end
 local ren = _G.TimGui.Add.TB("ren", "Rename(if not null)", "Settings", 3, "Переименовать конфиг (ничего = ненадо)")
 _G.TimGui.Add.B("sc", "Set config", "Settings", 4, "Настроить конфиг", function()
-if not (ren == "") then
+if not (ren.Text == "") then
 plset.Configs[plset.Config] = ren.Text
 setF("Settings", plset)
 _G.TimGui.Get(plset.Config, "Settings").Parent.Text.Text = ren.Text
