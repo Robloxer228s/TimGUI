@@ -1,7 +1,7 @@
 _G.TimGui.Add.G("LuckyBlocks") 
 local count = _G.TimGui.Add.TB("count", "Quantity:", "LuckyBlocks", 1,"Количество:") 
 count.Text = 1
-_G.ABF("zero", "LuckyBlock", "LuckyBlocks", 2 ,nil , function() 
+_G.ABF("zero", "LuckyBlock", "LuckyBlocks", 2 , nil, function() 
 for v = 0, count.Text, 1 do
 game.ReplicatedStorage.SpawnLuckyBlock:FireServer() 
 end
