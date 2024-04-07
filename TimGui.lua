@@ -385,6 +385,7 @@ ButTab[name].BackgroundTransparency = 0.4
 ButTab[name].Size = UDim2.new(0.5, -40, 1, 0) 
 ButTab[name].Position = UDim2.new(0.5, 0, 0, 0)
 ButTab[name].Text = ""
+if not (_G.TimGui.config[group .. "." .. name] == nil) then ButTab[name].Text = _G.TimGui.config[group .. "." .. name] end 
 ButTab[name].ClearTextOnFocus = false 
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
