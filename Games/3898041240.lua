@@ -9,11 +9,11 @@ end
 end
 
 
-_G.TimGui.Add.B("Touch", "TP to leader", "Leader", 1, "ТП к лидера", function()
+_G.TimGui.Add.B("Touch", "TP to leader", "Leader", 1, "ТП к лидеру", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end)
 
-local ATP =  _G.TimGui.Add.CB("AutoTP", "AutoTP to leader", "Leader", 2, "АвтоТП к лидера")
+local ATP =  _G.TimGui.Add.CB("AutoTP", "AutoTP to leader", "Leader", 2, "АвтоТП к лидеру")
 
 while true do
 wait(0.05) 
