@@ -34,7 +34,7 @@ post.content = game:GetService("HttpService"):JSONEncode(tab)
 --print(game:GetService("HttpService"):JSONEncode(post)) 
 response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
 end
-
+local conftab
 local ren = _G.TimGui.Add.TB("ren", "Rename(if not null)", "Settings", 3, "Переименовать конфиг (ничего = ненадо)")
 _G.TimGui.Add.B("sc", "Set config", "Settings", 4, "Настроить конфиг", function()
 if not (ren == "") then
@@ -43,7 +43,7 @@ setF("Settings", plset)
 _G.TimGui.Get(plset.Config, "Settings").Parent.Text.Text = ren.Text
 ren.Text = ""
 end
-local tab = {}
+local tab = conftab
 for k,v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do 
 if not (v.group.Value == "Settings") then
 --if v:FindFirstChild("Value") then
@@ -52,14 +52,18 @@ if not (v.group.Value == "Settings") then
 if v:FindFirstChild("TextBox") then
 if not (v.TextBox.Text == "") then
 tab[v.group.Value .. "." .. v.Name] = v.TextBox.Text
+else
+tab[v.group.Value .. "." .. v.Name] = nil
 end
 end
 end -- group not settings
 end
+conftab = tab
 setF("Config" .. plset.Config, tab)
 end)
 
 local SetConfig = function(Conf)
+conftab = Conf
 for k,v in pairs(Conf) do
 --if v == false or v == true then
 --_G.TimGui.TimControlSet(k, "CB", v)
