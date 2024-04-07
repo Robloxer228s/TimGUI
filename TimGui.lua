@@ -1,9 +1,7 @@
 --[[
-Please, use this script:
-
+Please, use this script(for updates):
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
-
 
 ]]
 local atpp
