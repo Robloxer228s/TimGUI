@@ -192,6 +192,7 @@ end
 end) 
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
+if rus == nil then rus = text end
 if _G.TimGui.ru then
 local tmpp = text
 text = rus
@@ -267,6 +268,7 @@ return ButTab[name]
 end
 
 _G.TimGui.Add.B = function(name, text, group, yy, rus, funct)
+if rus == nil then rus = text end
 if _G.TimGui.ru then
 local tmpp = text
 text = rus
@@ -337,6 +339,7 @@ end
 
 _G.TimGui.config = {}
 _G.TimGui.Add.TB = function(name, text, group, yy, rus) 
+if rus == nil then rus = text end
 if _G.TimGui.ru then
 local tmpp = text
 text = rus
