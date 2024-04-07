@@ -335,6 +335,7 @@ end
 return ButTab[name]
 end
 
+_G.TimGui.config = {}
 _G.TimGui.Add.TB = function(name, text, group, yy, rus) 
 if _G.TimGui.ru then
 local tmpp = text
