@@ -473,6 +473,10 @@ FoldersT[name] = {}
 local yy = Folders:GetChildren() 
 yy = #yy
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+local Tempp = Instance.new("NumberValue") 
+Tempp.Name = "pos"
+Tempp.Value = yy
+Tempp.Parent = Temp
 local Tmp = Instance.new("TextButton") 
 Tmp.Parent = Temp
 Tmp.BackgroundTransparency = 100
@@ -495,7 +499,6 @@ Tmp.TextColor3 = Color3.new(1, 1, 1)
 Tmp.Activated:Connect(function() 
 _G.TimGui.SetGroup(name)
 end) 
-if not (_G.TimGui.MGF == nil) then _G.TimGui.MGF.Created(name, yy) end
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
 _G.TimGui.Add.G("Settings","Настройки") 
