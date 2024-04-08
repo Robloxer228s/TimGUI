@@ -74,7 +74,7 @@ Folders.ScrollBarThickness = 5
 Folders.BackgroundColor3 = Color3.new(0.15, 0.15, 0.25) 
 Folders.Size = UDim2.new(0, 100, 1, -25) 
 Folders.Position = UDim2.new(0, 0, 0, 25) 
-_G.TimGui.Path.Groups = FoldeFolders
+_G.TimGui.Path.Groups = Folders
 Folders.ScrollingDirection = 2
 
 local Func = Instance.new("ScrollingFrame") 
