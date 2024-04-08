@@ -475,6 +475,13 @@ FoldersT[name] = {}
 local yy = Folders:GetChildren() 
 yy = #yy
 Temp.Position = UDim2.new(0, 0, 0, 50 * (yy - 1)) 
+if _G.TimGui.HMGF then
+local yyy = _G.TimGui.Path.HidedGroups:GetChildren()
+yy = yy + #yyy
+if _G.TimGui.HMGF[name] then 
+Temp.Parent = _G.TimGui.Path.HidedGroups
+end
+end
 local Tempp = Instance.new("NumberValue") 
 Tempp.Name = "pos"
 Tempp.Value = yy
