@@ -26,6 +26,11 @@ local function CLC()
 if attach then
 game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game) 
 attach = false
+local Tmp = Instance.new("BoolValue")
+Tmp.Changed:Connect(function()
+wait(3)
+attach = true
+end)
 prev = 0
 rad = 0
 end
