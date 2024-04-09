@@ -70,14 +70,15 @@ if radios.Text == "" then
 radios.Text = 1
 end
 if Auto.Value == true then
-rad = 0
 if not (prev == nil) then
-local check = prev.X - ball.CFrame.X
-rad = rad + math.abs(check)
-check = prev.Y - ball.CFrame.Y
+rad = math.abs(prev.X - ball.CFrame.X)
+print("x:" .. rad)
+local check = prev.Y - ball.CFrame.Y
+print("y:" .. check)
 rad = rad + math.abs(check)
 check = prev.Z - ball.CFrame.Z
 rad = rad + math.abs(check)
+print("z:" .. check)
 rad = rad * 3
 print(rad)
 end
