@@ -24,7 +24,7 @@ local prev
 
 local ReLoad = Instance.new("BoolValue")
 ReLoad.Changed:Connect(function()
-wait(1.5)
+wait(1.25)
 attach = true
 end)
 
