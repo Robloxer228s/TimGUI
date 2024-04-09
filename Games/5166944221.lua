@@ -33,7 +33,7 @@ end
 end
 
 
-local InterFrame = game.Players.LocalPlayer.PlayerGui.HUD.HolderBottom.IntermissionFrame
+local InterFrame = game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD").HolderBottom.IntermissionFrame
 InterFrame.DescriptionLabel.Changed:Connect(function()
 if InterFrame.Visible and AFK.Value then
 if _G.debug then
