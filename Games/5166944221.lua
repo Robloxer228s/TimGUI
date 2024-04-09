@@ -46,6 +46,8 @@ end
 end
 end)
 end)
+AFKvvv.Value = true
+
 
 while true do
 wait(0.05) 
