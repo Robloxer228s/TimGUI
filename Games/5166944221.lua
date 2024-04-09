@@ -79,10 +79,10 @@ rad = rad + math.abs(check)
 check = prev.Z - ball.CFrame.Z
 rad = rad + math.abs(check)
 rad = rad * 3
+print(rad)
 end
 prev = ball.CFrame
 if pos < rad or pos < 50 then
-print(rad)
 CLC() 
 end
 elseif Arabic.Value then
