@@ -20,7 +20,7 @@ end)
 
 local rad = 0
 local RB = Color3.new(1, 0, 0) 
-local prev  = 0
+local prev
 
 local ReLoad = Instance.new("BoolValue")
 ReLoad.Changed:Connect(function()
@@ -32,7 +32,7 @@ local function CLC()
 game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game) 
 attach = false
 ReLoad.Value = not ReLoad.Value
-prev = 0
+prev = nil
 rad = 0
 end
 
@@ -71,7 +71,7 @@ radios.Text = 1
 end
 if Auto.Value == true then
 rad = 0
-if not prev == 0 then
+if not prev == nil then
 local check = prev.X - ball.CFrame.X
 rad = rad + math.abs(check)
 check = prev.Y - ball.CFrame.Y
