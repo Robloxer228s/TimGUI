@@ -71,7 +71,7 @@ radios.Text = 1
 end
 if Auto.Value == true then
 if not (prev == nil) then
-rad = math.abs(pos - prev) * 1.5
+rad = math.abs(pos - prev) * 2.25
 print("--------------------")
 print("prev:" .. prev .. "\n pos:" .. pos .. "\n rad:" .. rad)
 end
