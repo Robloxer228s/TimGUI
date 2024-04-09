@@ -74,13 +74,15 @@ if not (prev == nil) then
 rad = math.abs(prev.X - ball.CFrame.X)
 print("-------------------------")
 local check = prev.Y - ball.CFrame.Y
-print("prev:" .. prev)
+print(prev)
 rad = rad + math.abs(check)
 check = prev.Z - ball.CFrame.Z
 rad = rad + math.abs(check)
-print("this:" .. ball.CFrame)
+print(ball.CFrame)
+print("--")
 rad = rad * 3
 print("rad:" .. rad)
+print("--")
 end
 prev = ball.CFrame
 if pos < rad or pos < 50 then
