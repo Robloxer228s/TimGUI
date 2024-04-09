@@ -147,3 +147,94 @@ xtwoBut.Changed:Connect(function()
 plset.xtwo = xtwoBut.Value
 setF("Settings", plset)
 end)
+
+--MGF
+
+local gn = "Manage groups/folders" .. math.random(1000, 9999)
+_G.TimGui.Add.G(gn) 
+_G.TimGui.Path.Groups[gn]:Destroy()
+
+local findGR = function(name) 
+for k, v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do
+if v.Name == name then
+return v
+end
+end
+end
+
+local upd = function() 
+for k, v in pairs(_G.TimGui.Path.Groups:GetChildren()) do
+if not (v.Name == "Settings") then
+local rus
+if v.Name == v.Text.Text then
+rus = v.Text.Value.Value
+else
+rus = v.Text.Text
+end
+if not findGR(v.Name) then
+_G.TimGui.Add.CB(v.Name, v.Name, gn, (v.pos.Value), rus)
+end
+end
+end
+
+for k, v in pairs(_G.TimGui.Path.HidedGroups:GetChildren()) do
+local rus
+if v.Name == v.Text.Text then
+rus = v.Text.Value.Value
+else
+rus = v.Text.Text
+end
+if not findGR(v.Name) then
+_G.TimGui.Add.CB(v.Name, v.Name, gn, (v.pos.Value), rus)
+end
+end
+end
+
+_G.TimGui.Path.HidedGroups = Instance.new("Folder") 
+_G.TimGui.Add.B(gn, "Save", gn, 1, "Сохранить", function()
+local neyy = 0
+for k, v in pairs(_G.TimGui.Path.Groups:GetChildren()) do
+if not (v.Name == "Settings") then
+if _G.TimGui.Get(v.Name, gn).Value then
+v.Parent = _G.TimGui.Path.HidedGroups
+end
+end -- Settings
+end
+for k, v in pairs(_G.TimGui.Path.HidedGroups:GetChildren()) do
+if not (_G.TimGui.Get(v.Name, gn).Value) then
+v.Parent = _G.TimGui.Path.Groups
+end
+end
+local tab = {}
+for k, v in pairs(_G.TimGui.Path.Groups:GetChildren()) do
+tab[v.pos.Value] = "NH"
+_G.TimGui.HMGF[v.Name] = nil
+end
+for k, v in pairs(_G.TimGui.Path.HidedGroups:GetChildren()) do
+tab[v.pos.Value] = "H"
+_G.TimGui.HMGF[v.Name] = true
+end
+
+for k, v in pairs(_G.TimGui.Path.Groups:GetChildren()) do
+local yyy = v.pos.Value
+local yy = yyy
+for kk, vv in pairs(tab) do
+if kk < yy and vv == "H" then
+yy = yy - 1
+end
+end
+v.Position = UDim2.new(0, 0, 0, 50 * (yy - 1))
+end
+setF("MGF", _G.TimGui.HMGF) 
+end) 
+
+_G.TimGui.Add.B("MGF", "Hide groups", "Settings", 9, "Спрятать группы", function()
+upd() 
+_G.TimGui.SetGroup(gn)
+end) 
+
+_G.TimGui.HMGF = getF("MGF") 
+for k, v in pairs(_G.TimGui.HMGF) do
+_G.TimGui.Set(k, gn, v)
+end
+_G.TimGui.Set(gn, gn)
