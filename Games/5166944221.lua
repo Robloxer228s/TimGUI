@@ -27,7 +27,7 @@ game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
 attach = false
 local Tmp = Instance.new("BoolValue")
 Tmp.Changed:Connect(function()
-wait(3)
+wait(1.5)
 attach = true
 end)
 prev = 0
