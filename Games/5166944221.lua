@@ -75,6 +75,7 @@ rad = math.abs(prev.X - ball.CFrame.X)
 print("-------------------------")
 local check = prev.Y - ball.CFrame.Y
 print(prev)
+print("--")
 rad = rad + math.abs(check)
 check = prev.Z - ball.CFrame.Z
 rad = rad + math.abs(check)
@@ -82,7 +83,6 @@ print(ball.CFrame)
 print("--")
 rad = rad * 3
 print("rad:" .. rad)
-print("--")
 end
 prev = ball.CFrame
 if pos < rad or pos < 50 then
