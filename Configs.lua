@@ -185,7 +185,7 @@ else
 rus = v.Text.Text
 end
 if not findGR(v.Name) then
-_G.TimGui.Add.CB(v.Name, v.Name, gn, (v.pos.Value), rus)
+_G.TimGui.Add.CB(v.Name, v.Name, gn, (v.pos.Value), rus).Value = true
 end
 end
 end
