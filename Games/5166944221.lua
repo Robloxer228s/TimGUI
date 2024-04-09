@@ -1,7 +1,7 @@
 --DeathBall
 local userInputService = game:GetService("UserInputService")
 local attach = true
-_G.AGF("DeathBall")
+_G.TimGui.Add.G("DeathBall")
 local Auto = _G.TimGui.Add.CB("Auto","Auto(bug)","DeathBall",2,"Авто(баганый)")
 local Arabic = _G.TimGui.Add.CB("Arabic","Arabic","DeathBall",3,"Арабик")
 local AFK = _G.TimGui.Add.CB("AFK","AFK(tp to intermission)","DeathBall",4,"АФК(ТП в интермиссию)")
