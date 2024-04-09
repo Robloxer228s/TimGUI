@@ -2,7 +2,7 @@
 local userInputService = game:GetService("UserInputService")
 local attach = true
 _G.TimGui.Add.G("DeathBall")
-local Auto = _G.TimGui.Add.CB("Auto","Auto(bug)","DeathBall",2,"Авто(баганый)")
+local Auto = _G.TimGui.Add.CB("Auto","Auto(buged)","DeathBall",2,"Авто(баганый)")
 local Arabic = _G.TimGui.Add.CB("Arabic","Arabic","DeathBall",3,"Арабик")
 local radios = _G.TimGui.Add.TB("rad","Radius(0-off):","DeathBall",1,"Радиус(0-выкл):")
 _G.TimGui.Add.B("spawn","TP to spawn","DeathBall",4,"ТП на спавн", function() 
