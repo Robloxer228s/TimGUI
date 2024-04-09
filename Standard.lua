@@ -40,7 +40,16 @@ end
 end)
 end)
 end)
-local Mouse = game.Players.LocalPlayer:GetMouse()
+local Mouse 
+while true do
+wait(0.1)
+local success, response = pcall(function()
+Mouse = game.Players.LocalPlayer:GetMouse()
+end)
+if success then
+break
+end
+end
 local obj
 local nada
 local sb
