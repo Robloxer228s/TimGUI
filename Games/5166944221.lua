@@ -4,9 +4,8 @@ local attach = true
 _G.TimGui.Add.G("DeathBall")
 local Auto = _G.TimGui.Add.CB("Auto","Auto(bug)","DeathBall",2,"Авто(баганый)")
 local Arabic = _G.TimGui.Add.CB("Arabic","Arabic","DeathBall",3,"Арабик")
-local AFK = _G.TimGui.Add.CB("AFK","AFK(tp to intermission)","DeathBall",4,"АФК(ТП в интермиссию)")
 local radios = _G.TimGui.Add.TB("rad","Radius(0-off):","DeathBall",1,"Радиус(0-выкл):")
-_G.TimGui.Add.B("spawn","TP to spawn","DeathBall",5,"ТП на спавн", function() 
+_G.TimGui.Add.B("spawn","TP to spawn","DeathBall",4,"ТП на спавн", function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SpawnLocation.CFrame
 end) 
 radios.Text = 0
@@ -32,8 +31,10 @@ rad = 0
 end
 end
 
-
+local AFKvvv = Instance.new("BoolValue")
+AFKvvv.Changed:Connect(function()
 local InterFrame = game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD").HolderBottom.IntermissionFrame
+local AFK = _G.TimGui.Add.CB("AFK","AFK(tp to intermission)","DeathBall",5,"АФК(ТП в интермиссию)")
 InterFrame.DescriptionLabel.Changed:Connect(function()
 if InterFrame.Visible and AFK.Value then
 if _G.debug then
@@ -44,6 +45,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["New
 end
 end
 end)
+end)
 
 while true do
 wait(0.05) 
@@ -52,20 +54,11 @@ if ball.Highlight.FillColor == RB then
 local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local pos = 0
 local Check = ball.CFrame.X - playerPos.X
-if Check < 0 then
-Check = - Check
-end
-pos = pos + Check
-local Check = ball.CFrame.Y - playerPos.Y
-if Check < 0 then
-Check = - Check
-end
-pos = pos + Check
-local Check = ball.CFrame.Z - playerPos.Z
-if Check < 0 then
-Check = - Check
-end
-pos = pos + Check
+pos = pos + math.abs(Check)
+Check = ball.CFrame.Y - playerPos.Y
+pos = pos + math.abs(Check)
+Check = ball.CFrame.Z - playerPos.Z
+pos = pos + math.abs(Check)
 if radios.Text == "" then
 radios.Text = 1
 end
@@ -73,32 +66,21 @@ if Auto.Value == true then
 rad = 0
 if not prev == 0 then
 local check = prev.X - ball.CFrame.X
-if check < 0 then
-check = - check
-end
-rad = rad + check
+rad = rad + math.abs(check)
 check = prev.Y - ball.CFrame.Y
-if check < 0 then
-check = - check
-end
-rad = rad + check
+rad = rad + math.abs(check)
 check = prev.Z - ball.CFrame.Z
-if check < 0 then
-check = - check
-end
-rad = rad + check
+rad = rad + math.abs(check)
 rad = rad * 3
 end
 prev = ball.CFrame
 if pos < rad or pos < 50 then
-if _G.debug then
 print(rad)
-end
 CLC() 
 end
 elseif Arabic.Value then
 CLC()
-wait(0.05)
+wait(0.15)
 for v=1,20 do
 if ball.Highlight.FillColor == RB then
 wait(0.05)
