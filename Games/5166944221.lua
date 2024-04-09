@@ -71,8 +71,7 @@ radios.Text = 1
 end
 if Auto.Value == true then
 rad = 0
-print(prev)
-if not prev == nil then
+if not (prev == nil) then
 local check = prev.X - ball.CFrame.X
 rad = rad + math.abs(check)
 check = prev.Y - ball.CFrame.Y
