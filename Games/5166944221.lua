@@ -23,7 +23,6 @@ local RB = Color3.new(1, 0, 0)
 local prev  = 0
 
 local function CLC()
-if attach then
 game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game) 
 attach = false
 local Tmp = Instance.new("BoolValue")
@@ -33,7 +32,6 @@ attach = true
 end)
 prev = 0
 rad = 0
-end
 end
 
 local AFKvvv = Instance.new("BoolValue")
@@ -57,7 +55,7 @@ AFKvvv.Value = true
 while true do
 wait(0.05) 
 local ball = game.Workspace:WaitForChild("Part") 
-if ball.Highlight.FillColor == RB then
+if ball.Highlight.FillColor == RB and attach then
 local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local pos = 0
 local Check = ball.CFrame.X - playerPos.X
