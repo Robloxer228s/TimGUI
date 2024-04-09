@@ -22,14 +22,16 @@ local rad = 0
 local RB = Color3.new(1, 0, 0) 
 local prev  = 0
 
-local function CLC()
-game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game) 
-attach = false
-local Tmp = Instance.new("BoolValue")
-Tmp.Changed:Connect(function()
+local ReLoad = Instance.new("BoolValue")
+ReLoad.Changed:Connect(function()
 wait(1.5)
 attach = true
 end)
+
+local function CLC()
+game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game) 
+attach = false
+ReLoad.Value = not ReLoad.Value
 prev = 0
 rad = 0
 end
