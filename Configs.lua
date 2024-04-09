@@ -233,6 +233,7 @@ upd()
 _G.TimGui.SetGroup(gn)
 end) 
 
+upd()
 _G.TimGui.HMGF = getF("MGF") 
 for k, v in pairs(_G.TimGui.HMGF) do
 _G.TimGui.Set(k, gn, v)
