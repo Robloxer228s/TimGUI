@@ -526,7 +526,7 @@ local success, response = pcall(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Settings.lua"))()
 end)
 if not success then
-error("Error to load settings:\n" .. response)
+warn("Error to load settings:\n" .. response)
 end
 print(game.GameId)
 local success, response = pcall(function()
