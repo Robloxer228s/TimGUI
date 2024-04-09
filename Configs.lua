@@ -236,6 +236,8 @@ end)
 upd()
 _G.TimGui.HMGF = getF("MGF") 
 for k, v in pairs(_G.TimGui.HMGF) do
+pcall(function()
 _G.TimGui.Set(k, gn, v)
+end) 
 end
 _G.TimGui.Set(gn, gn)
