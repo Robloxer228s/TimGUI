@@ -72,15 +72,15 @@ end
 if Auto.Value == true then
 if not (prev == nil) then
 rad = math.abs(prev.X - ball.CFrame.X)
-print("x:" .. rad)
+print("-------------------------")
 local check = prev.Y - ball.CFrame.Y
-print("y:" .. check)
+print("prev:" .. prev)
 rad = rad + math.abs(check)
 check = prev.Z - ball.CFrame.Z
 rad = rad + math.abs(check)
-print("z:" .. check)
+print("this:" .. ball.CFrame)
 rad = rad * 3
-print(rad)
+print("rad:" .. rad)
 end
 prev = ball.CFrame
 if pos < rad or pos < 50 then
