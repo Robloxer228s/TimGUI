@@ -2,12 +2,11 @@
 local userInputService = game:GetService("UserInputService")
 local attach = true
 _G.AGF("DeathBall")
-local Auto = _G.ACBF("Auto","Auto(bug)","DeathBall",2,"Авто(баганый)")
-local Arabic = _G.ACBF("Arabic","Arabic","DeathBall",3,"Арабик")
-local AFK = _G.ACBF("AFK","AFK(tp to intermission)","DeathBall",4,"АФК(ТП в интермиссию)")
-local radios = _G.ATBF("rad","Radius(0-off):","DeathBall",1,"Радиус(0-выкл):")
-local spawn = _G.ABF("spawn","TP to spawn","DeathBall",5,"ТП на спавн")
-spawn.Activated:Connect(function() 
+local Auto = _G.TimGui.Add.CB("Auto","Auto(bug)","DeathBall",2,"Авто(баганый)")
+local Arabic = _G.TimGui.Add.CB("Arabic","Arabic","DeathBall",3,"Арабик")
+local AFK = _G.TimGui.Add.CB("AFK","AFK(tp to intermission)","DeathBall",4,"АФК(ТП в интермиссию)")
+local radios = _G.TimGui.Add.TB("rad","Radius(0-off):","DeathBall",1,"Радиус(0-выкл):")
+_G.TimGui.Add.B("spawn","TP to spawn","DeathBall",5,"ТП на спавн", function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SpawnLocation.CFrame
 end) 
 radios.Text = 0
@@ -46,7 +45,7 @@ end)
 
 while true do
 wait(0.05) 
-local ball = game.Workspace.FX:WaitForChild("Mobile_Default") 
+local ball = game.Workspace:WaitForChild("Part") 
 if ball.Highlight.FillColor == RB then
 local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local pos = 0
