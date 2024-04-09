@@ -73,7 +73,10 @@ if Auto.Value == true then
 if not (prev == nil) then
 rad = math.abs(pos - prev) * 2.25
 print("--------------------")
-print("prev:" .. prev .. "\n pos:" .. pos .. "\n rad:" .. rad)
+print("prev:" .. prev .. "\n pos:" .. pos .. "\n rad(x2.25):" .. rad)
+if rad > 300 then
+rad = 300
+end
 end
 prev = pos
 if pos < rad or pos < 50 then
