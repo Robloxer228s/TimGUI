@@ -72,6 +72,8 @@ end
 if Auto.Value == true then
 if not (prev == nil) then
 rad = math.abs(pos - prev) * 3
+print("--------------------")
+print("prev:" .. prev .. "\n pos:" .. pos .. "\n rad:" .. rad)
 end
 prev = pos
 if pos < rad or pos < 50 then
