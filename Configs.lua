@@ -7,7 +7,7 @@ post.file = name
 local response = game:HttpPostAsync("http://bagirovict.temp.swtest.ru", post)
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
-print(response) 
+print(name .. ".".. response) 
 response = game:GetService("HttpService"):JSONDecode(response)
 if response[game.Players.LocalPlayer.Name] == nil then
 response[game.Players.LocalPlayer.Name] = {}
