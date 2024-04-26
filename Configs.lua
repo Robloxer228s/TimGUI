@@ -4,11 +4,9 @@ local post = {}
 post.operation = "fileget"
 post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
 post.file = name
-local response = game:HttpPost("http://google.com", post)
---local response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
+local response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
 response = string.gsub(response, "%.q_%.", '"')
 response = string.gsub(response, "%.ns_%.", '\n')
-print(name .. ".".. response) 
 response = game:GetService("HttpService"):JSONDecode(response)
 if response[game.Players.LocalPlayer.Name] == nil then
 response[game.Players.LocalPlayer.Name] = {}
