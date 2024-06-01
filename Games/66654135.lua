@@ -10,7 +10,7 @@ _G.TimGui.Add.G("MM2")
 
 local AutoShooting = _G.TimGui.Add.CB("ASB", "AutoShoot to murder(beta)", "MM2", 10, "Стрельнуть в убийцу") 
 local shootOffsets = _G.TimGui.Add.TB("ASO", "ShootOffset", "MM2", 11, "ShootOffset") 
-shootOffset.Text = 3.5
+shootOffsets.Text = 3.5
 AutoShooting.Changed:Connect(function()
 				if sher == game.Players.LocalPlayer and AutoShooting.Value then
 					print("Auto-shooting started.")
