@@ -51,8 +51,8 @@ AutoShooting.Changed:Connect(function()
 							game:GetService("Players").LocalPlayer.Character.Gun.KnifeServer.ShootGun:InvokeServer(unpack(args))
 						end
 					until findSheriff() ~= game.Players.LocalPlayer or not AutoShooting.Value
-					AutoShooting.Value = false
 				end
+AutoShooting.Value = false
 end)
 
 _G.TimGui.Add.B("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
