@@ -1,6 +1,7 @@
 @  Status: TimGui is temporarily closed. Configs rarely work.
 
-.
+ᅠ
+ᅠ
 
 @  Suported Games:
 
