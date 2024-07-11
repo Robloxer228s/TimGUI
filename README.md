@@ -1,8 +1,8 @@
 @  Status: TimGui is temporarily closed. Configs rarely work.
- 
- 
- 
- 
+
+
+
+    
 @  Suported Games:
 
 Murder Mystory 2 (Act. with gun don't worked)
