@@ -1,4 +1,4 @@
-Status: TimGui is temporarily closed. Configs rarely work.
+@  Status: TimGui is temporarily closed. Configs rarely work.
 
 
 @  Suported Games:
