@@ -188,7 +188,10 @@ end)
 while true do 
 wait(1) 
 pcall(function()
-local char = game.Workspace:FindFirstChild("GunDrop") 
+local char = game.Workspace:FindFirstChild("GunDrop")
+if not char then 
+char = game.Workspace.Normal:FindFirstChild("GunDrop")
+end
 if char then
 if ESP.Value and ESPGD.Value then
 if not char:FindFirstChild("NotEsp") then
