@@ -10,7 +10,7 @@
 
 @  Suported Games:
 
-Murder Mystory 2 (Act. with gun don't worked)
+Murder Mystory 2 (Shot to murder don't work)
 
 Break in 
 
