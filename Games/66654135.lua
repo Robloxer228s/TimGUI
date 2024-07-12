@@ -66,7 +66,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1,
 end)
 
 _G.TimGui.Add.B("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету", function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.GunDrop.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Normal.GunDrop.CFrame
 end) 
 
 
