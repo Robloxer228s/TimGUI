@@ -194,6 +194,72 @@ tween:Play()
 end
 end) 
 
+---------- Keybinds
+local keybinding = nil
+local keybinds = {}
+local CBss = {}
+local lastKeyB = nil
+
+local function keybind(newMode, button, buttonName)
+    if newMode and not (keybinding == nil) then
+        keybinding = nil
+        lastKeyB = nil
+        if button:FindFirstChild("Value") then
+            if button.Value.ClassName = "BoolValue" then
+                keybinding = "CB." .. buttonName
+                CBss[buttonName] = button
+            end
+        else 
+            keybinding = "B." .. buttonName
+        end
+        if not (keybinding = nil) tehn
+            _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
+                for k,v in pairs(keybinds) do
+                    if v == keybinding then 
+                        keybinds[k] = nil
+                    end
+                end
+                if not (lastKeyB == nil) then
+                    keybinds[lastKeyB] = keybinding
+                end
+            end)
+            _G.TimGui.Path.Main.Parent.askYN.AncestryChanged:Connect(function(child, parent)
+                keybinding = nil
+            end)
+        end
+    elseif not newMode then
+        if not (keybinding == nil) then 
+            lastKeyB = Button
+            _G.TimGui.Path.Main.Parent.askYN.text.Text = "Key:" .. Button
+            if _G.TimGui.ru then
+                _G.TimGui.Path.Main.Parent.askYN.text.Text = "Клавиша:" .. Button
+            end
+		 else
+            if not (keybinds[button] == nil) then
+                local but = keybinds[button]
+                if string.sub(but, 1, 2) == "B." then
+                    _G.TimGui.TimControlSet(string.sub(but, 3, string.len(but)+1), "B")
+                else
+                    but = string.sub(but, 4, string.len(but)+1)
+                    _G.TimGui.TimControlSet(but, "CB", not CBss[but].Value.Value)
+                end
+            end
+        end
+    end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    local button = input.KeyCode
+    if not (button.Name == "Unknown") then 
+        if not (keybinding == nil) tehn
+            keybind(false, button, nil)
+        else
+            startKB(button.Name)
+        end
+    end
+end)
+---------- Buttons
+
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
 if rus == nil then rus = text end
 if _G.TimGui.ru then
