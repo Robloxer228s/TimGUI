@@ -88,6 +88,7 @@ Func.ScrollingDirection = 2
 
 _G.TimGui.askYN = function(name, rusname, text, rustxt, onyes)
 local Menu = Instance.new("ImageLabel") 
+Menu.Name = "askYN"
 Menu.Size = UDim2.new(0, 425, 0, 300)
 Menu.Position = UDim2.new(0.5, -212.5, -2, 0) 
 Menu.BackgroundTransparency = 100
