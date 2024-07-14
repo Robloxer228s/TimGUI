@@ -1,4 +1,4 @@
-@  Status: last update — keybinds,not tested. Configs rarely work.
+@  Status: last update — keybinds. Configs rarely work.
 
 ᅠ
 
