@@ -1,4 +1,4 @@
-@  Status: TimGui is temporarily closed. Configs rarely work.
+@  Status: last update — keybinds,not tested. Configs rarely work.
 
 ᅠ
 
