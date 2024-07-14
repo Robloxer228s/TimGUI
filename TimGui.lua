@@ -311,7 +311,7 @@ ButTab[name] = Instance.new("BoolValue")
 ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
 ButTabb.MouseButton2Click:Connect(function() 
-keybind(true, ButTabb, group .. "." .. name)
+keybind(true, Temp, group .. "." .. name)
 end) 
 ButTabb.Activated:Connect(function() 
 ButTab[name].Value = not ButTab[name].Value
@@ -395,8 +395,7 @@ ButTab[name].Size = UDim2.new(1, 0, 1, 0)
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
 ButTab[name].MouseButton2Click:Connect(function() 
-keybind(true, ButTabb, group .. "." .. name)
-keybind(true, ButTab[name], group .. "." .. name)
+keybind(true, Temp, group .. "." .. name) 
 end) 
 ButTab[name].Activated:Connect(function() 
 if not (funct == nil) then
