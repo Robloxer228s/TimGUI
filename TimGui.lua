@@ -215,7 +215,7 @@ local function keybind(newMode, button, buttonName)
         if not (keybinding == nil) then
             _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
                 for k,v in pairs(keybinds) do
-                    if v == keybinding then 
+                    if v == keybinding or k == lastKeyB then 
                         keybinds[k] = nil
 			button.Keybind.Text = ""
                     end
@@ -284,14 +284,6 @@ local Tempp = Instance.new("NumberValue")
 Tempp.Name = "pos"
 Tempp.Value = yy
 Tempp.Parent = Temp
-local MegaTemp = Instance.new("TextLabel") 
-MegaTemp.Parent = Temp
-MegaTemp.BackgroundTransparency = 100
-MegaTemp.Name = "Keybind"
-MegaTemp.Text = ""
-MegaTemp.Size = UDim2.new(0, 25, 0.5, 0) 
-MegaTemp.TextScaled = true
-MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
 local ButTabb = Instance.new("TextButton") 
 ButTabb.Parent = Temp
 ButTabb.BackgroundTransparency = 100
@@ -300,6 +292,14 @@ ButTabb.Text = text
 ButTabb.Size = UDim2.new(1, 0, 1, 0) 
 ButTabb.TextScaled = true
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+local MegaTemp = Instance.new("TextLabel") 
+MegaTemp.Parent = Temp
+MegaTemp.BackgroundTransparency = 100
+MegaTemp.Name = "Keybind"
+MegaTemp.Text = ""
+MegaTemp.Size = UDim2.new(0, 25, 0.5, 0) 
+MegaTemp.TextScaled = true
+MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
 local TmpTwo = Instance.new("StringValue")
 TmpTwo.Parent = ButTabb
 if not (rus == nil) then
@@ -371,6 +371,12 @@ local Tempp = Instance.new("NumberValue")
 Tempp.Name = "pos"
 Tempp.Value = yy
 Tempp.Parent = Temp
+local ButTab = FoldersT[group]
+ButTab[name] = Instance.new("TextButton") 
+ButTab[name].Parent = Temp
+ButTab[name].BackgroundTransparency = 100
+ButTab[name].Name = "Text"
+ButTab[name].Text = text
 local MegaTemp = Instance.new("TextLabel") 
 MegaTemp.Parent = Temp
 MegaTemp.BackgroundTransparency = 100
@@ -379,12 +385,6 @@ MegaTemp.Text = ""
 MegaTemp.Size = UDim2.new(0, 25, 0.5, 0) 
 MegaTemp.TextScaled = true
 MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
-local ButTab = FoldersT[group]
-ButTab[name] = Instance.new("TextButton") 
-ButTab[name].Parent = Temp
-ButTab[name].BackgroundTransparency = 100
-ButTab[name].Name = "Text"
-ButTab[name].Text = text
 local TmpTwo = Instance.new("StringValue")
 TmpTwo.Parent = ButTab[name]
 if not (rus == nil) then
