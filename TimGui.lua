@@ -14,7 +14,11 @@ _G.TimGui.Opened = false
 _G.TimGui.Add = {}
 _G.TimGui.TimControlSet = function(GN, mode, data)
 if mode == "CB" then
+if data == nil then
+TOCB[GN].Value = not TOCB[GN].Value
+else
 TOCB[GN].Value = data
+end
 elseif mode == "TB" then
 TOCB[GN].Text = data
 elseif mode == "B" then
@@ -197,7 +201,6 @@ end)
 ---------- Keybinds
 local keybinding = nil
 local keybinds = {}
-local Bss = {}
 local lastKeyB = nil
 
 local function keybind(newMode, button, buttonName)
@@ -209,7 +212,6 @@ local function keybind(newMode, button, buttonName)
         else 
             keybinding = "B." .. buttonName
         end
-	    Bss[buttonName] = keybinding
         if not (keybinding == nil) then
             _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
                 for k,v in pairs(keybinds) do
@@ -237,10 +239,11 @@ local function keybind(newMode, button, buttonName)
 	elseif not (keybinds[button] == nil) then
             local but = keybinds[button]
             if string.sub(but, 1, 2) == "B." then
-                _G.TimGui.TimControlSet(string.sub(but, 3, string.len(but)+1), "B")
+		local name = string.sub(but, 3, string.len(but)+1)
+                _G.TimGui.TimControlSet(name, "B")
             else
-                but = string.sub(but, 4, string.len(but)+1)
-                _G.TimGui.TimControlSet(but, "CB", not Bss[but].Value.Value)
+                 local name = string.sub(but, 4, string.len(but)+1)
+                _G.TimGui.TimControlSet(name, "CB")
             end
         end
     end
