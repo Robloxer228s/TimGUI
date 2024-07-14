@@ -229,10 +229,10 @@ local function keybind(newMode, button, buttonName)
         end
     elseif not newMode then
         if not (keybinding == nil) then 
-            lastKeyB = Button
-            _G.TimGui.Path.Main.Parent.askYN.text.Text = "Key:" .. Button
+            lastKeyB = button
+            _G.TimGui.Path.Main.Parent.askYN.text.Text = "Key:" .. button
             if _G.TimGui.ru then
-                _G.TimGui.Path.Main.Parent.askYN.text.Text = "Клавиша:" .. Button
+                _G.TimGui.Path.Main.Parent.askYN.text.Text = "Клавиша:" .. button
             end
 	elseif not (keybinds[button] == nil) then
             local but = keybinds[button]
