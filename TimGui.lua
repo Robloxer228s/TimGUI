@@ -154,9 +154,9 @@ Yes.Activated:Connect(function()
 local goal = {}
 goal.Position = UDim2.new(0.5, -212.5, 2, 0) 
 game:GetService("TweenService"):Create(Menu, TweenInfo.new(1), goal):Play() 
+onyes()
 wait(1)
 Menu:Destroy()
-onyes()
 end) 
 local goal = {}
 goal.Position = UDim2.new(0.5, -212.5, 0.5, -150) 
