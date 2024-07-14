@@ -324,7 +324,7 @@ goal.TextColor3 = Color3.new(0.25, 1, 0.25)
 else
 goal.TextColor3 = Color3.new(1, 0.25, 0.25) 
 end
-game:GetService("TweenService"):Create(Menu, TweenInfo.new(0.5), goal):Play() 
+game:GetService("TweenService"):Create(ButTabb, TweenInfo.new(0.5), goal):Play() 
 
 if not (funct == nil) then
 funct(ButTab[name])
