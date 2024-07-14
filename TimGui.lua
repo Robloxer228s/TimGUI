@@ -199,6 +199,7 @@ local keybinding = nil
 local keybinds = {}
 local CBss = {}
 local lastKeyB = nil
+local RightMouseButton = false
 
 local function keybind(newMode, button, buttonName)
     if newMode and not (keybinding == nil) then
@@ -257,7 +258,15 @@ game:GetService("UserInputService").InputBegan:Connect(function(input)
             startKB(button.Name)
         end
     end
+    if input.UserInputType == Enum.UserInputType.MouseButton2 then 
+	RightMouseButton = true
+    end
 end)
+
+game:GetService("UserInputService").InputEnded:Connect(function(input)
+    wait(0.01)
+    RightMouseButton = false
+end) 
 ---------- Buttons
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
@@ -307,6 +316,10 @@ ButTab[name] = Instance.new("BoolValue")
 ButTab[name].Parent = Temp
 FoldersT[group] = ButTab
 ButTabb.Activated:Connect(function() 
+if RightMouseButton then
+keybind(true, ButTabb, group .. "." .. name)
+return
+end
 ButTab[name].Value = not ButTab[name].Value
 end) 
 ButTab[name].Changed:Connect(function() 
@@ -380,6 +393,10 @@ ButTab[name].Size = UDim2.new(1, 0, 1, 0)
 ButTab[name].TextScaled = true
 ButTab[name].TextColor3 = Color3.new(1, 1, 1) 
 ButTab[name].Activated:Connect(function() 
+if RightMouseButton then
+keybind(true, ButTab[name], group .. "." .. name)
+return
+end
 if not (funct == nil) then
 funct(ButTab[name])
 end
