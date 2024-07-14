@@ -317,12 +317,15 @@ end)
 ButTabb.Activated:Connect(function() 
 ButTab[name].Value = not ButTab[name].Value
 end) 
-ButTab[name].Changed:Connect(function() 
+ButTab[name].Changed:Connect(function() 		
+local goal = {}
 if ButTab[name].Value then
-ButTabb.TextColor3 = Color3.new(0.25, 1, 0.25) 
+goal.TextColor3 = Color3.new(0.25, 1, 0.25) 
 else
-ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
+goal.TextColor3 = Color3.new(1, 0.25, 0.25) 
 end
+game:GetService("TweenService"):Create(Menu, TweenInfo.new(0.5), goal):Play() 
+
 if not (funct == nil) then
 funct(ButTab[name])
 end
