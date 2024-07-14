@@ -234,15 +234,13 @@ local function keybind(newMode, button, buttonName)
             if _G.TimGui.ru then
                 _G.TimGui.Path.Main.Parent.askYN.text.Text = "Клавиша:" .. Button
             end
-		 else
-            if not (keybinds[button] == nil) then
-                local but = keybinds[button]
-                if string.sub(but, 1, 2) == "B." then
-                    _G.TimGui.TimControlSet(string.sub(but, 3, string.len(but)+1), "B")
-                else
-                    but = string.sub(but, 4, string.len(but)+1)
-                    _G.TimGui.TimControlSet(but, "CB", not Bss[but].Value.Value)
-                end
+	elseif not (keybinds[button] == nil) then
+            local but = keybinds[button]
+            if string.sub(but, 1, 2) == "B." then
+                _G.TimGui.TimControlSet(string.sub(but, 3, string.len(but)+1), "B")
+            else
+                but = string.sub(but, 4, string.len(but)+1)
+                _G.TimGui.TimControlSet(but, "CB", not Bss[but].Value.Value)
             end
         end
     end
