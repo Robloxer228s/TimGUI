@@ -253,11 +253,7 @@ end
 game:GetService("UserInputService").InputBegan:Connect(function(input)
     local button = input.KeyCode
     if not (button.Name == "Unknown") then 
-        if not (keybinding == nil) then
-            keybind(false, button, nil)
-        else
-            startKB(button.Name)
-        end
+        keybind(false, button, nil)
     end
 end)
 ---------- Buttons
