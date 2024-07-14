@@ -204,10 +204,8 @@ local function keybind(newMode, button, buttonName)
     if newMode and keybinding == nil then
         keybinding = nil
         lastKeyB = nil
-        if button:FindFirstChild("Value") then
-            if button.Value.ClassName == "BoolValue" then
-                keybinding = "CB." .. buttonName
-            end
+        if button:FindFirstChildOfClass("BoolValue") then
+            keybinding = "CB." .. buttonName
         else 
             keybinding = "B." .. buttonName
         end
