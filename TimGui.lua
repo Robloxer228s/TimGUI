@@ -206,14 +206,14 @@ local function keybind(newMode, button, buttonName)
         keybinding = nil
         lastKeyB = nil
         if button:FindFirstChild("Value") then
-            if button.Value.ClassName = "BoolValue" then
+            if button.Value.ClassName == "BoolValue" then
                 keybinding = "CB." .. buttonName
             end
         else 
             keybinding = "B." .. buttonName
         end
 	    Bss[buttonName] = keybinding
-        if not (keybinding = nil) tehn
+        if not (keybinding == nil) then
             _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
                 for k,v in pairs(keybinds) do
                     if v == keybinding then 
@@ -254,7 +254,7 @@ end
 game:GetService("UserInputService").InputBegan:Connect(function(input)
     local button = input.KeyCode
     if not (button.Name == "Unknown") then 
-        if not (keybinding == nil) tehn
+        if not (keybinding == nil) then
             keybind(false, button, nil)
         else
             startKB(button.Name)
