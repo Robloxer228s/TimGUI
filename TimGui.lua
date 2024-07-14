@@ -197,7 +197,7 @@ end)
 ---------- Keybinds
 local keybinding = nil
 local keybinds = {}
-local CBss = {}
+local Bss = {}
 local lastKeyB = nil
 local RightMouseButton = false
 
@@ -208,20 +208,22 @@ local function keybind(newMode, button, buttonName)
         if button:FindFirstChild("Value") then
             if button.Value.ClassName = "BoolValue" then
                 keybinding = "CB." .. buttonName
-                CBss[buttonName] = button
             end
         else 
             keybinding = "B." .. buttonName
         end
+	    Bss[buttonName] = keybinding
         if not (keybinding = nil) tehn
             _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
                 for k,v in pairs(keybinds) do
                     if v == keybinding then 
                         keybinds[k] = nil
+			button.Keybind.Text = ""
                     end
                 end
                 if not (lastKeyB == nil) then
                     keybinds[lastKeyB] = keybinding
+		    button.Keybind.Text = lastKeyB
                 end
             end)
             _G.TimGui.Path.Main.Parent.askYN.AncestryChanged:Connect(function(child, parent)
@@ -242,7 +244,7 @@ local function keybind(newMode, button, buttonName)
                     _G.TimGui.TimControlSet(string.sub(but, 3, string.len(but)+1), "B")
                 else
                     but = string.sub(but, 4, string.len(but)+1)
-                    _G.TimGui.TimControlSet(but, "CB", not CBss[but].Value.Value)
+                    _G.TimGui.TimControlSet(but, "CB", not Bss[but].Value.Value)
                 end
             end
         end
