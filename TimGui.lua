@@ -201,7 +201,7 @@ local Bss = {}
 local lastKeyB = nil
 
 local function keybind(newMode, button, buttonName)
-    if newMode and not (keybinding == nil) then
+    if newMode and keybinding == nil then
         keybinding = nil
         lastKeyB = nil
         if button:FindFirstChild("Value") then
