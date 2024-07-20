@@ -119,7 +119,7 @@ obj:Destroy()
 end) 
 
 _G.TimGui.Add.B("CP", "Copy path", "Map", 4, "Копировать путь", function()
-setclipboard(tostring(getPath(obj, true)))
+setclipboard(tostring(getPath(obj, false)))
 end) 
 
 local Folder
