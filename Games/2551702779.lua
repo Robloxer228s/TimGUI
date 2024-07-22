@@ -3,7 +3,7 @@ local ZN = _G.TimGui.Add.TB("ZN", "Zombie:", "Zombie lab", 6,"Зомби:")
 local aknz = _G.TimGui.Add.CB("aknz", "Kill NPC Zombies(auto)", "Zombie lab", 9,"Убить НПС зомби(авто)")
 local hn = _G.TimGui.Add.CB("hn", "Hide notifications", "Zombie lab", 10,"Спрятать уведомления")
 
-local pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
+local pathIDK = game.Players.LocalPlayer.PlayerGui.Main
 game.Players.LocalPlayer.CharacterAdded:Connect(function () 
 wait(0.5) 
 pathIDK = game.Players.LocalPlayer.PlayerGui.PlayerGui
