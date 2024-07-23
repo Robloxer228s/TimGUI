@@ -1,12 +1,7 @@
-Status: last update — keybinds. Configs rarely work.
-
-ᅠ
-
-ᅠ
-
-ᅠ
-
-ᅠ
+# Status:
+Configs don't work
+# Update logs:
+23.07.24 - fix configs + Start update logs
 
 # Suported Games:
 
