@@ -1,10 +1,12 @@
 # Status:
 Configs don't work
+TimControl don't work
+
 # Update logs:
 23.07.24 - fix configs + Start update logs
+22.08.24 - fix Zombie Lab
 
 # Suported Games:
-
 Murder Mystory 2 (Shot to murder don't work)
 
 Break in 
@@ -15,7 +17,7 @@ Froggy
 
 Build A Boat For Treasure
 
-Zombie lab (don't worked) 
+Zombie lab
 
 GET TO THE TOP!
 
