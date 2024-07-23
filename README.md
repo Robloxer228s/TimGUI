@@ -1,4 +1,4 @@
-@  Status: last update — keybinds. Configs rarely work.
+Status: last update — keybinds. Configs rarely work.
 
 ᅠ
 
@@ -8,7 +8,7 @@
 
 ᅠ
 
-@  Suported Games:
+# Suported Games:
 
 Murder Mystory 2 (Shot to murder don't work)
 
