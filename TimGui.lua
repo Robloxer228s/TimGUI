@@ -214,11 +214,25 @@ local function keybind(newMode, button, buttonName)
         end
         if not (keybinding == nil) then
             _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
-                for k,v in pairs(keybinds) do
-                    if v == keybinding or k == lastKeyB then 
-                        keybinds[k] = nil
+                for keey,v in pairs(keybinds) do
+                    if v == keybinding then 
+                        keybinds[keey] = nil
 			button.Keybind.Text = ""
                     end
+		    if keey == lastKeyB then
+			keybinds[keey] = nil
+			for k,v in pairs(Func:GetChildren()) do
+			   local temp = v.group.Value .. "." .. v.Name
+   			   if button:FindFirstChildOfClass("BoolValue") then
+          		      temp = "CB." .. temp
+      			   else 
+         		      temp = "B." .. temp
+     			   end
+			   if temp == keey then
+			      v.Keybind.Text = ""
+			   end
+			end
+		    end
                 end
                 if not (lastKeyB == nil) then
                     keybinds[lastKeyB] = keybinding
