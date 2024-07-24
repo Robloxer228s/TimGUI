@@ -33,3 +33,15 @@ Obby Leader
 Rainbow Friends
 
 Death Ball
+
+# Credits:
+
+Fly - infinity Yeld and fly GUI v3
+
+Noclip - Noname gui with one button
+
+TpTool - in WeAreDevs
+
+Break in,Zoombie lab, Lucky blocks - script with open source
+
+MM2 - I am. Shoot to murder not me and it's don't worked.. 
