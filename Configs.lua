@@ -1,7 +1,10 @@
 local plset
+local NotWork = true
+
 local getF = function(name)
+if NotWork then return nil end
 local post = {}
-post.operation = "fileget"
+post.operataion = "fileget"
 post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
 post.file = name
 local response = game:HttpPost("http://bagirovict.temp.swtest.ru", post)
@@ -15,6 +18,7 @@ return response[game.Players.LocalPlayer.Name]
 end
 
 local setF = function(name, data)
+if NotWork then return end
 local post = {}
 post.operation = "fileget"
 post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
