@@ -4,16 +4,15 @@ local Name = _G.TimGui.Add.TB("NameW", "Name:", "Teleports", 1, "Имя:")
 -- local Delete = _G.ABF("DeleteW", "Delete", "Teleports", 0) 
 local Waypoints = {}
 local Created = {}
-local count = 1
+local count = 0
 _G.TimGui.Add.B("CreateW", "Create and set or set", "Teleports", 2, "Создать или изменить", function(Create) 
 if not Created[Name.Text] then
-local tmp = _G.TimGui.Add.B(Name.Text, Name.Text, "TP to Waypoint", count) 
-count += 1
 local Nam = Name.Text
-tmp.Activated:Connect(function() 
+count += 1
+_G.TimGui.Add.B(Nam, Nam, "TP to Waypoint", count, false, function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Waypoints[Nam]
 end) 
-Created[Name.Text] = true
+Created[Nam] = true
 end
 Waypoints[Name.Text] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
