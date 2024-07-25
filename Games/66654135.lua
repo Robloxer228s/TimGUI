@@ -8,53 +8,6 @@ local murd
 local sher 
 _G.TimGui.Add.G("MM2") 
 
-local AutoShooting = _G.TimGui.Add.CB("ASB", "AutoShoot to murder(beta)", "MM2", 10, "Стрельнуть в убийцу") 
-local shootOffsets = _G.TimGui.Add.TB("ASO", "ShootOffset", "MM2", 11, "ShootOffset") 
-shootOffsets.Text = 3.5
-AutoShooting.Changed:Connect(function()
-				if sher == game.Players.LocalPlayer and AutoShooting.Value then
-					print("Auto-shooting started.")
-					repeat
-						task.wait(0.1)
-						if not murd then print("No murderer.") continue end
-						local murdererPosition = murd.Character.HumanoidRootPart.Position
-						local characterRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-						local rayDirection = murdererPosition - characterRootPart.Position
-	
-						local raycastParams = RaycastParams.new()
-						raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-						raycastParams.FilterDescendantsInstances = {game.Players.LocalPlayer.Character}
-	
-						local hit = workspace:Raycast(characterRootPart.Position, rayDirection, raycastParams)
-						if not hit or hit.Instance.Parent == murderer.Character then -- Check if nothing collides or if it collides with the murderer
-							print("Auto-shooting!")
-							if not game.Players.LocalPlayer.Character:FindFirstChild("Gun") then
-								local hum = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-								if game.Players.LocalPlayer.Backpack:FindFirstChild("Gun") then
-									game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild("Gun"))
-								else
-									print("You don't have the gun..?")
-									return
-								end
-							end
-							if toNumber(shootOffsets.Text) == nil then
-							shootOffset = 3.5
-							else
-							shootOffset = toNumber(shootOffsets.Text) 
-							end
-							local args = {
-								[1] = 1,
-								[2] = murd.Character:FindFirstChild("HumanoidRootPart").Position + murd.Character:FindFirstChild("Humanoid").MoveDirection * shootOffset,
-								[3] = "AH"
-							}
-	
-							game:GetService("Players").LocalPlayer.Character.Gun.KnifeServer.ShootGun:InvokeServer(unpack(args))
-						end
-					until findSheriff() ~= game.Players.LocalPlayer or not AutoShooting.Value
-				end
-AutoShooting.Value = false
-end)
-
 _G.TimGui.Add.B("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
 local rand = game.Workspace.Normal.Spawns:GetChildren() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
