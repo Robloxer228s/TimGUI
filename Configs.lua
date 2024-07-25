@@ -2,7 +2,7 @@ local plset
 local NotWork = true
 
 local getF = function(name)
-if NotWork then return nil end
+if NotWork then return {} end
 local post = {}
 post.operataion = "fileget"
 post.id = "Yzk2MzY4NzI0NmNhOTIwNDI4NGMxNDUyZmRhYmYyM2RlZGYwOGRiM2U5ODhmN2Q2ZGI0MzI1MjllN2IzMDJhMQ=="
