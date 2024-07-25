@@ -24,7 +24,7 @@ pathIDK.ChooseFaceFrame.Visible = true
 end) 
 
 _G.TimGui.Add.B("cs", "Change skin", "Zombie lab", 12,"Изменить цвет кожи", function() 
-pathIDK.ChooseSkinFrame.Visible = true
+pathIDK.ChooseColorFrame.Visible = true
 end) 
 
 _G.TimGui.Add.B("virus", "Get virus", "Zombie lab", 1,"Получить вирус", function() 
