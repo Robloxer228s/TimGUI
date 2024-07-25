@@ -3,12 +3,14 @@ Configs don't work
 
 TimControl don't work
 
+Use Right mouse button for keybinding! 
+
 # Update logs:
 23.07.24 - fix configs + Start update logs
 22.08.24 - fix Zombie Lab
 
 # Suported Games:
-Murder Mystory 2 (Shot to murder don't work)
+Murder Mystory 2
 
 Break in 
 
@@ -43,5 +45,3 @@ Noclip - Noname gui with one button
 TpTool - in WeAreDevs
 
 Break in,Zoombie lab, Lucky blocks - script with open source
-
-MM2 - I am. Shoot to murder not me and it's don't worked.. 
