@@ -266,7 +266,9 @@ end
 game:GetService("UserInputService").InputBegan:Connect(function(input)
     local button = input.KeyCode
     if not (button.Name == "Unknown") then 
-        keybind(false, button.Name,nil)
+	if not game:GetService("UserInputService"):GetFocusedTextBox() then
+            keybind(false, button.Name,nil)
+	end
     end
 end)
 ---------- Buttons
