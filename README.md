@@ -6,7 +6,7 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
-28.07.24 - disable keybinds in focus to textbox
+28.07.24 - disable keybinds in focus to textbox + beta test TimExplorer
 
 23.07.24 - fix configs + Start update logs
 
