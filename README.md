@@ -6,7 +6,10 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
+28.07.24 - disable keybinds in focus to textbox
+
 23.07.24 - fix configs + Start update logs
+
 22.08.24 - fix Zombie Lab
 
 # Suported Games:
