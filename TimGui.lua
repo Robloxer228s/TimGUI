@@ -174,8 +174,14 @@ _G.TimGui.Opened = OC
 if OC then
 local goal = {}
 goal.Position = UDim2.new(1, -400, 0, 0) 
+if _G.TimGui.TEOpen then
+goal.Position = UDim2.new(0.8, -400, 0, 0)
+end
 if _G.TimGui.XTwo then
 goal.Position = UDim2.new(1, -700, 0, 0) 
+if _G.TimGui.TEOpen then
+goal.Position = UDim2.new(0.8, -700, 0, 0)
+end
 end
 local tween = TweenService:Create(f, TweenInfo.new(0.5), goal)
 tween:Play() 
@@ -186,8 +192,14 @@ tween:Play()
 else
 local goal = {}
 goal.Position = UDim2.new(1, -400, 1, -25) 
+if _G.TimGui.TEOpen then
+goal.Position = UDim2.new(0.8, -400, 1, -25)
+end
 if _G.TimGui.XTwo then
 goal.Position = UDim2.new(1, -700, 1, -25) 
+if _G.TimGui.TEOpen then
+goal.Position = UDim2.new(0.8, -700, 1, -25)
+end
 end
 local tween = TweenService:Create(f, TweenInfo.new(0.5), goal)
 tween:Play() 
