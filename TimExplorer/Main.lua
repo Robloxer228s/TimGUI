@@ -104,6 +104,7 @@ system.PropsNF.ClickDetector = {}
 system.PropsNF.ClickDetector.MaxActivationDistance = 3
 system.PropsNF.ClickDetector.CursorIcon = 1
 --Type: Values
+system.PropsNF.BoolValue = { Value = 1 }
 system.PropsNF.BoolValue = { Value = 2 }
 system.PropsNF.IntValue = { Value = 3 }
 system.PropsNF.NumberValue = { Value = 3 }
@@ -491,22 +492,26 @@ local Update = function()
 	end
 
 	for k,v in pairs(system.frames.Objects:GetChildren()) do
-		local ccc = v.Object.Value:GetChildren()
-		if #ccc == 0 then
-			v.Add.Visible = false
-		elseif not v.Add.Visible then
-			v.Add.Visible = true
-		end
-		if v.Indent.Value == 0 then
-			v.Count.Value = count
-			if v.Add.Text == "-" then
-				for kk,vv in pairs(tab[1]) do
-					if vv.Object.Value.Parent == v.Object.Value then
-						ChangeCount(vv,tab,2)
-					end
-				end
-			end
-			count += 1
+		local success,response = pcall(function()
+		        local ccc = v.Object.Value:GetChildren()
+		        if #ccc == 0 then
+			        v.Add.Visible = false
+		        elseif not v.Add.Visible then
+			        v.Add.Visible = true
+		        end
+		        if v.Indent.Value == 0 then
+			        v.Count.Value = count
+			        if v.Add.Text == "-" then
+				        for kk,vv in pairs(tab[1]) do
+					        if vv.Object.Value.Parent == v.Object.Value then
+				                        ChangeCount(vv,tab,2)
+					        end
+				        end
+			        end
+			        count += 1
+		end) 
+		if not success then
+			warn("error to update:" .. v.Name
 		end
 	end
 end
