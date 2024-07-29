@@ -9,7 +9,7 @@ _G.TimGui.Add.B("CreateW", "Create and set or set", "Teleports", 2, "Созда�
 if not Created[Name.Text] then
 local Nam = Name.Text
 count += 1
-_G.TimGui.Add.B(Nam, Nam, "TP to Waypoint", count, false, function() 
+_G.TimGui.Add.B(Nam, Nam, "TP to Waypoint", count, Nam, function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Waypoints[Nam]
 end) 
 Created[Nam] = true
