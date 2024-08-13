@@ -240,7 +240,7 @@ local function keybind(newMode, button, buttonName)
       			   else 
          		      temp = "B." .. temp
      			   end
-			   if temp == keey then
+			   if keybinds[temp] == keey then
 			      v.Keybind.Text = ""
 			   end
 			end
