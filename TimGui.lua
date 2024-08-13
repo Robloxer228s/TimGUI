@@ -325,9 +325,10 @@ MegaTemp.Parent = Temp
 MegaTemp.BackgroundTransparency = 100
 MegaTemp.Name = "Keybind"
 MegaTemp.Text = ""
-MegaTemp.Size = UDim2.new(0, 25, 0.5, 0) 
+MegaTemp.Size = UDim2.new(1, 0, 0.5, 0) 
 MegaTemp.TextScaled = true
 MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
+MegaTemp.TextXAlignment = Enum.TextXAlignment.Left
 local TmpTwo = Instance.new("StringValue")
 TmpTwo.Parent = ButTabb
 if not (rus == nil) then
@@ -413,9 +414,10 @@ MegaTemp.Parent = Temp
 MegaTemp.BackgroundTransparency = 100
 MegaTemp.Name = "Keybind"
 MegaTemp.Text = ""
-MegaTemp.Size = UDim2.new(0, 25, 0.5, 0) 
+MegaTemp.Size = UDim2.new(1, 0, 0.5, 0) 
 MegaTemp.TextScaled = true
 MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
+MegaTemp.TextXAlignment = Enum.TextXAlignment.Left
 local TmpTwo = Instance.new("StringValue")
 TmpTwo.Parent = ButTab[name]
 if not (rus == nil) then
