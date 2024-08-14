@@ -114,13 +114,13 @@ local PlayersPos = {}
 
 local function Check(Char) 
 local iiii = Instance.new("BoolValue") 
-iiii.Chnaged:Connect(function()
+iiii.Chanaged:Connect(function()
 while task.wait(0.25) do
 local pos = Char.HumanoidRootPart.Position
-print(Char.Name, Char.ClassName, pos) 
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if enabled then
+print(Char.Name, Char.ClassName, pos) 
 local args = {
     [1] = Char.Humanoid,
     [2] = Char.HumanoidRootPart,
