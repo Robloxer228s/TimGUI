@@ -113,6 +113,7 @@ end)
 local PlayersPos = {}
 
 local function Check(Char) 
+Char:WaitForChild("HumanoidRootPart") 
 Char.HumanoidRootPart:GetPropertyChangedSignal("Position"):Connect(function()
 if not enabled then return end
 local pos = Char.Position
