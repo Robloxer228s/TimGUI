@@ -135,6 +135,7 @@ end)
 end
 
 local function NewPlayer(Player) 
+if not (Player.ClassName == "Player") then return end
 Player.CharacterAdded:Connect(Check)
 Check(Player.Character) 
 end
