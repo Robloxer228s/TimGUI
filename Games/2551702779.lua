@@ -56,7 +56,7 @@ end
 local function killZombie(char) 
 local player = game.Players:GetPlayerFromCharacter(char)
 -- Check Humanoid
-if not char:FindFirstChild("Humanoid") then return false end
+if not char:FindFirstChild("HumanoidRootPart") then return false end
 -- Spare
 if _G.TimGui.SpareFriends and player then
 if player:IsFriendsWith(game.Players.LocalPlayer.UserId) then return true end
