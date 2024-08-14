@@ -114,7 +114,7 @@ local PlayersPos = {}
 
 local function Check(Char) 
 print(Char.Name, Char.ClassName) 
-Char.HitBox:GetPropertyChangedSignal("Position"):Connect(function()
+Char:WaitForChild("HitBox"):GetPropertyChangedSignal("Position"):Connect(function()
 if not enabled then return end
 local pos = Char.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
