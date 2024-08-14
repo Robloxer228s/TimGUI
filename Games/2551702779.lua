@@ -43,9 +43,8 @@ _G.TimGui.Add.B("ds", "Delete safe virus zone", "Zombie lab", 4,"Удалить 
 game.Workspace.AntiWeaponZone:Destroy()
 end) 
 
-local function pistol() 
-local pist
-for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+--old
+--[[
 local pist = false
 pcall(function() 
 if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
@@ -55,51 +54,55 @@ end)
 if pist then
 return pist
 end
+--]]
+
+local function kill(player, character) 
+player = game.Players:GetPlayerFromCharacter(char)
+local char -- Get Character
+if player == false then
+char = character
+else
+char = player.Character
+end
+-- Check Humanoid
+if not char:FindFirstChild("Humanoid") then return false end
+-- Spare
+if _G.TimGui.SpareFriends and player then
+if player:IsFriendsWith(game.Players.LocalPlayer.UserId) then return true end
+end
+-- Find gun and kill char
+for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 if v:FindFirstChild("GunScript_Server") then
-return v
+local args = {
+    [1] = player.Character:WaitForChild("Humanoid"),
+    [2] = player.Character:WaitForChild("HumanoidRootPart"),
+    [3] = math.huge,
+}
+pcall(function()
+v.GunScript_Server.InflictTarget:FireServer(unpack(args))
+return true
+end)
 end
 end
+print("You aren't have gun")
+return false
 end
 
 _G.TimGui.Add.B("kaz", "Kill All Zombies", "Zombie lab", 5,"Убить всех зомби", function() 
 for i=2,#game.Players:GetPlayers() do
 v=game.Players:GetPlayers()[i]
-if v.Character:FindFirstChild("Humanoid") then
-local args = {
-    [1] = v.Character.Humanoid,
-    [2] = v.Character.HumanoidRootPart,
-    [3] = math.huge,
-}
-pcall(function()
-local pist = pistol()
-pist.GunScript_Server.InflictTarget:FireServer(unpack(args))
-end)
-end
+killZombie(v)
 end
 end) 
 
 _G.TimGui.Add.B("kz", "Kill Zombie", "Zombie lab", 7,"Убить зомби", function() 
-v=game.Players:FindFirstChild(ZN.Text) 
-local args = {
-    [1] = v.Character:WaitForChild("Humanoid"),
-    [2] = v.Character:WaitForChild("HumanoidRootPart"),
-    [3] = math.huge,
-}
-pcall(function()
-pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
-end)
+v = game.Players:FindFirstChild(ZN.Text) 
+killZombie(v)
 end) 
 
 _G.TimGui.Add.B("knz", "Kill NPC Zombies", "Zombie lab", 8,"Убить НПС зомби", function()
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
-local args = {
-    [1] = v:WaitForChild("Humanoid"),
-    [2] = v:WaitForChild("HumanoidRootPart"),
-    [3] = math.huge,
-}
-pcall(function()
-pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
-end)
+killZombie(false,v)
 end
 end) 
 
@@ -120,15 +123,7 @@ local pos = Char.HumanoidRootPart.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if enabled then
-local args = {
-    [1] = Char.Humanoid,
-    [2] = Char.HumanoidRootPart,
-    [3] = math.huge,
-}
-pcall(function()
-local pist = pistol()
-pist.GunScript_Server.InflictTarget:FireServer(unpack(args))
-end)
+killZombie(false,Char)
 end
 end
 PlayersPos[Char.Name] = pos
@@ -153,15 +148,8 @@ while true do
 wait(1) 
 if aknz.Value then
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
-if v:FindFirstChild("Humanoid") and  v:FindFirstChild("HumanoidRootPart") then
-local args = {
-    [1] = v.Humanoid,
-    [2] = v.HumanoidRootPart,
-    [3] = math.huge,
-}
-pcall(function()
-pistol().GunScript_Server.InflictTarget:FireServer(unpack(args))
-end)
+if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+killZombie(false,v)
 end 
 end
 end
