@@ -120,3 +120,46 @@ end
 end
 end
 end 
+
+
+local round = 10 
+local enabled = false
+
+_G.TimGui.Add.CB("KAM","Kill those zombies who are moving","Zombie lab",13,"убивать, тех зомби кто двигается",function(val) 
+enabled = val.Value
+end) 
+
+local PlayersPos = {}
+
+local function Check(Char) 
+Char.HumanoidRootPart:GetPropertyChangedSignal("Position"):Connect(function()
+if not enabled then return end
+local pos = Char.Position
+pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
+if not (PlayersPos[Char.Name] == pos) then
+if Char.Character:FindFirstChild("Humanoid") then
+local args = {
+    [1] = Char.Character.Humanoid,
+    [2] = Char.Character.HumanoidRootPart,
+    [3] = math.huge,
+}
+pcall(function()
+local pist = pistol()
+pist.GunScript_Server.InflictTarget:FireServer(unpack(args))
+end)
+end
+end
+PlayersPos[Char.Name] = pos
+end) 
+end
+
+local function NewPlayer(Player) 
+Player.PlayerAdded:Connect(Check)
+Check(Player.Character) 
+end
+
+for k, v in pairs(game.Players:GetChildren) do
+NewPlayers(v) 
+end
+
+game.Players.PlayerAdded:Connect(NewPlayer)
