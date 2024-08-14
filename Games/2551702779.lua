@@ -103,7 +103,7 @@ end)
 end
 end) 
 
-local round = 10 
+local round = 5
 local enabled = false
 
 _G.TimGui.Add.CB("KAM","Kill those zombies who are moving","Zombie lab",13,"убивать, тех зомби кто двигается",function(val) 
@@ -120,7 +120,6 @@ local pos = Char.HumanoidRootPart.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if enabled then
-print(Char.Name, Char.ClassName, pos) 
 local args = {
     [1] = Char.Humanoid,
     [2] = Char.HumanoidRootPart,
