@@ -135,6 +135,7 @@ end
 PlayersPos[Char.Name] = pos
 end
 end) 
+iiii.Value = true
 end
 
 local function NewPlayer(Player) 
