@@ -45,4 +45,10 @@ v.Position = UDim2.new(0, 0, 0, 50 * (pos - 1))
 end
 end
 end)
+
+_G.TimGui.SpareFriends = true
+local sff = _G.TimGui.Add.CB("SF", "Spare friends", "Settings", 10, "Щадить друзей", function(sf)
+_G.TimGui.SpareFriends = sf.Value
+end
+sff.Value.Value = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Configs.lua"))()
