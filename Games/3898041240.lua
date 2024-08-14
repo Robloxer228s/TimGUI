@@ -3,6 +3,9 @@ local leader = function()
 for k, v in pairs(game.Players:GetChildren()) do
 local hight = v.Character:FindFirstChild("LeaderHighlight")
 if hight then
+if _G.TimGui.SpareFriends then
+if v:IsFriendsWith(game.Players.LocalPlayer.UserId) then return end
+end
 return hight.Parent
 end
 end
