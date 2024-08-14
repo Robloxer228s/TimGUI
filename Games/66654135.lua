@@ -33,6 +33,9 @@ end)
 
 _G.TimGui.Add.B("KA", "Kill All", "MM2", 3, "Убить всех", function()
 for k,v in pairs(game.Players:GetChildren()) do
+if _G.TimGui.SpareFriends then
+if v:IsFriendsWith(game.Players.LocalPlayer.UserId) then continue end
+end
 if not (v == game.Players.LocalPlayer) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
 wait(0.75) 
