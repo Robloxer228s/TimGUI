@@ -62,24 +62,22 @@ if _G.TimGui.SpareFriends and player then
 if player:IsFriendsWith(game.Players.LocalPlayer.UserId) then return true end
 end
 local args = {
-    [1] = player.Character:WaitForChild("Humanoid"),
-    [2] = player.Character:WaitForChild("HumanoidRootPart"),
+    [1] = char:WaitForChild("Humanoid"),
+    [2] = char:WaitForChild("HumanoidRootPart"),
     [3] = math.huge,
 }
 --In character
+if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
-pcall(function()
 game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").GunScript_Server.InflictTarget:FireServer(unpack(args))
 return true
-end)
+end
 end
 -- Find gun and kill char
 for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 if v:FindFirstChild("GunScript_Server") then
-pcall(function()
 v.GunScript_Server.InflictTarget:FireServer(unpack(args))
 return true
-end)
 end
 end
 print("You aren't have gun")
