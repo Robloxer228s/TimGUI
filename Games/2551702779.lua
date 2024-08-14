@@ -158,7 +158,7 @@ Player.PlayerAdded:Connect(Check)
 Check(Player.Character) 
 end
 
-for k, v in pairs(game.Players:GetChildren) do
+for k, v in pairs(game.Players:GetChildren()) do
 NewPlayers(v) 
 end
 
