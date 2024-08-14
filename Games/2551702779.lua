@@ -113,13 +113,14 @@ end)
 local PlayersPos = {}
 
 local function Check(Char) 
-Char.HitBox:GetPropertyChangedSignal("CFrame"):Connect(function()
-if not enabled then return end
-local pos = Char.HitBox.Position
+local iiii = Instance.new("BoolValue") 
+iiii.Chnaged:Connect(function()
+while task.wait(0.25) do
+local pos = Char.HumanoidRootPart.Position
 print(Char.Name, Char.ClassName, pos) 
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
-if Char.Character:FindFirstChild("Humanoid") then
+if enabled then
 local args = {
     [1] = Char.Humanoid,
     [2] = Char.HumanoidRootPart,
@@ -132,6 +133,7 @@ end)
 end
 end
 PlayersPos[Char.Name] = pos
+end
 end) 
 end
 
