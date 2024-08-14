@@ -56,14 +56,8 @@ return pist
 end
 --]]
 
-local function killZombie(player, character) 
-player = game.Players:GetPlayerFromCharacter(char)
-local char -- Get Character
-if player == false then
-char = character
-else
-char = player.Character
-end
+local function killZombie(char) 
+local player = game.Players:GetPlayerFromCharacter(char)
 -- Check Humanoid
 if not char:FindFirstChild("Humanoid") then return false end
 -- Spare
@@ -91,18 +85,18 @@ end
 _G.TimGui.Add.B("kaz", "Kill All Zombies", "Zombie lab", 5,"Убить всех зомби", function() 
 for i=2,#game.Players:GetPlayers() do
 v=game.Players:GetPlayers()[i]
-killZombie(v)
+killZombie(v.Character)
 end
 end) 
 
 _G.TimGui.Add.B("kz", "Kill Zombie", "Zombie lab", 7,"Убить зомби", function() 
 v = game.Players:FindFirstChild(ZN.Text) 
-killZombie(v)
+killZombie(v.Character)
 end) 
 
 _G.TimGui.Add.B("knz", "Kill NPC Zombies", "Zombie lab", 8,"Убить НПС зомби", function()
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
-killZombie(false,v)
+killZombie(v)
 end
 end) 
 
@@ -123,7 +117,7 @@ local pos = Char.HumanoidRootPart.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if enabled then
-killZombie(false,Char)
+killZombie(Char)
 end
 end
 PlayersPos[Char.Name] = pos
@@ -149,7 +143,7 @@ wait(1)
 if aknz.Value then
 for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-killZombie(false,v)
+killZombie(v)
 end 
 end
 end
