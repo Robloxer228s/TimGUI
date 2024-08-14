@@ -140,7 +140,7 @@ Check(Player.Character)
 end
 
 for k, v in pairs(game.Players:GetChildren()) do
-NewPlayers(v) 
+NewPlayer(v) 
 end
 
 game.Players.PlayerAdded:Connect(NewPlayer)
