@@ -50,5 +50,5 @@ _G.TimGui.SpareFriends = true
 local sff = _G.TimGui.Add.CB("SF", "Spare friends", "Settings", 10, "Щадить друзей", function(sf)
 _G.TimGui.SpareFriends = sf.Value
 end
-sff.Value.Value = true
+sff.Value = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Configs.lua"))()
