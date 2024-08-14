@@ -114,7 +114,7 @@ local PlayersPos = {}
 
 local function Check(Char) 
 local iiii = Instance.new("BoolValue") 
-iiii.Chanaged:Connect(function()
+iiii.Changed:Connect(function()
 while task.wait(0.25) do
 local pos = Char.HumanoidRootPart.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
