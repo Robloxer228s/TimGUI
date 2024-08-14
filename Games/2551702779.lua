@@ -114,15 +114,15 @@ local PlayersPos = {}
 
 local function Check(Char) 
 Char:WaitForChild("HitBox"):GetPropertyChangedSignal("Position"):Connect(function()
-print(Char.Name, Char.ClassName) 
 if not enabled then return end
-local pos = Char.Position
+local pos = Char.HitBox.Position
+print(Char.Name, Char.ClassName, pos) 
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if Char.Character:FindFirstChild("Humanoid") then
 local args = {
-    [1] = Char.Character.Humanoid,
-    [2] = Char.Character.HumanoidRootPart,
+    [1] = Char.Humanoid,
+    [2] = Char.HumanoidRootPart,
     [3] = math.huge,
 }
 pcall(function()
