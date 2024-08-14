@@ -102,7 +102,7 @@ killZombie(v)
 end
 end) 
 
-local round = 5
+local round = 8
 local enabled = false
 
 _G.TimGui.Add.CB("KAM","Kill those zombies who are moving","Zombie lab",13,"убивать, тех зомби кто двигается",function(val) 
@@ -119,7 +119,9 @@ local pos = Char.HumanoidRootPart.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if enabled then
+pcall(function() 
 killZombie(Char)
+end) 
 end
 end
 PlayersPos[Char.Name] = pos
