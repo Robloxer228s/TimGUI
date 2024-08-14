@@ -135,7 +135,7 @@ end)
 end
 
 local function NewPlayer(Player) 
-Player.PlayerAdded:Connect(Check)
+Player.CharacterAdded:Connect(Check)
 Check(Player.Character) 
 end
 
