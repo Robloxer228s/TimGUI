@@ -119,9 +119,7 @@ local pos = Char.HumanoidRootPart.Position
 pos = Vector3.new(math.floor(pos.X / round),math.floor(pos.Y / round), math.floor(pos.Z / round))
 if not (PlayersPos[Char.Name] == pos) then
 if enabled then
-pcall(function() 
 killZombie(Char)
-end) 
 end
 end
 PlayersPos[Char.Name] = pos
