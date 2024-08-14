@@ -113,7 +113,7 @@ end)
 local PlayersPos = {}
 
 local function Check(Char) 
-Char.HitBox:GetPropertyChangedSignal("Position"):Connect(function()
+Char.HitBox:GetPropertyChangedSignal("CFrame"):Connect(function()
 if not enabled then return end
 local pos = Char.HitBox.Position
 print(Char.Name, Char.ClassName, pos) 
