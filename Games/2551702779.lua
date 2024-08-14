@@ -56,7 +56,7 @@ return pist
 end
 --]]
 
-local function kill(player, character) 
+local function killZombie(player, character) 
 player = game.Players:GetPlayerFromCharacter(char)
 local char -- Get Character
 if player == false then
