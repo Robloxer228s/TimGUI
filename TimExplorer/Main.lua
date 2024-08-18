@@ -738,10 +738,12 @@ local ParentChanged = function(but,v)
 		system.ObjCreated = system.ObjCreated -1
 		Update()
 	end
-	if not v.Parent then
-		SelectedObj = nil
-	else
-		system.frames.Properties:FindFirstChild("Parent").Value.Text = ITS(v.Parent, true)
+	if SelectedObj == v then
+	        if not v.Parent then
+		        SelectedObj = nil
+	        else
+		        system.frames.Properties:FindFirstChild("Parent").Value.Text = ITS(v.Parent, true)
+	        end
 	end
 end
 
