@@ -645,6 +645,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/m
 local success, response = pcall(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Settings.lua"))()
 end)
+_G.TimGui.SetGroup("Settings")
 if not success then
 warn("Error to load settings:\n" .. response)
 end
