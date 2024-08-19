@@ -12,7 +12,7 @@ Use Right mouse button for keybinding!
 
 23.07.24 - fix configs + Start update logs
 
-22.08.24 - fix Zombie Lab
+22.07.24 - fix Zombie Lab
 
 # Suported Games:
 Murder Mystory 2
