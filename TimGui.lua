@@ -643,6 +643,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/m
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimExplorer/Load.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimControl/Main.lua"))()
 local success, response = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Freeze.lua"))()
+end)
+if not success then
+warn("Error load freeze playes:\n" .. response)
+end
+local success, response = pcall(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Settings.lua"))()
 end)
 _G.TimGui.SetGroup("Settings")
@@ -660,3 +666,4 @@ else
 warn("Error load game script:\n" .. response)
 end
 end
+
