@@ -1,5 +1,6 @@
 # Status:
 last test games: 31.08.24
+
 Configs don't work
 
 TimControl don't work
