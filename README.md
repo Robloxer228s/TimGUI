@@ -21,31 +21,31 @@ Use Right mouse button for keybinding!
 # Suported Games:
 Murder Mystory 2
 
-Break in - Work - Med kit don't work
+Break in 
 
-Break in 2
+Break in 2 - not tested
 
-Froggy
+Froggy - not tested
 
-Build A Boat For Treasure
+Build A Boat For Treasure - not tested
 
-Zombie lab
+Zombie lab - not tested
 
-GET TO THE TOP!
+GET TO THE TOP! - not tested
 
-LUCKY BLOCKS Battlegrounds
+LUCKY BLOCKS Battlegrounds - not tested
 
-Zooo
+Zooo - not tested
 
-The Door 🚪 10M+ VISITS!
+The Door 🚪 10M+ VISITS! - not tested
 
-Obby Leader
+Obby Leader - not tested
 
-Rainbow Friends
+Rainbow Friends - not tested
 
-Death Ball
+Death Ball - not tested
 
-How Many
+How Many - not tested
 
 # Credits:
 
