@@ -22,7 +22,7 @@ local Items = {
 }
 
 for k, v in Items do
-_G.TimGui.Add.B(k, v, "Items", k, function() 
+_G.TimGui.Add.B(k, v, "Items", k, v, function() 
 Events:WaitForChild("GiveTool"):FireServer(tostring(v:gsub(" ", "")))
 end) 
 end
