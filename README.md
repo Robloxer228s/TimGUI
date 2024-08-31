@@ -37,9 +37,9 @@ LUCKY BLOCKS Battlegrounds
 
 Zooo
 
-The Door 🚪 10M+ VISITS! - not tested
+The Door 🚪 10M+ VISITS! 
 
-Obby Leader - not tested
+Obby Leader 
 
 Rainbow Friends - not tested
 
