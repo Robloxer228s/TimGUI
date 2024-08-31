@@ -52,7 +52,6 @@ local teamsFTPB = {}
 
 local function freeze(Char) 
 wait(0.25)
-print(Char.Name)
 if not Char.Character then return end
 if not Char.Character:FindFirstChild("HumanoidRootPart") then return end
 Char.Character.HumanoidRootPart.Anchored = false
