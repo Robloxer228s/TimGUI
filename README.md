@@ -21,7 +21,7 @@ Use Right mouse button for keybinding!
 # Suported Games:
 Murder Mystory 2
 
-Break in 
+Break in - Work - Med kit don't work
 
 Break in 2
 
