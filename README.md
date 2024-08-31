@@ -1,5 +1,7 @@
 # Status:
-last test games: 31.08.24
+last games script update: 31.08.24
+
+Freeze bugged
 
 Configs don't work
 
