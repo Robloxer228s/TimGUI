@@ -41,9 +41,9 @@ The Door 🚪 10M+ VISITS!
 
 Obby Leader 
 
-Rainbow Friends - not tested
+Rainbow Friends - lookies don't work - chapter 1 not tested
 
-Death Ball - not tested
+Death Ball
 
 How Many - not tested
 
