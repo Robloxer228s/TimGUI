@@ -3,7 +3,6 @@ _G.TimGui.Add.G("Game/Lobby", "Игра/лобби")
 
 local Events = game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents")
 local Items = {
-		"Med kit",
 		"Cure",
 		"Apple",
 		"Cookie",
