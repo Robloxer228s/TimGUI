@@ -45,7 +45,7 @@ Rainbow Friends - lookies don't work - chapter 1 not tested
 
 Death Ball
 
-How Many - not tested
+How Many
 
 # Credits:
 
