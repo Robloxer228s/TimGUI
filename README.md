@@ -35,7 +35,7 @@ GET TO THE TOP!
 
 LUCKY BLOCKS Battlegrounds
 
-Zooo - not tested
+Zooo
 
 The Door 🚪 10M+ VISITS! - not tested
 
