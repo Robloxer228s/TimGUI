@@ -12,6 +12,8 @@ Use Right mouse button for keybinding!
 # Update logs:
 31.08.24 - check games scripts, added script for: Musically chairs, Blocks and props
 
+19.08.24 - Freeze players
+
 14.08.24 - attempt fix keybind and update Zombie Lab script
 
 28.07.24 - disable keybinds in focus to textbox + beta test TimExplorer
