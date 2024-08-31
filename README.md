@@ -25,9 +25,9 @@ Break in
 
 Break in 2
 
-Froggy - not tested
+Froggy 
 
-Build A Boat For Treasure - not tested
+Build A Boat For Treasure
 
 Zombie lab - not tested
 
