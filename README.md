@@ -10,6 +10,8 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
+31.08.24 - check games scripts, added script for: Musically chairs, Blocks and props
+
 14.08.24 - attempt fix keybind and update Zombie Lab script
 
 28.07.24 - disable keybinds in focus to textbox + beta test TimExplorer
@@ -46,6 +48,10 @@ Rainbow Friends - lookies don't work - chapter 1 not tested
 Death Ball
 
 How Many
+
+Musically chairs
+
+Blocks and props
 
 # Credits:
 
