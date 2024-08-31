@@ -29,11 +29,11 @@ Froggy
 
 Build A Boat For Treasure
 
-Zombie lab - not tested
+Zombie lab
 
-GET TO THE TOP! - not tested
+GET TO THE TOP!
 
-LUCKY BLOCKS Battlegrounds - not tested
+LUCKY BLOCKS Battlegrounds
 
 Zooo - not tested
 
