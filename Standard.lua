@@ -396,14 +396,22 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.BodyThrust:Destroy()
 end
 end)
 
+local anim = _G.TimGui.Add.CB("Noanim","No animation","Player",13,"Без анимации", function(val)
+        if Fly.Value then return end
+	game.Players.LocalPlayer.Character.Animate.Disabled = val.Value
+end) 
+
 game.Players.LocalPlayer.ChildAdded:Connect(function()
 local Flyy = Fly.Value
 local Speeen = PB.Value
+local animat = anim.Value
 Fly.Value = false
 PB.Value = false 
+anim.Value = false 
 wait(0.5) 
+anim.Value = animat
 Fly.Value = Flyy
-wait(0.5) 
+wait(0.25) 
 PB.Value = Speeen
 end) 
 
@@ -480,6 +488,8 @@ Script.Disabled = false
 end
 nHuman.Health = nHuman.MaxHealth
 end)
+
+
 
 _G.TimGui.Add.G("ESP","Подсветка(esp)")
 local espLoad = false
