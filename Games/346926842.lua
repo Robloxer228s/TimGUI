@@ -40,5 +40,7 @@ while task.wait(0.1) do
         seat()
     elseif autoSNC.Value and not game.Players.LocalPlayer.Character.Humanoid.Sit then
         game.Players.LocalPlayer.Character.Humanoid.Sit = true
+    elseif not chairs:FindFirstChild("Chair") then
+        game.Players.LocalPlayer.Character.Humanoid.Sit = false
     end
 end
