@@ -18,11 +18,15 @@ end)
 
 local ATP =  _G.TimGui.Add.CB("AutoTP", "AutoTP to leader", "Leader", 2, "АвтоТП к лидеру")
 
+local boostEn = _G.TimGui.Add.CB("VisibleBoost", "Set visible for boost", "Leader", 3, "Делать усиление видимым")
+
 while true do
 wait(0.05) 
 pcall(function()
 if ATP.Value then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
+end 
+if boostEn.Value then
+    game.Players.LocalPlayer.PlayerGui.StayOnScreen.Boost.Visible =  true
 end
 end)
-end
