@@ -2,6 +2,7 @@ _G.TimGui.Add.G("Musicaly chairs","Музыкальные стулья")
 
 local chairs = game.Workspace.Chairs
 local function seat()
+    chairs:WaitForChild("Chair") 
     for k,v in pairs(chairs:GetChildren()) do
         if not v:FindFirstChild("Seat") then continue end
         if v.Seat:FindFirstChild("SeatWeld") then continue end
