@@ -643,3 +643,7 @@ end)
 
 LRange.Text = 100
 LBright.Text = 1
+
+_G.TimGui.Add.B("Sit","Sit","Player",14,"Сесть",function(val)
+game.Players.LocalPlayer.Character.Humanoid.Sit = not game.Players.LocalPlayer.Character.Humanoid.Sit
+end) 
