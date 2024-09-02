@@ -583,3 +583,63 @@ end
 end
 end
 end) 
+
+_G.TimGui.Add.G("Lighting","Освещение")
+
+local Fog = game.Lighting.FogEnd
+local FogClear = _G.TimGui.Add.CB("FogC","Clear fog","Lighting",1,"Очистить туман",function(val)
+    if val.Value then
+        Fog = game.Lighting.FogEnd
+        game.Lighting.FogEnd = 1000000
+    else
+        game.Lighting.FogEnd = Fog
+    end
+end)
+
+game.Lighting:GetPropertyChangedSignal("FogEnd"):Connect(function()
+if game.Lighting.FogEnd == 1000000 then return end
+Fog = game.Lighting.FogEnd
+if not FogClear.Value then return end
+game.Lighting.FogEnd = 1000000
+end)
+
+local BrightnessChange
+local BrightnessTxt = _G.TimGui.Add.TB("BrightTXT","Brightness:","Lighting",2,"Яркость:")
+BrightnessTxt:GetPropertyChangedSignal("Text"):Connect(function()
+if not BrightnessChange.Value then return end
+game.Lighting.Brightness = tonumber(BrightnessTxt.Text)
+end)
+BrightnessChange = _G.TimGui.Add.CB("BrightnessChange","Auto change brightness","Lighting",3,"Авто смена яркости",function(val)
+    if val.Value then
+        game.Lighting.Brightness = tonumber(BrightnessTxt.Text) 
+    end
+end)
+
+game.Lighting:GetPropertyChangedSignal("Brightness"):Connect(function()
+if game.Lighting.Brightness == BrightnessTxt.Text then return end
+if not BrightnessChange.Value then return end
+game.Lighting.Brightness = tonumber(BrightnessTxt.Text) 
+end)
+
+local ClockTime = _G.TimGui.Add.TB("ClcTime", "Clock time:", "Lighting", 4, "Время:") 
+_G.TimGui.Add.B("SetClc", "Set clock time", "Lighting", 5, "Установить время", function() 
+game.Lighting.ClockTime = tonumber(ClockTime.Text) 
+end) 
+
+local light
+local LRange = _G.TimGui.Add.TB("LRange", "Light range:", "Lighting", 6, "Дистанция света:") 
+local LBright = _G.TimGui.Add.TB("LBright", "Light Brightness:", "Lighting", 7, "Яркость света:") 
+_G.TimGui.Add.CB("Lighting","Lighting Character","Lighting",8,"Свечащийся персонаж",function(val)
+if val.Value then
+light = Instance.new("PointLight") 
+light.Name = "Light"
+light.Range = tonumber(LRange.Text) 
+light.Brightness = tonumber(LBright.Text) 
+light.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+else
+light:Destroy()
+end
+end)
+
+LRange.Text = 100
+LBright.Text = 1
