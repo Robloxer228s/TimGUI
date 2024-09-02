@@ -30,3 +30,4 @@ if boostEn.Value then
     game.Players.LocalPlayer.PlayerGui.StayOnScreen.Boost.Visible =  true
 end
 end)
+end
