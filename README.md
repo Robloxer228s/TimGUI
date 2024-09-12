@@ -10,6 +10,8 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
+12.09.24 - added game script for Chaos Jenga
+
 01.09.24 - added NoAnimate and lighting
 
 31.08.24 - check games scripts, added script for: Musically chairs, Blocks and props
@@ -56,6 +58,8 @@ How Many
 Musically chairs
 
 Blocks and props
+
+Chaos Jenga
 
 # Credits:
 
