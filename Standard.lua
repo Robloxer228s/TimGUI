@@ -711,6 +711,6 @@ _G.TimGui.Add.B("SetGravity","Set Gravity","Map",9,"Установить гра�
     game.Workspace.Gravity = Gravity.Text
 end)
 
-_G.TimGui.Add.B("SetGravity","Set default gravity","Map",10,"Установить гравитацию по умолчанию",function()
+_G.TimGui.Add.B("SetDefaultGravity","Set default gravity","Map",10,"Установить гравитацию по умолчанию",function()
     game.Workspace.Gravity = DefaultGravity
 end)
