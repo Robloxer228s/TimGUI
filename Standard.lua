@@ -652,7 +652,7 @@ end)
 _G.TimGui.Add.G("Camera","Камера")
 local gui = _G.TimGui.Path.Main.Parent
 local text = Instance.new("TextLabel",gui)
-local plCount = 1
+local plCount = 2
 text.Position = UDim2.new(1,-300,0,-25)
 text.Size = UDim2.new(0,300,0,25)
 text.BackgroundColor3 = Color3.fromRGB(66,66,114)
@@ -669,17 +669,17 @@ local function UpdCam()
             pl.CharacterAdded:Wait()
             wait()
         end
-    elseif plCount == 0 then
+    elseif plCount == 1 then
         plCount = #game.Players:GetPlayers()
         pl = game.Players:GetPlayers()[plCount]
         co = plCount
     else
-        plCount = 1
+        plCount = 2
         pl = game.Players:GetPlayers()[plCount]
         co = plCount
     end
     if co ~= plCount then return end
-    text.Text = "["..plCount.."]".." "..pl.Name
+    text.Text = "["..plCount-1.."/"..#game.Players:GetPlayers().."]".." "..pl.Name
     game.Workspace.Camera.CameraSubject = pl.Character.Humanoid
 end
 
