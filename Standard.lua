@@ -704,3 +704,13 @@ _G.TimGui.Add.B("NextPlayer","Next Player","Camera",3,"Следующий игр
     if not enab.Value then return end
     UpdCam()
 end)
+
+local DefaultGravity = game.Workspace.Gravity
+local Gravity = _G.TimGui.Add.TB("Gravity","Gravity:","Map",8,"Гравитация:")
+_G.TimGui.Add.B("SetGravity","Set Gravity","Map",9,"Установить гравитацию",function()
+    game.Workspace.Gravity = Gravity.Text
+end)
+
+_G.TimGui.Add.B("SetGravity","Set default gravity","Map",10,"Установить гравитацию по умолчанию",function()
+    game.Workspace.Gravity = DefaultGravity
+end)
