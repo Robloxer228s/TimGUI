@@ -664,7 +664,7 @@ text.Visible = false
 local function UpdCam()
     local co = plCount
     local pl = game.Players:GetPlayers()[plCount]
-    if game.Players:GetPlayers()[plCount] then
+    if game.Players:GetPlayers()[plCount] and plCount ~= 1 then
         if not pl.Character then
             pl.CharacterAdded:Wait()
             wait()
