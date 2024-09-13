@@ -646,4 +646,60 @@ LBright.Text = 1
 
 _G.TimGui.Add.B("Sit","Sit","Player",14,"Сесть",function(val)
 game.Players.LocalPlayer.Character.Humanoid.Sit = not game.Players.LocalPlayer.Character.Humanoid.Sit
-end) 
+end)
+
+
+_G.TimGui.Add.G("Camera","Камера")
+local gui = _G.TimGui.Path.Main.Parent
+local text = Instance.new("TextLabel",gui)
+local plCount = 1
+text.Position = UDim2.new(1,-300,0,-25)
+text.Size = UDim2.new(0,300,0,25)
+text.BackgroundColor3 = Color3.fromRGB(66,66,114)
+text.TextColor3 = Color3.new(1,1,1)
+text.TextScaled = true
+text.TextXAlignment = Enum.TextXAlignment.Left
+text.Visible = false
+
+local function UpdCam()
+    local co = plCount
+    local pl = game.Players:GetPlayers()[plCount]
+    if game.Players:GetPlayers()[plCount] then
+        if not pl.Character then
+            pl.CharacterAdded:Wait()
+            wait()
+        end
+    elseif plCount == 0 then
+        plCount = #game.Players:GetPlayers()
+        pl = game.Players:GetPlayers()[plCount]
+        co = plCount
+    else
+        plCount = 1
+        pl = game.Players:GetPlayers()[plCount]
+        co = plCount
+    end
+    if co ~= plCount then return end
+    text.Text = "["..plCount.."]".." "..pl.Name
+    game.Workspace.Camera.CameraSubject = pl.Character.Humanoid
+end
+
+local enab = _G.TimGui.Add.CB("Spectate","Spectate","Camera",1,"Следить за игроками",function(val)
+    text.Visible = val.Value
+    if val.Value then
+        UpdCam()
+    else
+        game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+    end
+end)
+
+_G.TimGui.Add.B("PastPlayer","Past Player","Camera",2,"Прошлый игрок",function()
+    plCount += -1
+    if not enab.Value then return end
+    UpdCam()
+end)
+
+_G.TimGui.Add.B("NextPlayer","Next Player","Camera",3,"Следующий игрок",function()
+    plCount += 1
+    if not enab.Value then return end
+    UpdCam()
+end)
