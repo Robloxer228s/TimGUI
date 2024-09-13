@@ -680,7 +680,7 @@ local function UpdCam()
     end
     if co ~= plCount then return end
     local all = #game.Players:GetPlayers()
-    text.Text = "["..plCount -1.."/"..all -1.."]".." "..pl.Name
+    text.Text = "["..tostring(plCount -1).."/"..tostring(all -1).."]".." "..pl.Name
     game.Workspace.Camera.CameraSubject = pl.Character.Humanoid
 end
 
