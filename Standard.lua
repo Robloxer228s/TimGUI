@@ -372,10 +372,25 @@ end
 	end
 end)
 
-local WST = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
-_G.TimGui.Add.B("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WST.Text
+local Changer
+local enabled = _G.TimGui.Add.B("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
+local WalkSpeed = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
+
+game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+    if game.Players.LocalPlayer.Character.Humanoid.MoveDirection == Vector3.new(0,0,0) then
+        Changer:Disconnect()
+    elseif not Changer then
+        if not enabled.Value then return end
+        Changer = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            if not enabled.Value then Changer:Disconnect() end
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed.Text
+        end)
+        wait()
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed.Text
+    end
 end)
+
+
 local JT = _G.TimGui.Add.TB("JumpPowerV","JampPower:","Player",3,"Сила прыжка:") 
 _G.TimGui.Add.B("JumpPowerB", "Set jampPower", "Player", 4,"Установить силу", function()
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = JT.Text
