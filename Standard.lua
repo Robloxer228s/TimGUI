@@ -376,9 +376,10 @@ local Changer
 local WalkSpeed = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
 local Chan
 
-_G.TimGui.Add.B("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function(enabled) 
+_G.TimGui.Add.CB("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function(enabled) 
 if Changer then Changer:Disconnect() end
 if Chan then Chan:Disconnect() end
+if not enabled.Value then return end
 Chan = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection == Vector3.new(0,0,0) then
         Changer:Disconnect()
