@@ -384,13 +384,11 @@ Chan = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("Mov
     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection == Vector3.new(0,0,0) then
         Changer:Disconnect()
     elseif not Changer then
-        if not enabled.Value then return end
         Changer = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-            if not enabled.Value then Changer:Disconnect() end
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed.Text
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(WalkSpeed.Text) 
         end)
         wait()
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed.Text
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(WalkSpeed.Text) 
     end
 end)
 end) 
