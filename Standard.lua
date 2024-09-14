@@ -373,7 +373,7 @@ end
 end)
 
 local Changer
-local enabled = _G.TimGui.Add.B("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function()
+local enabled = _G.TimGui.Add.B("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость") 
 local WalkSpeed = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
 
 game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
