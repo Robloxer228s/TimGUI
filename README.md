@@ -10,6 +10,8 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
+14.09.24 - updated WalkSpeed 
+
 13.09.24 - added camera + gravity
 
 12.09.24 - added game script for Chaos Jenga
