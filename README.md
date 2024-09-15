@@ -10,7 +10,7 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
-14.09.24 - updated WalkSpeed 
+14.09.24 - updated WalkSpeed + floor is lava game script
 
 13.09.24 - added camera + gravity
 
@@ -64,6 +64,8 @@ Musically chairs
 Blocks and props
 
 Chaos Jenga
+
+Floor is lava
 
 # Credits:
 
