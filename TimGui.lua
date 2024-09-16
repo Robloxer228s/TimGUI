@@ -4,6 +4,10 @@ Please, use this script(for updates):
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
 
 ]]
+if game.CoreGui:FindFirstChild("TimEXPLORER") then
+    game.CoreGui.TimEXPLORER:Destroy()
+end
+
 local atpp
 local autotp
 local FoldersT = {}
@@ -295,32 +299,29 @@ if text == nil then
 text = rus
 end
 end
-local Temp = Instance.new("ImageLabel") 
+local Temp = Instance.new("Frame") 
 if not (group == FA) then
 Temp.Visible = false
 end
 Temp.Parent = Func
 Temp.Name = name
 Temp.BackgroundTransparency = 100
-Temp.Image = "rbxassetid://16342149164"
 Temp.Size = UDim2.new(0, 300, 0, 50)
-local Tempp = Instance.new("StringValue") 
+local Tempp = Instance.new("StringValue",Temp) 
 Tempp.Name = "group"
 Tempp.Value = group
-Tempp.Parent = Temp
-local Tempp = Instance.new("NumberValue") 
+local Tempp = Instance.new("NumberValue",Temp) 
 Tempp.Name = "pos"
 Tempp.Value = yy
-Tempp.Parent = Temp
-local ButTabb = Instance.new("TextButton") 
-ButTabb.Parent = Temp
-ButTabb.BackgroundTransparency = 100
+local ButTabb = Instance.new("TextButton",Temp) 
 ButTabb.Name = "Text"
 ButTabb.Text = text
 ButTabb.Size = UDim2.new(1, 0, 1, 0) 
 ButTabb.TextScaled = true
 ButTabb.TextColor3 = Color3.new(1, 0.25, 0.25) 
-local MegaTemp = Instance.new("TextLabel") 
+ButTabb.BackgroundColor3 = Color3.fromRGB(50,50,100)
+Instance.new("UICorner",ButTabb).CornerRadius = UDim.new(1,0)
+local MegaTemp = Instance.new("TextLabel",Temp) 
 MegaTemp.Parent = Temp
 MegaTemp.BackgroundTransparency = 100
 MegaTemp.Name = "Keybind"
@@ -329,16 +330,14 @@ MegaTemp.Size = UDim2.new(1, 0, 0.5, 0)
 MegaTemp.TextScaled = true
 MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
 MegaTemp.TextXAlignment = Enum.TextXAlignment.Left
-local TmpTwo = Instance.new("StringValue")
-TmpTwo.Parent = ButTabb
+local TmpTwo = Instance.new("StringValue",ButTabb)
 if not (rus == nil) then
 TmpTwo.Value = rus
 else
 TmpTwo.Value = text
 end
 local ButTab = FoldersT[group]
-ButTab[name] = Instance.new("BoolValue") 
-ButTab[name].Parent = Temp
+ButTab[name] = Instance.new("BoolValue",Temp) 
 FoldersT[group] = ButTab
 ButTabb.MouseButton2Click:Connect(function() 
 keybind(true, Temp, group .. "." .. name)
@@ -386,31 +385,27 @@ if text == nil then
 text = rus
 end
 end
-local Temp = Instance.new("ImageLabel") 
+local Temp = Instance.new("Frame") 
 if not (group == FA) then
 Temp.Visible = false
 end
 Temp.Parent = Func
 Temp.Name = name
 Temp.BackgroundTransparency = 100
-Temp.Image = "rbxassetid://16342149164"
 Temp.Size = UDim2.new(0, 300, 0, 50)
-local Tempp = Instance.new("StringValue") 
+local Tempp = Instance.new("StringValue",Temp) 
 Tempp.Name = "group"
 Tempp.Value = group
-Tempp.Parent = Temp
-local Tempp = Instance.new("NumberValue") 
+local Tempp = Instance.new("NumberValue",Temp) 
 Tempp.Name = "pos"
 Tempp.Value = yy
-Tempp.Parent = Temp
 local ButTab = FoldersT[group]
-ButTab[name] = Instance.new("TextButton") 
-ButTab[name].Parent = Temp
-ButTab[name].BackgroundTransparency = 100
+ButTab[name] = Instance.new("TextButton",Temp) 
 ButTab[name].Name = "Text"
 ButTab[name].Text = text
-local MegaTemp = Instance.new("TextLabel") 
-MegaTemp.Parent = Temp
+ButTab[name].BackgroundColor3 = Color3.fromRGB(50,50,100)
+Instance.new("UICorner",ButTab[name]).CornerRadius = UDim.new(1,0)
+local MegaTemp = Instance.new("TextLabel",Temp) 
 MegaTemp.BackgroundTransparency = 100
 MegaTemp.Name = "Keybind"
 MegaTemp.Text = ""
@@ -418,8 +413,7 @@ MegaTemp.Size = UDim2.new(1, 0, 0.5, 0)
 MegaTemp.TextScaled = true
 MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
 MegaTemp.TextXAlignment = Enum.TextXAlignment.Left
-local TmpTwo = Instance.new("StringValue")
-TmpTwo.Parent = ButTab[name]
+local TmpTwo = Instance.new("StringValue",ButTab[name])
 if not (rus == nil) then
 TmpTwo.Value = rus
 else
@@ -469,45 +463,40 @@ if text == nil then
 text = rus
 end
 end
-local Temp = Instance.new("ImageLabel") 
+local Temp = Instance.new("Frame") 
 if not (group == FA) then
 Temp.Visible = false
 end
 Temp.Parent = Func
 Temp.Name = name
-Temp.BackgroundTransparency = 100
-Temp.Image = "rbxassetid://16342149164"
+Temp.BackgroundColor3 = Color3.fromRGB(50,50,100)
+Instance.new("UICorner",Temp).CornerRadius = UDim.new(1,0)
 Temp.Size = UDim2.new(0, 300, 0, 50)
 local ButTab = FoldersT[group]
-local But = Instance.new("TextLabel") 
-But.Parent = Temp
+local But = Instance.new("TextLabel",Temp) 
 But.BackgroundTransparency = 100
 But.Text = text
 But.Name = "Text"
 But.Size = UDim2.new(0.5, 0, 1, 0) 
 But.TextScaled = true
 But.TextColor3 = Color3.new(1, 1, 1) 
-local TmpTwo = Instance.new("StringValue")
-TmpTwo.Parent = But
+local TmpTwo = Instance.new("StringValue",But)
 if not (rus == nil) then
 TmpTwo.Value = rus
 else
 TmpTwo.Value = text
 end
-local Tempp = Instance.new("StringValue") 
+local Tempp = Instance.new("StringValue",Temp) 
 Tempp.Name = "group"
 Tempp.Value = group
-Tempp.Parent = Temp
-local Tempp = Instance.new("NumberValue") 
+local Tempp = Instance.new("NumberValue",Temp) 
 Tempp.Name = "pos"
 Tempp.Value = yy
-Tempp.Parent = Temp
 local ButTab = FoldersT[group]
-ButTab[name] = Instance.new("TextBox") 
-ButTab[name].Parent = Temp
-ButTab[name].BackgroundColor3 = Color3.new(38 / 255, 38 / 255, 76 / 255) 
+ButTab[name] = Instance.new("TextBox",Temp) 
+ButTab[name].BackgroundColor3 = Color3.fromRGB(38, 38, 76) 
 ButTab[name].BackgroundTransparency = 0.4
-ButTab[name].Size = UDim2.new(0.5, -40, 1, 0) 
+ButTab[name].Size = UDim2.new(0.4, 0, 1, 0) 
 ButTab[name].Position = UDim2.new(0.5, 0, 0, 0)
 ButTab[name].Text = ""
 if not (_G.TimGui.config[group .. "." .. name] == nil) then ButTab[name].Text = _G.TimGui.config[group .. "." .. name] end 
@@ -584,11 +573,10 @@ Func.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
 end
 
 _G.TimGui.Add.G = function(name, rus) 
-local Temp = Instance.new("ImageLabel") 
+local Temp = Instance.new("Frame") 
 Temp.Parent = Folders
 Temp.Name = name
 Temp.BackgroundTransparency = 100
-Temp.Image = "rbxassetid://16342149164"
 Temp.Size = UDim2.new(1, -5, 0, 50)
 FoldersT[name] = {}
 local yy = Folders:GetChildren() 
@@ -601,17 +589,15 @@ if _G.TimGui.HMGF[name] then
 Temp.Parent = _G.TimGui.Path.HidedGroups
 end
 end
-local Tempp = Instance.new("NumberValue") 
+local Tempp = Instance.new("NumberValue",Temp) 
 Tempp.Name = "pos"
 Tempp.Value = yy
-Tempp.Parent = Temp
-local Tmp = Instance.new("TextButton") 
-Tmp.Parent = Temp
-Tmp.BackgroundTransparency = 100
+local Tmp = Instance.new("TextButton",Temp) 
 Tmp.Text = name
 Tmp.Name = "Text"
-local TmpTwo = Instance.new("StringValue")
-TmpTwo.Parent = Tmp
+Tmp.BackgroundColor3 = Color3.fromRGB(50,50,100)
+Instance.new("UICorner",Tmp).CornerRadius = UDim.new(1,0)
+local TmpTwo = Instance.new("StringValue",Tmp)
 if not (rus == nil) then
 TmpTwo.Value = rus
 else
@@ -666,4 +652,3 @@ else
 warn("Error load game script:\n" .. response)
 end
 end
-
