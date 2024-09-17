@@ -152,7 +152,7 @@ _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
     wait(0.5) 
     Frame:Destroy()
     end)
-end)
+end
 
 _G.TimGui.askYN = function(name, rusname, text, rustxt, onyes)
 local Menu = Instance.new("ImageLabel") 
