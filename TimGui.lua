@@ -299,13 +299,7 @@ local function keybind(newMode, button, buttonName)
 		    if keey == lastKeyB then
 			keybinds[keey] = nil
 			for k,v in pairs(Func:GetChildren()) do
-			   local temp = v.group.Value .. "." .. v.Name
-   			   if button:FindFirstChildOfClass("BoolValue") then
-          		      temp = "CB." .. temp
-      			   else 
-         		      temp = "B." .. temp
-     			   end
-			   if keybinds[temp] == keey then
+			   if v.Keybind.Text == keey then
 			      v.Keybind.Text = ""
 			   end
 			end
