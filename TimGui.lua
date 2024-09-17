@@ -334,10 +334,10 @@ local function keybind(newMode, button, buttonName)
     end
 end
 
-game:GetService("UserInputService").InputBegan:Connect(function(input)
+game:GetService("UserInputService").InputBegan:Connect(function(input,Focus)
     local button = input.KeyCode
     if not (button.Name == "Unknown") then 
-	if not game:GetService("UserInputService"):GetFocusedTextBox() then
+	if not Focus then
             keybind(false, button.Name,nil)
 	end
     end
