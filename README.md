@@ -10,6 +10,8 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 # Update logs:
+17.09.24 - added notification
+
 16.09.24 - updated interface to UICorner
 
 14.09.24 - updated WalkSpeed + floor is lava game script
