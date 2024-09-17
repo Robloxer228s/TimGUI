@@ -485,6 +485,7 @@ end
 end)
 
 _G.TimGui.Add.B("GM", "GodMode", "Player", 9, "Бесмертие", function()
+_G.TimGui.Print("GodMod","It may not work!","Бессмертие","Может не работать")
 local speaker = game.Players.LocalPlayer
 local Cam = workspace.CurrentCamera
 local Pos, Char = Cam.CFrame, speaker.Character
