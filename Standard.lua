@@ -480,7 +480,7 @@ end
 end)
 else
 Clipon = false
-Status.TextColor3 = Color3.new(170,0,0)
+_G.TimGui.Print("Noclip","Jump!","Проходка сквозь стены","Прыгни!")
 end
 end)
 
