@@ -738,7 +738,7 @@ end
 end) 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Standard.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimExplorer/Load.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimControl/Main.lua"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimControl/Main.lua"))()
 local success, response = pcall(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Freeze.lua"))()
 end)
