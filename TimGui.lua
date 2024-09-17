@@ -152,6 +152,7 @@ _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
     wait(0.5) 
     Frame:Destroy()
     end)
+    vall.Value = true
 end
 
 _G.TimGui.askYN = function(name, rusname, text, rustxt, onyes)
@@ -680,12 +681,13 @@ local changeTimeVis = _G.TimGui.Add.TB("changeTimeVis","time of notification:","
 changeTimeVis.Changed:Connect(function()
 timeVis = tonumber(changeTimeVis.Text)
 if timeVis == nil then
-timeVis = 5
+timeVis = 0.5
 end
 if timeVis < 0.5 then
 timeVis = 0.5
 end
 end)
+changeTimeVis.Text = timeVis
 
 _G.TimGui.Add.CB("NotEnable","Enable notification","Settings",12,"Включить уведомления",function(val)
 NotEnable = val.Value
