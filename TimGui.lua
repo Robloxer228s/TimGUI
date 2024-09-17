@@ -97,8 +97,10 @@ Func.ScrollingDirection = 2
 local stroke = 5
 local size = 250
 local timeVis = 5
+local NotEnable = true
 
 _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
+    if not NotEnable then return end
     local Frame = Instance.new("Frame",gui)
     Frame.Size = UDim2.new(0,size,0,size/1.5)
     Frame.BackgroundColor3 = Color3.fromRGB(100,100,200)
@@ -134,6 +136,8 @@ _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
         TxtVal.Text = Txt
     end
     Frame.Position = UDim2.new(0,-size,0,0)
+    local vall = Instance.new("BoolValue")
+    vall.Changed:Connect(function()
     local goal = {}
     goal.Position = UDim2.new(0,0,0,0) 
     game.TweenService:Create(Frame,TweenInfo.new(0.5),goal):Play() 
@@ -147,7 +151,8 @@ _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
     game.TweenService:Create(Frame,TweenInfo.new(0.5),goal):Play() 
     wait(0.5) 
     Frame:Destroy()
-end
+    end)
+end)
 
 _G.TimGui.askYN = function(name, rusname, text, rustxt, onyes)
 local Menu = Instance.new("ImageLabel") 
@@ -671,6 +676,22 @@ end)
 Folders.CanvasSize = UDim2.new(0, 0, 0, 50 * yy) 
 end
 _G.TimGui.Add.G("Settings","Настройки") 
+local changeTimeVis = _G.TimGui.Add.TB("changeTimeVis","time of notification:","Settings",11,"Время уведомления")
+changeTimeVis.Changed:Connect(function()
+timeVis = tonumber(changeTimeVis.Text)
+if timeVis == nil then
+timeVis = 5
+end
+if timeVis < 0.5 then
+timeVis = 0.5
+end
+end)
+
+_G.TimGui.Add.CB("NotEnable","Enable notification","Settings",12,"Включить уведомления",function(val)
+NotEnable = val.Value
+_G.TimGui.Print("Example","Hello world!","Пример","Прив")
+end).Value = true
+
 _G.TimGui.Add.G(FA,"ТП к игрокам")
 autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 1, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
