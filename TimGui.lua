@@ -94,6 +94,61 @@ Func.Position = UDim2.new(0, 100, 0, 25)
 _G.TimGui.Path.Buttons = Func
 Func.ScrollingDirection = 2
 
+local stroke = 5
+local size = 250
+local timeVis = 5
+
+_G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
+    local Frame = Instance.new("Frame",gui)
+    Frame.Size = UDim2.new(0,size,0,size/1.5)
+    Frame.BackgroundColor3 = Color3.fromRGB(100,100,200)
+    Frame.Name = "Print"
+    local Main = Instance.new("Frame",Frame)
+    Main.Size = UDim2.new(1,-stroke*2,1,-stroke*2)
+    Main.Position = UDim2.new(0,stroke,0,stroke)
+    Main.BackgroundColor3 = Color3.fromRGB(38,38,76)
+    Instance.new("UICorner",Frame).CornerRadius = UDim.new(0.2,0)
+    Instance.new("UICorner",Main).CornerRadius = UDim.new(0.2,0)
+    local ZagVal = Instance.new("TextLabel",Main)
+    ZagVal.Size = UDim2.new(0.9,0,0.25,0)
+    ZagVal.Position = UDim2.new(0.05,0,0,0)
+    ZagVal.TextColor3 = Color3.new(1,1,1)
+    ZagVal.BackgroundTransparency = 1
+    ZagVal.TextScaled = true
+    local TxtVal = Instance.new("TextLabel",Main)
+    TxtVal.Size = UDim2.new(0.9,0,0.75,-10)
+    TxtVal.Position = UDim2.new(0.05,0,0.25,5)
+    TxtVal.TextColor3 = Color3.new(1,1,1)
+    TxtVal.BackgroundTransparency = 1
+    TxtVal.TextScaled = true
+    local timer = Instance.new("Frame",Main) 
+    timer.BackgroundColor3 = Color3.fromRGB(60,60,110)
+    timer.Position = UDim2.new(0.05,0,0.25,0)
+    timer.Size = UDim2.new(0.9,0,0,5) 
+    Instance.new("UICorner",timer).CornerRadius = UDim.new(1,0)
+    if _G.TimGui.ru then
+        ZagVal.Text = ZagRus
+        TxtVal.Text = TxtRus
+    else
+        ZagVal.Text = Zag
+        TxtVal.Text = Txt
+    end
+    Frame.Position = UDim2.new(0,-size,0,0)
+    local goal = {}
+    goal.Position = UDim2.new(0,0,0,0) 
+    game.TweenService:Create(Frame,TweenInfo.new(0.5),goal):Play() 
+    wait(0.5) 
+    goal = {}
+    goal.Size = UDim2.new(0,0,0,5) 
+    game.TweenService:Create(timer,TweenInfo.new(timeVis),goal):Play() 
+    wait(timeVis) 
+    goal = {}
+    goal.Position = UDim2.new(0,-size,0,0) 
+    game.TweenService:Create(Frame,TweenInfo.new(0.5),goal):Play() 
+    wait(0.5) 
+    Frame:Destroy()
+end
+
 _G.TimGui.askYN = function(name, rusname, text, rustxt, onyes)
 local Menu = Instance.new("ImageLabel") 
 Menu.Name = "askYN"
@@ -652,3 +707,5 @@ else
 warn("Error load game script:\n" .. response)
 end
 end
+
+_G.TimGui.Print("Loaded","TimGui is loaded","Загружен","TimGui загружен.")
