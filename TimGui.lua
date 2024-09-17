@@ -96,7 +96,7 @@ Func.ScrollingDirection = 2
 
 local stroke = 5
 local size = 250
-local timeVis = 5
+local timeVis = 2.5
 local NotEnable = true
 
 _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
@@ -691,8 +691,11 @@ changeTimeVis.Text = timeVis
 
 _G.TimGui.Add.CB("NotEnable","Enable notification","Settings",12,"Включить уведомления",function(val)
 NotEnable = val.Value
-_G.TimGui.Print("Example","Hello world!","Пример","Прив")
 end).Value = true
+
+_G.TimGui.Add.B("Example notification","Example notification","Settings",13,"Пример уведомления",function()
+_G.TimGui.Print("Example","Hello world!","Пример","Прив")
+end)
 
 _G.TimGui.Add.G(FA,"ТП к игрокам")
 autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 1, "Авто спам") 
