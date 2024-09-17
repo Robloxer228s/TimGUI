@@ -309,6 +309,7 @@ local function keybind(newMode, button, buttonName)
                     keybinds[lastKeyB] = keybinding
 		    button.Keybind.Text = lastKeyB
                 end
+                keybinding = nil
             end)
             _G.TimGui.Path.Main.Parent.askYN.AncestryChanged:Connect(function(child, parent)
                 keybinding = nil
