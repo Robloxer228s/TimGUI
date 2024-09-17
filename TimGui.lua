@@ -126,7 +126,7 @@ _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
     local timer = Instance.new("Frame",Main) 
     timer.BackgroundColor3 = Color3.fromRGB(60,60,110)
     timer.Position = UDim2.new(0.05,0,0.25,0)
-    timer.Size = UDim2.new(0.9,0,0,5) 
+    timer.Size = UDim2.new(0,0,0,5) 
     Instance.new("UICorner",timer).CornerRadius = UDim.new(1,0)
     if _G.TimGui.ru then
         ZagVal.Text = ZagRus
@@ -141,6 +141,10 @@ _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
     local goal = {}
     goal.Position = UDim2.new(0,0,0,0) 
     game.TweenService:Create(Frame,TweenInfo.new(0.5),goal):Play() 
+    wait(0.5)
+    local goal = {}
+    goal.Size = UDim2.new(0.9,0,0,5) 
+    game.TweenService:Create(timer,TweenInfo.new(0.5),goal):Play() 
     wait(0.5) 
     goal = {}
     goal.Size = UDim2.new(0,0,0,5) 
@@ -282,50 +286,49 @@ local lastKeyB = nil
 
 local function keybind(newMode, button, buttonName)
     if newMode and keybinding == nil then
-        keybinding = nil
         lastKeyB = nil
         if button:FindFirstChildOfClass("BoolValue") then
             keybinding = "CB." .. buttonName
         else 
             keybinding = "B." .. buttonName
         end
-        if not (keybinding == nil) then
-            _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
-                for keey,v in pairs(keybinds) do
-                    if v == keybinding then 
-                        keybinds[keey] = nil
-			button.Keybind.Text = ""
-                    end
-		    if keey == lastKeyB then
-			keybinds[keey] = nil
-			for k,v in pairs(Func:GetChildren()) do
-			   if v.Keybind.Text == keey then
-			      v.Keybind.Text = ""
-			   end
-			end
+        _G.TimGui.askYN("Select a key", "Выбири клавишу", "Key is not selected","Клавиша не выбрана", function()
+		    for keey,v in pairs(keybinds) do
+                if v == keybinding then 
+                    keybinds[keey] = nil
+			        button.Keybind.Text = ""
+                end
+                if keey == lastKeyB then
+		    	    keybinds[keey] = nil
+			        for k,v in pairs(Func:GetChildren()) do
+                        if not v:FindFirstChild("Keybind") then continue end
+			            if v.Keybind.Text == keey then
+			                v.Keybind.Text = ""
+                            break
+                        end
+			        end
+			    end
 		    end
-                end
-                if not (lastKeyB == nil) then
-                    keybinds[lastKeyB] = keybinding
-		    button.Keybind.Text = lastKeyB
-                end
-                keybinding = nil
-            end)
-            _G.TimGui.Path.Main.Parent.askYN.AncestryChanged:Connect(function(child, parent)
-                keybinding = nil
-            end)
-        end
-    elseif not newMode then
-        if not (keybinding == nil) then 
-            lastKeyB = button
-            _G.TimGui.Path.Main.Parent.askYN.text.Text = "Key:" .. button
-            if _G.TimGui.ru then
-                _G.TimGui.Path.Main.Parent.askYN.text.Text = "Клавиша:" .. button
+            if not (lastKeyB == nil) then
+                keybinds[lastKeyB] = keybinding
+		        button.Keybind.Text = lastKeyB
             end
-	elseif not (keybinds[button] == nil) then
+            keybinding = nil
+        end)
+        _G.TimGui.Path.Main.Parent.askYN.AncestryChanged:Connect(function(child, parent)
+            keybinding = nil
+        end)
+    elseif not newMode then
+        if keybinding and gui:FindFirstChild("askYN") then 
+            lastKeyB = button
+            gui.askYN.text.Text = "Key:" .. button
+            if _G.TimGui.ru then
+                gui.askYN.text.Text = "Клавиша:" .. button
+            end
+	    elseif keybinds[button] then
             local but = keybinds[button]
             if string.sub(but, 1, 2) == "B." then
-		local name = string.sub(but, 3, string.len(but)+1)
+		        local name = string.sub(but, 3, string.len(but)+1)
                 _G.TimGui.TimControlSet(name, "B")
             else
                  local name = string.sub(but, 4, string.len(but)+1)
@@ -335,12 +338,41 @@ local function keybind(newMode, button, buttonName)
     end
 end
 
+local addForKeybind = {}
+addForKeybind.LeftControl = {}
+addForKeybind.RightShift = {}
+addForKeybind.LeftShift = {}
+addForKeybind.RightControl = {}
+addForKeybind.LeftControl.Name = "LCtrl"
+addForKeybind.RightControl.Name = "RCtrl"
+addForKeybind.LeftShift.Name = "LShift"
+addForKeybind.RightShift.Name = "RShift"
+addForKeybind.LeftControl.Value = false
+addForKeybind.RightControl.Value = false
+addForKeybind.LeftShift.Value = false
+addForKeybind.RightShift.Value = false
+
 game:GetService("UserInputService").InputBegan:Connect(function(input,Focus)
     local button = input.KeyCode
     if not (button.Name == "Unknown") then 
-	if not Focus then
-            keybind(false, button.Name,nil)
-	end
+        if addForKeybind[button.Name] then
+            addForKeybind[button.Name].Value = true
+	    elseif not Focus then
+            local temp = button.Name
+            for k,v in pairs(addForKeybind) do
+                if v.Value then
+                    temp =  v.Name.." + "..temp
+                end
+            end
+            keybind(false, temp,nil)
+	    end
+    end
+end)
+
+game:GetService("UserInputService").InputEnded:Connect(function(input)
+    local button = input.KeyCode
+    if addForKeybind[button.Name] then
+        addForKeybind[button.Name].Value = false
     end
 end)
 ---------- Buttons
@@ -384,7 +416,7 @@ MegaTemp.Name = "Keybind"
 MegaTemp.Text = ""
 MegaTemp.Size = UDim2.new(1, 0, 0.5, 0) 
 MegaTemp.TextScaled = true
-MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
+MegaTemp.TextColor3 = Color3.new(0.75, 0.75, 1) 
 MegaTemp.TextXAlignment = Enum.TextXAlignment.Left
 local TmpTwo = Instance.new("StringValue",ButTabb)
 if not (rus == nil) then
@@ -467,7 +499,7 @@ MegaTemp.Name = "Keybind"
 MegaTemp.Text = ""
 MegaTemp.Size = UDim2.new(1, 0, 0.5, 0) 
 MegaTemp.TextScaled = true
-MegaTemp.TextColor3 = Color3.new(1, 1, 1) 
+MegaTemp.TextColor3 = Color3.new(0.75, 0.75, 1) 
 MegaTemp.TextXAlignment = Enum.TextXAlignment.Left
 local TmpTwo = Instance.new("StringValue",ButTab[name])
 if not (rus == nil) then
