@@ -686,6 +686,9 @@ end
 if timeVis < 0.5 then
 timeVis = 0.5
 end
+if timeVis > 30 then
+timeVis = 30
+end
 end)
 changeTimeVis.Text = timeVis
 
