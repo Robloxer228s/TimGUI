@@ -752,9 +752,11 @@ _G.TimGui.SetGroup("Settings")
 if not success then
 warn("Error to load settings:\n" .. response)
 end
+local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
 print(game.GameId)
+_G.TimGui.Print("Loaded","TimGui is loaded","Загружен","TimGui загружен.")
 local success, response = pcall(function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua"))()
+loadstring(gameScr)()
 end)
 if not success then
 if response == "HTTP 404 (Not Found)" then
@@ -763,5 +765,3 @@ else
 warn("Error load game script:\n" .. response)
 end
 end
-
-_G.TimGui.Print("Loaded","TimGui is loaded","Загружен","TimGui загружен.")
