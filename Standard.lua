@@ -376,9 +376,11 @@ local Changer
 local WalkSpeed = _G.TimGui.Add.TB("WalkspeedV","WalkSpeed:","Player",1,"Скорость ходьбы:") 
 local Chan
 
-_G.TimGui.Add.CB("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function(enabled) 
+local WSpeed = _G.TimGui.Add.CB("WalkspeedB", "Set walkSpeed", "Player", 2,"Установить скорость", function(enabled) 
 if Changer then Changer:Disconnect() end
 if Chan then Chan:Disconnect() end
+Chan = nil
+Changer = nil
 if not enabled.Value then return end
 Chan = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection == Vector3.new(0,0,0) then
@@ -418,14 +420,17 @@ local anim = _G.TimGui.Add.CB("Noanim","No animation","Player",13,"Без ани
 	game.Players.LocalPlayer.Character.Animate.Disabled = val.Value
 end) 
 
-game.Players.LocalPlayer.ChildAdded:Connect(function()
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
 local Flyy = Fly.Value
 local Speeen = PB.Value
 local animat = anim.Value
+local Speed = WSpeed.Value
 Fly.Value = false
 PB.Value = false 
 anim.Value = false 
+WSpeed.Value = false
 wait(0.5) 
+WSpeed.Value = Speed
 anim.Value = animat
 Fly.Value = Flyy
 wait(0.25) 
