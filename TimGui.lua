@@ -357,15 +357,15 @@ game:GetService("UserInputService").InputBegan:Connect(function(input,Focus)
     if not (button.Name == "Unknown") then 
         if addForKeybind[button.Name] then
             addForKeybind[button.Name].Value = true
-	    elseif not Focus then
+	    elseif not game.UserInputService:GetFocusedTextBox() then
             local temp = button.Name
             for k,v in pairs(addForKeybind) do
                 if v.Value then
                     temp =  v.Name.." + "..temp
                 end
             end
-            keybind(false, temp,nil)
-	    end
+            keybind(false, temp,nil,Focus)
+	  end
     end
 end)
 
