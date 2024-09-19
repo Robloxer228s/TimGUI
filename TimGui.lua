@@ -284,7 +284,7 @@ local keybinding = nil
 local keybinds = {}
 local lastKeyB = nil
 
-local function keybind(newMode, button, buttonName)
+local function keybind(newMode, button, buttonName,focus)
     if newMode and keybinding == nil then
         lastKeyB = nil
         if button:FindFirstChildOfClass("BoolValue") then
@@ -322,8 +322,14 @@ local function keybind(newMode, button, buttonName)
         if keybinding and gui:FindFirstChild("askYN") then 
             lastKeyB = button
             gui.askYN.text.Text = "Key:" .. button
+	    if focus then 
+                gui.askYN.text.Text = "Key:" .. button .. ". This may interfere with the game"
+            end
             if _G.TimGui.ru then
                 gui.askYN.text.Text = "Клавиша:" .. button
+		if focus then 
+                    gui.askYN.text.Text = "Клавиша:" .. button .. ".Эта кнопка может помешать игре"
+                end
             end
 	    elseif keybinds[button] then
             local but = keybinds[button]
