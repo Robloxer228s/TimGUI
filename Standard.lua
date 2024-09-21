@@ -420,16 +420,27 @@ local anim = _G.TimGui.Add.CB("Noanim","No animation","Player",13,"Без ани
 	game.Players.LocalPlayer.Character.Animate.Disabled = val.Value
 end) 
 
+local NOTouch = _G.TimGui.Add.CB("NoTouch","Not CanTouch","Player",15,"Убрать касания",function(val)
+    for k,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do 
+        if v:IsA("BasePart") then
+            v.CanTouch = not val.Value
+        end
+    end
+end)
+
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 local Flyy = Fly.Value
 local Speeen = PB.Value
 local animat = anim.Value
 local Speed = WSpeed.Value
+local NoTouchVal = NOTouch.Value
 Fly.Value = false
 PB.Value = false 
 anim.Value = false 
 WSpeed.Value = false
+NOTouch.Value = false
 wait(0.5) 
+NOTouch.Value = NoTouchVal
 WSpeed.Value = Speed
 anim.Value = animat
 Fly.Value = Flyy
