@@ -9,7 +9,11 @@ TimControl don't work
 
 Use Right mouse button for keybinding! 
 
+Hold button on 1.5 sec for Fly button
+
 # Update logs:
+26.09.24 - added Fly buttons(for mobile)
+
 18.09.24 - Fix walkspeed
 
 17.09.24 - added notification
