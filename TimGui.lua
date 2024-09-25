@@ -411,17 +411,20 @@ Button.Size = UDim2.new(0,50,0,50)
 Button.Position = UDim2.new(0.5,-25,0.1,0)
 Button.Name = name
 local MovedChecker = true
-local Clicked = false
+local Clicked = false 
+local Moving 
 Button.MouseButton1Down:Connect(function()
 MovedChecker = true
 Clicked = true
+if Moving then
+Moving:Disconnect()
+end
 local mouse = game.Players.LocalPlayer:GetMouse()
-mouse.Move:Connect(function()
+Moving = mouse.Move:Connect(function()
 if Clicked then
 local offset = game.Workspace.Camera.ViewportSize - gui.AbsoluteSize
 local delta = Button.Position - UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
 delta = math.floor((delta.X.Offset + delta.Y.Offset) / 7.5)
-print(delta)
 if math.abs(delta) > 1 or not MovedChecker then
 MovedChecker = false
 Button.Position = UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
