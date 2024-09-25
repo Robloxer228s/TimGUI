@@ -381,8 +381,9 @@ game:GetService("UserInputService").InputEnded:Connect(function(input)
         addForKeybind[button.Name].Value = false
     end
 end)
----------- Phone Keybinds
+---------- Phone Fly Button
 
+local FBMoving = true
 local function phoneButton(but,name)
 if gui:FindFirstChild(name) then
 gui:FindFirstChild(name):Destroy()
@@ -411,25 +412,10 @@ Button.Size = UDim2.new(0,50,0,50)
 Button.Position = UDim2.new(0.5,-25,0.1,0)
 Button.Name = name
 local MovedChecker = true
-local Clicked = false 
-local Moving 
+local Clicked = false
 Button.MouseButton1Down:Connect(function()
 MovedChecker = true
 Clicked = true
-if Moving then
-Moving:Disconnect()
-end
-local mouse = game.Players.LocalPlayer:GetMouse()
-Moving = mouse.Move:Connect(function()
-if Clicked then
-local offset = game.Workspace.Camera.ViewportSize - gui.AbsoluteSize
-local delta = Button.Position - UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
-delta = math.floor((delta.X.Offset + delta.Y.Offset) / 7.5)
-if math.abs(delta) > 1 or not MovedChecker then
-MovedChecker = false
-Button.Position = UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
-end
-end
 end)
 Button.MouseButton1Up:Connect(function()
 Clicked = false
@@ -441,10 +427,21 @@ _G.TimGui.TimControlSet(name, "B")
 end
 end
 end)
+local mouse = game.Players.LocalPlayer:GetMouse()
 but:GetPropertyChangedSignal("Text"):Connect(function()
 Button.Text = but.Text
 end)
 Button.Text = but.Text
+mouse.Move:Connect(function()
+if Clicked and FBMoving then
+local offset = game.Workspace.Camera.ViewportSize - gui.AbsoluteSize
+local delta = Button.Position - UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
+delta = math.floor((delta.X.Offset + delta.Y.Offset) / 7.5)
+if math.abs(delta) > 1 or not MovedChecker then
+MovedChecker = false
+Button.Position = UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
+end
+end
 end)
 _G.TimGui.Print("Flying buttons","Created","Летающие кнопки","Созданно")
 end
@@ -518,7 +515,6 @@ phoneButton(ButTabb,group .. "." .. name)
 end
 end) 
 ButTabb.MouseButton1Up:Connect(function() 
-print(Flying)
 hold += 1
 if Flying then
 ButTab[name].Value = not ButTab[name].Value
@@ -836,6 +832,9 @@ _G.TimGui.Add.B("Example notification","Example notification","Settings",13,"П�
 _G.TimGui.Print("Example","Hello world!","Пример","Прив")
 end)
 
+_G.TimGui.Add.CB("FBMoving","Flying Button Moving","Settings",14,"Движение летающих кнопок",function(val)
+FBMoving = val.Value
+end).Value = true
 _G.TimGui.Add.G(FA,"ТП к игрокам")
 autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 1, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
