@@ -386,7 +386,7 @@ end)
 local function phoneButton(but,name)
 if gui:FindFirstChild(name) then
 gui:FindFirstChild(name):Destroy()
-_G.TimGui.Print("Fly buttons","Deleted","Летающие кнопки","Удаленно")
+_G.TimGui.Print("Flying buttons","Deleted","Летающие кнопки","Удаленно")
 return
 end
 local Button = Instance.new("TextButton",gui)
@@ -443,7 +443,7 @@ Button.Position = UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
 end
 end
 end)
-_G.TimGui.Print("Fly buttons","Created","Летающие кнопки","Созданно")
+_G.TimGui.Print("Flying buttons","Created","Летающие кнопки","Созданно")
 end
 
 ---------- Buttons
