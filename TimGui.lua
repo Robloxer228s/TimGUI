@@ -412,9 +412,11 @@ Button.Position = UDim2.new(0.5,-25,0.1,0)
 Button.Name = name
 local MovedChecker = true
 local Clicked = false
+local mouse 
 Button.MouseButton1Down:Connect(function()
 MovedChecker = true
 Clicked = true
+mouse = game.Players.LocalPlayer:GetMouse()
 end)
 Button.MouseButton1Up:Connect(function()
 Clicked = false
@@ -426,7 +428,6 @@ _G.TimGui.TimControlSet(name, "B")
 end
 end
 end)
-local mouse = game.Players.LocalPlayer:GetMouse()
 but:GetPropertyChangedSignal("Text"):Connect(function()
 Button.Text = but.Text
 end)
