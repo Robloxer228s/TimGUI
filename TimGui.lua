@@ -381,6 +381,71 @@ game:GetService("UserInputService").InputEnded:Connect(function(input)
         addForKeybind[button.Name].Value = false
     end
 end)
+---------- Phone Keybinds
+
+local function phoneButton(but,name)
+if gui:FindFirstChild(name) then
+gui:FindFirstChild(name):Destroy()
+_G.TimGui.Print("Fly buttons","Deleted","Летающие кнопки","Удаленно")
+return
+end
+local Button = Instance.new("TextButton",gui)
+local Res = but.Parent
+Button.TextScaled = true
+Button.BackgroundColor3 = Color3.new(0,0,0.1)
+if Res:FindFirstChild("Value") then
+local function updVal()
+if Res.Value.Value then
+Button.TextColor3 = Color3.new(0,1,0)
+else
+Button.TextColor3 = Color3.new(1,0,0)
+end
+end
+Res.Value.Changed:Connect(updVal)
+updVal()
+else
+Button.TextColor3 = Color3.new(1,1,1)
+end -- CB end
+Instance.new("UICorner",Button).CornerRadius = UDim.new(0.25,0)
+Button.Size = UDim2.new(0,50,0,50)
+Button.Position = UDim2.new(0.5,-25,0.1,0)
+Button.Name = name
+local MovedChecker = true
+local Clicked = false
+Button.MouseButton1Down:Connect(function()
+MovedChecker = true
+Clicked = true
+end)
+Button.MouseButton1Up:Connect(function()
+Clicked = false
+if MovedChecker then
+if Res:FindFirstChild("Value") then
+_G.TimGui.TimControlSet(name, "CB")
+else
+_G.TimGui.TimControlSet(name, "B")
+end
+end
+end)
+local mouse = game.Players.LocalPlayer:GetMouse()
+but:GetPropertyChangedSignal("Text"):Connect(function()
+Button.Text = but.Text
+end)
+Button.Text = but.Text
+mouse.Move:Connect(function()
+if Clicked then
+local offset = game.Workspace.Camera.ViewportSize - gui.AbsoluteSize
+local delta = Button.Position - UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
+delta = math.floor((delta.X.Offset + delta.Y.Offset) / 7.5)
+print(delta)
+if math.abs(delta) > 1 or not MovedChecker then
+MovedChecker = false
+Button.Position = UDim2.new(0,mouse.X-25 -offset.X,0,mouse.Y+25 -offset.Y)
+end
+end
+end)
+_G.TimGui.Print("Fly buttons","Created","Летающие кнопки","Созданно")
+end
+
 ---------- Buttons
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
@@ -436,8 +501,27 @@ FoldersT[group] = ButTab
 ButTabb.MouseButton2Click:Connect(function() 
 keybind(true, Temp, group .. "." .. name)
 end) 
-ButTabb.Activated:Connect(function() 
+local hold = 0
+local Flying = true
+ButTabb.MouseButton1Down:Connect(function() 
+hold += 1
+local tmp = hold
+wait(1.5)
+if hold == tmp then
+local UserInputService = game:GetService("UserInputService")
+if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
+Flying = false
+phoneButton(ButTabb,group .. "." .. name)
+end
+end) 
+ButTabb.MouseButton1Up:Connect(function() 
+print(Flying)
+hold += 1
+if Flying then
 ButTab[name].Value = not ButTab[name].Value
+else
+Flying = true
+end
 end) 
 ButTab[name].Changed:Connect(function() 		
 local goal = {}
@@ -519,9 +603,25 @@ ButTab[name].TextColor3 = Color3.new(1, 1, 1)
 ButTab[name].MouseButton2Click:Connect(function() 
 keybind(true, Temp, group .. "." .. name) 
 end) 
-ButTab[name].Activated:Connect(function() 
-if not (funct == nil) then
-funct(ButTab[name])
+local hold = 0
+local Flying = true
+ButTab[name].MouseButton1Down:Connect(function() 
+hold += 1
+local tmp = hold
+wait(1.5)
+if hold == tmp then
+local UserInputService = game:GetService("UserInputService")
+if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
+Flying = false
+phoneButton(ButTab[name],group .. "." .. name)
+end
+end) 
+ButTab[name].MouseButton1Up:Connect(function() 
+hold += 1
+if Flying then
+ButTab[name].Value = not ButTab[name].Value
+else
+Flying = true
 end
 end) 
 FoldersT[group] = ButTab
