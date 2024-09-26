@@ -511,12 +511,13 @@ wait(2)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
+ButTabb.BackgroundColor3 = Color3.fromRGB(75,75,125)
 Flying = false
-_G.TimGui.Print("Flying Buttons","Отпусти, чтобы создать","Летающие кнопки","Отпусти, чтобы создать")
 end
 end) 
 game.Players.LocalPlayer:GetMouse().Button1Up:Connect(function() 
 hold += 1
+ButTabb.BackgroundColor3 = Color3.fromRGB(50,50,100)
 end) 
 ButTabb.Activated:Connect(function() 
 if Flying then
@@ -615,12 +616,13 @@ wait(2)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
+ButTabb.BackgroundColor3 = Color3.fromRGB(75,75,125)
 Flying = false
-_G.TimGui.Print("Flying Buttons","Отпусти, чтобы создать","Летающие кнопки","Отпусти, чтобы создать")
 end
 end) 
 game.Players.LocalPlayer:GetMouse().Button1Up:Connect(function() 
 hold += 1
+ButTabb.BackgroundColor3 = Color3.fromRGB(50,50,100)
 end) 
 ButTab[name].Activated:Connect(function() 
 if Flying then
