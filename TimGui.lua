@@ -507,11 +507,12 @@ ButTabb.MouseButton1Down:Connect(function()
 hold += 1
 local tmp = hold
 Flying = true
-wait(3)
+wait(2)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
 Flying = false
+_G.TimGui.Print("Flying Buttons","Отпусти, чтобы создать","Летающие кнопки","Отпусти, чтобы создать")
 end
 end) 
 game.Players.LocalPlayer:GetMouse().Button1Up:Connect(function() 
@@ -609,24 +610,27 @@ local Flying = true
 ButTab[name].MouseButton1Down:Connect(function() 
 hold += 1
 local tmp = hold
-wait(3)
+Flying = true
+wait(2)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
 Flying = false
-phoneButton(ButTab[name],group .. "." .. name)
+_G.TimGui.Print("Flying Buttons","Отпусти, чтобы создать","Летающие кнопки","Отпусти, чтобы создать")
 end
 end) 
 game.Players.LocalPlayer:GetMouse().Button1Up:Connect(function() 
 hold += 1
-wait() 
-Flying = true
 end) 
-ButTab[name].MouseButton1Up:Connect(function() 
+ButTab[name].Activated:Connect(function() 
 if Flying then
-ButTab[name].Value = not ButTab[name].Value
+if not (funct == nil) then
+funct(ButTab[name])
 end
-end) 
+else
+phoneButton(ButTab[name],group .. "." .. name)
+end
+end)  
 FoldersT[group] = ButTab
 local ftpmc = FoldersT[FA]
 if FA == group then
