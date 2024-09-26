@@ -446,6 +446,7 @@ end)
 _G.TimGui.Print("Flying buttons","Created","Летающие кнопки","Созданно")
 end
 
+local hold = 0
 ---------- Buttons
 
 _G.TimGui.Add.CB = function(name, text, group, yy, rus, funct) 
@@ -501,7 +502,6 @@ FoldersT[group] = ButTab
 ButTabb.MouseButton2Click:Connect(function() 
 keybind(true, Temp, group .. "." .. name)
 end) 
-local hold = 0
 local Flying = true
 ButTabb.MouseButton1Down:Connect(function() 
 hold += 1
@@ -608,7 +608,6 @@ ButTab[name].TextColor3 = Color3.new(1, 1, 1)
 ButTab[name].MouseButton2Click:Connect(function() 
 keybind(true, Temp, group .. "." .. name) 
 end) 
-local hold = 0
 local Flying = true
 ButTab[name].MouseButton1Down:Connect(function() 
 hold += 1
