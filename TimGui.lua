@@ -836,9 +836,10 @@ _G.TimGui.Add.B("Example notification","Example notification","Settings",13,"П�
 _G.TimGui.Print("Example","Hello world!","Пример","Прив")
 end)
 
-_G.TimGui.Add.CB("FBMoving","Flying Button Moving","Settings",14,"Движение летающих кнопок",function(val)
+_G.TimGui.Add.CB("FBMoving","Flying Button Moving","Settings",8,"Движение летающих кнопок",function(val)
 FBMoving = val.Value
 end).Value = true
+
 _G.TimGui.Add.G(FA,"ТП к игрокам")
 autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 1, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
