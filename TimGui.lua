@@ -511,7 +511,7 @@ wait(2)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
-ButTabb.BackgroundColor3 = Color3.fromRGB(75,75,125)
+ButTabb.BackgroundColor3 = Color3.new(0,0,0.1)
 Flying = false
 end
 end) 
@@ -520,6 +520,8 @@ hold += 1
 ButTabb.BackgroundColor3 = Color3.fromRGB(50,50,100)
 end) 
 ButTabb.Activated:Connect(function() 
+hold += 1
+ButTabb.BackgroundColor3 = Color3.fromRGB(50,50,100)
 if Flying then
 ButTab[name].Value = not ButTab[name].Value
 else
@@ -616,15 +618,17 @@ wait(2)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
-ButTabb.BackgroundColor3 = Color3.fromRGB(75,75,125)
+ButTab[name].BackgroundColor3 = Color3.new(0,0,0.1)
 Flying = false
 end
 end) 
 game.Players.LocalPlayer:GetMouse().Button1Up:Connect(function() 
 hold += 1
-ButTabb.BackgroundColor3 = Color3.fromRGB(50,50,100)
+ButTab[name].BackgroundColor3 = Color3.fromRGB(50,50,100)
 end) 
 ButTab[name].Activated:Connect(function() 
+hold += 1
+ButTab[name].BackgroundColor3 = Color3.fromRGB(50,50,100)
 if Flying then
 if not (funct == nil) then
 funct(ButTab[name])
