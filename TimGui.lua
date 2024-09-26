@@ -506,22 +506,22 @@ local Flying = true
 ButTabb.MouseButton1Down:Connect(function() 
 hold += 1
 local tmp = hold
+Flying = true
 wait(3)
 if hold == tmp then
 local UserInputService = game:GetService("UserInputService")
 if not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then return true end
 Flying = false
-phoneButton(ButTabb,group .. "." .. name)
 end
 end) 
 game.Players.LocalPlayer:GetMouse().Button1Up:Connect(function() 
 hold += 1
-wait() 
-Flying = true
 end) 
-ButTabb.MouseButton1Up:Connect(function() 
+ButTabb.Activated:Connect(function() 
 if Flying then
 ButTab[name].Value = not ButTab[name].Value
+else
+phoneButton(ButTabb,group .. "." .. name)
 end
 end) 
 ButTab[name].Changed:Connect(function() 		
