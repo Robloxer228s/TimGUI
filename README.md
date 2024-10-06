@@ -12,6 +12,8 @@ Use Right mouse button for keybinding!
 Hold button on 1.5 sec for Flying button
 
 # Update logs:
+06.10.24 - added teleports in map
+
 26.09.24 - added Flying buttons(for mobile)
 
 18.09.24 - Fix walkspeed
