@@ -121,9 +121,45 @@ _G.TimGui.Add.B("CP", "Copy path", "Map", 4, "Копировать путь", fu
 setclipboard(tostring(getPath(obj, false)))
 end) 
 
+local timer = _G.TimGui.Add.TB("TIP","Time in part","Map",5,"Время в блоке")
+timer.Text = 0.1
+_G.TimGui.Add.B("TPP","TP selected part in you","Map",6,"ТП выбранное в тебя",function()
+    local HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    local CF = HRP.CFrame
+    HRP.CFrame = obj.CFrame
+    local weld = Instance.new("WeldConstraint",game.Workspace)
+    weld.Part0 = game.Players.LocalPlayer.Character.HumanoidRootPart
+    weld.Part1 = obj
+    local timmer = tonumber(timer.Text)
+    if timmer == nil then
+        timmer = 0.1
+    end
+    if timmer > 2.5 then
+        timmer = 2.5
+    elseif timmer > 0.01 then
+        timmer = 0.01
+    end
+    wait(timmer)
+    local CCF = HRP.CFrame
+    HRP.CFrame = CF
+    wait()  
+    weld:Destroy()
+    wait(0.05)
+    HRP.CFrame = CF
+    wait()
+    CF = HRP.CFrame
+    HRP.CFrame = obj.CFrame
+    wait(timmer)
+    HRP.CFrame = CF
+    wait()
+    HRP.CFrame = CCF
+    wait(0.05)
+    HRP.CFrame = CF
+end)
+
 local Folder
 local count
-local SB = _G.TimGui.Add.CB("BU", "Blocks underfoot", "Map", 5, "Блоки под ногами") 
+local SB = _G.TimGui.Add.CB("BU", "Blocks underfoot", "Map", 7, "Блоки под ногами") 
 game:GetService("RunService").Stepped:Connect(function()
 if SB.Value then
 if Folder == nil then
@@ -152,7 +188,7 @@ tmp.Parent = Folder
 end
 end) 
 
-_G.TimGui.Add.B("DB", "Clear blocks", "Map", 6, "Очистить блоки", function() 
+_G.TimGui.Add.B("DB", "Clear blocks", "Map", 8, "Очистить блоки", function() 
 if Folder == nil then return end
 Folder:Destroy()
 Folder = nil
@@ -740,12 +776,12 @@ _G.TimGui.Add.B("NextPlayer","Next Player","Camera",3,"Следующий игр
 end)
 
 local DefaultGravity = game.Workspace.Gravity
-local Gravity = _G.TimGui.Add.TB("Gravity","Gravity:","Map",8,"Гравитация:")
-_G.TimGui.Add.B("SetGravity","Set Gravity","Map",9,"Установить гравитацию",function()
+local Gravity = _G.TimGui.Add.TB("Gravity","Gravity:","Map",10,"Гравитация:")
+_G.TimGui.Add.B("SetGravity","Set Gravity","Map",11,"Установить гравитацию",function()
     game.Workspace.Gravity = Gravity.Text
 end)
 
-_G.TimGui.Add.B("SetDefaultGravity","Set default gravity","Map",10,"Установить гравитацию по умолчанию",function()
+_G.TimGui.Add.B("SetDefaultGravity","Set default gravity","Map",12,"Установить гравитацию по умолчанию",function()
     game.Workspace.Gravity = DefaultGravity
 end)
 
