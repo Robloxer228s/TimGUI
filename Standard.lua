@@ -157,7 +157,7 @@ _G.TimGui.Add.B("TPP","TP selected part in you","Map",6,"ТП выбранное
     HRP.CFrame = CF
 end)
 
-_G.TimGui.Add.B("TPP","TP selected part in you(visual)","Map",7,"ТП выбранное в тебя(только для тебя)",function()
+_G.TimGui.Add.B("TPPV","TP selected part in you(visual)","Map",7,"ТП выбранное в тебя(только для тебя)",function()
     obj.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
 
