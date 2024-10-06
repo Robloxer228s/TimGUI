@@ -3,7 +3,7 @@ _G.TimGui.XTwo = false
 local MainFrame = game.CoreGui.TimEXPLORER:FindFirstChildOfClass("Frame")
 MainFrame.Position = UDim2.new(1,0,0,0)
 
-_G.TimGui.Add.CB("TE","TimExplorer","Map",7,"TimExplorer",function(interface)
+_G.TimGui.Add.CB("TE","TimExplorer","Map",9,"TimExplorer",function(interface)
     _G.TimGui.TEOpen = interface.Value
     if interface.Value then
       MainFrame.Position = UDim2.new(0.8,0,0,0)
