@@ -157,9 +157,18 @@ _G.TimGui.Add.B("TPP","TP selected part in you","Map",6,"ТП выбранное
     HRP.CFrame = CF
 end)
 
+local obj = game.Workspace.TerrainBricks.Rock
+_G.TimGui.Add.B("TPP","TP selected part in you(visual)","Map",7,"ТП выбранное в тебя(только для тебя)",function()
+    obj.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end)
+
+_G.TimGui.Add.B("TPTP","TP to selected part","Map",8,"ТП в выбранное",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = obj.CFrame
+end)
+
 local Folder
 local count
-local SB = _G.TimGui.Add.CB("BU", "Blocks underfoot", "Map", 7, "Блоки под ногами") 
+local SB = _G.TimGui.Add.CB("BU", "Blocks underfoot", "Map", 9, "Блоки под ногами") 
 game:GetService("RunService").Stepped:Connect(function()
 if SB.Value then
 if Folder == nil then
@@ -188,7 +197,7 @@ tmp.Parent = Folder
 end
 end) 
 
-_G.TimGui.Add.B("DB", "Clear blocks", "Map", 8, "Очистить блоки", function() 
+_G.TimGui.Add.B("DB", "Clear blocks", "Map", 10, "Очистить блоки", function() 
 if Folder == nil then return end
 Folder:Destroy()
 Folder = nil
@@ -776,12 +785,12 @@ _G.TimGui.Add.B("NextPlayer","Next Player","Camera",3,"Следующий игр
 end)
 
 local DefaultGravity = game.Workspace.Gravity
-local Gravity = _G.TimGui.Add.TB("Gravity","Gravity:","Map",10,"Гравитация:")
-_G.TimGui.Add.B("SetGravity","Set Gravity","Map",11,"Установить гравитацию",function()
+local Gravity = _G.TimGui.Add.TB("Gravity","Gravity:","Map",12,"Гравитация:")
+_G.TimGui.Add.B("SetGravity","Set Gravity","Map",13,"Установить гравитацию",function()
     game.Workspace.Gravity = Gravity.Text
 end)
 
-_G.TimGui.Add.B("SetDefaultGravity","Set default gravity","Map",12,"Установить гравитацию по умолчанию",function()
+_G.TimGui.Add.B("SetDefaultGravity","Set default gravity","Map",14,"Установить гравитацию по умолчанию",function()
     game.Workspace.Gravity = DefaultGravity
 end)
 
