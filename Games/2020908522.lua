@@ -48,7 +48,7 @@ pcall(function()
     local MyHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
     for k,v in pairs(game.Players:GetPlayers()) do
         local char = v.Character
-        if not char then continue end
+        if not char then return end
         if char:FindFirstChild("NotESP") then
             char.NotESP:Destroy()
         end
