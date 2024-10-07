@@ -11,10 +11,11 @@ v.Text.Text = v.Text.Value.Value
 v.Text.Value.Value = tmp
 end
 end)
-if game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru" then
+local tmp = game.LocalizationService.SystemLocaleId == "ru-ru"
+tmp = tmp or game.LocalizationService.RobloxLocaleId == "ru-ru"
+if os.date("%H",0) or tmp then
 	NeedRus.Value = true
 end
-
 _G.TimGui.Add.CB("x2", "X2 interface", "Settings", 2, "2 кнопки", function(interface)
 local int = 0
 if _G.TimGui.TEOpen then
