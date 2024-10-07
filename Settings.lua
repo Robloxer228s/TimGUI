@@ -1,4 +1,4 @@
-_G.TimGui.Add.CB("rus", "Русский язык", "Settings", 1, "English language", function(rusV)
+local NeedRus = _G.TimGui.Add.CB("rus", "Русский язык", "Settings", 1, "English language", function(rusV)
 _G.TimGui.ru = rusV.Value
 for k, v in pairs(_G.TimGui.Path.Buttons:GetChildren()) do
 local tmp = v.Text.Text
@@ -11,6 +11,10 @@ v.Text.Text = v.Text.Value.Value
 v.Text.Value.Value = tmp
 end
 end)
+if game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru" then
+	NeedRus.Value = true
+end
+
 _G.TimGui.Add.CB("x2", "X2 interface", "Settings", 2, "2 кнопки", function(interface)
 local int = 0
 if _G.TimGui.TEOpen then
