@@ -89,7 +89,6 @@ sb = Instance.new("SelectionBox")
 sb.Parent = obj
 sb.LineThickness = 0.075
 sb.Adornee = obj
-print(1) 
 hl = Instance.new("Highlight")
 hl.Parent = obj
 hl.Name = "NotEsp"
