@@ -44,11 +44,11 @@ end
 
 while task.wait(0.5) do
 pcall(function()
-    if not game.Players.LocalPlayer.Character then continue end
+    if not game.Players.LocalPlayer.Character then return end
     local MyHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
     for k,v in pairs(game.Players:GetPlayers()) do
         local char = v.Character
-        if not char then return end
+        if not char then continue end
         if char:FindFirstChild("NotESP") then
             char.NotESP:Destroy()
         end
