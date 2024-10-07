@@ -12,6 +12,7 @@ v.Text.Value.Value = tmp
 end
 end)
 if game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru" then
+	wait()
 	NeedRus.Value = true
 end
 
