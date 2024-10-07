@@ -43,6 +43,7 @@ local function ESP(Who,Seek)
 end
 
 while task.wait(0.5) do
+pcall(function()
     if not game.Players.LocalPlayer.Character then continue end
     local MyHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
     for k,v in pairs(game.Players:GetPlayers()) do
@@ -69,4 +70,5 @@ while task.wait(0.5) do
             end
         end
     end
+end)
 end
