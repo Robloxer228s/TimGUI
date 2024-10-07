@@ -43,7 +43,7 @@ local function ESP(Who,Seek)
 end
 
 while task.wait(0.5) do
-    if not game.Players.LocalPlayer.Character then return end
+    if not game.Players.LocalPlayer.Character then continue end
     local MyHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
     for k,v in pairs(game.Players:GetPlayers()) do
         local char = v.Character
