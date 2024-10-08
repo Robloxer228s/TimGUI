@@ -1,4 +1,5 @@
 local enemies = game.Workspace.enemies
+local Player = game.Players.LocalPlayer
 local function ESPto(Who)
     local hl = Instance.new("Highlight",Who)
     hl.Name = "NotESP"
@@ -47,7 +48,7 @@ _G.TimGui.Add.CB("AAZ","Auto attack zombie","Zombie",3,"Авто аттаков�
             ZH = enemies:FindFirstChildOfClass("Model").Head
         end
         if not zombie then continue end
-        local HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local HRP = Player.Character.HumanoidRootPart
         KillingBoss = nil
         while value.Value and task.wait() do
             local Y = tonumber(distY.Text)
@@ -80,7 +81,7 @@ _G.TimGui.Add.CB("AAB","Auto attack boss","Zombie",4,"Авто аттакова�
             ZH = bossF:FindFirstChildOfClass("Model").Head
         end
         if not zombie then continue end
-        local HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local HRP = Player.Character.HumanoidRootPart
         KillingBoss = true
         while value.Value and task.wait() do
             local Y = tonumber(distY.Text)
@@ -99,5 +100,24 @@ _G.TimGui.Add.CB("AAB","Auto attack boss","Zombie",4,"Авто аттакова�
             end
         end
         KillingBoss = false
+    end
+end)
+
+local Powerups = game.Workspace.Powerups
+_G.TimGui.Add.CB("ATPP","AutoTP to Powerups","Zombie",5,"Авто тп в усиления",function(val)
+    while val.Value and task.wait(0.25) do
+        local char = Player.Character
+        if not char then
+            return
+        elseif not char:FindFirstChild("HumanoidRootPart") then
+            return
+        end
+        local HRP = char.HumanoidRootPart
+        local OldCF = HRP.CFrame
+        for k,v in pairs(Powerups:GetChildren()) do 
+            HRP.CFrame = v:FindFirstChildOfClass("Part").CFrame
+            wait()
+        end
+        HRP.CFrame = OldCF
     end
 end)
