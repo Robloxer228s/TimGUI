@@ -120,14 +120,7 @@ end
 end) 
 whileee.Value = true
 
-local AIM = _G.TimGui.Add.CB("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда", function(AIMV)
-if AIMV.Value then
-game.Players.LocalPlayer.CameraMode = 1
-else
-game.Players.LocalPlayer.CameraMode = 0
-end
-end)
-
+local AIM = _G.TimGui.Add.CB("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда")
 local AAIM = _G.TimGui.Add.CB("AAIMM", "Auto AIM to murd", "MM2", 9, "АвтоАИМ на марда")
 
 game:GetService("RunService").RenderStepped:Connect(function()
