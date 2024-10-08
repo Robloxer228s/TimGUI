@@ -12,6 +12,10 @@ Use Right mouse button for keybinding!
 Hold button on 1.5 sec for Flying button
 
 # Update logs:
+08.10.24 - added attack zombie
+
+07.10.24 - added mega hide and seek
+
 06.10.24 - added teleports in map
 
 26.09.24 - added Flying buttons(for mobile)
@@ -79,6 +83,10 @@ Chaos Jenga
 
 Floor is lava
 
+Mega hide and seek
+
+Zombie Attack
+
 # Credits:
 
 Fly - infinity Yeld and fly GUI v3
@@ -88,3 +96,4 @@ Noclip - Noname gui with one button
 TpTool - in WeAreDevs
 
 Break in,Zoombie lab, Lucky blocks - script with open source
+
