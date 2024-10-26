@@ -809,7 +809,6 @@ _G.TimGui.Add.CB("SpinSelectedAngularYou","SpinSelectedAngularYou","Map",17,"–ö—
         game.Players.LocalPlayer.Character.PrimaryPart.CFrame = obj.CFrame
         wait(0.1)
         game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldPos
-        lol.Value = true
         while task.wait() and val.Value do
             obj.AssemblyLinearVelocity = game.Players.LocalPlayer.Character.PrimaryPart.Position - obj.Position + Vector3.new(0,2.5,0)
             wait()
