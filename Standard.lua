@@ -809,12 +809,6 @@ _G.TimGui.Add.CB("SpinSelectedAngularYou","SpinSelectedAngularYou","Map",17,"К�
         game.Players.LocalPlayer.Character.PrimaryPart.CFrame = obj.CFrame
         wait(0.1)
         game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldPos
-        local lol = Instance.new("BoolValue")
-        lol.Changed:Connect(function()
-            while task.wait(0.5) and val.Value do
-                obj.CFrame = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-            end
-        end)
         lol.Value = true
         while task.wait() and val.Value do
             obj.AssemblyLinearVelocity = game.Players.LocalPlayer.Character.PrimaryPart.Position - obj.Position + Vector3.new(0,2.5,0)
@@ -825,11 +819,11 @@ _G.TimGui.Add.CB("SpinSelectedAngularYou","SpinSelectedAngularYou","Map",17,"К�
 end)
 
 _G.TimGui.Add.CB("NoCollideForSelected","No Collide For Selected","Map",18,"Убрать коллизию выбранному",function(val)
-    obj.CanCollide = val.Value
+    obj.CanCollide = not val.Value
 end)
 
 _G.TimGui.Add.CB("NoTouchForSelected","No Touch For Selected","Map",19,"Убрать косания выбранному",function(val)
-    obj.CanTouch = val.Value
+    obj.CanTouch = not val.Value
 end)
 
 _G.TimGui.Add.G("FUN","ВЕСЕЛЬЕ")
