@@ -792,66 +792,6 @@ _G.TimGui.Add.B("SetDefaultGravity","Set default gravity","Map",14,"Устано
     game.Workspace.Gravity = DefaultGravity
 end)
 
-if not game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") then return end
-_G.TimGui.Add.G("Chat","Чат")
-local function Send(Message)
-    local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
-    Event:FireServer(Message, "All")
-    --print(Message)
-end
-
-local Spaces = "                                                                                                                                              {System}: "
-
-local SpaceEn = _G.TimGui.Add.CB("EnableSpaces","Enable {System}","Chat",1,"Включить {System}")
-local PlEn = _G.TimGui.Add.CB("LeftOrJoin","Enable Player Join/left","Chat",2,"Включить Player Join/left")
-local DeadMes = _G.TimGui.Add.CB("PlDeadMessage","Enable Player is dead.","Chat",3,"Включить Player is dead")
-
-local function Char(player)
-    player.CharacterRemoving:Connect(function()
-        wait()
-        if player.Parent and DeadMes.Value then
-            if SpaceEn.Value then
-                Send(Spaces .. player.Name .. " is dead.")
-            else
-                Send(child.Name .. " is dead.")
-            end
-        end
-    end)
-end
-
-game.Players.PlayerAdded:Connect(function(child)
-    if PlEn.Value then
-        if SpaceEn.Value then
-            Send(Spaces .. child.Name .. " joined in the game.")
-        else
-            Send(child.Name .. " joined in the game.")
-        end
-    end
-    Char(child)
-end)
-
-for k,v in pairs(game.Players:GetPlayers()) do
-    Char(v)
-end
-
-game.Players.PlayerRemoving:Connect(function(child)
-    if PlEn.Value then
-        if SpaceEn.Value then
-            Send(Spaces .. child.Name .. " out the game.")
-        else
-            Send(child.Name .. " out the game.")
-        end
-    end
-end)
-
-local messageSp = _G.TimGui.Add.TB("SpamMessage","Message:","Chat",4,"Сообщение:")
-_G.TimGui.Add.CB("SpamButton","Spam","Chat",5,"Спам",function(val)
-    while val.Value do
-        wait()
-        Send(messageSp.Text)
-    end
-end)
-
 local FPDH = game.Workspace.FallenPartsDestroyHeight
 _G.TimGui.Add.CB("NoDownDestroying","No kill out map","Map",15,"Не убивать под картой",function(val)
     if val.Value then
@@ -911,5 +851,65 @@ _G.TimGui.Add.CB("Fling","Funny fling","FUN",2,"Арабская ночь",funct
         end
     else
         game.Workspace.Gravity = DefaultGravity
+    end
+end)
+
+if not game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") then return end
+_G.TimGui.Add.G("Chat","Чат")
+local function Send(Message)
+    local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+    Event:FireServer(Message, "All")
+    --print(Message)
+end
+
+local Spaces = "                                                                                                                                              {System}: "
+
+local SpaceEn = _G.TimGui.Add.CB("EnableSpaces","Enable {System}","Chat",1,"Включить {System}")
+local PlEn = _G.TimGui.Add.CB("LeftOrJoin","Enable Player Join/left","Chat",2,"Включить Player Join/left")
+local DeadMes = _G.TimGui.Add.CB("PlDeadMessage","Enable Player is dead.","Chat",3,"Включить Player is dead")
+
+local function Char(player)
+    player.CharacterRemoving:Connect(function()
+        wait()
+        if player.Parent and DeadMes.Value then
+            if SpaceEn.Value then
+                Send(Spaces .. player.Name .. " is dead.")
+            else
+                Send(child.Name .. " is dead.")
+            end
+        end
+    end)
+end
+
+game.Players.PlayerAdded:Connect(function(child)
+    if PlEn.Value then
+        if SpaceEn.Value then
+            Send(Spaces .. child.Name .. " joined in the game.")
+        else
+            Send(child.Name .. " joined in the game.")
+        end
+    end
+    Char(child)
+end)
+
+for k,v in pairs(game.Players:GetPlayers()) do
+    Char(v)
+end
+
+game.Players.PlayerRemoving:Connect(function(child)
+    if PlEn.Value then
+        if SpaceEn.Value then
+            Send(Spaces .. child.Name .. " out the game.")
+        else
+            Send(child.Name .. " out the game.")
+        end
+    end
+end)
+
+local messageSp = _G.TimGui.Add.TB("SpamMessage","Message:","Chat",4,"Сообщение:")
+_G.TimGui.Add.CB("SpamButton","Spam","Chat",5,"Спам",function(val)
+    while val.Value do
+        wait()
+        Send(messageSp.Text)
     end
 end)
