@@ -851,3 +851,65 @@ _G.TimGui.Add.CB("SpamButton","Spam","Chat",5,"Спам",function(val)
         Send(messageSp.Text)
     end
 end)
+
+local FPDH = game.Workspace.FallenPartsDestroyHeight
+_G.TimGui.Add.CB("NoDownDestroying","No kill out map","Map",15,"Не убивать под картой",function(val)
+    if val.Value then
+        game.Workspace.FallenPartsDestroyHeight = -50000
+    else
+        game.Workspace.FallenPartsDestroyHeight = FPDH
+    end
+end)
+
+local SpeedOfSpin = _G.TimGui.Add.TB("SpeedOfSpin","Speed of spin:","Map",16,"Скорость кружения выбранного:")
+_G.TimGui.Add.CB("SpinSelectedAngularYou","SpinSelectedAngularYou","Map",17,"Крутить выбранное вокруг тебя",function(val)
+    if val.Value then
+        obj.Massless = true
+        local oldPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+        game.Players.LocalPlayer.Character.PrimaryPart.CFrame = obj.CFrame
+        wait(0.1)
+        game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldPos
+        local lol = Instance.new("BoolValue")
+        lol.Changed:Connect(function()
+            while task.wait(0.5) and val.Value do
+                obj.CFrame = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+            end
+        end)
+        lol.Value = true
+        while task.wait() and val.Value do
+            obj.AssemblyLinearVelocity = game.Players.LocalPlayer.Character.PrimaryPart.Position - obj.Position + Vector3.new(0,2.5,0)
+            wait()
+            obj.AssemblyAngularVelocity = Vector3.new(tonumber(SpeedOfSpin.Text),tonumber(SpeedOfSpin.Text),tonumber(SpeedOfSpin.Text))
+        end
+    end
+end)
+
+_G.TimGui.Add.CB("NoCollideForSelected","No Collide For Selected","Map",18,"Убрать коллизию выбранному",function(val)
+    obj.CanCollide = val.Value
+end)
+
+_G.TimGui.Add.CB("NoTouchForSelected","No Touch For Selected","Map",19,"Убрать косания выбранному",function(val)
+    obj.CanTouch = val.Value
+end)
+
+_G.TimGui.Add.G("FUN","ВЕСЕЛЬЕ")
+
+_G.TimGui.Add.CB("CreatePing","Pinged Movement","FUN",1,"Пингованное перемещение",function(val)
+    if val.Value then
+        game.Workspace.FallenPartsDestroyHeight = 50000
+    else
+        game.Workspace.FallenPartsDestroyHeight = FPDH
+    end
+end)
+
+_G.TimGui.Add.CB("Fling","Funny fling","FUN",2,"Арабская ночь",function(val)
+    if val.Value then
+        game.Workspace.Gravity = 0
+        while task.wait() and val.Value do
+            if not game.Players.LocalPlayer.Character then continue end
+            game.Players.LocalPlayer.Character.PrimaryPart.AssemblyAngularVelocity = Vector3.new(0,500,0)
+        end
+    else
+        game.Workspace.Gravity = DefaultGravity
+    end
+end)
