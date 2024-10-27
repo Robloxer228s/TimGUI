@@ -734,7 +734,7 @@ end
 end
 return ButTab[name]
 end
-
+local ACP
 _G.TimGui.SetGroup = function(name)
 for k,v in pairs(FoldersT[FA]) do
 if v.Parent then
@@ -754,14 +754,32 @@ if FA == "TP to player" then
 local fix = 0
 for k, v in pairs(game.Players:GetChildren()) do 
 if not (v == game.Players.LocalPlayer) then
-_G.TimGui.Add.B(k, v.Name, FA, k + fix + 1, v.Name, function() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
-atpp = v
-autotp.Parent.Text.Text = "Auto spam tp to " .. v.Name
-autotp.Parent.Text.Value.Value = "Авто спам тп к " .. v.Name
+_G.TimGui.Add.B(k, v.Name, FA, k + fix + 2, v.Name, function() 
+if not v.Parent then
+_G.TimGui.Print("TP","Player not found","ТП","Игрок не найден")
+return
+end
+local AddPos = Vector3.new(0,0,0)
+if ACP.Value then
+AddPos = v.Character.Humanoid.MoveDirection
+end
+if v.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
+wait(0.5)
+if v.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
+else
+_G.TimGui.Print("TP","Player not loaded.","ТП","Игрок не прогружен")
+end
+end
+atpp = v.Name
+autotp.Parent.Text.Text = "Auto spam tp to " .. attp
+autotp.Parent.Text.Value.Value = "Авто спам тп к " .. attp
 if _G.TimGui.ru then 
-autotp.Parent.Text.Text = "Авто спам тп к " .. v.Name
-autotp.Parent.Text.Value.Value = "Auto spam tp to " .. v.Name
+autotp.Parent.Text.Text = "Авто спам тп к " .. attp
+autotp.Parent.Text.Value.Value = "Auto spam tp to " .. attp
 end
 end) 
 else
@@ -850,11 +868,14 @@ FBMoving = val.Value
 end).Value = true
 
 _G.TimGui.Add.G(FA,"ТП к игрокам")
-autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 1, "Авто спам") 
+ACP = _G.TimGui.Add.CB("ACPTP", "to anticipate position", FA, 1, "Предвидеть позицию") 
+autotp = _G.TimGui.Add.CB("atp", "Auto spam", FA, 2, "Авто спам") 
 game:GetService("RunService").Stepped:Connect(function()
 if autotp.Value then
 pcall(function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = atpp.Character.HumanoidRootPart.CFrame
+local pl = game.Players:FindFirstChildren(attp)
+if not pl then return end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pl.Character.HumanoidRootPart.CFrame
 end)
 end
 end) 
