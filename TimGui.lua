@@ -1,3 +1,10 @@
+--[[
+Please, use this script(for updates):
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
+
+]]
+
 _G.TimGui = {}
 _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
