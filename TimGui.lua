@@ -966,4 +966,5 @@ Settings.Create(1,"Example","Example notification","Пример уведомл�
 	_G.TimGui.Print("Example","Hello World v2.0","Пример","Привт 2.0")
 end)
 
---Settings.Create(0,"Other","Other","Другие")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGui/main/Standard.lua"))()
+_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
