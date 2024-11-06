@@ -12,6 +12,8 @@ Use Right mouse button for keybinding!
 Hold button on 1.5 sec for Flying button
 
 # Update logs:
+06.11.24 - global update in code. + Fly v2 and other things
+
 08.10.24 - added attack zombie
 
 07.10.24 - added mega hide and seek
