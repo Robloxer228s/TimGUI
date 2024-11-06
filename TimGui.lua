@@ -978,4 +978,12 @@ Settings.Create(1,"Example","Example notification","Пример уведомл�
 end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
+local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
+print(game.GameId)
 _G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
+local success, response = pcall(function()
+	loadstring(gameScr)()
+end)
+if not success then
+	warn("Error load game script:\n" .. response)
+end
