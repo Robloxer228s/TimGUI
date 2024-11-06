@@ -767,10 +767,9 @@ local RusLang = Settings.Create(2,"RusLang","Русский язык","English l
 		end
 	end
 end)
-local tmp = game.LocalizationService.SystemLocaleId == "ru-ru"
-tmp = tmp or game.LocalizationService.RobloxLocaleId == "ru-ru"
+local tmp = game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru"
 if os.date("%H",0) or tmp then
-	RusLang.Value = true
+	RusLang.Main.Value = true
 end
 Settings.OpenGroup()
 
