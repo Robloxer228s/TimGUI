@@ -733,7 +733,7 @@ _G.TimGui.Path.Groups = Groups
 _G.TimGui.Path.Buttons = Objects
 
 local Settings = _G.TimGui.Groups.CreateNewGroup("Settings","Настройки")
-local TestButton = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
+local RusLang = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
 	_G.TimGui.Values.RusLang = Value.Value
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
@@ -760,6 +760,11 @@ local TestButton = Settings.Create(2,"RusLang","Русский язык","Englis
 		end
 	end
 end)
+local tmp = game.LocalizationService.SystemLocaleId == "ru-ru"
+tmp = tmp or game.LocalizationService.RobloxLocaleId == "ru-ru"
+if os.date("%H",0) or tmp then
+	RusLang.Value = true
+end
 Settings.OpenGroup()
 
 local TPTP = _G.TimGui.Groups.CreateNewGroup("TP to players","ТП к игрокам")
