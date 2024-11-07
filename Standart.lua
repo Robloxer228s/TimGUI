@@ -998,8 +998,8 @@ Light.Create(1,"SetClc","Set clock time","Установить время",funct
 end) 
 
 local light
-local LRange = Light.Create(3,"LRange", "Light range:", "Lighting", 6, "Дистанция света:") 
-local LBright = Light.Create(3,"LBright", "Light Brightness:", "Lighting", 7, "Яркость света:") 
+local LRange = Light.Create(3,"LRange","Light range:","Дистанция света:") 
+local LBright = Light.Create(3,"LBright","Light Brightness:","Яркость света:") 
 Light.Create(2,"Lighting","Lighting Character","Свечащийся персонаж",function(val)
 	if val.Value then
 		light = Instance.new("PointLight") 
