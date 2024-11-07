@@ -1,15 +1,13 @@
 # Status:
 last games script update: 31.08.24
 
-Freeze bugged
-
 Configs don't work
 
 TimControl don't work
 
 Use Right mouse button for keybinding! 
 
-Hold button on 1.5 sec for Flying button
+Hold button on 2 sec for Flying button
 
 # Update logs:
 08.11.24 - update half games in new code
