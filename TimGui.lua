@@ -9,8 +9,8 @@ _G.TimGui = {}
 _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
 _G.TimGui.Path = {}
-_G.TimGui.Spare = {}
 
+_G.TimGui.Values.Spare = {}
 _G.TimGui.Values.GroupOpened = nil
 _G.TimGui.Values.Opened = false
 _G.TimGui.Values.x2 = false
