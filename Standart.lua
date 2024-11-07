@@ -1020,7 +1020,7 @@ local Camera = _G.TimGui.Groups.CreateNewGroup("Camera","Камера")
 local gui = _G.TimGui.Path.gui
 local text = Instance.new("TextLabel",gui)
 local plCount = 2
-Camera.Create(1,"Spectat","Speactate","Наблюдать")
+Camera.Create(0,"Spectat","Speactate","Наблюдать")
 text.Position = UDim2.new(1,-300,0,-25)
 text.Size = UDim2.new(0,300,0,25)
 text.BackgroundColor3 = Color3.fromRGB(66,66,114)
