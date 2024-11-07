@@ -1,6 +1,6 @@
-_G.TimGui.Add.G("Hide and seek","Прятки")
+local HideASeek = _G.TimGui.Groups.CreateNewGroup("Mega hide and seek","Мега прятки")
 
-_G.TimGui.Add.B("TPTMoney","Grab all moneys","Hide and seek",1,"Взять все деньги",function()
+HideASeek.Create(1,"TPTMoney","Grab all moneys","Взять все деньги",function()
     local HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
     local oldCFrame = HRP.CFrame
     for k,v in pairs(game.Workspace.MapHolder:GetChildren()) do
@@ -12,7 +12,7 @@ _G.TimGui.Add.B("TPTMoney","Grab all moneys","Hide and seek",1,"Взять вс�
     HRP.CFrame = oldCFrame
 end)
 
-_G.TimGui.Add.B("FJ","Free jail","Hide and seek",2,"Освободить тюрьму",function()
+HideASeek.Create(1,"FJ","Free jail","Освободить тюрьму",function()
     local jail = game.Workspace.MapHolder:FindFirstChildOfClass("Folder").Jail.Unlock
     local oldCFrame = jail.CFrame
     jail.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -20,10 +20,11 @@ _G.TimGui.Add.B("FJ","Free jail","Hide and seek",2,"Освободить тюр�
     jail.CFrame = oldCFrame
 end)
 
-local unFreeze = _G.TimGui.Add.CB("HASUnfreeze","Auto unfreeze freezed players","Hide and seek",3,"Автоматически размораживать замороженных")
+local unFreeze = HideASeek.Create(2,"HASUnfreeze","Auto unfreeze freezed players","Автоматически размораживать замороженных")
 
-local Seekers = _G.TimGui.Add.CB("ESPSeekers","ESP to seekers","ESP",3,"Подсветка на искателей")
-local Hiders = _G.TimGui.Add.CB("ESPHiders","ESP to hiders","ESP",4,"Подсветка на прячущихся")
+local ESPG = _G.TimGui.Groups.ESP
+local Seekers =  ESPG.Create(2,"ESPSeekers","ESP to seekers","Подсветка на искателей")
+local Hiders = ESPG.Create(2,"ESPHiders","ESP to hiders","Подсветка на прячущихся")
 
 local function ESP(Who,Seek)
     local hl = Instance.new("Highlight",Who)
