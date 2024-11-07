@@ -51,6 +51,8 @@ Hold button on 1.5 sec for Flying button
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
+Tower of hell -- Dont work
+
 Murder Mystory 2 -- Dont work
 
 Break in 
