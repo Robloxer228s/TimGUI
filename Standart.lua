@@ -798,7 +798,6 @@ local Spiderman = FUN.Create(2,"Spiderman","Spiderman","Человек паук"
 local Rope
 Mouse.Button1Down:Connect(function()
 	if not Rope and Mouse.Target and Spiderman.Value then
-        print(Mouse.Target.Name)
 		Rope = Instance.new("RopeConstraint",game.Workspace)
 		Rope.Color = BrickColor.new(1,1,1)
 		Rope.Visible = true	
