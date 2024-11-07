@@ -1,4 +1,4 @@
--- Break IN
+-- Break IN 2
 local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
 local ForOut = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents")
 
@@ -49,7 +49,7 @@ end	if Events:FindFirstChild("GiveTool") then
 		end) 
 	end
 end if Events:FindFirstChild("RainbowWhatStat") then
-	local group = _G.TimGui.Groups.CreateNewGroup("Items", "Предметы") 
+	local group = _G.TimGui.Groups.CreateNewGroup("Stats", "Статистика") 
 	group.Create(1,"TSp","Train speed","Прокачать скорость",function() 
 		Events:WaitForChild("RainbowWhatStat"):FireServer("Speed")
 	end) 
