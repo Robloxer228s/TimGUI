@@ -51,7 +51,7 @@ Hold button on 1.5 sec for Flying button
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
-Murder Mystory 2
+Murder Mystory 2 -- Dont work
 
 Break in 
 
@@ -61,19 +61,19 @@ Froggy
 
 Build A Boat For Treasure
 
-Zombie lab
+Zombie lab -- Dont work
 
 GET TO THE TOP!
 
 LUCKY BLOCKS Battlegrounds
 
-Zooo
+Zooo -- Dont work
 
 The Door 🚪 10M+ VISITS! 
 
-Obby Leader 
+Obby Leader -- Dont work
 
-Rainbow Friends - lookies don't work - chapter 1 not tested
+Rainbow Friends -- Dont work
 
 Death Ball
 
