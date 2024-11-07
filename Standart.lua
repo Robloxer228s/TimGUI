@@ -1011,8 +1011,8 @@ Light.Create(2,"Lighting","Lighting Character","Свечащийся персо�
 		light:Destroy()
 	end
 end)
-LRange.Text = 100
-LBright.Text = 1
+LRange.Object.Text.Text = 100
+LBright.Object.Text.Text = 1
 
 -- Camera -----------------------------------------------------------
 local Camera = _G.TimGui.Groups.CreateNewGroup("Camera","Камера")
