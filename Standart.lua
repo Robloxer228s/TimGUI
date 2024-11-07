@@ -739,7 +739,6 @@ local function Freeze(but)
 		for t,b in pairs(teams) do
 			if b.Value then
 				if t == pl.Team.Name then
-					print(pl.Name,2)
 					pl.Character.PrimaryPart.Anchored = true
 					break
 				end
@@ -748,7 +747,6 @@ local function Freeze(but)
 		for t,b in pairs(teamsTP) do
 			if b.Value then
 				if t == pl.Team.Name then
-					print(pl.Name,3)
 					pl.Character.PrimaryPart.Anchored = true
 					pl.Character.PrimaryPart.CFrame = FPos[t]
 					break
@@ -756,10 +754,8 @@ local function Freeze(but)
 			end
 		end
 		if FP.Objects.FALL.Value then
-			print(pl.Name,4)
 			pl.Character.PrimaryPart.Anchored = true
 		elseif FP.Objects.TALL.Value then
-			print(pl.Name,5)
 			pl.Character.PrimaryPart.Anchored = true
 			pl.Character.PrimaryPart.CFrame = FPosAll
 		end
