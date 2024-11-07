@@ -65,38 +65,41 @@ Start.Position = Vector3.new(-55, 19.52, 1306.33)
 
 local AFK
 
-_G.TimGui.Add.G("Build a boat")
-local WH = _G.TimGui.Add.CB("WH","WaterHacks","Build a boat",2,"Взлом воды")
-WH.Changed:Connect(function()
+local babft = _G.TimGui.Groups.CreateNewGroup("BABFT","Построй корабль..")
+local WH = babft.Create(2,"WH","WaterHacks","Взлом воды",function(val)
 if not AFK.Value then
-aw.CanCollide = WH.Value
-awl.CanCollide = WH.Value
-awm.CanCollide = WH.Value
-awb.CanCollide = WH.Value
-awv.CanCollide = WH.Value
-awf.CanCollide = WH.Value
+aw.CanCollide = val.Value
+awl.CanCollide = val.Value
+awm.CanCollide = val.Value
+awb.CanCollide = val.Value
+awv.CanCollide = val.Value
+awf.CanCollide = val.Value
 end
+if game.Workspace:FindFirstChild("Water") then
 game.Workspace.Water:Destroy() 
-end)
-
-local BDel = _G.TimGui.Add.CB("BDel","Remove obstacles","Build a boat",3,"Удалять препятствия(каждые 30 сек)")
-
-local WS = _G.TimGui.Add.TB("WS","WaterSpeed:","Build a boat",4,"Скорость воды:")
-if WS.Text == "" then WS.Text = 0 end
-WS.Changed:Connect(function()
-if not AFK.Value then
-aw.Velocity = Vector3.new(0,0,25*WS.Text) 
-awl.Velocity = Vector3.new(0,0,25*WS.Text) 
-awm.Velocity = Vector3.new(0,0,25*WS.Text) 
-awb.Velocity = Vector3.new(0,0,25*WS.Text) 
-awv.Velocity = Vector3.new(0,0,25*WS.Text) 
-awf.Velocity = Vector3.new(0,0,25*WS.Text) 
 end
 end)
 
-AFK = _G.TimGui.Add.CB("AFK","AFK","Build a boat",1,"АФК (сдохни чтоб начать)")
-AFK.Changed:Connect(function()
-if AFK.Value then
+local BDel = babft.Create(2,"BDel","Remove obstacles","Удалять препятствия(каждые 30 сек)")
+
+local WS = babft.Create(3,"WS","WaterSpeed:","Скорость воды:",function(val)
+if not AFK.Value then
+local speed = val.Value
+if tonumber(speed) == nil then
+speed = 0
+end
+aw.Velocity = Vector3.new(0,0,25*speed) 
+awl.Velocity = Vector3.new(0,0,25*speed) 
+awm.Velocity = Vector3.new(0,0,25*speed) 
+awb.Velocity = Vector3.new(0,0,25*speed) 
+awv.Velocity = Vector3.new(0,0,25*speed) 
+awf.Velocity = Vector3.new(0,0,25*speed) 
+end
+end)
+if WS.Main.Text == "" then WS.Main.Text = 0 end
+
+AFK = babft.Create(2,"AFK","AFK","АФК (сдохни чтоб начать)",function(val)
+if val.Value then
 aw.Velocity = Vector3.new(0,0,250) 
 awl.Velocity = Vector3.new(0,0,250) 
 awm.Velocity = Vector3.new(0,0,250) 
@@ -110,12 +113,16 @@ awb.CanCollide = true
 awv.CanCollide = true
 awf.CanCollide = true
 else
-aw.Velocity = Vector3.new(0,0,25*WS.Text) 
-awl.Velocity = Vector3.new(0,0,25*WS.Text) 
-awm.Velocity = Vector3.new(0,0,25*WS.Text) 
-awb.Velocity = Vector3.new(0,0,25*WS.Text) 
-awv.Velocity = Vector3.new(0,0,25*WS.Text) 
-awf.Velocity = Vector3.new(0,0,25*WS.Text) 
+local speed = WS.Value
+if tonumber(speed) == nil then
+speed = 0
+end
+aw.Velocity = Vector3.new(0,0,25*speed) 
+awl.Velocity = Vector3.new(0,0,25*speed) 
+awm.Velocity = Vector3.new(0,0,25*speed) 
+awb.Velocity = Vector3.new(0,0,25*speed) 
+awv.Velocity = Vector3.new(0,0,25*speed) 
+awf.Velocity = Vector3.new(0,0,25*speed)
 aw.CanCollide = WH.Value
 awl.CanCollide = WH.Value
 awm.CanCollide = WH.Value
@@ -134,7 +141,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Final.CFrame
 local char = game.Players.LocalPlayer.Character
 wait(30) 
 if char then
-char:Destroy() 
+char.Humanoid:TakeDamage(100)
 end
 end
 end) 
@@ -144,13 +151,12 @@ if AFK.Value then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Start.CFrame
 end
 end)
-local function Next()
-for k,v in pairs(vk) do
+local function Next(old)
+for k,v in pairs(old:GetChildren()) do
 if v:FindFirstChild("BreakEvent")  then
 v:Destroy() 
 else 
-vk = v:GetChildren() 
-Next() 
+Next(v) 
 end
 end
 end
@@ -161,8 +167,7 @@ for k,v in pairs(game.Workspace:GetChildren()) do
 if v:FindFirstChild("BreakEvent")  then
 v:Destroy() 
 else 
-vk = v:GetChildren() 
-Next() 
+Next(v) 
 end
 end
 end
