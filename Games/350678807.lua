@@ -1,4 +1,4 @@
-_G.TimGui.Add.G("Door") 
-_G.TimGui.Add.B("BA", "Become amogus", "Door", 1,"Стать амогсом", function() 
-game.ReplicatedStorage.Amogus:FireServer() 
+local door = _G.TimGui.Groups.CreateNewGroup("Door") 
+door.Create(1,"BA","Become amogus","Стать амогусом",function() 
+    game.ReplicatedStorage.Amogus:FireServer() 
 end) 
