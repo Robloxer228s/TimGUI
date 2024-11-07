@@ -1,77 +1,59 @@
-_G.TimGui.Add.G("Items", "Предметы") 
-_G.TimGui.Add.G("Game", "Игра") 
-_G.TimGui.Add.G("Lobby", "лобби") 
-_G.TimGui.Add.B("FHR", "Free hacker role", "Lobby", 1, "Бесплатная роль хакер(костюм)", function() 
-game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("Phone", true, false)
-end) 
-
-_G.TimGui.Add.B("FNR", "Free nerd role", "Lobby", 2, "Бесплатная роль нерд", function() 
-game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer("Book", true, false)
-end) 
-
+-- Break IN
 local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
-local Items = {
-		"Armor",
-		"Med Kit",
-		"Key",
-		"Gold Key",
-		"Louise",
-		"Lollipop",
-		"Chips",
-		"Golden Apple",
-		"Pizza",
-		"Gold Pizza",
-		"Rainbow Pizza",
-		"Rainbow Pizza Box",
-		"Book",
-		"Phone",
-		"Cookie",
-		"Apple",
-		"Bloxy Cola",
-		"Expired Bloxy Cola",
-		"Bottle",
-		"Ladder",
-		"Battery"
-}
+local ForOut = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents")
 
-for k, v in Items do
-_G.TimGui.Add.B(k, v, "Items", k, v, function() 
-if v == "Armor" then
-Events:WaitForChild("Vending"):FireServer(3, "Armor2", "Armor", tostring(LocalPlayer), 1)
-else
-Events:WaitForChild("GiveTool"):FireServer(tostring(v:gsub(" ", "")))
-end
-end) 
-end
+if ForOut then
+	local group = _G.TimGui.Groups.CreateNewGroup("Lobby", "Лобби")
+	group.Create(1,"RRS","Reconect to random server","Подключится в рандомную игру",function() 
+		ForOut:WaitForChild("ReconnectEvent"):FireServer()
+	end) 	
+	group.Create(1,1,"Hacker(costume)","Хакер(костюм)",function() 
+		ForOut.OutsideRole:FireServer("Phone",true,false)
+	end) 
+	group.Create(1,2,"Nerd(costume)","Нерд(костюм)",function() 
+		ForOut.OutsideRole:FireServer("Book",true,false)
+	end) 
+end	if Events:FindFirstChild("GiveTool") then
+	local group = _G.TimGui.Groups.CreateNewGroup("Items", "Предметы") 
+	local Items = {
+			["Armor"]="Броня",
+			["Med Kit"]="Аптечка",
+			["Key"]="Ключ",
+			["Gold Key"]="Золотой ключ",
+			["Louise"]="Крыса",
+			["Lollipop"]="Леденец",
+			["Chips"]="Чипсы",
+			["Golden Apple"]="Золотое Яблоко",
+			["Pizza"]="Пицца",
+			["Gold Pizza"]="Золотая пицца",
+			["Rainbow Pizza"]="Радужная пицца",
+			["Rainbow Pizza Box"]="Коробка радужной пиццы",
+			["Book"]="Книга",
+			["Phone"]="Телефон", 
+			["Cookie"]="Печенье",
+			["Apple"]="Яблоко",
+			["Bloxy Cola"]="Блокси кола",
+			["Expired Bloxy Cola"]="Улучшенная блокси кола",
+			["Bottle"]="Бутылка",
+			["Ladder"]="Лестница",
+			["Battery"]="Батарея"
+	}
 
-_G.TimGui.Add.B("KE", "Kill enemies", "Game", 1, "Убить врагов", function() 
-pcall(function()
-for i, v in pairs(game:GetService("Workspace").BadGuys:GetChildren()) do
-Events:WaitForChild("HitBadguy"):FireServer(v, 64.8, 4)
+	for k, v in Items do
+		group.Create(1,k,k,v, function() 
+			if k == "Armor" then
+				Events:WaitForChild("Vending"):FireServer(3, "Armor2", "Armor", tostring(LocalPlayer), 1)
+			else
+				Events:WaitForChild("GiveTool"):FireServer(tostring(k:gsub(" ", "")))
+			end
+		end) 
+	end
+end if Events:FindFirstChild("RainbowWhatStat") then
+	local group = _G.TimGui.Groups.CreateNewGroup("Items", "Предметы") 
+	group.Create(1,"TSp","Train speed","Прокачать скорость",function() 
+		Events:WaitForChild("RainbowWhatStat"):FireServer("Speed")
+	end) 
+	group.Create(1,"TSt","Train strength","Прокачать силу",function() 
+		Events:WaitForChild("RainbowWhatStat"):FireServer("Strength")
+	end) 
 end
-for i, v in pairs(game:GetService("Workspace").BadGuysBoss:GetChildren()) do
-Events:WaitForChild("HitBadguy"):FireServer(v, 64.8, 4)
-end
-for i, v in pairs(game:GetService("Workspace").BadGuysFront:GetChildren()) do
-Events:WaitForChild("HitBadguy"):FireServer(v, 64.8, 4)
-end
-if game:GetService("Workspace"):FindFirstChild("BadGuyPizza", true) then
-Events:WaitForChild("HitBadguy"):FireServer(game:GetService("Workspace"):FindFirstChild("BadGuyPizza", true), 64.8, 4)
-end
-if game:GetService("Workspace"):FindFirstChild("BadGuyBrute") then
-Events:WaitForChild("HitBadguy"):FireServer(game:GetService("Workspace").BadGuyBrute, 64.8, 4)
-end
-end)
-end) 
-
-_G.TimGui.Add.B("TSp", "Train speed", "Game", 2, "Прокачать скорость", function() 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Speed")
-end) 
-
-_G.TimGui.Add.B("TSt", "Train strength", "Game", 3, "Прокачать силу", function() 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Strength")
-end) 
-
-_G.TimGui.Add.B("TSt", "Train strength", "Game", 3, "Прокачать силу", function() 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RainbowWhatStat"):FireServer("Strength")
-end) 
