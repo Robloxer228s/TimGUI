@@ -1071,7 +1071,7 @@ Camera.Create(1,"NextPlayer","Next Player","Следующий игрок",funct
     if enab.Value then UpdCam() end
 end)
 
-Camera.Create(1,"Other","Other","Другое")
+Camera.Create(0,"Other","Other","Другое")
 Camera.Create(1,"TPC","TP to camera","ТП в камеру",function()
 	LocalPlayer.Character.PrimaryPart.CFrame = game.Workspace.CurrentCamera.CFrame
 end)
