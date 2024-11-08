@@ -1,3 +1,4 @@
+-- Floor is lava
 local group = _G.TimGui.Groups.CreateNewGroup("Floor is lava","Пол это лава")
 group.Create(1,"CollectCoins","Collect coins","Собрать монеты",function()
 	local cf = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
