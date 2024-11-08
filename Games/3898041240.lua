@@ -2,10 +2,10 @@
 local group = _G.TimGui.Groups.CreateNewGroup("Leader", "Лидер") 
 local leader = function()
 for k, v in pairs(game.Players:GetChildren()) do
-  local hight = v.Character:FindFirstChild("LeaderHighlight")
-  if hight then
-    if _G.TimGui.Values.Spare[hight.Parent.Name] then return nil end
-      return hight.Parent
+  if v.Character:FindFirstChild("LeaderHighlight") then
+    if _G.TimGui.Values.Spare[v.Name] then return nil end
+      return v.Character
+    end
    end
 end
 
