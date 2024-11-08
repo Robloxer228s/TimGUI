@@ -1,10 +1,11 @@
-_G.TimGui.Add.G("Game","Игра")
+-- Chaos Jenga
+local group = _G.TimGui.Groups.CreateNewGroup("Game","Игра")
 
-_G.TimGui.Add.B("DelKillbrick","Del killbrick","Game",1,"Удалить убивалку",function()
+group.Create(1,"DelKillbrick","Del killbrick","Удалить убивалку",function()
     game.Workspace.Kill:Destroy()
 end)
 
-_G.TimGui.Add.B("Win","Win to tower","Game",2,"Победить за башню", function()
+group.Create(1,"Win","Win to tower","Победить за башню", function()
     if game.Players.LocalPlayer.Team.Name ~= "Survivors" then return end
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Button.CFrame
 end)
