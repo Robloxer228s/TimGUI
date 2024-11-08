@@ -1,3 +1,4 @@
+-- LuckBlocks BattleGround
 _G.TimGui.Add.G("LuckyBlocks") 
 local count = _G.TimGui.Add.TB("count", "Quantity:", "LuckyBlocks", 1,"Количество:") 
 if count.Text == "" then count.Text = 1 end
