@@ -1,3 +1,4 @@
+-- GET TO THE TOP!
 local up = _G.TimGui.Groups.CreateNewGroup("UP","Доберись до вершины")
 up.Create(1,"UP","TP to finish","ТП в конец",function() 
 	local tp = game.Workspace:WaitForChild("TowerSpawn")
