@@ -1,4 +1,4 @@
-_G.TimGui.Add.G("Musicaly chairs","Музыкальные стулья")
+local MC = _G.TimGui.Groups.CreateNewGroup("Musicaly chairs","Музыкальные стулья")
 
 local chairs = game.Workspace.Chairs
 local function seat()
@@ -13,21 +13,21 @@ local function seat()
     game.Players.LocalPlayer.Character.Humanoid.Sit = true
 end
 
-_G.TimGui.Add.B("ButtB","Del boundary","Musicaly chairs",1,"Удалить барьер",function()
+MC.Create(1,"ButtB","Del boundary","Удалить барьер",function()
 game.Workspace.Boundary:Destroy()
 end)
 
-_G.TimGui.Add.B("ButS","Sit to chair","Musicaly chairs",2,"Сесть на стул", function()
+MC.Create(1,"ButS","Sit to chair","Сесть на стул", function()
     seat()
 end)
 
-_G.TimGui.Add.B("ButSNC","Sit (not chair)","Musicaly chairs",3,"Сесть(не на стул)", function()
+MC.Create(1,"ButSNC","Sit (not chair)","Сесть(не на стул)", function()
     seat()
 end)
 
-local autoB = _G.TimGui.Add.CB("autoB","Auto del boundary","Musicaly chairs",4,"Авто удаление барьера")
-local autoS = _G.TimGui.Add.CB("autoS","Auto sit to chair","Musicaly chairs",5,"Авто садится на стул")
-local autoSNC = _G.TimGui.Add.CB("autoSNC","Auto sit(not chair)","Musicaly chairs",6,"Авто садится(не на стул)")
+local autoB = MC.Create(2,"autoB","Auto del boundary","Авто удаление барьера")
+local autoS = MC.Create(2,"autoS","Auto sit to chair","Авто садится на стул")
+local autoSNC = MC.Create(2,"autoSNC","Auto sit(not chair)","Авто садится(не на стул)")
 
 
 while task.wait(0.1) do
