@@ -1,3 +1,4 @@
+-- Mega hide and seek
 local HideASeek = _G.TimGui.Groups.CreateNewGroup("Mega hide and seek","Мега прятки")
 
 HideASeek.Create(1,"TPTMoney","Grab all moneys","Взять все деньги",function()
