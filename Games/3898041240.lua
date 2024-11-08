@@ -6,8 +6,6 @@ local hight = v.Character:FindFirstChild("LeaderHighlight")
 if hight then
 if _G.TimGui.Values.Spare[hight.Parent.Name] then return nil end
 return hight.Parent
-else
-continue
 end
 end
 end
