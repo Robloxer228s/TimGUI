@@ -42,7 +42,7 @@ end	if Events:FindFirstChild("GiveTool") then
 	for k, v in Items do
 		group.Create(1,k,k,v, function() 
 			if k == "Armor" then
-				Events:WaitForChild("Vending"):FireServer(3, "Armor2", "Armor", tostring(LocalPlayer), 1)
+				Events:WaitForChild("Vending"):FireServer(3, "Armor2", "Armor", tostring(game.Players.LocalPlayer), 1)
 			else
 				Events:WaitForChild("GiveTool"):FireServer(tostring(k:gsub(" ", "")))
 			end
