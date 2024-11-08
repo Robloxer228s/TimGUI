@@ -7,7 +7,7 @@ if hight then
 if _G.TimGui.Values.Spare[hight.Parent.Name] then return nil end
 return hight.Parent
 else
-return nil
+break
 end
 end
 end
