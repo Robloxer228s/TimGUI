@@ -730,7 +730,7 @@ local function Freeze(but)
 			end
 		end
 	end
-	for k,pl in pairs(game.Players:GetChildren()) do
+	for k,pl in pairs(game.Players:GetPlayers()) do
 		if not pl.Character then continue end
 		if not pl.Character.PrimaryPart then continue end
 		if _G.TimGui.Values.Spare[pl.Name] then continue end
