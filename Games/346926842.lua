@@ -1,3 +1,4 @@
+-- Musicaly chairs --
 local MC = _G.TimGui.Groups.CreateNewGroup("Musicaly chairs","Музыкальные стулья")
 
 local chairs = game.Workspace.Chairs
