@@ -1,3 +1,4 @@
+-- How many
 local group = _G.TimGui.Groups.CreateNewGroup("How many", "Сколько")
 group.Create(1,"WC","Write count","Написать количество",function()
 	local items = game.Workspace.Items:GetChildren()
