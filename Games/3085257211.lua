@@ -1,7 +1,8 @@
-local ESPM = _G.TimGui.Add.CB("ESPM", "ESP Monsters", "ESP", 3, "ESP на монстров") 
-ESPM.Changed:Connect(function()
+-- Rainbow Friends
+local group = _G.TimGui.Groups.ESP
+local ESPM = group.Create(2,"ESPM","ESP Monsters","ESP на монстров",function(val)
 for k, char in pairs(game.Workspace.Monsters:GetChildren()) do
-if ESPM.Value then
+if val.Value then
 local ESP = Instance.new("Highlight")
 ESP.Parent = char
 ESP.Name = "NotEsp"
@@ -37,10 +38,9 @@ ESP.OutlineTransparency = 0
 end
 end) 
 
-local ESPI = _G.TimGui.Add.CB("ESPI", "ESP Items", "ESP", 4, "ESP на предметы") 
-ESPI.Changed:Connect(function()
+local ESPI = group.Create(2,"ESPI", "ESP Items","ESP на предметы",function(val)
 for k, char in pairs(game.Workspace:GetChildren()) do
-if ESPI.Value and char.ClassName == "Model" then
+if val.Value and char.ClassName == "Model" then
 local chec = false
 for kk, v in pairs(char:GetChildren()) do
 if v.Name == "Handle" or v.Name == "ItemLight" or v.Name == "TouchTrigger" then
