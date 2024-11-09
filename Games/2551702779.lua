@@ -80,15 +80,7 @@ local function Check(Char)
 			killZombie(Char)
 		end
 	end
-	if Char:FindFirstChild("Humanoid") then
-		Char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(Changed)
-	else
-		local i = Inctance.new("BoolValue")
-		i.Changed:Connect(function()
-			Char:WaitForChild("Humanoid",math.huge):GetPropertyChangedSignal("MoveDirection"):Connect(Changed)
-		end)
-		i.Value = true
-	end
+	Char:WaitForChild("Humanoid",math.huge):GetPropertyChangedSignal("MoveDirection"):Connect(Changed)
 end
 
 local function NewPlayer(Player) 
@@ -98,7 +90,15 @@ local function NewPlayer(Player)
 end
 
 for k, v in pairs(game.Players:GetPlayers()) do
-	NewPlayer(v) 
+	if Char:FindFirstChild("Humanoid") then
+		NewPlayer(v)
+	else
+		local i = Instance.new("BoolValue")
+		i.Changed:Connect(function()
+			NewPlayer(v)
+		end)
+		i.Value = true
+	end
 end
 
 game.Players.PlayerAdded:Connect(NewPlayer)
