@@ -11,7 +11,7 @@ end
 
 
 group.Create(1,"Touch","TP to leader","ТП к лидеру",function()
-game.Players.LocalPlayer.Character.PrimaryPart.CFrame = leader().PrimaryPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end)
 
 local ATP =  group.Create(2,"AutoTP","AutoTP to leader","АвтоТП к лидеру")
@@ -23,7 +23,7 @@ wait(0.05)
 if ATP.Value then
 local lead = leader()
 if lead then
-game.Players.LocalPlayer.Character.PrimaryPart.CFrame = leader().PrimaryPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end
 end 
 if boostEn.Value then
