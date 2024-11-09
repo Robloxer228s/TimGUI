@@ -25,6 +25,7 @@ if not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") the
 if ATP.Value then
 local lead = leader()
 if lead then
+if not lead:FindFirstChild("HumanoidRootPart") then continue end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end
 end 
