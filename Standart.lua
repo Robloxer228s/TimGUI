@@ -719,7 +719,6 @@ local FPos = {}
 local FPosAll
 local function Freeze(but)
 	if type(but) == "table" then
-		print(1)
 		local butName = but.Name
 		if string.sub(butName,1,1) == "T" then
 			butName = string.sub(butName,2)
@@ -773,17 +772,21 @@ for k,v in pairs(game.Teams:GetChildren()) do
 end
 
 game.Players.PlayerAdded:Connect(function(player)
-	player.CharacterAdded:Connect(function(char)
-		char:WaitForChild("HumanoidRootPart")
+	local function rechar()
+		player.Character:WaitForChild("HumanoidRootPart")
 		Freeze()
-	end)
+	end
+	player.CharacterAdded:Connect(rechar)
+	player:GetPropertySignalChanged("Team"):Connect(rechar)
 end) 
 
 for k,player in pairs(game.Players:GetPlayers()) do
-	player.CharacterAdded:Connect(function(char)
-		char:WaitForChild("HumanoidRootPart")
+	local function rechar()
+		player.Character:WaitForChild("HumanoidRootPart")
 		Freeze()
-	end)
+	end
+	player.CharacterAdded:Connect(rechar)
+	player:GetPropertySignalChanged("Team"):Connect(rechar)
 end
 
 -- FUN --------------------------------
