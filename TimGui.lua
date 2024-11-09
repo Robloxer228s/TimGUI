@@ -10,12 +10,15 @@ _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
 _G.TimGui.Path = {}
 
+--_G.TimGui.Values.x2 = false
 _G.TimGui.Values.Spare = {}
-_G.TimGui.Values.GroupOpened = nil
 _G.TimGui.Values.Opened = false
-_G.TimGui.Values.x2 = false
+_G.TimGui.Values.SpareButtons = {}
+_G.TimGui.Values.GroupOpened = nil
+
 _G.TimGui.Values.RusLang = false
 
+local LocalPlayer = game.Players.LocalPlayer
 local XTG = UDim.new(1, -400)
 local ButtonColor = Color3.fromRGB(50,50,100)
 local Count = 0
@@ -793,9 +796,9 @@ TPTP.Create(1,5,"TP to random player","ТП к случайному игроку
 	AutoTP.Text = "Auto TP to "..AutoTPto
 	AutoTP.RusText = "Авто ТП к "..AutoTPto
 	if TPRot.Value then
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+		LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
 	else
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,game.Players.LocalPlayer.Character.HumanoidRootPart.Orientation)
+		LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation)
 	end
 end)
 local TPoff = _G.TimGui.Groups.CreateNewGroup("TPoffset")
@@ -834,18 +837,18 @@ local function AddedPlayer(v)
 		AddPos += Offset
 		if v.Character:FindFirstChild("HumanoidRootPart") then
 			if TPRot.Value then
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
+				LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
 			else
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,game.Players.LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
+				LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
 			end
 		else
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
+			LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
 			wait(0.5)
 			if v.Character:FindFirstChild("HumanoidRootPart") then
 				if TPRot.Value then
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
+					LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
 				else
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,game.Players.LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
+					LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
 				end
 			else
 				_G.TimGui.Print("TP","Player not loaded.","ТП","Игрок не прогружен")
@@ -854,7 +857,7 @@ local function AddedPlayer(v)
 	end)
 end
 for k,v in pairs(game.Players:GetPlayers()) do
-	if v == game.Players.LocalPlayer then continue end
+	if v == LocalPlayer then continue end
 	AddedPlayer(v)
 end
 game.Players.PlayerAdded:Connect(AddedPlayer)
@@ -874,18 +877,18 @@ RunService.RenderStepped:Connect(function()
 			AddPos += Offset
 			if v.Character:FindFirstChild("HumanoidRootPart") then
 				if TPRot.Value then
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
+					LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
 				else
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,game.Players.LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
+					LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
 				end
 			else
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
+				LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
 				wait(0.5)
 				if v.Character:FindFirstChild("HumanoidRootPart") then
 					if TPRot.Value then
-						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
+						LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
 					else
-						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,game.Players.LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
+						LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
 					end
 				else
 					AutoTPto.Main.Value = false
@@ -975,6 +978,44 @@ end
 
 Settings.Create(1,"Example","Example notification","Пример уведомления",function()
 	_G.TimGui.Print("Example","Hello World v2.0","Пример","Привт 2.0")
+end)
+
+local SpareButtons = _G.TimGui.Values.SpareButtons
+local SpareTable = _G.TimGui.Values.Spare
+local Spare = _G.TimGui.Groups.CreateNewGroup("Spare")
+local FS = Spare.Create(2,"FS","Spare friends","Щадить друзей")
+Spare.Visible = false
+FS.Main.Value = true
+_G.TimGui.Groups.Settings.Create(1,"Spare","Spare","Пощада",function()
+    Spare.OpenGroup()
+end)
+
+local function PlAdd(Player)
+	local Name = Player.Name
+	SpareTable[Name] = false
+	SpareButtons[Name] = Spare.Create(2,Name,Name,Name,function(val)
+		SpareTable[Name] = val.Value
+	end)
+	if FS.Value then
+		if LocalPlayer:IsFriendsWith(Player.UserId) then
+			SpareButtons[Name].Main.Value = true
+		end
+	end
+end
+
+Spare.Create(0,"PT","Players","Игроки")
+for k,v in pairs(game.Players:GetPlayers()) do
+	if v ~= LocalPlayer then
+		PlAdd(v)
+	end
+end
+game.Players.PlayerAdded:Connect(PlAdd)
+game.Players.PlayerRemoving:Connect(function(pl)
+	if SpareButtons[pl.Name] then
+		SpareButtons[pl.Name].Destroy()
+	else
+		print("SpareButton for "..pl.Name.." not found")
+	end
 end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
