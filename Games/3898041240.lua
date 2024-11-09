@@ -20,6 +20,8 @@ local boostEn = group.Create(2,"VisibleBoost","Set visible for boost","Дела�
 
 while true do
 wait(0.05) 
+if not game.Players.LocalPlayer.Character then continue end
+if not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then continue end
 if ATP.Value then
 local lead = leader()
 if lead then
