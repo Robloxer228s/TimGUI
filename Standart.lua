@@ -777,7 +777,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		Freeze()
 	end
 	player.CharacterAdded:Connect(rechar)
-	player:PropertySignalChanged("Team"):Connect(rechar)
+	player:GetPropertySignalChanged("Team"):Connect(rechar)
 end) 
 
 for k,player in pairs(game.Players:GetPlayers()) do
