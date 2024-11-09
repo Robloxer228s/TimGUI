@@ -75,11 +75,20 @@ end)
 
 local KTZWAM = group.Create(2,"KAM","Kill those zombies who are moving","убивать, тех зомби кто двигается")
 local function Check(Char) 
-	Char:WaitForChild("Humanoid"):GetPropertyChangedSignal("MoveDirection"):Connect(function()
+	local function Changed()
 		if KTZWAM.Value then 
 			killZombie(Char)
 		end
-	end)
+	end
+	if Char:FindFirstChild("Humanoid") then
+		Char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(Changed)
+	else
+		local i = Inctance.new("BoolValue")
+		i.Changed:Connect(function()
+			Char:WaitForChild("Humanoid",math.huge):GetPropertyChangedSignal("MoveDirection"):Connect(Changed)
+		end)
+		i.Value = true
+	end
 end
 
 local function NewPlayer(Player) 
