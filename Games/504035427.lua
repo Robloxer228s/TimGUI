@@ -1,3 +1,4 @@
+-- Zombie Attack
 local enemies = game.Workspace.enemies
 local Player = game.Players.LocalPlayer
 local function ESPto(Who)
@@ -11,7 +12,8 @@ local function ESPto(Who)
     hl.OutlineTransparency = 0
 end
 
-local esp = _G.TimGui.Add.CB("ESPZ","ESP to zombie","ESP",3,"Подсветка на зомби",function(val)
+local EspG = _G.TimGui.Groups.ESP
+local esp = EspG.Create(2,"ESPZ","ESP to zombie","Подсветка на зомби",function(val)
     if val.Value then
         for k,v in pairs(enemies:GetChildren()) do
             ESPto(v)
@@ -31,14 +33,14 @@ enemies.ChildAdded:Connect(function(child)
     end
 end)
 
-_G.TimGui.Add.G("Zombie","Зомбаки")
-local distY = _G.TimGui.Add.TB("DZY","Distance of attack(up):","Zombie",1,"Дистанция аттаки(в верх):")
-local distZ = _G.TimGui.Add.TB("DZZ","Distance of attack(back):","Zombie",2,"Дистанция аттаки(назад):")
-distY.Text = 5
-distZ.Text = 10
+local group = _G.TimGui.Groups.CreateNewGroup("Zombie","Зомбаки")
+local distY = group.Create(3,"DZY","Distance of attack(up):","Дистанция аттаки(в верх):")
+local distZ = group.Create(3,"DZZ","Distance of attack(back):","Дистанция аттаки(назад):")
+distY.Main.Text = 5
+distZ.Main.Text = 10
 local KillingBoss = false
 
-_G.TimGui.Add.CB("AAZ","Auto attack zombie","Zombie",3,"Авто аттаковать зомбарей",function(value)
+group.Create(2,"AAZ","Auto attack zombie","Авто аттаковать зомбарей",function(value)
     while value.Value and task.wait(0.1) do
         if KillingBoss == true then continue end
         local zombie
@@ -51,8 +53,8 @@ _G.TimGui.Add.CB("AAZ","Auto attack zombie","Zombie",3,"Авто аттаков�
         local HRP = Player.Character.HumanoidRootPart
         KillingBoss = nil
         while value.Value and task.wait() do
-            local Y = tonumber(distY.Text)
-            local Z = tonumber(distZ.Text)
+            local Y = tonumber(distY.Value)
+            local Z = tonumber(distZ.Value)
             if Y == nil then
                 Y = 5
             end if Z == nil then
@@ -70,7 +72,7 @@ _G.TimGui.Add.CB("AAZ","Auto attack zombie","Zombie",3,"Авто аттаков�
     end
 end)
 
-_G.TimGui.Add.CB("AAB","Auto attack boss","Zombie",4,"Авто аттаковать босса",function(value)
+group.Create(2,"AAB","Auto attack boss","Авто аттаковать босса",function(value)
     while value.Value and task.wait(0.09) do
         if KillingBoss == nil then continue end
         local zombie
@@ -104,7 +106,7 @@ _G.TimGui.Add.CB("AAB","Auto attack boss","Zombie",4,"Авто аттакова�
 end)
 
 local Powerups = game.Workspace.Powerups
-_G.TimGui.Add.CB("ATPP","AutoTP to Powerups","Zombie",5,"Авто тп в усиления",function(val)
+group.Create(2,"ATPP","AutoTP to Powerups","Авто тп в усиления",function(val)
     while val.Value and task.wait(0.25) do
         local char = Player.Character
         if not char then
