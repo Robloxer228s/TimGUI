@@ -1,6 +1,6 @@
 --Zooo
-local group = _G.TImGui.Groups.ESP
-group.Create(2,"ESPM","ESP Monsters""ESP на монстров",function(val)
+local group = _G.TimGui.Groups.ESP
+group.Create(2,"ESPM","ESP Monsters","ESP на монстров",function(val)
 for k, chr in pairs(game.Workspace.Maps:GetChildren()) do
 chr = chr:FindFirstChild("Killers") 
 if chr then
