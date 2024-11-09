@@ -69,7 +69,7 @@ GET TO THE TOP!
 
 LUCKY BLOCKS Battlegrounds
 
-Zooo -- Dont work
+Zooo
 
 The Door 🚪 10M+ VISITS! 
 
