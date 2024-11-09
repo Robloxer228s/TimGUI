@@ -73,7 +73,7 @@ Zooo -- Dont work
 
 The Door 🚪 10M+ VISITS! 
 
-Obby Leader -- Dont work
+Obby Leader
 
 Rainbow Friends -- Dont work
 
