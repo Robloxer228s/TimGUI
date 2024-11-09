@@ -982,11 +982,11 @@ end)
 
 local SpareButtons = _G.TimGui.Values.SpareButtons
 local SpareTable = _G.TimGui.Values.Spare
-local Spare = _G.TimGui.Groups.CreateNewGroup("Spare")
-local FS = Spare.Create(2,"FS","Spare friends","Щадить друзей")
+local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
+local MS = Spare.Create(2,"FS","Mercy friends","Щадить друзей")
 Spare.Visible = false
-FS.Main.Value = true
-_G.TimGui.Groups.Settings.Create(1,"Spare","Spare","Пощада",function()
+MS.Main.Value = true
+_G.TimGui.Groups.Settings.Create(1,"Mercy","Mercy","Пощада",function()
     Spare.OpenGroup()
 end)
 
@@ -996,7 +996,7 @@ local function PlAdd(Player)
 	SpareButtons[Name] = Spare.Create(2,Name,Name,Name,function(val)
 		SpareTable[Name] = val.Value
 	end)
-	if FS.Value then
+	if MS.Value then
 		if LocalPlayer:IsFriendsWith(Player.UserId) then
 			SpareButtons[Name].Main.Value = true
 		end
