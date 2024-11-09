@@ -90,7 +90,8 @@ local function NewPlayer(Player)
 end
 
 for k, v in pairs(game.Players:GetPlayers()) do
-	if Char:FindFirstChild("Humanoid") then
+	if not v.Character then v.CharacterAdded:Wait() end
+	if v.Character:FindFirstChild("Humanoid") then
 		NewPlayer(v)
 	else
 		local i = Instance.new("BoolValue")
