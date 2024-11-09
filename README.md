@@ -63,7 +63,7 @@ Froggy
 
 Build A Boat For Treasure
 
-Zombie lab -- Dont work
+Zombie lab
 
 GET TO THE TOP!
 
@@ -75,7 +75,7 @@ The Door 🚪 10M+ VISITS!
 
 Obby Leader
 
-Rainbow Friends -- Dont work
+Rainbow Friends -- not tested
 
 Death Ball
 
