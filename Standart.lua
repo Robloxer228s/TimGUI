@@ -779,7 +779,7 @@ game.Players.PlayerAdded:Connect(function(player)
 	end)
 end) 
 
-for k,player in pairs(game.Players:GetChildren()) do
+for k,player in pairs(game.Players:GetPlayers()) do
 	player.CharacterAdded:Connect(function(char)
 		char:WaitForChild("HumanoidRootPart")
 		Freeze()
