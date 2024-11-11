@@ -286,7 +286,7 @@ Player.Create(1,"SetJump","Set JumpPower","Установить силу пры�
 end)
 
 local SpinPower = Player.Create(3,"SpinPower","SpinPower:","Сила кружения:")
-local Spin = Player.Create(2,"Spin","Spining","Крутится",function(Spin)
+local Spin = Player.Create(2,"Spin","Spining","Крутиться",function(Spin)
 	if Spin.Value then
 		wait(0.1)
 		local bambam = Instance.new("BodyThrust",LocalPlayer.Character.PrimaryPart)
@@ -297,7 +297,7 @@ local Spin = Player.Create(2,"Spin","Spining","Крутится",function(Spin)
 		game.Players.LocalPlayer.Character.PrimaryPart.BodyThrust:Destroy()
 	end
 end)
-local SVTwo = Player.Create(2,"Spin2","Spining v2","Крутится v2")
+local SVTwo = Player.Create(2,"Spin2","Spining v2","Крутиться v2")
 local Noclip = Player.Create(2,"Noclip","Noclip","Проходка сквозь стены",function(val)
 	if not val.Value then
 		_G.TimGui.Print("Noclip","Jump","Проходка сквозь стены","Прыгни!")
