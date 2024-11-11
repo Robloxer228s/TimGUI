@@ -15,7 +15,6 @@ _G.TimGui.Values.Spare = {}
 _G.TimGui.Values.Opened = false
 _G.TimGui.Values.SpareButtons = {}
 _G.TimGui.Values.GroupOpened = nil
-
 _G.TimGui.Values.RusLang = false
 
 local LocalPlayer = game.Players.LocalPlayer
@@ -31,6 +30,7 @@ local Open = Instance.new("ImageLabel",f)
 local AO = Instance.new("ImageButton",f)
 local Groups = Instance.new("ScrollingFrame",f) 
 local Objects = Instance.new("ScrollingFrame",f) 
+local Commands = {}
 
 f.Position = UDim2.new(XTG,UDim.new(1,-25)) 
 f.Size = UDim2.new(0, 400, 1, 0) 
@@ -741,6 +741,23 @@ _G.TimGui.Path.gui = gui
 _G.TimGui.Path.Main = f
 _G.TimGui.Path.Groups = Groups
 _G.TimGui.Path.Buttons = Objects
+
+_G.TimGui.AddCommand = function(com,funct)
+     Commands[com] = funct
+end
+
+game.TextChatService.MessageReceived:Connect(function(Message)
+     local message = Message.Text
+     if string.sub(message,1,1) == "/" then
+          local args = string.split(string.sub(message,2)," ")
+          local com = args[1]
+          args[1] = game.Players:GetPlayerByUserId(Message.TextSource.UserId)
+          local com = Commands[com]
+          if com then
+               com(table.unpack(args))
+          end
+     end
+end)
 
 local Settings = _G.TimGui.Groups.CreateNewGroup("Settings","Настройки")
 local RusLang = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
