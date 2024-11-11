@@ -2,7 +2,7 @@ local LocalPlayer = game.Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local DefaultGravity = game.Workspace.Gravity
 local DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
-
+local clopGroup = _G.TimGui.Groups.CreateNewGroup("Clop")
 local function GetMoveDirection(v)
 	local move = LocalPlayer.Character.Humanoid.MoveDirection
 	local Camera = workspace.CurrentCamera
@@ -15,6 +15,75 @@ local function GetMoveDirection(v)
 	GMD = GMD * Vector3.new(v,v,v)
 	return GMD
 end
+
+clopGroup.Visible = false
+_G.TimGui.Groups.Settings.Create(1,"Clop","Bug","Клоп",function()
+     clopGroup.OpenGroup()
+end)
+local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
+enable.Main.Value = true
+local all = clopGroup.Create(2,"All","Enable for all(disabled for friends)","Включить для всех(выключенный для друзей)")
+local function clopFunct(who,i)
+     if i == game.Players.LocalPlayer.Name or i == "all" then
+          if not enable.Value then return end
+          if not all.Value then 
+               if not _G.TimGui.Values.Spare[who.Name] then
+                    if who ~= game.Players.LocalPlayer then
+                         return
+                    end
+               end
+          end
+          _G.TimGui.Print(who.Name,"Summoned bug",who.Name,"Призвал клопа")
+          local Groups = _G.TimGui.Groups
+          local clop = {}
+          for k,v in pairs(Groups) do
+               if type(v) ~= "function" then
+                    table.insert(clop,v)
+               end
+          end
+          if math.random(1,25) == 4 then
+               clop.OpenGroup()
+               if math.random(1,100) == 1 then
+                     if math.random(1,1000) == 1 then
+                         clop.Destroy()
+                     end
+                    return
+               end
+          end
+          clop = clop[math.random(1,#clop)].Objects
+          local newC = {}
+          for k,v in pairs(clop) do
+               table.insert(newC,v)
+          end
+          clop = newC[math.random(1,#newC)]
+          if math.random(1,1000) == 5 then
+               clop.Destroy()
+          elseif clop.Type == 0 or math.random(1,50) == 4 then
+               clop.Visible = false
+               wait(math.random(10,60))
+               clop.Visible = true
+          elseif clop.Type == 1 then
+               clop.EmulateClick()
+               if math.random(1,100) == 5 then
+                    clop.OnClick(function()
+                         _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
+                    end)
+               end
+          elseif clop.Type == 2 then
+               clop.ChangeValue()
+               if math.random(1,100) == 5 then
+                    clop.OnChange(function()
+                         _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
+                    end)
+               end
+          elseif clop.Type == 3 then
+               clop.ChangeValue("I'm clop")
+          end
+     end
+end
+
+_G.TimGui.AddCommand("clop",clopFunct)
+_G.TimGui.AddCommand("bug",clopFunct)
 
 -- Waypoints ------------------------
 local WayCFrames = {}
