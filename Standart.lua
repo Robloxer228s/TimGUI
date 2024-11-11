@@ -34,50 +34,52 @@ local function clopFunct(who,i)
                end
           end
           _G.TimGui.Print(who.Name,"Summoned bug",who.Name,"Призвал клопа")
-          local Groups = _G.TimGui.Groups
-          local clop = {}
-          for k,v in pairs(Groups) do
-               if type(v) ~= "function" then
-                    table.insert(clop,v)
+	  for ii=1,math.random(1,10) do
+               local Groups = _G.TimGui.Groups
+               local clop = {}
+               for k,v in pairs(Groups) do
+                    if type(v) ~= "function" then
+                         table.insert(clop,v)
+                    end
                end
-          end
-          if math.random(1,25) == 4 then
-               clop.OpenGroup()
-               if math.random(1,100) == 1 then
-                     if math.random(1,1000) == 1 then
-                         clop.Destroy()
-                     end
-                    return
+               if math.random(1,25) == 4 then
+                    clop.OpenGroup()
+                    if math.random(1,100) == 1 then
+                         if math.random(1,1000) == 1 then
+                              clop.Destroy()
+                         end
+                         return
+                    end
                end
-          end
-          clop = clop[math.random(1,#clop)].Objects
-          local newC = {}
-          for k,v in pairs(clop) do
-               table.insert(newC,v)
-          end
-          clop = newC[math.random(1,#newC)]
-          if math.random(1,1000) == 5 then
-               clop.Destroy()
-          elseif clop.Type == 0 or math.random(1,50) == 4 then
-               clop.Visible = false
-               wait(math.random(10,60))
-               clop.Visible = true
-          elseif clop.Type == 1 then
-               clop.EmulateClick()
-               if math.random(1,100) == 5 then
-                    clop.OnClick(function()
-                         _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
-                    end)
+               clop = clop[math.random(1,#clop)].Objects
+               local newC = {}
+               for k,v in pairs(clop) do
+                    table.insert(newC,v)
                end
-          elseif clop.Type == 2 then
-               clop.ChangeValue()
-               if math.random(1,100) == 5 then
-                    clop.OnChange(function()
-                         _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
-                    end)
+               clop = newC[math.random(1,#newC)]
+               if math.random(1,1000) == 5 then
+                    clop.Destroy()
+               elseif clop.Type == 0 or math.random(1,50) == 4 then
+                    clop.Visible = false
+                    wait(math.random(10,60))
+                    clop.Visible = true
+               elseif clop.Type == 1 then
+                    clop.EmulateClick()
+                    if math.random(1,100) == 5 then
+                          clop.OnClick(function()
+                              _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
+                          end)
+                    end
+               elseif clop.Type == 2 then
+                    clop.ChangeValue()
+                    if math.random(1,100) == 5 then
+                         clop.OnChange(function()
+                              _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
+                         end)
+                    end
+               elseif clop.Type == 3 then
+                    clop.ChangeValue("I'm clop")
                end
-          elseif clop.Type == 3 then
-               clop.ChangeValue("I'm clop")
           end
      end
 end
