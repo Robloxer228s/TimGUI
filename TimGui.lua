@@ -759,6 +759,25 @@ game.TextChatService.MessageReceived:Connect(function(Message)
      end
 end)
 
+local function NewPlayer(player)
+     player.Chatted:Connect(function(message)
+          if string.sub(message,1,1) == "/" then
+               local args = string.split(string.sub(message,2)," ")
+               local com = args[1]
+               args[1] = player
+               local com = Commands[com]
+               if com then
+                    com(table.unpack(args))
+		end
+          end
+     end)
+end
+
+for k,v in pairs(game.Players:GetPlayers()) do
+     NewPlayer(v)
+end
+game.Players.PlayerAdded(NewPlayer)
+
 local Settings = _G.TimGui.Groups.CreateNewGroup("Settings","Настройки")
 local RusLang = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
 	_G.TimGui.Values.RusLang = Value.Value
