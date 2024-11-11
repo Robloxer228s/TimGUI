@@ -776,7 +776,7 @@ end
 for k,v in pairs(game.Players:GetPlayers()) do
      NewPlayer(v)
 end
-game.Players.PlayerAdded(NewPlayer)
+game.Players.PlayerAdded:Connect(NewPlayer)
 
 local Settings = _G.TimGui.Groups.CreateNewGroup("Settings","Настройки")
 local RusLang = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
