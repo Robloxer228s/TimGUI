@@ -1153,4 +1153,4 @@ end)
 Camera.Create(0,"Other","Other","Другое")
 Camera.Create(1,"TPC","TP to camera","ТП в камеру",function()
 	LocalPlayer.Character.PrimaryPart.CFrame = game.Workspace.CurrentCamera.CFrame
-end
+end)
