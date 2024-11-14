@@ -17,6 +17,7 @@ _G.TimGui.Values.SpareButtons = {}
 _G.TimGui.Values.GroupOpened = nil
 _G.TimGui.Values.RusLang = false
 
+local OptimizeTable = {}
 local LocalPlayer = game.Players.LocalPlayer
 local XTG = UDim.new(1, -400)
 local ButtonColor = Color3.fromRGB(50,50,100)
@@ -571,7 +572,11 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				else
 					goal.TextColor3 = Color3.new(1, 0.25, 0.25) 
 				end
-				game:GetService("TweenService"):Create(Object, TweenInfo.new(0.5), goal):Play() 
+				if OptimizeTable.AnimationTB then
+					game:GetService("TweenService"):Create(Object, TweenInfo.new(0.5), goal):Play() 
+				else
+					Object.TextColor3 = goal.TextColor3
+				end
 				if type(funct) == "function" then
 					funct(Obj)
 				end
@@ -649,8 +654,11 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 		local oldParams = table.clone(Obj)
 		local whil = Instance.new("BoolValue")
 		whil.Changed:Connect(function()
-			while task.wait(updTime) and Obj ~= nil do
-				if _G.TimGui.Values.Opened then
+			while Obj ~= nil do
+				if OptimizeTable.Timer then wait(updTime) end
+				wait()
+				if OptimizeTable.TwoTimer then wait(updTime) end
+				if _G.TimGui.Values.Opened or OptimizeTable.OnClose then
 					if typ <= 2 then
 						if not _G.TimGui.Values.RusLang then
 							if Obj.Text ~= oldParams.Text then
@@ -704,8 +712,11 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 	local oldGroup = table.clone(group)
 	local whil = Instance.new("BoolValue")
 	whil.Changed:Connect(function()
-		while task.wait(updTime) and group ~= nil do
-			if _G.TimGui.Values.Opened then
+		while group ~= nil do
+			if OptimizeTable.Timer then wait(updTime) end
+			wait()
+			if OptimizeTable.TwoTimer then wait(updTime) end
+			if _G.TimGui.Values.Opened or not OptimizeTable.OnClose then
 				if _G.TimGui.Values.RusLang then
 					if group.Name ~= oldGroup.Name then
 						group.Name = oldGroup.Name
@@ -1022,7 +1033,7 @@ local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
 local MS = Spare.Create(2,"FS","Mercy friends","Щадить друзей")
 Spare.Visible = false
 MS.Main.Value = true
-_G.TimGui.Groups.Settings.Create(1,"Mercy","Mercy","Пощада",function()
+Settings.Create(1,"Mercy","Mercy","Пощада",function()
     Spare.OpenGroup()
 end)
 
@@ -1052,6 +1063,24 @@ game.Players.PlayerRemoving:Connect(function(pl)
 	else
 		print("SpareButton for "..pl.Name.." not found")
 	end
+end)
+
+local Optimize = _G.TimGui.Groups.CreateNewGroup("Optimize")
+Optimize.Visible = false
+Optimize.Create(2,"OptimizeOnClosed","Optimize on timgui if closed","Оптимизация timgui, если он закрыт",function(val)
+    OptimizeTable.OnClose = val.Value
+end).Main.Value = true
+Optimize.Create(2,"OptimizeTimer","Optimize timer","Оптимизация таймером",function(val)
+    OptimizeTable.Timer = val.Value
+end).Main.Value = true
+Optimize.Create(2,"OptimizeTwoTimer","Optimize 2 timer","Оптимизация 2 таймером",function(val)
+    OptimizeTable.TwoTimer = val.Value
+end)
+Optimize.Create(2,"AnimTB","Animate toggle button","Анимировать изменяемые кнопки",function(val)
+    OptimizeTable.AnimationTB = val.Value
+end).Main.Value = true
+Settings.Create(1,"Optimize","Optimize","Оптимизация",function()
+    Optimize.OpenGroup()
 end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
