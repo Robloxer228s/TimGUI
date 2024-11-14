@@ -262,25 +262,24 @@ local WalkSpeed = Player.Create(3,"WalkSpeed","WalkSpeed:","Скорость х�
 local Setter = Player.Create(2,"SetWalkSpeed","Set WalkSpeed","Установить скорость ходьбы",function()
 	LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
 end)
-
-LocalPlayer.CharacterAdded:Connect(function(char)
+local function SetWSNewChar(char)
 	local MoveSetter
 	local Stand = Vector3.new(0,0,0)
 	char:WaitForChild("Humanoid")
 	char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
-		if Setter.Value then
-			if char.Humanoid.MoveDirection == Stand then
-				if MoveSetter then MoveSetter:Disconnect() end
-			elseif not MoveSetter then
-				MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-					char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
-				end)
-				wait()
+		if char.Humanoid.MoveDirection == Stand then
+			if MoveSetter then MoveSetter:Disconnect() end
+		elseif not MoveSetter and Setter.Value then
+			MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 				char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
-			end
+			end)
+			wait()
+			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
 		end
 	end)
-end)
+end
+LocalPlayer.CharacterAdded:Connect(SetWSNewChar)
+SetWSNewChar(LocalPlayer.Character)
 
 local JumpPower = Player.Create(3,"JumpPower","JumpPower:","Сила прыжка:")
 Player.Create(1,"SetJump","Set JumpPower","Установить силу прыжка",function()
