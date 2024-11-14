@@ -275,6 +275,8 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 				MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 					char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
 				end)
+				wait()
+				char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
 			end
 		end
 	end)
