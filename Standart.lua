@@ -269,6 +269,7 @@ local function SetWSNewChar(char)
 	char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
 		if char.Humanoid.MoveDirection == Stand then
 			if MoveSetter then MoveSetter:Disconnect() end
+			MoveSetter = nil
 		elseif not MoveSetter and Setter.Value then
 			MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 				char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
