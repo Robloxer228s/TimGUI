@@ -269,10 +269,12 @@ local function SetWSNewChar(char)
 	char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
 		if char.Humanoid.MoveDirection == Stand then
 			if MoveSetter then MoveSetter:Disconnect() end
-			MoveSetter = nil
 		elseif not MoveSetter and Setter.Value then
+            print(1)
 			MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-				char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
+				if Setter.Value then
+                    char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
+                end
 			end)
 			wait()
 			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
@@ -282,8 +284,8 @@ end
 LocalPlayer.CharacterAdded:Connect(SetWSNewChar)
 local ii = Instance.new("BoolValue")
 ii.Changed:Connect(function()
-        SetWSNewChar(LocalPlayer.Character)
-end
+    SetWSNewChar(LocalPlayer.Character)
+end)
 ii.Value = true
 wait()
 ii:Destroy()
@@ -1151,4 +1153,4 @@ end)
 Camera.Create(0,"Other","Other","Другое")
 Camera.Create(1,"TPC","TP to camera","ТП в камеру",function()
 	LocalPlayer.Character.PrimaryPart.CFrame = game.Workspace.CurrentCamera.CFrame
-end)
+end
