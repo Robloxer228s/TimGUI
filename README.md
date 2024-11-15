@@ -10,6 +10,8 @@ Use Right mouse button for keybinding!
 Hold button on 2 sec for Flying button
 
 # Update logs:
+15.11.24 - added wasing simulator
+
 09.11.24 - added mercy added games: Cart Ride into RDite,Cart + car ride into giga noob
 
 08.11.24 - update half games in new code
@@ -92,6 +94,8 @@ Floor is lava
 Mega hide and seek
 
 Zombie Attack
+
+Washing simulator
 
 # Credits:
 
