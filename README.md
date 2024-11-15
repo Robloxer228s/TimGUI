@@ -1,5 +1,5 @@
 # Status:
-last games script update: 31.08.24
+last games script update: 09.11.24
 
 Configs don't work
 
@@ -8,6 +8,8 @@ TimControl don't work
 Use Right mouse button for keybinding! 
 
 Hold button on 2 sec for Flying button
+
+P.S: day.month.year
 
 # Update logs:
 15.11.24 - added wasing simulator
