@@ -675,8 +675,10 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 						Obj.Pos = oldParams.Pos
 						Update(group)
 					end if Obj.Visible ~= oldParams.Visible then
-						Obj.Object.Visible = Obj.Visible
-						Update(group)
+						if group.Name == _G.TimGui.Values.GroupOpened then
+						        Obj.Object.Visible = Obj.Visible
+							Update(group)
+						end
 					end if Obj.Type ~= oldParams.Type then
 						Obj.Type = oldParams.Type
 					end if Obj.OnClick ~= oldParams.OnClick then
