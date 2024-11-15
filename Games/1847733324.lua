@@ -13,13 +13,16 @@ local function clc(obj,UoD)
 end
 local group = _G.TimGui.Groups.CreateNewGroup("Carts","Тележки")
 local carts = game.Workspace.Building.Baseplate["Carts + Jeeps"]
+local cartstwo = game.Workspace.Building.HalfWay.Carts
 group.Create(2,"Up","Auto spam for all UP","Авто нажимать на вверх",function(val)
     while task.wait() and val.Value do
         clc(carts,"Up")
+        clc(cartstwo,"Up")
     end
 end)
 group.Create(2,"Down","Auto spam for all DOWN","Авто нажимать на вниз",function(val)
     while task.wait() and val.Value do
         clc(carts,"Down")
+        clc(cartstwo,"Down")
     end
 end)
