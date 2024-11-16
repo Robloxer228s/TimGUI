@@ -16,6 +16,7 @@ if game:GetService("UserInputService").TouchEnabled then
 	local Enabled = Instance.new("BoolValue",Sgui)
 	local LSize = 32 
 	local LBSizeD = 1.25
+	local OldHumanoid
 
 	Sgui.IgnoreGuiInset = true
 	Sgui.Name = "MouseLock(ShiftLock)"
@@ -46,11 +47,16 @@ if game:GetService("UserInputService").TouchEnabled then
 		if Enabled.Value then
 			SButton.Image = "rbxasset://textures/ui/mouseLock_on@2x.png"
 			if char:FindFirstChild("Humanoid") then
+				if oldHumanoid then
+					oldHumanoid.CameraOffeset += Vector3.new(-2.5,0,0)
+				end
+				oldHumanoid = char.Humanoid
 				char.Humanoid.CameraOffset += Vector3.new(2.5,0,0)
 			end
 		else
 			SButton.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
 			if char:FindFirstChild("Humanoid") then
+				oldHumanoid = nil
 				char.Humanoid.CameraOffset += Vector3.new(-2.5,0,0)
 			end
 		end
