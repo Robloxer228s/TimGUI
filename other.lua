@@ -22,6 +22,7 @@ if game:GetService("UserInputService").TouchEnabled then
 	Sgui.Name = "MouseLock(ShiftLock)"
     	Sgui.Enabled = false
 	Sgui.ResetOnSpawn = false
+	Sgui.DisplayOrder = 1
 
 	SCenter.Image = "rbxasset://textures/MouseLockedCursor.png"
 	SCenter.Size = UDim2.new(0,LSize,0,LSize)
@@ -31,7 +32,7 @@ if game:GetService("UserInputService").TouchEnabled then
 
 	SButton.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
 	SButton.Size = UDim2.new(0,62/LBSizeD,0,62/LBSizeD)
-	SButton.Position = UDim2.new(0.9,-62/LBSizeD,0.8,-62/LBSizeD)
+	SButton.Position = UDim2.new(0.85,-62/LBSizeD,0.75,-62/LBSizeD)
 	SButton.BackgroundTransparency = 1
 	SButton.Activated:Connect(function() Enabled.Value = not Enabled.Value end)
 
