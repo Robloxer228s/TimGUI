@@ -47,9 +47,6 @@ if game:GetService("UserInputService").TouchEnabled then
 		if Enabled.Value then
 			SButton.Image = "rbxasset://textures/ui/mouseLock_on@2x.png"
 			if char:FindFirstChild("Humanoid") then
-				if oldHumanoid then
-					oldHumanoid.CameraOffeset += Vector3.new(-2.5,0,0)
-				end
 				oldHumanoid = char.Humanoid
 				char.Humanoid.CameraOffset += Vector3.new(2.5,0,0)
 			end
@@ -81,6 +78,9 @@ if game:GetService("UserInputService").TouchEnabled then
 	game:GetService("RunService").RenderStepped:Connect(upd)
     	workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(function(char)
 		local char = workspace.CurrentCamera.CameraSubject.Parent
+		if oldHumanoid then
+			oldHumanoid.CameraOffeset += Vector3.new(-2.5,0,0)
+		end
 		if char:IsA("Model") then
 			local en = Enabled.Value
 		        Enabled.Value = false
