@@ -19,7 +19,7 @@ if game:GetService("UserInputService").TouchEnabled then
 
 	Sgui.IgnoreGuiInset = true
 	Sgui.Name = "MouseLock(ShiftLock)"
-    Sgui.Enable = false
+    	Sgui.Enabled = false
 
 	SCenter.Image = "rbxasset://textures/MouseLockedCursor.png"
 	SCenter.Size = UDim2.new(0,LSize,0,LSize)
@@ -76,7 +76,7 @@ if game:GetService("UserInputService").TouchEnabled then
         Enabled.Value = en
     end)
     group.Create(2,"SL(ML)","Shift Lock/Mouse Lock(for mobile)","Шифт лок/блокировка мыши (для телефонов)",function(val)
-        Sgui.Enable = val.Value
+        Sgui.Enabled = val.Value
     end)
 else
     group.Create(1,"SL","Enable shift Lock","Включить shiftlock switch",function()
