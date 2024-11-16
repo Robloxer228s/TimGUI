@@ -20,6 +20,7 @@ if game:GetService("UserInputService").TouchEnabled then
 	Sgui.IgnoreGuiInset = true
 	Sgui.Name = "MouseLock(ShiftLock)"
     	Sgui.Enabled = false
+	Sgui.ResetOnSpawn = false
 
 	SCenter.Image = "rbxasset://textures/MouseLockedCursor.png"
 	SCenter.Size = UDim2.new(0,LSize,0,LSize)
@@ -44,10 +45,14 @@ if game:GetService("UserInputService").TouchEnabled then
 		SCenter.Visible = Enabled.Value
 		if Enabled.Value then
 			SButton.Image = "rbxasset://textures/ui/mouseLock_on@2x.png"
-			LocalPlayer.Character.Humanoid.CameraOffset += Vector3.new(2.5,0,0)
+			if char:FindFirstChild("Humanoid") then
+				char.Humanoid.CameraOffset += Vector3.new(2.5,0,0)
+			end
 		else
 			SButton.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
-			LocalPlayer.Character.Humanoid.CameraOffset += Vector3.new(-2.5,0,0)
+			if char:FindFirstChild("Humanoid") then
+				char.Humanoid.CameraOffset += Vector3.new(-2.5,0,0)
+			end
 		end
 	end)
 
@@ -68,16 +73,19 @@ if game:GetService("UserInputService").TouchEnabled then
 
 	LocalPlayer:GetMouse().Move:Connect(upd)
 	game:GetService("RunService").RenderStepped:Connect(upd)
-    LocalPlayer.CharacterAdded:Connect(function(char)
-        local en = Enabled.Value
-        Enabled.Value = false
-        char:WaitForChild("HumanoidRootPart",math.huge)
-        wait()
-        Enabled.Value = en
-    end)
-    group.Create(2,"SL(ML)","Shift Lock/Mouse Lock(for mobile)","Шифт лок/блокировка мыши (для телефонов)",function(val)
-        Sgui.Enabled = val.Value
-    end)
+    	workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(function(char)
+		local char = workspace.CurrentCamera.CameraSubject.Parent
+		if char:IsA("Model") then
+			local en = Enabled.Value
+		        Enabled.Value = false
+		        char:WaitForChild("HumanoidRootPart",math.huge)
+		        wait()
+		        Enabled.Value = en
+		end
+    	end)
+	    group.Create(2,"SL(ML)","Shift Lock/Mouse Lock(for mobile)","Шифт лок/блокировка мыши (для телефонов)",function(val)
+	        Sgui.Enabled = val.Value
+	    end)
 else
     group.Create(1,"SL","Enable shift Lock","Включить shiftlock switch",function()
         LocalPlayer.DevEnableMouseLock = true
