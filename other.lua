@@ -32,18 +32,14 @@ if game:GetService("UserInputService").TouchEnabled then
 
 	SButton.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
 	SButton.Size = UDim2.new(0,62/LBSizeD,0,62/LBSizeD)
-	SButton.Position = UDim2.new(0.85,-62/LBSizeD,0.75,-62/LBSizeD)
+	SButton.Position = UDim2.new(0.875,-62/LBSizeD,0.775,-62/LBSizeD)
 	SButton.BackgroundTransparency = 1
 	SButton.Activated:Connect(function() Enabled.Value = not Enabled.Value end)
 
 	Enabled.Name = "Enabled"
 	Enabled.Changed:Connect(function()
 		local char = workspace.CurrentCamera.CameraSubject.Parent
-		if char:IsA("Model") then
-			if char:FindFirstChild("Humanoid") then
-				char.Humanoid.AutoRotate = not Enabled.Value
-			end
-		end
+		LocalPlayer.Character.Humanoid.AutoRotate = not Enabled.Value
 		SCenter.Visible = Enabled.Value
 		if Enabled.Value then
 			SButton.Image = "rbxasset://textures/ui/mouseLock_on@2x.png"
