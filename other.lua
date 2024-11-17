@@ -92,3 +92,45 @@ else
         LocalPlayer.DevEnableMouseLock = true
     end)
 end
+
+group.Create(1,"Attempt Get Passes","Attempt Get All Passes","Попытаться получить все геймпассы",function()
+    local Attempt = 0
+    local function up(val)
+        for _,v in pairs(val:GetChildren()) do
+            if v:IsA("BoolValue") then
+                if (string.find(v.Name,"pass") ~= nil) or string.find(v.Name,"Pass") ~= nil then
+                    v.Value = not v.Value
+                    Attempt += 1
+                end
+            end
+            up(v)
+        end
+    end
+    up(LocalPlayer)
+    if Attempt == 0 then
+        _G.TimGui.Print("Gamepasses","Not found","Gamepasses","Не найдено")
+    else
+        _G.TimGui.Print("Gamepasses",Attempt.." has been activated","Gamepasses","Активировано: "..Attempt)
+    end
+end)
+
+group.Create(1,"Attempt activate all privilegies","Attempt activate all privilegies?","Попытаться получить все привилегии?",function()
+    local Attempt = 0
+    local function up(val)
+        for _,v in pairs(val:GetChildren()) do
+            if v:IsA("BoolValue") then
+                if not v.Value then
+                    Attempt += 1
+                end
+                v.Value = true
+            end
+            up(v)
+        end
+    end
+    up(LocalPlayer)
+    if Attempt == 0 then
+        _G.TimGui.Print("Privilegies?","Not found","Privilegies?","Не найдено")
+    else
+        _G.TimGui.Print("Privilegies?",Attempt.." has been activated","Привилегии?","Активировано: "..Attempt)
+    end
+end)
