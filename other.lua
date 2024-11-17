@@ -93,6 +93,8 @@ else
     end)
 end
 
+group.Create(1,"Try hack game","Try hack game","Попытки взлома игры")
+
 group.Create(1,"Attempt Get Passes","Attempt Get All Passes","Попытаться получить все геймпассы",function()
     local Attempt = 0
     local function up(val)
