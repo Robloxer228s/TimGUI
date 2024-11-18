@@ -659,7 +659,7 @@ local function StartFly(val)
 		LocalPlayer.Character.Humanoid.PlatformStand = val
 	else
 		LocalPlayer.Character.Animate.Enabled = not val
-		if val then
+		if not val then
 			for k,v in pairs(LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks()) do
 				v:Stop()
 			end
