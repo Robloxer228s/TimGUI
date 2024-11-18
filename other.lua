@@ -1,13 +1,5 @@
 local group = _G.TimGui.Groups.CreateNewGroup("Other","Другое")
 local LocalPlayer = game.Players.LocalPlayer
-if mouse1click ~= nil then
-    group.Create(2,"Clicker","AutoClicker","Автокликер",function(val)
-        wait(1)
-        while task.wait() and val.Value do
-            mouse1click()
-        end
-    end)
-end
 
 if game:GetService("UserInputService").TouchEnabled then
 	local Sgui = Instance.new("ScreenGui",LocalPlayer.PlayerGui)
@@ -88,20 +80,60 @@ if game:GetService("UserInputService").TouchEnabled then
 	        Sgui.Enabled = val.Value
 	    end)
 else
+    if mouse1click ~= nil then
+        group.Create(2,"Clicker","AutoClicker","Автокликер",function(val)
+            wait(1)
+            while task.wait() and val.Value do
+                mouse1click()
+            end
+        end)
+    end
     group.Create(1,"SL","Enable shift Lock","Включить shiftlock switch",function()
         LocalPlayer.DevEnableMouseLock = true
     end)
 end
 
-group.Create(1,"Try hack game","Try hack game","Попытки взлома игры")
+group.Create(0,"Try hack game","Try hack game","Попытки взлома игры")
+local function checkPass(obj,ParentName)
+    if (string.find(obj.Name,"pass") ~= nil) or (string.find(obj.Name,"Pass") ~= nil) then
+        return true
+    end
+    if ParentName then
+        return (string.find(obj.Parent.Name,"pass") ~= nil) or (string.find(obj.Parent.Name,"Pass") ~= nil)
+    end
+end
 
 group.Create(1,"Attempt Get Passes","Attempt Get All Passes","Попытаться получить все геймпассы",function()
     local Attempt = 0
     local function up(val)
         for _,v in pairs(val:GetChildren()) do
             if v:IsA("BoolValue") then
-                if (string.find(v.Name,"pass") ~= nil) or string.find(v.Name,"Pass") ~= nil then
+                if checkPass(v,true) then
                     v.Value = not v.Value
+                    Attempt += 1
+                end
+            end
+            up(v)
+        end
+    end
+    up(LocalPlayer)
+    if Attempt == 0 then
+        _G.TimGui.Print("Gamepasses","Not found","Gamepasses","Не найдено")
+    else
+        _G.TimGui.Print("Gamepasses",Attempt.." has been activated","Gamepasses","Активировано: "..Attempt)
+    end
+end)
+
+group.Create(1,"Attempt Get PassesGUI","Attempt Make Visible All Gui(for pass)","Попытаться открыть все окна (с пассами)",function()
+    local Attempt = 0
+    local function up(val)
+        for _,v in pairs(val:GetChildren()) do
+            if checkPass(v,false) then
+                if v:IsA("LayerCollector") then
+                    v.Enabled = not v.Enabled
+                    Attempt += 1
+                elseif v:IsA("GuiObject") then
+                    v.Visible = not v.Visible
                     Attempt += 1
                 end
             end
@@ -134,5 +166,37 @@ group.Create(1,"Attempt activate all privilegies","Attempt activate all privileg
         _G.TimGui.Print("Privilegies?","Not found","Privilegies?","Не найдено")
     else
         _G.TimGui.Print("Privilegies?",Attempt.." has been activated","Привилегии?","Активировано: "..Attempt)
+    end
+end)
+
+local HideGui = group.Create(2,"Hide All Guis","Hide All Guis","Спрятать весь интерфейс")
+local Hided = {}
+local function UpdHideGui(obj,hide)
+    if hide then
+        Hided[obj] = obj.Enabled
+        obj.Enabled = false
+    elseif Hided[obj] then
+        obj.Enabled = Hided[obj]
+    end
+end
+local function NewGui(gui)
+    if gui:IsA("LayerCollector") then
+        gui:GetPropertyChangedSignal("Enabled"):Connect(function()
+            if gui.Enabled then
+                UpdHideGui(gui,HideGui.Value)
+            end
+        end)
+        UpdHideGui(gui,HideGui.Value)
+    end
+end
+LocalPlayer.PlayerGui.ChildAdded:Connect(NewGui)
+for k,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+    NewGui(v)
+end
+HideGui.OnChange(function(val)
+    for k,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+        if v:IsA("LayerCollector") then
+            UpdHideGui(v,val.Value)
+        end
     end
 end)
