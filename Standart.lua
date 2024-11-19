@@ -628,7 +628,9 @@ end).Main.Text = Speed
 local MyFly = Player.Create(2,"Fly","Fly v2","Полёт v2")
 local InvisFly = Player.Create(2,"InvisFly","InvisibleFly","Невидимый полёт")
 local UsePS = Player.Create(2,"FlyUPS","Use PlatformStand","Использовать PlatformStand(может влиять на античит)")
+local ParentCamera = Player.Create(2,"FlyUParentCamera","Use camera for fly","Использовать камеру для полёта(может влиять на античит)")
 local safeInvisFly = Player.Create(2,"SafeInvisFly",'TP to "safe"(InvisFly)','ТП в "Безопасность"(Невид.Полёт)')
+ParentCamera.Main.Value = true
 UsePS.Main.Value = true
 safeInvisFly.Main.Value = true
 
@@ -676,19 +678,24 @@ MyFly.OnChange(function(val)
 	StartFly(val.Value)
 	if val.Value then
 		if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			LV.Attachment0 = LocalPlayer.Character.HumanoidRootPart.RootAttachment
-			AO.Attachment0 = LocalPlayer.Character.HumanoidRootPart.RootAttachment
+			LV.Attachment0 = LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
+			AO.Attachment0 = LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
 		else
 			local attach
 			for k,v in pairs(LocalPlayer.Character:GetChildren()) do
 				attach = v:FindFirstChildOfClass("Attachment")
 				if attach then break end
 			end
+			if not attach then attach = Instance.new("Attachment",LocalPlayer.Character.PrimaryPart) end
 			if not attach then return end
 			LV.Attachment0 = attach
 			AO.Attachment0 = attach
 		end
-		FlyFolder.Parent = game.Workspace
+		if ParentCamera.Value then
+			FlyFolder.Parent = game.Workspace.CurrentCamera
+		else
+			FlyFolder.Parent = game.Workspace
+		end
 	else
 		FlyFolder.Parent = nil
 	end
