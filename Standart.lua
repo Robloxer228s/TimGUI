@@ -118,6 +118,7 @@ local Map = _G.TimGui.Groups.CreateNewGroup("Map","Карта")
 local obj
 local Select = {}
 Map.Create(0,"SelectTittle","Selected","Выбранное")
+local AlightObjectValue
 
 Mouse.Button1Down:connect(function()
 	if not Mouse.Target then return end
@@ -139,6 +140,11 @@ Mouse.Button1Down:connect(function()
 	Select.HL.OutlineTransparency = 0
 	Select.Value = false
 	Select.Value = false
+	if AlightObjectValue.Value then
+		AlightObjectValue.Main.Value = false
+		wait()
+		AlightObjectValue.Main.Value = true
+	end
 end)
 
 Map.Create(1,"Select","Select","Выбрать",function()
@@ -224,7 +230,7 @@ end)
 local AlightFolder = Instance.new("Folder")
 local AlightPosition = Instance.new("AlignPosition",AlightFolder)
 local AlightRotation = Instance.new("AlignOrientation",AlightFolder)
-local AlightObjectValue = Map.Create(2,"PTM","Pin selected to you","Прикрепить выбранное в тебя")
+AlightObjectValue = Map.Create(2,"PTM","Pin selected to you","Прикрепить выбранное в тебя")
 local ParentAOCam = AnticheatGroup.Create(2,"PTMParentCam","Use parent cam to pin","Использовать камеру для прикрепления")
 ParentAOCam.Main.Value = true
 
@@ -233,7 +239,7 @@ AlightPosition.MaxForce = math.huge
 AlightRotation.MaxTorque = math.huge
 AlightRotation.RigidityEnabled = true
 
-Map.Create(2,"PTMF","Pin selected to you(forever)","Прикрепить выбранное в тебя(навсегда)",function()
+Map.Create(1,"PTMF","Pin selected to you(forever)","Прикрепить выбранное в тебя(навсегда)",function()
 	local Alight = AlightFolder:Clone()
 	local attach
 	if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
