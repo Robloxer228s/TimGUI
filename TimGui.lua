@@ -58,7 +58,7 @@ AO.Image = "rbxassetid://16341277046"
 Groups.Parent = f
 Groups.ScrollBarThickness = 5
 Groups.BackgroundColor3 = Colors.GroupsBackground
-Groups.Size = UDim2.new(0.25, 0, 1, -25) 
+Groups.Size = UDim2.new(0, 100, 1, -25) 
 Groups.Position = UDim2.new(0, 0, 0, 25) 
 Groups.ScrollingDirection = 2
 
