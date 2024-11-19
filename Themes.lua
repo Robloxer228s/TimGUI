@@ -49,7 +49,7 @@ end)
 
 group.Create(2,"DoubleMini","Double-mini","Двойной-мини",function(val)
     if val.Value then
-		TGPath.Main.Size = NormSizes
+		TGPath.Main.Size = NormSize
         double(function()
 			val.Main.Value = false
 		end)
