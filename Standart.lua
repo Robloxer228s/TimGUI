@@ -1,4 +1,5 @@
 local LocalPlayer = game.Players.LocalPlayer
+local AnticheatGroup = _G.TimGui.Groups.CreateNewGroup("ACGroup")
 local Mouse = LocalPlayer:GetMouse()
 local DefaultGravity = game.Workspace.Gravity
 local DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
@@ -15,9 +16,12 @@ local function GetMoveDirection(v)
 	GMD = GMD * Vector3.new(v,v,v)
 	return GMD
 end
-
+AnticheatGroup.Visible = false
 clopGroup.Visible = false
 _G.TimGui.Groups.Settings.Create(1,"Clop","Bug","Клоп",function()
+     clopGroup.OpenGroup()
+end)
+_G.TimGui.Groups.Settings.Create(1,"Anticheat","Anticheat","Античит",function()
      clopGroup.OpenGroup()
 end)
 local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
@@ -109,6 +113,7 @@ end)
 Waypoints.Create(0,4,"Your waypoints","Твои вайпоинты")
 
 -- Map --------------------------------
+AnticheatGroup.Create(0,"Map","Map","Карта")
 local Map = _G.TimGui.Groups.CreateNewGroup("Map","Карта")
 local obj
 local Select = {}
@@ -220,7 +225,7 @@ local AlightFolder = Instance.new("Folder")
 local AlightPosition = Instance.new("AlignPosition",AlightFolder)
 local AlightRotation = Instance.new("AlignOrientation",AlightFolder)
 local AlightObjectValue = Map.Create(2,"PTM","Pin selected to you","Прикрепить выбранное в тебя")
-local ParentAOCam = Map.Create(2,"PTMParentCam","Use parent cam to pin","Использовать камеру для прикрепления(может влиять на античит)")
+local ParentAOCam = AnticheatGroup.Create(2,"PTMParentCam","Use parent cam to pin","Использовать камеру для прикрепления")
 ParentAOCam.Main.Value = true
 
 AlightFolder.Name = "VeryImportandFolder"
@@ -544,8 +549,8 @@ local nowe = not Fly.Value
 		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
 		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
 		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
 		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
 		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
 		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
 	end
@@ -669,9 +674,11 @@ Player.Create(3,"FlySpeedv2","Fly v2 Speed:","Скорость полёта v2:"
 end).Main.Text = Speed
 local MyFly = Player.Create(2,"Fly","Fly v2","Полёт v2")
 local InvisFly = Player.Create(2,"InvisFly","InvisibleFly","Невидимый полёт")
-local UsePS = Player.Create(2,"FlyUPS","Use PlatformStand","Использовать PlatformStand(может влиять на античит)")
-local ParentCamera = Player.Create(2,"FlyUParentCamera","Use camera for fly","Использовать камеру для полёта(может влиять на античит)")
+local SeatOnFly = Player.Create(2,"Allow Sit on fly v2","Allow Sit on fly v2","Разрешить сидеть при полёте2")
 local safeInvisFly = Player.Create(2,"SafeInvisFly",'TP to "safe"(InvisFly)','ТП в "Безопасность"(Невид.Полёт)')
+AnticheatGroup.Create(0,"Fly","Fly v2","Полёт v2")
+local UsePS = AnticheatGroup.Create(2,"FlyUPS","Use PlatformStand","Использовать PlatformStand")
+local ParentCamera = AnticheatGroup.Create(2,"FlyUParentCamera","Use camera for fly","Использовать камеру для полёта")
 ParentCamera.Main.Value = true
 UsePS.Main.Value = true
 safeInvisFly.Main.Value = true
@@ -688,7 +695,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
 		Pos.CFrame = workspace.CurrentCamera.CFrame
 		Pos.Position = LocalPlayer.Character.PrimaryPart.Position
 		LV.VectorVelocity = GetMoveDirection(Speed)
-		if UsePS.Value then
+		if UsePS.Value and not LocalPlayer.Character.Humanoid.Sit then
 			LocalPlayer.Character.Humanoid.PlatformStand = true
 		end
 	elseif InvisFly.Value then
@@ -699,6 +706,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
 end)
 
 local function StartFly(val)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,(not val) or SeatOnFly.Value)
 	if UsePS.Value then
 		LocalPlayer.Character.Humanoid.PlatformStand = val
 	else
