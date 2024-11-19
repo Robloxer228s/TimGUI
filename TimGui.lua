@@ -11,16 +11,27 @@ _G.TimGui.Values = {}
 _G.TimGui.Path = {}
 
 --_G.TimGui.Values.x2 = false
+_G.TimGui.Values.Colors = {}
 _G.TimGui.Values.Spare = {}
 _G.TimGui.Values.Opened = false
 _G.TimGui.Values.SpareButtons = {}
 _G.TimGui.Values.GroupOpened = nil
 _G.TimGui.Values.RusLang = false
 
+local Colors = _G.TimGui.Values.Colors
+Colors.ToggleButton = {}
+Colors.Button = Color3.fromRGB(50,50,100)
+Colors.Text = Color3.new(1,1,1)
+Colors.MainBackground = Color3.new(0.15, 0.15, 0.3) 
+Colors.GroupsBackground = Color3.new(0.15, 0.15, 0.25) 
+Colors.ToggleButton.Enabled = Color3.new(0.25, 1, 0.25) 
+Colors.ToggleButton.Disabled = Color3.new(1, 0.25, 0.25) 
+
+local DefaultColors = table.clone(Colors)
 local OptimizeTable = {}
 local LocalPlayer = game.Players.LocalPlayer
 local XTG = UDim.new(1, -400)
-local ButtonColor = Color3.fromRGB(50,50,100)
+--local ButtonColor = Colors.Buttons
 local Count = 0
 local updTime = 0.25
 local RunService = game:GetService("RunService")
@@ -35,7 +46,7 @@ local Commands = {}
 
 f.Position = UDim2.new(XTG,UDim.new(1,-25)) 
 f.Size = UDim2.new(0, 400, 1, 0) 
-f.BackgroundColor3 = Color3.new(0.15, 0.15, 0.3) 
+f.BackgroundColor3 = Colors.MainBackground
 
 Open.Size = UDim2.new(0, 400, 0, 25)
 Open.Image = "rbxassetid://16341271803"
@@ -46,14 +57,14 @@ AO.Image = "rbxassetid://16341277046"
 
 Groups.Parent = f
 Groups.ScrollBarThickness = 5
-Groups.BackgroundColor3 = Color3.new(0.15, 0.15, 0.25) 
+Groups.BackgroundColor3 = Colors.GroupsBackground
 Groups.Size = UDim2.new(0.25, 0, 1, -25) 
 Groups.Position = UDim2.new(0, 0, 0, 25) 
 Groups.ScrollingDirection = 2
 
 Objects.Parent = f
 Objects.ScrollBarThickness = 5
-Objects.BackgroundColor3 = Color3.new(0.15, 0.15, 0.3) 
+Objects.BackgroundColor3 = Colors.MainBackground
 Objects.Size = UDim2.new(1, -100, 1, -25) 
 Objects.Position = UDim2.new(0, 100, 0, 25) 
 Objects.ScrollingDirection = 2
@@ -308,24 +319,36 @@ end
 --Update-----------------------------------------------------
 local Update
 local SetPosForObjectCustom
+local SetPosForGroupCustom
 local onDisconnect
 _G.TimGui.ObjectPosition = {}
 _G.TimGui.ObjectPosition.Disconnect = function()
 	SetPosForObjectCustom = nil
+	SetPosForGroupCustom = nil
+	Update()
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
 			Update(v)
 		end
 	end
 	XTG = UDim.new(1, -400)
+	f.Position = UDim2.new(XTG,f.Position.Y)
 	if type(onDisconnect) == "function" then
-		onDisconnect()
+		local onDis = onDisconnect
+		onDisconnect = nil
+		onDis()
 	end
 end
-_G.TimGui.ObjectPosition.Connect = function(xpos,onDis,con)
+_G.TimGui.ObjectPosition.Connect = function(xpos,conG,con,onDis)
 	_G.TimGui.ObjectPosition.Disconnect()
 	SetPosForObjectCustom = con
+	SetPosForGroupCustom = conG
 	onDisconnect = onDis
+	if xpos ~= nil then
+		XTG = xpos
+		f.Position = UDim2.new(XTG,f.Position.Y)
+	end
+	Update()
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
 			Update(v)
@@ -333,14 +356,30 @@ _G.TimGui.ObjectPosition.Connect = function(xpos,onDis,con)
 	end
 end
 
+local function SetPosUnivers(k,v)
+	v.Size = UDim2.new(1, 0, 0, 50)
+	v.Position = UDim2.new(0, 0, 0, 50 * k)
+end
+
 local function SetPosForObject(k,v)
 	if SetPosForObjectCustom ~= nil then
-		SetPosForObjectCustom(k,v)
-		return
+		SetPosForObjectCustom(k,v,function()
+			SetPosUnivers(k,v.Object)
+		end)
+	else
+		SetPosUnivers(k,v.Object)
 	end
-	v.Object.Size = UDim2.new(1, 0, 0, 50)
-	v.Object.Position = UDim2.new(0, 0, 0, 50 * k)
 end
+local function SetPosForGroup(k,v)
+	if SetPosForGroupCustom ~= nil then
+		SetPosForGroupCustom(k,v,function()
+			SetPosUnivers(k,v.ButtonInList)
+		end)
+	else
+		SetPosUnivers(k,v.ButtonInList)
+	end
+end
+
 function Update(group)
 	if group == nil then
 		local Obj = {}
@@ -362,7 +401,7 @@ function Update(group)
 			return a.Pos < b.Pos
 		end)
 		for k,v in pairs(Obj) do
-			v.ButtonInList.Position = UDim2.new(0,0,0,50 * (k -1))
+			SetPosForGroup(k-1,v)
 			if v.Visible then
 				Groups.CanvasSize = UDim2.new(UDim.new(0,0),v.ButtonInList.Size.Y + v.ButtonInList.Position.Y)
 			end
@@ -399,6 +438,29 @@ function Update(group)
 	end
 end
 
+--ColorSetter---------------------------------------------------------------------
+Colors.SetColors = function()
+	f.BackgroundColor3 = Colors.MainBackground
+	Objects.BackgroundColor3 = Colors.MainBackground
+	Groups.BackgroundColor3 = Colors.GroupsBackground
+	for k,v in pairs(_G.TimGui.Groups) do
+		if type(v) == "table" then
+			v.ButtonInList.BackgroundColor3 = Colors.Button
+			v.ButtonInList.TextColor3 = Colors.Text
+			for k,v in pairs(v.Objects) do
+				v.Object.BackgroundColor3 = Colors.Button
+				v.TextObject.TextColor3 = Colors.Text
+			end
+		end
+	end
+end
+
+Colors.ResetColors = function()
+	_G.TimGui.Colors = table.clone(DefaultColors)
+	Colors = _G.TimGui.Colors
+	Colors.SetColors()
+end
+
 --Group----------------------------------------------------------------------------
 _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 	if _G.TimGui.Groups[name] ~= nil then
@@ -431,10 +493,8 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 		Button.Text = rus
 	end
 	Button.Name = name
-	Button.BackgroundColor3 = ButtonColor
-	Button.Size = UDim2.new(1, -5, 0, 50)
-	Button.Position = UDim2.new(0, 0, 0, 50 * yy)
-	Button.TextColor3 = Color3.new(1, 1, 1) 
+	Button.BackgroundColor3 = Colors.Button
+	Button.TextColor3 = Colors.Text
 	Button.TextScaled = true
 	Instance.new("UICorner",Button).CornerRadius = UDim.new(1,0)
 	Button.Activated:Connect(group.OpenGroup)
@@ -442,6 +502,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 	Groups.CanvasSize = UDim2.new(0, 0, 0, 50 * yy)
 	group.ButtonInList = Button
 	group.Pos = yy
+	SetPosForGroup(yy,group)
 	group.Create = function(typ,name,text,rus,funct)
 		if not rus then
 			rus = text
@@ -498,16 +559,17 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 			error("Wrong type for create object in "..group.Name)
 		end
 		Object.Name = name
-		Object.BackgroundColor3 = ButtonColor
+		Object.BackgroundColor3 = Colors.Button
 		if typ <= 2 then
+			Obj.TextObject = Object
 			Object.Text = text
 			if _G.TimGui.Values.RusLang then
 				Object.Text = rus
 			end
 			if typ == 2 then
-				Object.TextColor3 = Color3.new(1, 0.25, 0.25)
+				Object.TextColor3 = Colors.ToggleButton.Disabled
 			else
-				Object.TextColor3 = Color3.new(1, 1, 1) 
+				Object.TextColor3 = Colors.Text
 				Obj.Main = Object
 			end
 			Object.TextScaled = true
@@ -530,7 +592,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 						Fly = true
 						Object.BackgroundColor3 = Color3.new(0,0,0)
 						wait(0.5)
-						Object.BackgroundColor3 = ButtonColor
+						Object.BackgroundColor3 = Colors.Button
 					end
 				end
 			end)
@@ -568,9 +630,9 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				Obj.Value = Value.Value
 				local goal = {}
 				if Value.Value then
-					goal.TextColor3 = Color3.new(0.25, 1, 0.25) 
+					goal.TextColor3 = Colors.ToggleButton.Enabled
 				else
-					goal.TextColor3 = Color3.new(1, 0.25, 0.25) 
+					goal.TextColor3 = Colors.ToggleButton.Disabled 
 				end
 				if OptimizeTable.AnimationTB then
 					game:GetService("TweenService"):Create(Object, TweenInfo.new(0.5), goal):Play() 
@@ -597,6 +659,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 			end)
 		elseif typ == 3 then
 			local Tittle = Instance.new("TextLabel",Object)
+			Obj.TextObject = Object
 			Tittle.Name = "Text"
 			Tittle.BackgroundTransparency = 1
 			Tittle.Size = UDim2.new(0.5,0,1,0)
@@ -659,15 +722,13 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				wait()
 				if OptimizeTable.TwoTimer then wait(updTime) end
 				if _G.TimGui.Values.Opened or OptimizeTable.OnClose then
-					if typ <= 2 then
-						if not _G.TimGui.Values.RusLang then
-							if Obj.Text ~= oldParams.Text then
-								Obj.Object.Text = Obj.Text
-							end
-						else
-							if Obj.RusText ~= oldParams.RusText then
-								Obj.Object.Text = Obj.RusText
-							end
+					if not _G.TimGui.Values.RusLang then
+						if Obj.Text ~= oldParams.Text then
+							Obj.TextObject.Text = Obj.Text
+						end
+					else
+						if Obj.RusText ~= oldParams.RusText then
+							Obj.TextObject.Text = Obj.RusText
 						end
 					end if Obj.Object ~= oldParams.Object then
 						Obj.Object = oldParams.Object
@@ -1029,6 +1090,7 @@ Settings.Create(1,"Example","Example notification","Пример уведомл�
 	_G.TimGui.Print("Example","Hello World v2.0","Пример","Привт 2.0")
 end)
 
+Settings.Create(0,"Other","Other","Другое")
 local SpareButtons = _G.TimGui.Values.SpareButtons
 local SpareTable = _G.TimGui.Values.Spare
 local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
