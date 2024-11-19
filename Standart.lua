@@ -216,6 +216,45 @@ end)
 Map.Create(1,"TPTSP","TP in selected part","ТП в выбранное", function()
 	LocalPlayer.Character.PrimaryPart.CFrame = obj.CFrame
 end)
+local AlightFolder = Instance.new("Folder")
+local AlightPosition = Instance.new("AlignPosition",AlightFolder)
+local AlightRotation = Instance.new("AlignOrientation",AlightFolder)
+local AlightObjectValue = Map.Create(2,"PTM","Pin selected to you","Прикрепить выбранное в тебя")
+local ParentAOCam = Map.Create(2,"PTMParentCam","Use parent cam to pin","Использовать камеру для прикрепления(может влиять на античит)")
+ParentAOCam.Main.Value = true
+
+AlightFolder.Name = "VeryImportandFolder"
+AlightPosition.MaxForce = math.huge
+AlightRotation.MaxTorque = math.huge
+AlightRotation.RigidityEnabled = true
+
+AlightObjectValue.OnChange(function(val)
+	if val.Value then
+		local attach
+		if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			attach = LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment")
+			attach = attach or LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
+		else
+			for k,v in pairs(LocalPlayer.Character:GetChildren()) do
+				attach = v:FindFirstChildOfClass("Attachment")
+				if attach then break end
+			end
+			if not attach then attach = Instance.new("Attachment",LocalPlayer.Character.PrimaryPart) end
+			if not attach then return end
+		end
+		local objAttach = Instance.new("Attachment",obj)
+		AlightPosition.Attachment0 = objAttach
+		AlightRotation.Attachment0 = objAttach
+		AlightPosition.Attachment1 = attach
+		AlightRotation.Attachment1 = attach
+		obj.CanCollide = false
+		obj.Color = Color3.new(0,0,0)
+		AlightFolder.Parent = game.Workspace.CurrentCamera
+	else
+		AlightFolder.Parent = nil
+		AlightPosition.Attachment1:Destroy()
+	end
+end)
 local SpeedOfSpin = Map.Create(3,"SpeedOfSpin","Speed of spin:","Скорость кружения выбранного:")
 Map.Create(2,"SpinSelectedAngularYou","SpinSelectedAngularYou","Крутить выбранное вокруг тебя",function(Value)
 	if Value.Value then
@@ -238,6 +277,11 @@ Map.Create(2,"CanTouch","No touch for selected","Убрать косания в�
 	obj.CanTouch = not Value.Value
 end)
 
+game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	if AlightObjectValue.Value and ParentAOCam.Value then
+		AlightFolder.Parent = game.Workspace.CurrentCamera
+	end
+end)
 -- Gravity --
 Map.Create(0,"GravityTittle","Gravity","Гравитация")
 local GV = Map.Create(3,"GravityValue","Gravity:","Гравитация:")
