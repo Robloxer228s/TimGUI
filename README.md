@@ -12,6 +12,8 @@ Hold button on 2 sec for Flying button
 P.S: day.month.year
 
 # Update logs:
+19.11.24 - added Themes
+
 15.11.24 - added wasing simulator
 
 09.11.24 - added mercy added games: Cart Ride into RDite,Cart + car ride into giga noob
