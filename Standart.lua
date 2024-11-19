@@ -247,8 +247,6 @@ AlightObjectValue.OnChange(function(val)
 		AlightRotation.Attachment0 = objAttach
 		AlightPosition.Attachment1 = attach
 		AlightRotation.Attachment1 = attach
-		obj.CanCollide = false
-		obj.Color = Color3.new(0,0,0)
 		AlightFolder.Parent = game.Workspace.CurrentCamera
 	else
 		AlightFolder.Parent = nil
