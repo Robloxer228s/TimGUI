@@ -233,6 +233,28 @@ AlightPosition.MaxForce = math.huge
 AlightRotation.MaxTorque = math.huge
 AlightRotation.RigidityEnabled = true
 
+Map.Create(2,"PTMF","Pin selected to you(forever)","Прикрепить выбранное в тебя(навсегда)",function()
+	local Alight = AlightFolder:Clone()
+	local attach
+	if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		attach = LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment")
+		attach = attach or LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
+	else
+		for k,v in pairs(LocalPlayer.Character:GetChildren()) do
+			attach = v:FindFirstChildOfClass("Attachment")
+			if attach then break end
+		end
+		if not attach then attach = Instance.new("Attachment",LocalPlayer.Character.PrimaryPart) end
+		if not attach then return end
+	end
+	local objAttach = Instance.new("Attachment",obj)
+	Alight.AlighPosition.Attachment0 = objAttach
+	Alight.AlignOrientation.Attachment0 = objAttach
+	Alight.AlighPosition.Attachment1 = attach
+	Alight.AlignOrientation.Attachment1 = attach
+	Alight.Parent = game.Workspace.CurrentCamera
+end)
+
 AlightObjectValue.OnChange(function(val)
 	if val.Value then
 		local attach
