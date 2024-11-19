@@ -700,6 +700,11 @@ MyFly.OnChange(function(val)
 		FlyFolder.Parent = nil
 	end
 end)
+game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	if MyFly.Value and ParentCamera.Value then
+		AlightFolder.Parent = game.Workspace.CurrentCamera
+	end
+end)
 InvisFly.OnChange(function(val)
 	if val.Value then
 		Fly.Main.Value = false
