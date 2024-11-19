@@ -1149,6 +1149,7 @@ end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/other.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
 local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
 print(game.GameId)
 _G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
