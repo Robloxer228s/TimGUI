@@ -22,7 +22,7 @@ _G.TimGui.Groups.Settings.Create(1,"Clop","Bug","Клоп",function()
      clopGroup.OpenGroup()
 end)
 _G.TimGui.Groups.Settings.Create(1,"Anticheat","Anticheat","Античит",function()
-     clopGroup.OpenGroup()
+     AnticheatGroup.OpenGroup()
 end)
 local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
 enable.Main.Value = true
@@ -248,9 +248,9 @@ Map.Create(2,"PTMF","Pin selected to you(forever)","Прикрепить выб�
 		if not attach then return end
 	end
 	local objAttach = Instance.new("Attachment",obj)
-	Alight.AlighPosition.Attachment0 = objAttach
+	Alight.AlignPosition.Attachment0 = objAttach
 	Alight.AlignOrientation.Attachment0 = objAttach
-	Alight.AlighPosition.Attachment1 = attach
+	Alight.AlignPosition.Attachment1 = attach
 	Alight.AlignOrientation.Attachment1 = attach
 	Alight.Parent = game.Workspace.CurrentCamera
 end)
