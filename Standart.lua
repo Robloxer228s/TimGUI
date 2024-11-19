@@ -119,6 +119,9 @@ local obj
 local Select = {}
 Map.Create(0,"SelectTittle","Selected","Выбранное")
 local AlightObjectValue
+local NoCollide
+local NoTouch
+local Massless
 
 Mouse.Button1Down:connect(function()
 	if not Mouse.Target then return end
@@ -139,12 +142,19 @@ Mouse.Button1Down:connect(function()
 	Select.HL.OutlineColor = Select.HL.FillColor
 	Select.HL.OutlineTransparency = 0
 	Select.Value = false
-	Select.Value = false
-	if AlightObjectValue.Value then
-		AlightObjectValue.Main.Value = false
-		wait()
-		AlightObjectValue.Main.Value = true
-	end
+	local AOVV = AlightObjectValue.Value
+        local NCV = NoCollide.Value
+	local NTV = NoTouch.Value
+	local MasslessV = Massless.Value
+	AlightObjectValue.Main.Value = false
+	NoCollide.Value = false
+	NoTouch.Value = false
+	Massless.Value = false
+	wait()
+	AlightObjectValue.Main.Value = AOVV
+        NoCollide.Value = NCV
+	NoTouch.Value = NTV
+	Massless.Value = MasslessV
 end)
 
 Map.Create(1,"Select","Select","Выбрать",function()
@@ -301,10 +311,13 @@ Map.Create(2,"SpinSelectedAngularYou","SpinSelectedAngularYou","Крутить �
 		end
 	end
 end)
-Map.Create(2,"CanCollide","No collide for selected","Убрать коллизию для выбранного",function(Value)
+Massless = Map.Create(2,"Massles","Massless for selected","Убрать вес выбранному",function(Value)
+	obj.Massless = Value.Value
+end)
+NoCollide = Map.Create(2,"CanCollide","No collide for selected","Убрать коллизию для выбранного",function(Value)
 	obj.CanCollide = not Value.Value
 end)
-Map.Create(2,"CanTouch","No touch for selected","Убрать косания выбранному",function(Value)
+NoTouch = Map.Create(2,"CanTouch","No touch for selected","Убрать косания выбранному",function(Value)
 	obj.CanTouch = not Value.Value
 end)
 
