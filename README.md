@@ -12,7 +12,7 @@ Hold button on 2 sec for Flying button
 P.S: day.month.year
 
 # Update logs:
-19.11.24 - added Themes
+19.11.24 - added Themes and Pin selected and sit on fly v2
 
 15.11.24 - added wasing simulator
 
