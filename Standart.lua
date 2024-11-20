@@ -735,7 +735,6 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	if MyFly.Value then
 		Pos.CFrame = workspace.CurrentCamera.CFrame
 		Pos.Position = LocalPlayer.Character.PrimaryPart.Position
-		LV.VectorVelocity = GetMoveDirection(Speed)
 		if UsePS.Value and not LocalPlayer.Character.Humanoid.Sit then
 			LocalPlayer.Character.Humanoid.PlatformStand = true
 		end
@@ -782,6 +781,9 @@ MyFly.OnChange(function(val)
 			LV.Attachment0 = attach
 			AO.Attachment0 = attach
 		end
+		LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+			LV.VectorVelocity = GetMoveDirection(Speed)
+		end)
 		if ParentCamera.Value then
 			FlyFolder.Parent = game.Workspace.CurrentCamera
 		else
