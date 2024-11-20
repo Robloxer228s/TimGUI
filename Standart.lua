@@ -704,6 +704,7 @@ end)
 local FlyFolder = Instance.new("Folder")
 FlyFolder.Name = "VeryImportand"
 local LV = Instance.new("LinearVelocity",FlyFolder)
+local AV = Instance.new("AngularVelocity",FlyFolder)
 local AO = Instance.new("AlignOrientation",FlyFolder)
 local Pos = Instance.new("Part",FlyFolder)
 local Speed = 60
