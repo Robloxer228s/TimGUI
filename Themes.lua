@@ -66,6 +66,7 @@ group.Create(2,"Mini","Mini","Мини",function(val)
 		end,function(k,v,def)
 			def()
 		end,function()
+			val.Main.Value = false
 			TGPath.Main.Size = NormSize
 		end)
     else
