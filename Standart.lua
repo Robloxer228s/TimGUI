@@ -714,10 +714,11 @@ Player.Create(3,"FlySpeedv2","Fly v2 Speed:","Скорость полёта v2:"
 	end
 end).Main.Text = Speed
 local MyFly = Player.Create(2,"Fly","Fly v2","Полёт v2")
+local Fling = Player.Create(2,"FlingWithFly",'Fling with fly v2','Отпуливатель с полётом v2')
 local InvisFly = Player.Create(2,"InvisFly","InvisibleFly","Невидимый полёт")
 local SeatOnFly = Player.Create(2,"Allow Sit on fly v2","Allow Sit on fly v2","Разрешить сидеть при полёте2")
 local safeInvisFly = Player.Create(2,"SafeInvisFly",'TP to "safe"(InvisFly)','ТП в "Безопасность"(Невид.Полёт)')
-AnticheatGroup.Create(0,"Fly","Fly v2","Полёт v2")
+AnticheatGroup.Create(0,"FlyTittle","Fly v2","Полёт v2")
 local UsePS = AnticheatGroup.Create(2,"FlyUPS","Use PlatformStand","Использовать PlatformStand")
 local ParentCamera = AnticheatGroup.Create(2,"FlyUParentCamera","Use camera for fly","Использовать камеру для полёта")
 ParentCamera.Main.Value = true
@@ -730,6 +731,8 @@ Pos.Transparency = 1
 LV.MaxForce = math.huge
 AO.Attachment1 = Instance.new("Attachment",Pos)
 AO.RigidityEnabled = true
+AV.AngularVelocity = Vector3.new(10000,10000,10000)
+AV.MaxTorque = math.huge
 
 game:GetService("RunService").RenderStepped:Connect(function()
 	if MyFly.Value then
@@ -759,28 +762,35 @@ local function StartFly(val)
 	end
 end
 
+local function getattachment()
+	local attach
+	if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		attach = LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment")
+		attach = attach or LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
+	else
+		for k,v in pairs(LocalPlayer.Character:GetChildren()) do
+			attach = v:FindFirstChildOfClass("Attachment")
+			if attach then break end
+		end
+		if not attach then attach = Instance.new("Attachment",LocalPlayer.Character.PrimaryPart) end
+	end
+	return attach
+end
+
 MyFly.OnChange(function(val)
 	if val.Value then
-		Fly.Main.Value = false
+		--Fly.Main.Value = false
 		InvisFly.Main.Value = false
 		wait()
 	end
 	StartFly(val.Value)
 	if val.Value then
-		if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			LV.Attachment0 = LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
-			AO.Attachment0 = LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
-		else
-			local attach
-			for k,v in pairs(LocalPlayer.Character:GetChildren()) do
-				attach = v:FindFirstChildOfClass("Attachment")
-				if attach then break end
-			end
-			if not attach then attach = Instance.new("Attachment",LocalPlayer.Character.PrimaryPart) end
-			if not attach then return end
-			LV.Attachment0 = attach
-			AO.Attachment0 = attach
-		end
+		local attach = getattachment()
+		LV.Attachment0 = attach
+		AO.Attachment0 = attach
+		AO.Enabled = not Fling.Value
+		AV.Attachment0 = attach
+		AV.Enabled = Fling.Value
 		LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
 			LV.VectorVelocity = GetMoveDirection(Speed)
 		end)
@@ -792,6 +802,12 @@ MyFly.OnChange(function(val)
 	else
 		FlyFolder.Parent = nil
 	end
+end)
+
+Fling.OnChange(function()
+	AO.Enabled = not Fling.Value
+	AV.Enabled = Fling.Value
+	AV.Attachment0 = getattachment()
 end)
 game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 	if MyFly.Value and ParentCamera.Value then
