@@ -732,7 +732,7 @@ Pos.Transparency = 1
 LV.MaxForce = math.huge
 AO.Attachment1 = Instance.new("Attachment",Pos)
 AO.RigidityEnabled = true
-AV.AngularVelocity = Vector3.new(10000,10000,10000)
+AV.AngularVelocity = Vector3.new(1000,1000,1000)
 AV.MaxTorque = math.huge
 
 game:GetService("RunService").RenderStepped:Connect(function()
