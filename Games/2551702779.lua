@@ -1,10 +1,11 @@
 -- Zombie lab
-local group = _G.TimGui.Groups.CreateNewGroup("Zombie lab") 
+local group = _G.TimGui.Groups.CreateNewGroup("Zombie lab")
+local Events = game.ReplicatedStorage.Remotes
 group.Create(1,"virus","Get virus","Получить вирус",function() 
-	game.ReplicatedStorage.Events.GiveVirus:FireServer()
+	Events.GiveVirus:FireServer()
 end) 
 group.Create(1,"cure","Get cure","Получить инъекцию",function() 
-	game.ReplicatedStorage.Events.GiveCure:FireServer()
+	Events.GiveCure:FireServer()
 end) 
 
 -- Costomize --
