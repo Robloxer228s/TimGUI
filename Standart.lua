@@ -269,6 +269,9 @@ Map.Create(1,"PTMF","Pin selected to you(forever)","Прикрепить выб�
 	Alight.AlignPosition.Attachment1 = attach
 	Alight.AlignOrientation.Attachment1 = attach
 	Alight.Parent = game.Workspace.CurrentCamera
+	obj.Destroying:Connect(function()
+		Alight:Destroy()
+	end)
 end)
 
 AlightObjectValue.OnChange(function(val)
@@ -292,6 +295,8 @@ AlightObjectValue.OnChange(function(val)
 		AlightRotation.Attachment1 = attach
 		AlightFolder.Parent = game.Workspace.CurrentCamera
 	else
+		AlightPosition.Attachment1 = nil
+		AlightRotation.Attachment1 = nil
 		AlightFolder.Parent = nil
 		AlightPosition.Attachment1:Destroy()
 	end
