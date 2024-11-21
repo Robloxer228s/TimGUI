@@ -147,14 +147,14 @@ Mouse.Button1Down:connect(function()
 	local NTV = NoTouch.Value
 	local MasslessV = Massless.Value
 	AlightObjectValue.Main.Value = false
-	NoCollide.Value = false
-	NoTouch.Value = false
-	Massless.Value = false
+	NoCollide.Main.Value = false
+	NoTouch.Main.Value = false
+	Massless.Main.Value = false
 	wait()
 	AlightObjectValue.Main.Value = AOVV
-        NoCollide.Value = NCV
-	NoTouch.Value = NTV
-	Massless.Value = MasslessV
+        NoCollide.Main.Value = NCV
+	NoTouch.Main.Value = NTV
+	Massless.Main.Value = MasslessV
 end)
 
 Map.Create(1,"Select","Select","Выбрать",function()
