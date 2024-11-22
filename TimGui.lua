@@ -8,24 +8,28 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/m
 _G.TimGui = {}
 _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
+_G.TimGui.Colors = {}
 _G.TimGui.Path = {}
 
 --_G.TimGui.Values.x2 = false
-_G.TimGui.Values.Colors = {}
 _G.TimGui.Values.Spare = {}
 _G.TimGui.Values.Opened = false
 _G.TimGui.Values.SpareButtons = {}
 _G.TimGui.Values.GroupOpened = nil
 _G.TimGui.Values.RusLang = false
 
-local Colors = _G.TimGui.Values.Colors
+local Colors = _G.TimGui.Colors
+Colors.Logo = {}
 Colors.ToggleButton = {}
 Colors.Button = Color3.fromRGB(50,50,100)
 Colors.Text = Color3.new(1,1,1)
 Colors.MainBackground = Color3.new(0.15, 0.15, 0.3) 
 Colors.GroupsBackground = Color3.new(0.15, 0.15, 0.25) 
 Colors.ToggleButton.Enabled = Color3.new(0.25, 1, 0.25) 
-Colors.ToggleButton.Disabled = Color3.new(1, 0.25, 0.25) 
+Colors.ToggleButton.Disabled = Color3.new(1, 0.25, 0.25)
+Colors.Logo.One = Color3.new(1,1,0) 
+Colors.Logo.Two = Color3.new(1,0,1) 
+Colors.Logo.Separator = Color3.new(0,0,0)
 
 local DefaultColors = table.clone(Colors)
 local OptimizeTable = {}
@@ -38,23 +42,52 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local gui = Instance.new("ScreenGui",game.CoreGui)
 local f = Instance.new("Frame",gui) 
-local Open = Instance.new("ImageLabel",f)
 local AO = Instance.new("ImageButton",f)
 local Groups = Instance.new("ScrollingFrame",f) 
 local Objects = Instance.new("ScrollingFrame",f) 
+local Logo = Instance.new("Frame",f)
+local tittleOne = Instance.new("TextLabel",Logo)
+local tittleTwo = Instance.new("Frame",Logo)
+local tittleThr = Instance.new("TextLabel",Logo)
 local Commands = {}
 
+f.Name = "Main"
 f.Position = UDim2.new(XTG,UDim.new(1,-25)) 
 f.Size = UDim2.new(0, 400, 1, 0) 
 f.BackgroundColor3 = Colors.MainBackground
 
-Open.Size = UDim2.new(0, 400, 0, 25)
-Open.Image = "rbxassetid://16341271803"
- 
+Logo.Name = "Logo"
+Logo.BackgroundTransparency = 1
+Logo.Size = UDim2.new(1, -25, 0, 25)
+Logo.Position = UDim2.new(0, 25, 0, 0)
+tittleThr.Position = UDim2.new(0.5,2,0,0)
+tittleTwo.Position = UDim2.new(0.5,-1,0,0)
+tittleTwo.BackgroundColor3 = Colors.Logo.Separator
+tittleOne.Font = Enum.Font.SourceSansBold
+tittleThr.Font = Enum.Font.SourceSansBold
+tittleOne.TextColor3 = Colors.Logo.One
+tittleThr.TextColor3 = Colors.Logo.Two
+tittleOne.Size = UDim2.new(0.5,-2,1,0)
+tittleThr.Size = UDim2.new(0.5,-2,1,0)
+tittleTwo.Size = UDim2.new(0,2,1,0)
+tittleOne.BackgroundTransparency = 1
+tittleThr.BackgroundTransparency = 1
+tittleOne.TextScaled = true
+tittleThr.TextScaled = true
+tittleOne.TextXAlignment = 1
+tittleThr.TextXAlignment = 0
+tittleOne.Text = "Tim"
+tittleThr.Text = "Gui"
+tittleOne.Name = "1"
+tittleTwo.Name = "2"
+tittleThr.Name = "3"
+
+AO.Name = "Arrow"
 AO.BackgroundTransparency = 100
 AO.Size = UDim2.new(0, 25, 0, 25)
 AO.Image = "rbxassetid://16341277046"
 
+Groups.Name = "Groups"
 Groups.Parent = f
 Groups.ScrollBarThickness = 5
 Groups.BackgroundColor3 = Colors.GroupsBackground
@@ -62,6 +95,7 @@ Groups.Size = UDim2.new(0, 100, 1, -25)
 Groups.Position = UDim2.new(0, 0, 0, 25) 
 Groups.ScrollingDirection = 2
 
+Objects.Name = "Objects"
 Objects.Parent = f
 Objects.ScrollBarThickness = 5
 Objects.BackgroundColor3 = Colors.MainBackground
@@ -439,26 +473,76 @@ function Update(group)
 end
 
 --ColorSetter---------------------------------------------------------------------
+local OnChangeColor = {}
+Colors.OnChange = function(funct)
+	table.insert(OnChangeColor,funct)
+end
+
 Colors.SetColors = function()
 	f.BackgroundColor3 = Colors.MainBackground
 	Objects.BackgroundColor3 = Colors.MainBackground
 	Groups.BackgroundColor3 = Colors.GroupsBackground
+	tittleOne.TextColor3 = Colors.Logo.One
+	tittleThr.TextColor3 = Colors.Logo.Two
+	tittleTwo.BackgroundColor3 = Colors.Logo.Separator
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
 			v.ButtonInList.BackgroundColor3 = Colors.Button
 			v.ButtonInList.TextColor3 = Colors.Text
 			for k,v in pairs(v.Objects) do
 				v.Object.BackgroundColor3 = Colors.Button
-				v.TextObject.TextColor3 = Colors.Text
+				if v.Type ~= 2 then
+					v.TextObject.TextColor3 = Colors.Text
+				elseif v.Value then
+					v.TextObject.TextColor3 = Colors.ToggleButton.Enabled
+				else
+					v.TextObject.TextColor3 = Colors.ToggleButton.Disabled
+				end
 			end
 		end
 	end
+	local ii = Instance.new("BoolValue")
+	for _,v in pairs(OnChangeColor) do
+		v.Changed:Connect(function() v() end)
+	end
+	ii.Value = true
+	wait()
+	ii:Destroy()
 end
 
 Colors.ResetColors = function()
 	_G.TimGui.Colors = table.clone(DefaultColors)
 	Colors = _G.TimGui.Colors
 	Colors.SetColors()
+end
+
+Colors.GetDefaultColors = function()
+	return table.clone(DefaultColors)
+end
+
+-- Setup -----------------------------------------------------------------------
+if _G.Setup ~= nil then
+	local Setup = _G.Setup
+	if Setup.Logo ~= nil then
+		if Setup.Logo.Font ~= nil then
+			local Font = Setup.Logo.Font
+			tittleOne.Font = Font
+			tittleThr.Font = Font
+		end if Setup.Logo.One ~= nil then
+			tittleOne.Text = Setup.Logo.One
+		end	if Setup.Logo.Two ~= nil then
+			tittleTwo.Text = Setup.Logo.Two
+		end
+	end
+	if Setup.Colors ~= nil then
+		for k,v in pairs(Setup.Colors) do
+			if type(Colors[k]) ~= "function" then
+				Colors[k] = v
+			end
+		end
+		Colors.SetColors()
+	end
+	_G.Setup = nil
 end
 
 --Group----------------------------------------------------------------------------
@@ -659,7 +743,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 			end)
 		elseif typ == 3 then
 			local Tittle = Instance.new("TextLabel",Object)
-			Obj.TextObject = Object
+			Obj.TextObject = Tittle
 			Tittle.Name = "Text"
 			Tittle.BackgroundTransparency = 1
 			Tittle.Size = UDim2.new(0.5,0,1,0)
@@ -811,6 +895,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 	return group
 end
 
+_G.TimGui.Path.Logo = Logo
 _G.TimGui.Path.gui = gui
 _G.TimGui.Path.Main = f
 _G.TimGui.Path.Groups = Groups
@@ -1094,6 +1179,7 @@ Settings.Create(0,"Other","Other","Другое")
 local SpareButtons = _G.TimGui.Values.SpareButtons
 local SpareTable = _G.TimGui.Values.Spare
 local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
+local MAll = Spare.Create(2,"MA","Mercy all","Щадить всех")
 local MS = Spare.Create(2,"FS","Mercy friends","Щадить друзей")
 Spare.Visible = false
 MS.Main.Value = true
@@ -1103,14 +1189,18 @@ end)
 
 local function PlAdd(Player)
 	local Name = Player.Name
-	SpareTable[Name] = false
 	SpareButtons[Name] = Spare.Create(2,Name,Name,Name,function(val)
 		SpareTable[Name] = val.Value
 	end)
-	if MS.Value then
+	if SpareTable[Name] ~= nil then
+		SpareButtons[Name].Main.Value = SpareTable[Name]
+	elseif MS.Value then
 		if LocalPlayer:IsFriendsWith(Player.UserId) then
 			SpareButtons[Name].Main.Value = true
 		end
+	else
+		SpareTable[Name] = false
+		SpareButtons[Name].Main.Value = MAll.Value
 	end
 end
 
@@ -1125,7 +1215,7 @@ game.Players.PlayerRemoving:Connect(function(pl)
 	if SpareButtons[pl.Name] then
 		SpareButtons[pl.Name].Destroy()
 	else
-		print("SpareButton for "..pl.Name.." not found")
+		print("MercyButton for "..pl.Name.." not found")
 	end
 end)
 
@@ -1147,15 +1237,32 @@ Settings.Create(1,"Optimize","Optimize","Оптимизация",function()
     Optimize.OpenGroup()
 end)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/other.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
-local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
-print(game.GameId)
-_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
-local success, response = pcall(function()
-	loadstring(gameScr)()
-end)
-if not success then
-	warn("Error load game script:\n" .. response)
+local loading = {true,true,true}
+if _G.Setup ~= nil then
+	local loader = _G.Setup.Load
+	if loader ~= nil then
+		if not loader.All then
+			loading[1] = nil
+		end if not loader.Themes then
+			loading[2] = nil
+		end if not loader.Game then
+			loading[3] = nil
+		end
+	end
+end
+if loading[1] then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/other.lua"))()
+end if loading[2] then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
+end if loading[3] then
+	local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
+	print(game.GameId)
+	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
+	local success, response = pcall(function()
+		loadstring(gameScr)()
+	end)
+	if not success then
+		warn("Error load game script:\n" .. response)
+	end
 end
