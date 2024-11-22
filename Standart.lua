@@ -1236,11 +1236,16 @@ local plCount = 2
 Camera.Create(0,"Spectat","Speactate","Наблюдать")
 text.Position = UDim2.new(1,-300,0,-25)
 text.Size = UDim2.new(0,300,0,25)
-text.BackgroundColor3 = Color3.fromRGB(66,66,114)
-text.TextColor3 = Color3.new(1,1,1)
+text.BackgroundColor3 = _G.TimGui.Colors.MainBackground
+text.TextColor3 = _G.TimGui.Colors.Text
 text.TextScaled = true
 text.TextXAlignment = Enum.TextXAlignment.Left
 text.Visible = false
+
+_G.TimGui.Colors.OnChange(function()
+	text.BackgroundColor3 = _G.TimGui.Colors.MainBackground
+	text.TextColor3 = _G.TimGui.Colors.Text
+end)
 
 local function UpdCam()
     local co = plCount
