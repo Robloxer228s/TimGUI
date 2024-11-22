@@ -476,6 +476,8 @@ end
 
 --ColorSetter---------------------------------------------------------------------
 local OnChangeColor = {}
+local DefColors
+local LoaderValues = DefaultColors
 Colors.OnChange = function(funct)
 	table.insert(OnChangeColor,funct)
 end
@@ -514,15 +516,19 @@ Colors.SetColors = function()
 end
 
 Colors.ResetColors = function()
-	_G.TimGui.Colors = table.clone(DefaultColors)
+	_G.TimGui.Colors = table.clone(DefColors)
 	Colors = _G.TimGui.Colors
 	Colors.SetColors()
 end
 
-Colors.GetDefaultColors = function()
-	return table.clone(DefaultColors)
+Colors.GetDefaultColors = function(loader)
+	if loader then
+		return table.clone(LoaderValues)
+	else
+		return table.clone(DefaultColors)
+	end
 end
-
+DefColors = table.clone(Colors)
 -- Setup -----------------------------------------------------------------------
 if _G.Setup ~= nil then
 	local Setup = _G.Setup
@@ -544,6 +550,7 @@ if _G.Setup ~= nil then
 			end
 		end
 		Colors.SetColors()
+		LoaderValues = table.clone(Colors)
 	end
 end
 
