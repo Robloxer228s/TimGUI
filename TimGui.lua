@@ -21,8 +21,9 @@ _G.TimGui.Values.RusLang = false
 local Colors = _G.TimGui.Colors
 Colors.Logo = {}
 Colors.ToggleButton = {}
-Colors.Button = Color3.fromRGB(50,50,100)
 Colors.Text = Color3.new(1,1,1)
+Colors.Arrow = Color3.new(1,1,1)
+Colors.Button = Color3.fromRGB(50,50,100)
 Colors.MainBackground = Color3.new(0.15, 0.15, 0.3) 
 Colors.GroupsBackground = Color3.new(0.15, 0.15, 0.25) 
 Colors.ToggleButton.Enabled = Color3.new(0.25, 1, 0.25) 
@@ -86,6 +87,7 @@ AO.Name = "Arrow"
 AO.BackgroundTransparency = 100
 AO.Size = UDim2.new(0, 25, 0, 25)
 AO.Image = "rbxassetid://16341277046"
+AO.ImageColor3 = Colors.Arrow
 
 Groups.Name = "Groups"
 Groups.Parent = f
@@ -1241,21 +1243,17 @@ local loading = {true,true,true}
 if _G.Setup ~= nil then
 	local loader = _G.Setup.Load
 	if loader ~= nil then
-		if loader.All == false then
-			loading[1] = false
-		end if loader.Themes == false then
-			loading[2] = false
-		end if loader.Game == false then
-			loading[3] = false
-		end
+		loading[1] = loader.All
+		loading[2] = loader.Themes
+		loading[3] = loader.Game
 	end
 end
-if loading[1] then
+if loading[1] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/other.lua"))()
-end if loading[2] then
+end if loading[2] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
-end if loading[3] then
+end if loading[3] ~= false then
 	local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
 	print(game.GameId)
 	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
