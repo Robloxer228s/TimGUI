@@ -1241,12 +1241,12 @@ local loading = {true,true,true}
 if _G.Setup ~= nil then
 	local loader = _G.Setup.Load
 	if loader ~= nil then
-		if not loader.All then
-			loading[1] = nil
-		end if not loader.Themes then
-			loading[2] = nil
-		end if not loader.Game then
-			loading[3] = nil
+		if loader.All == false then
+			loading[1] = false
+		end if loader.Themes == false then
+			loading[2] = false
+		end if loader.Game == false then
+			loading[3] = false
 		end
 	end
 end
