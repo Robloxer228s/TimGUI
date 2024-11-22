@@ -744,6 +744,12 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	if MyFly.Value then
 		Pos.CFrame = workspace.CurrentCamera.CFrame
 		Pos.Position = LocalPlayer.Character.PrimaryPart.Position
+		if LocalPlayer.Character.Humanoid.Sit then
+                        local camera = game.Workspace.CurrentCamera
+                        if camera.CameraSubject:IsA("Seat") or camera.CameraSubject:IsA("VehicleSeat") then
+                                camera.CameraSubject = LocalPlayer.Character.Humanoid
+			end
+		end
 		if UsePS.Value and not LocalPlayer.Character.Humanoid.Sit then
 			LocalPlayer.Character.Humanoid.PlatformStand = true
 		end
@@ -1280,4 +1286,7 @@ end)
 Camera.Create(0,"Other","Other","Другое")
 Camera.Create(1,"TPC","TP to camera","ТП в камеру",function()
 	LocalPlayer.Character.PrimaryPart.CFrame = game.Workspace.CurrentCamera.CFrame
+end)
+Camera.Create(1,"MaxDistance","Max Zoom of camera","Максимальный зум камеры",function()
+	LocalPlayer.CameraMaxZoomDistance = math.huge
 end)
