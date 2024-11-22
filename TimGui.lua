@@ -1256,7 +1256,6 @@ end if loading[2] ~= false then
 end if loading[3] ~= false then
 	local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
 	print(game.GameId)
-	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
 	local success, response = pcall(function()
 		loadstring(gameScr)()
 	end)
@@ -1264,3 +1263,4 @@ end if loading[3] ~= false then
 		warn("Error load game script:\n" .. response)
 	end
 end
+_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
