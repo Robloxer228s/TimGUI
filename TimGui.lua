@@ -26,6 +26,7 @@ Colors.Arrow = Color3.new(1,1,1)
 Colors.Button = Color3.fromRGB(50,50,100)
 Colors.MainBackground = Color3.new(0.15, 0.15, 0.3) 
 Colors.GroupsBackground = Color3.new(0.15, 0.15, 0.25) 
+Colors.TextBoxBackground = Color3.fromRGB(38, 38, 76)
 Colors.ToggleButton.Enabled = Color3.new(0.25, 1, 0.25) 
 Colors.ToggleButton.Disabled = Color3.new(1, 0.25, 0.25)
 Colors.Logo.One = Color3.new(1,1,0) 
@@ -498,6 +499,9 @@ Colors.SetColors = function()
 				v.Object.BackgroundColor3 = Colors.Button
 				if v.Type ~= 2 then
 					v.TextObject.TextColor3 = Colors.Text
+					if v.Type == 3 then
+						v.Main.BackgroundColor3 = Colors.TextBoxBackground
+					end
 				elseif v.Value then
 					v.TextObject.TextColor3 = Colors.ToggleButton.Enabled
 				else
@@ -767,7 +771,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				Value.ClearTextOnFocus = false
 				Value.Name = "Value"
 				Value.BackgroundTransparency = 0.4
-				Value.BackgroundColor3 = Color3.fromRGB(38, 38, 76)
+				Value.BackgroundColor3 = Colors.TextBoxBackground
 				Value.Size = UDim2.new(0.4,0,1,0)
 				Value.Text = text
 				Value.TextScaled = true
