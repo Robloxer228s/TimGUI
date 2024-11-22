@@ -487,6 +487,7 @@ Colors.SetColors = function()
 	tittleOne.TextColor3 = Colors.Logo.One
 	tittleThr.TextColor3 = Colors.Logo.Two
 	tittleTwo.BackgroundColor3 = Colors.Logo.Separator
+	AO.ImageColor3 = Colors.Arrow
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
 			v.ButtonInList.BackgroundColor3 = Colors.Button
@@ -505,7 +506,7 @@ Colors.SetColors = function()
 	end
 	local ii = Instance.new("BoolValue")
 	for _,v in pairs(OnChangeColor) do
-		v.Changed:Connect(function() v() end)
+		ii.Changed:Connect(function() v() end)
 	end
 	ii.Value = true
 	wait()
