@@ -87,7 +87,7 @@ Death Ball
 
 How Many
 
-Musically chairs
+Musically chairs -- game is deleted
 
 Blocks and props
 
