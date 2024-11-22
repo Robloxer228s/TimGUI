@@ -96,10 +96,11 @@ local WayCFrames = {}
 local Waypoints = _G.TimGui.Groups.CreateNewGroup("Waypoints","Вайпоинты")
 local Name = Waypoints.Create(3,1,"Name","Имя")
 Waypoints.Create(1,2,"Create/edit","Создать/изменить",function()
-	WayCFrames[Name.Value] = LocalPlayer.Character.PrimaryPart.CFrame
-	if Waypoints.Objects[Name.Value] == nil then
-		Waypoints.Create(1,Name.Value,Name.Value,Name.Value,function()
-			LocalPlayer.Character.PrimaryPart.CFrame = WayCFrames[Name.Value]
+	local wayname = Name.Value
+	WayCFrames[wayname] = LocalPlayer.Character.PrimaryPart.CFrame
+	if Waypoints.Objects[wayname] == nil then
+		Waypoints.Create(1,wayname,wayname,wayname,function()
+			LocalPlayer.Character.PrimaryPart.CFrame = WayCFrames[wayname]
 		end)
 	end
 end)
