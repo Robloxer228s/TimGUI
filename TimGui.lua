@@ -544,7 +544,6 @@ if _G.Setup ~= nil then
 		end
 		Colors.SetColors()
 	end
-	_G.Setup = nil
 end
 
 --Group----------------------------------------------------------------------------
@@ -1263,4 +1262,5 @@ end if loading[3] ~= false then
 		warn("Error load game script:\n" .. response)
 	end
 end
+_G.Setup = nil
 _G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
