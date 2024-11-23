@@ -1,17 +1,19 @@
 # Status:
 last games script update: 09.11.24
 
-Configs don't work
-
-TimControl don't work
-
 Use Right mouse button for keybinding! 
 
 Hold button on 2 sec for Flying button
 
+Configs + TimControl don't work and hided
+
+themes don't work for askYN :(
+
 P.S: day.month.year
 
 # Update logs:
+23.11.24 - added time,info about game script,fix bugs and mega update themes
+
 19.11.24 - added Themes and Pin selected and sit on fly v2
 
 15.11.24 - added wasing simulator
