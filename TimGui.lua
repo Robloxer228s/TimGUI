@@ -55,6 +55,7 @@ local Logo = Instance.new("Frame",f)
 local tittleOne = Instance.new("TextLabel",Logo)
 local tittleTwo = Instance.new("Frame",Logo)
 local tittleThr = Instance.new("TextLabel",Logo)
+local timeLol = Instance.new("TextLabel",Logo)
 local Commands = {}
 
 f.Name = "Main"
@@ -87,6 +88,21 @@ tittleThr.Text = "Gui"
 tittleOne.Name = "1"
 tittleTwo.Name = "2"
 tittleThr.Name = "3"
+
+timeLol.TextXAlignment = 1
+timeLol.Name = "SystemTime"
+timeLol.TextColor3 = Colors.Text
+timeLol.Size = UDim2.new(1,0,1,0)
+timeLol.Text = "Loading"
+timeLol.TextScaled = true
+timeLol.BackgroundTransparency = 1
+local iii = Instance.new("BoolValue")
+iii.Changed:Connect(function()
+	while task.wait(0.5) and timeLol.Parent do
+		timeLol.Text = os.date("%H:%M:%S",os.time())
+	end
+end)
+iii.Value = true
 
 AO.Name = "Arrow"
 AO.BackgroundTransparency = 100
@@ -245,7 +261,7 @@ game:GetService("UserInputService").InputBegan:Connect(function(input,focus)
 		local adding = ""
 		for k,v in pairs(AddTB) do
 			if v.Pressed then
-				adding = v.ShortName .. " + "
+				adding = v.ShortName .. " + " .. adding
 			elseif k == button then
 				v.Pressed = true
 				return
@@ -494,6 +510,7 @@ Colors.SetColors = function()
 	tittleOne.TextColor3 = Colors.Logo.One
 	tittleThr.TextColor3 = Colors.Logo.Two
 	tittleTwo.BackgroundColor3 = Colors.Logo.Separator
+	timeLol.TextColor3 = Colors.Text
 	AO.ImageColor3 = Colors.Arrow
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
@@ -783,7 +800,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				Value.Position = UDim2.new(0.5,0,0,0)
 				Value.Text = ""
 				Obj.Main = Value
-				Value.InputEnded:Connect(function()
+				Value:GetPropertyChangedSignal("Text"):Connect(function()
 					Obj.Value = Value.Text
 					local emul = Instance.new("BoolValue")
 					for k,v in pairs(clcFuncs) do
@@ -819,11 +836,8 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 		local whil = Instance.new("BoolValue")
 		whil.Changed:Connect(function()
 			while Obj ~= nil do
-				if OptimizeTable.Timer then wait(updTime) end
-				wait()
-				if OptimizeTable.TwoTimer then wait(updTime) end
-				if _G.TimGui.Values.Opened or OptimizeTable.OnClose then
-					if not _G.TimGui.Values.RusLang then
+				if _G.TimGui.Values.Opened or not OptimizeTable.OnClose then
+					if _G.TimGui.Values.RusLang ~= true then
 						if Obj.Text ~= oldParams.Text then
 							Obj.TextObject.Text = Obj.Text
 						end
@@ -838,7 +852,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 						Update(group)
 					end if Obj.Visible ~= oldParams.Visible then
 						if group.Name == _G.TimGui.Values.GroupOpened then
-						        Obj.Object.Visible = Obj.Visible
+						    Obj.Object.Visible = Obj.Visible
 							Update(group)
 						end
 					end if Obj.Type ~= oldParams.Type then
@@ -859,6 +873,9 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 					end
 					oldParams = table.clone(Obj)
 				end
+				if OptimizeTable.Timer then wait(updTime) end
+				wait()
+				if OptimizeTable.TwoTimer then wait(updTime) end
 			end
 		end)
 		whil.Value = true
@@ -877,26 +894,17 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 	local whil = Instance.new("BoolValue")
 	whil.Changed:Connect(function()
 		while group ~= nil do
-			if OptimizeTable.Timer then wait(updTime) end
-			wait()
-			if OptimizeTable.TwoTimer then wait(updTime) end
 			if _G.TimGui.Values.Opened or not OptimizeTable.OnClose then
-				if _G.TimGui.Values.RusLang then
-					if group.Name ~= oldGroup.Name then
-						group.Name = oldGroup.Name
-					end
-				else
-					if group.RusName ~= oldGroup.RusName then
-						group.RusName = oldGroup.RusName
-					end
+				if group.RusName ~= oldGroup.RusName then
+					group.RusName = oldGroup.RusName
+				end if group.Name ~= oldGroup.Name then
+					group.Name = oldGroup.Name
 				end if group.Open ~= oldGroup.Open then
 					group.Open = oldGroup.Open
 				end if group.Create ~= oldGroup.Create then
 					group.Create = oldGroup.Create
 				end if group.ButtonInList ~= oldGroup.ButtonInList then
 					group.ButtonInList = oldGroup.ButtonInList
-				end if group.RusName ~= oldGroup.RusName then
-					group.RusName = oldGroup.RusName
 				end if group.Pos ~= oldGroup.Pos then
 					group.Pos = oldGroup.Pos
 				end if group.Visible ~= oldGroup.Visible then
@@ -905,19 +913,23 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				end
 				oldGroup = table.clone(group)
 			end
+			if OptimizeTable.Timer then wait(updTime) end
+			wait()
+			if OptimizeTable.TwoTimer then wait(updTime) end
 		end
 	end)
 	whil.Value = true
 	Update()
 	return group
 end
-
+-- Path ------------------------------------------
 _G.TimGui.Path.Logo = Logo
 _G.TimGui.Path.gui = gui
 _G.TimGui.Path.Main = f
 _G.TimGui.Path.Groups = Groups
 _G.TimGui.Path.Buttons = Objects
-
+_G.TimGui.Path.FlyButtonsGui = FBGui
+-- Functions --------------------------------------
 _G.TimGui.AddCommand = function(com,funct)
      Commands[com] = funct
 end
@@ -1238,9 +1250,9 @@ end)
 
 local Optimize = _G.TimGui.Groups.CreateNewGroup("Optimize")
 Optimize.Visible = false
-Optimize.Create(2,"OptimizeOnClosed","Optimize on timgui if closed","Оптимизация timgui, если он закрыт",function(val)
+local OptimizeClose = Optimize.Create(2,"OptimizeOnClosed","Optimize on timgui if closed","Оптимизация timgui, если он закрыт",function(val)
     OptimizeTable.OnClose = val.Value
-end).Main.Value = true
+end)
 Optimize.Create(2,"OptimizeTimer","Optimize timer","Оптимизация таймером",function(val)
     OptimizeTable.Timer = val.Value
 end).Main.Value = true
@@ -1255,6 +1267,7 @@ Settings.Create(1,"Optimize","Optimize","Оптимизация",function()
 end)
 
 local loading = {true,true,true}
+local FoundScript = true
 if _G.Setup ~= nil then
 	local loader = _G.Setup.Load
 	if loader ~= nil then
@@ -1263,6 +1276,11 @@ if _G.Setup ~= nil then
 		loading[3] = loader.Game
 	end
 end
+print([[=============================================
+			| ---  *  |\  /|						    |
+			|  |   |  | \/ |						    |
+			|  |   |  |    |       gui                  |
+			=============================================]])
 if loading[1] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/other.lua"))()
@@ -1270,13 +1288,25 @@ end if loading[2] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
 end if loading[3] ~= false then
 	local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
-	print(game.GameId)
-	local success, response = pcall(function()
-		loadstring(gameScr)()
-	end)
-	if not success then
-		warn("Error load game script:\n" .. response)
+	print("TimGui|"..game.GameId)
+	if string.sub(gameScr,1,3)=="404" then
+		print("TimGui|Game script not found")
+		FoundScript = false
+	else
+		local success, response = pcall(function()
+			loadstring(gameScr)()
+		end)
+		if not success then
+			warn("TimGui|Error load game script:\n" .. response)
+		end
 	end
 end
 _G.Setup = nil
-_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
+wait()
+iii:Destroy()
+OptimizeClose.Main.Value = true
+if FoundScript then
+	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
+else
+	_G.TimGui.Print("Loaded","TimGui is loaded!Game script not found.","Загружено","TimGui загружен!Игры не найдена.")
+end
