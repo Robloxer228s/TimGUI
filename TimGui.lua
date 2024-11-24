@@ -4,7 +4,11 @@ Please, use this script(for updates):
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
 
 ]]
-
+print([[=============================================
+			| ---  *  |\  /|						    |
+			|  |   |  | \/ |						    |
+			|  |   |  |    |       gui                  |
+			=============================================]])
 _G.TimGui = {}
 _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
@@ -44,6 +48,7 @@ local XTG = UDim.new(1, -400)
 --local ButtonColor = Colors.Buttons
 local Count = 0
 local updTime = 0.25
+local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local gui = Instance.new("ScreenGui",game.CoreGui)
@@ -929,6 +934,44 @@ _G.TimGui.Path.Main = f
 _G.TimGui.Path.Groups = Groups
 _G.TimGui.Path.Buttons = Objects
 _G.TimGui.Path.FlyButtonsGui = FBGui
+-- Saves ------------------------------------------
+_G.TimGui.Saves = {}
+local pathSaves = "TimGui/Saves/"
+local SavesSuccess,response = pcall(function()
+	makefolder("TimGui")
+	makefolder(pathSaves)
+	writefile("TimGui/Test","TimGui|Testing saves...")
+	print(readfile("TimGui/Test"))
+	print(table.unpack(listfiles("TimGui")))
+	delfile("TimGui/Test")
+end)
+if not SavesSuccess then
+	warn("TimGui|Saves not success.\n"..response)
+else
+	print("TimGui|Saves working!")
+end
+_G.TimGui.Saves.Enabled = SavesSuccess
+_G.TimGui.Saves.Save = function(name,value)
+	if SavesSuccess then
+		if value == nil then
+			delfile(pathSaves..name)
+		else
+			writefile(pathSaves..name,tostring(value))
+		end
+	else
+		return nil
+	end
+end
+_G.TimGui.Saves.Load = function(name)
+	if SavesSuccess then
+		for _,path in listfiles(pathSaves) do
+			if path == pathSaves..name then
+				return readfile(path)
+			end
+		end
+	end
+	return nil
+end
 -- Functions --------------------------------------
 _G.TimGui.AddCommand = function(com,funct)
      Commands[com] = funct
@@ -969,6 +1012,7 @@ game.Players.PlayerAdded:Connect(NewPlayer)
 local Settings = _G.TimGui.Groups.CreateNewGroup("Settings","Настройки")
 local RusLang = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
 	_G.TimGui.Values.RusLang = Value.Value
+	_G.TimGui.Saves.Save("RussianLanguage",Value.Value)
 	for k,v in pairs(_G.TimGui.Groups) do
 		if type(v) == "table" then
 			if Value.Value then
@@ -994,11 +1038,15 @@ local RusLang = Settings.Create(2,"RusLang","Русский язык","English l
 		end
 	end
 end)
-local tmp = game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru"
-if os.date("%H",0) or tmp then
-	RusLang.Main.Value = true
+if _G.TimGui.Saves.Enabled then
+	RusLang.Main.Value = _G.TimGui.Saves.Load("RussianLanguage") == "true"
+else
+	local tmp = game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru"
+	if os.date("%H",0) or tmp then
+		RusLang.Main.Value = true
+	end
+	Settings.OpenGroup()
 end
-Settings.OpenGroup()
 
 local TPTP = _G.TimGui.Groups.CreateNewGroup("TP to players","ТП к игрокам")
 local MACP = 8
@@ -1210,6 +1258,16 @@ local SpareTable = _G.TimGui.Values.Spare
 local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
 local MAll = Spare.Create(2,"MA","Mercy all","Щадить всех")
 local MS = Spare.Create(2,"FS","Mercy friends","Щадить друзей")
+if _G.TimGui.Saves.Enabled then
+	local loadedTab = HttpService:JSONDecode(_G.TimGui.Saves.Save("Mercy"))
+	if loadedTab ~= nil then
+		_G.TimGui.Values.Spare = loadedTab
+		SpareTable = loadedTab
+	end
+	Spare.Create(1,"SF","Save to file","Сохранить пощаду",function()
+		_G.TimGui.Saves.Save("Mercy",HttpService:JSONEncode(SpareTable))
+	end)
+end
 Spare.Visible = false
 MS.Main.Value = true
 Settings.Create(1,"Mercy","Mercy","Пощада",function()
@@ -1266,7 +1324,7 @@ Settings.Create(1,"Optimize","Optimize","Оптимизация",function()
     Optimize.OpenGroup()
 end)
 
-local loading = {true,true,true}
+local loading = {true,true,true,true}
 local FoundScript = true
 if _G.Setup ~= nil then
 	local loader = _G.Setup.Load
@@ -1274,16 +1332,11 @@ if _G.Setup ~= nil then
 		loading[1] = loader.All
 		loading[2] = loader.Themes
 		loading[3] = loader.Game
+		loading[4] = loader.Configs
 	end
 end
-print([[=============================================
-			| ---  *  |\  /|						    |
-			|  |   |  | \/ |						    |
-			|  |   |  |    |       gui                  |
-			=============================================]])
 if loading[1] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/other.lua"))()
 end if loading[2] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
 end if loading[3] ~= false then
@@ -1300,6 +1353,8 @@ end if loading[3] ~= false then
 			warn("TimGui|Error load game script:\n" .. response)
 		end
 	end
+end if loading[4] ~= false then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
 end
 _G.Setup = nil
 wait()
@@ -1310,3 +1365,4 @@ if FoundScript then
 else
 	_G.TimGui.Print("Loaded","TimGui is loaded!Game script not found.","Загружено","TimGui загружен!Игры не найдена.")
 end
+print("TimGui|Loaded!")
