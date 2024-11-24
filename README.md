@@ -5,13 +5,15 @@ Use Right mouse button for keybinding!
 
 Hold button on 2 sec for Flying button
 
-Configs + TimControl don't work and hided
+TimControl don't work and hided
 
 themes don't work for askYN :(
 
 P.S: day.month.year
 
 # Update logs:
+24.11.24 - added configs + saves
+
 23.11.24 - added time,info about game script,fix bugs and mega update themes
 
 19.11.24 - added Themes and Pin selected and sit on fly v2
