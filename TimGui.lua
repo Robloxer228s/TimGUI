@@ -1259,7 +1259,7 @@ local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
 local MAll = Spare.Create(2,"MA","Mercy all","Щадить всех")
 local MS = Spare.Create(2,"FS","Mercy friends","Щадить друзей")
 if _G.TimGui.Saves.Enabled then
-	local loadedTab = HttpService:JSONDecode(_G.TimGui.Saves.Save("Mercy"))
+	local loadedTab = HttpService:JSONDecode(_G.TimGui.Saves.Load("Mercy"))
 	if loadedTab ~= nil then
 		_G.TimGui.Values.Spare = loadedTab
 		SpareTable = loadedTab
