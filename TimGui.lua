@@ -1045,8 +1045,8 @@ else
 	if os.date("%H",0) or tmp then
 		RusLang.Main.Value = true
 	end
-	Settings.OpenGroup()
 end
+Settings.OpenGroup()
 
 local TPTP = _G.TimGui.Groups.CreateNewGroup("TP to players","ТП к игрокам")
 local MACP = 8
