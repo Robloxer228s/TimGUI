@@ -408,6 +408,16 @@ local Noclip = Player.Create(2,"Noclip","Noclip","Проходка сквозь 
 	end
 end)
 
+local MultyJump = Player.Create(2,"MultyJump","MultyJump","Прыжок от воздуха")
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if MultyJump.Value then
+		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.None)
+		wait()
+		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+
 game:GetService("RunService").RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		if not LocalPlayer.Character.PrimaryPart then return end
