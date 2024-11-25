@@ -1,6 +1,8 @@
 local colors = _G.TimGui.Colors
 local group = _G.TimGui.Groups.CreateNewGroup("Themes")
 local objpos = _G.TimGui.ObjectPosition
+local SaveMode = _G.TimGui.Saves.Load("Modes")
+local SaveColor = _G.TimGui.Saves.Load("Color") or "Default"
 local TGPath = _G.TimGui.Path
 local NormSize = TGPath.Main.Size
 local Colors = _G.TimGui.Colors
@@ -8,7 +10,7 @@ local Def = Colors.GetDefaultColors()
 local TB = Def.ToggleButton
 local Print = Def.Print
 group.Visible = false
-group.Create(0,"Sizes","Sizes","Размеры")
+group.Create(0,"Modes","Modes","Режимы")
 
 local function double(Disconnect)
 	local texts = 0
@@ -42,29 +44,34 @@ end
 group.Create(2,"Double","Double","Двойной",function(val)
     if val.Value then
         _G.TimGui.Path.Main.Size = UDim2.new(0,700,1,0)
+	_G.TimGui.Saves.Save("Modes","Double")
         double(function()
-			TGPath.Main.Size = NormSize
-			val.Main.Value = false
-		end)
+		TGPath.Main.Size = NormSize
+		val.Main.Value = false
+		_G.TimGui.Saves.Save("Modes",nil)
+	end)
     else
         objpos.Disconnect()
     end
-end)
+end).Main.Value = SaveMode == "Double"
 
 group.Create(2,"DoubleMini","Double-mini","Двойной-мини",function(val)
     if val.Value then
 		TGPath.Main.Size = NormSize
+	_G.TimGui.Saves.Save("Modes","DoubleMini")
         double(function()
 			val.Main.Value = false
+			_G.TimGui.Saves.Save("Modes",nil)
 		end)
     else
         objpos.Disconnect()
     end
-end)
+end).Main.Value = SaveMode == "DoubleMini"
 
 group.Create(2,"Mini","Mini","Мини",function(val)
     if val.Value then
 		TGPath.Main.Size = UDim2.new(0,250,1,0)
+	_G.TimGui.Saves.Save("Modes","Mini")
         objpos.Connect(UDim.new(1,0)-TGPath.Main.Size.X,function(k,v,def)
 			def()
 		end,function(k,v,def)
@@ -72,11 +79,12 @@ group.Create(2,"Mini","Mini","Мини",function(val)
 		end,function()
 			val.Main.Value = false
 			TGPath.Main.Size = NormSize
+			_G.TimGui.Saves.Save("Modes",nil)
 		end)
     else
         objpos.Disconnect()
     end
-end)
+end).Main.Value = SaveMode == "Mini"
 
 group.Create(0,"Colors","Colors","Цвета")
 local ButtonColors = {}
@@ -213,11 +221,11 @@ Color.Colors = {
 }
 table.insert(ButtonColors,Color)
 Color = table.clone(ButtonColors)
-local actived = "Default"
+local actived = SaveColor
 for k,v in pairs(Color) do
 	local ke = group.Create(2,v.Name,v.Text,v.Rus)
 	ButtonColors[ke] = v.Colors
-	if Color.Name == "Default" then
+	if Color.Name == SaveColor then
 		ke.Main.Value = true
 	end
 	ke.OnChange(function(val)
@@ -234,6 +242,7 @@ for k,v in pairs(Color) do
 end
 
 Colors.OnChange(function()
+	_G.TimGui.Saves.Save("Color",nil)
 	for k,v in pairs(ButtonColors) do
 		local this = true
 		for key,val in pairs(v) do
@@ -245,6 +254,7 @@ Colors.OnChange(function()
 		k.Main.Value = this
 		if this then
 			actived = k.Name
+			_G.TimGui.Saves.Save("Color",k.Name)
 		end
 	end
 end)
