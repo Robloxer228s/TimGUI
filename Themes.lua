@@ -2,7 +2,7 @@ local colors = _G.TimGui.Colors
 local group = _G.TimGui.Groups.CreateNewGroup("Themes")
 local objpos = _G.TimGui.ObjectPosition
 local SaveMode = _G.TimGui.Saves.Load("Modes")
-local SaveColor = _G.TimGui.Saves.Load("Color") or "Default"
+local SaveColor = _G.TimGui.Saves.Load("Color")
 local TGPath = _G.TimGui.Path
 local NormSize = TGPath.Main.Size
 local Colors = _G.TimGui.Colors
@@ -11,6 +11,10 @@ local TB = Def.ToggleButton
 local Print = Def.Print
 group.Visible = false
 group.Create(0,"Modes","Modes","Режимы")
+
+if SaveColor == nil then
+	SaveColor = "Default"
+end
 
 local function double(Disconnect)
 	local texts = 0
@@ -225,7 +229,7 @@ local actived = SaveColor
 for k,v in pairs(Color) do
 	local ke = group.Create(2,v.Name,v.Text,v.Rus)
 	ButtonColors[ke] = v.Colors
-	if Color.Name == SaveColor then
+	if v.Name == SaveColor then
 		ke.Main.Value = true
 	end
 	ke.OnChange(function(val)
