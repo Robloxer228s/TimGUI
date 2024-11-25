@@ -227,12 +227,7 @@ table.insert(ButtonColors,Color)
 Color = table.clone(ButtonColors)
 local actived = SaveColor
 for k,v in pairs(Color) do
-	local ke = group.Create(2,v.Name,v.Text,v.Rus)
-	ButtonColors[ke] = v.Colors
-	if v.Name == SaveColor then
-		ke.Main.Value = true
-	end
-	ke.OnChange(function(val)
+	local ke = group.Create(2,v.Name,v.Text,v.Rus,function(val)
 		if val.Value then
 			for key,value in pairs(v.Colors) do
 				Colors[key] = value
@@ -242,6 +237,10 @@ for k,v in pairs(Color) do
 			val.Main.Value = true
 		end
 	end)
+	ButtonColors[ke] = v.Colors
+	if v.Name == SaveColor then
+		ke.Main.Value = true
+	end
 	ButtonColors[k] = nil
 end
 
