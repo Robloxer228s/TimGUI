@@ -752,22 +752,24 @@ AV.AngularVelocity = Vector3.new(1000,1000,1000)
 AV.MaxTorque = math.huge
 
 game:GetService("RunService").RenderStepped:Connect(function()
-	if MyFly.Value then
-		Pos.CFrame = workspace.CurrentCamera.CFrame
-		Pos.Position = LocalPlayer.Character.PrimaryPart.Position
-		if LocalPlayer.Character.Humanoid.Sit then
-                        local camera = game.Workspace.CurrentCamera
-                        if camera.CameraSubject:IsA("Seat") or camera.CameraSubject:IsA("VehicleSeat") then
-                                camera.CameraSubject = LocalPlayer.Character.Humanoid
+	if LocalPlayer.Character then
+		if MyFly.Value then
+			Pos.CFrame = workspace.CurrentCamera.CFrame
+			Pos.Position = LocalPlayer.Character.PrimaryPart.Position
+			if LocalPlayer.Character.Humanoid.Sit then
+	                        local camera = game.Workspace.CurrentCamera
+	                        if camera.CameraSubject:IsA("Seat") or camera.CameraSubject:IsA("VehicleSeat") then
+	                                camera.CameraSubject = LocalPlayer.Character.Humanoid
+				end
 			end
+			if UsePS.Value and not LocalPlayer.Character.Humanoid.Sit then
+				LocalPlayer.Character.Humanoid.PlatformStand = true
+			end
+		elseif InvisFly.Value then
+			Pos.CFrame = workspace.CurrentCamera.CFrame
+			Pos.Position = LocalPlayer.Character.PrimaryPart.Position + GetMoveDirection(Speed/60)
+			LocalPlayer.Character.PrimaryPart.CFrame = Pos.CFrame
 		end
-		if UsePS.Value and not LocalPlayer.Character.Humanoid.Sit then
-			LocalPlayer.Character.Humanoid.PlatformStand = true
-		end
-	elseif InvisFly.Value then
-		Pos.CFrame = workspace.CurrentCamera.CFrame
-		Pos.Position = LocalPlayer.Character.PrimaryPart.Position + GetMoveDirection(Speed/60)
-		LocalPlayer.Character.PrimaryPart.CFrame = Pos.CFrame
 	end
 end)
 
