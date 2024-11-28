@@ -114,7 +114,7 @@ group.Create(2,"AFK","AFK(get money)","АФК",function(val)
 					local timer = math.abs(distance)/35
 					if timer < 30 then
 						local goal = {}
-						goal.CFrame = CFrame.new(money.Position) -- + Vector3.new(0, 0, 0)
+						goal.CFrame = money.CFrame -- + Vector3.new(0, -2, 0)
 						local Tween = game:GetService("TweenService"):Create(char.PrimaryPart, TweenInfo.new(timer), goal)
 						for t=1,20 do
 							Tween:Play() 
@@ -128,6 +128,8 @@ group.Create(2,"AFK","AFK(get money)","АФК",function(val)
 							end
 							break
 						end
+					else
+						char.PrimaryPart.CFrame = money.CFrame
 					end
 				end
 			end
