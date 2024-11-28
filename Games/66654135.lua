@@ -130,6 +130,7 @@ group.Create(2,"AFK","AFK(get money)","АФК",function(val)
 						end
 					else
 						char.PrimaryPart.CFrame = money.CFrame
+						wait(1.5)
 					end
 				end
 			end
