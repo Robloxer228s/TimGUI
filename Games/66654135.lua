@@ -6,11 +6,6 @@ local group = _G.TimGui.Groups.CreateNewGroup("MM2")
 local ESP = {}
 local Murder
 local Sheriff
-local Roles = {
-	MM2 = {Innocent, Sheriff, Murderer};
-	Infection = {"Survivor", "Zombie"};
-	FreezeTag = {"Freezer", "Runner"};
-}
 ESPGroup.Create(0,"MM2","MM2","MM2")
 ESP.Innocent = ESPGroup.Create(2,"Innocent","ESP to innocent","ESP на невиновного")
 ESP.Murderer = ESPGroup.Create(2,"Murderer","ESP to murderer","ESP на убийцу")
@@ -49,7 +44,7 @@ local Map
 local function NewMap(isMap)
 	if isMap then
 		wait()
-		if isMap:FindFirstChild("Base") then
+		if isMap:FindFirstChild("Spawns") and isMap.Name ~= "Lobby" then
 			Map = isMap
 		end
 	else
