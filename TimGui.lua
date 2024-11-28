@@ -1347,12 +1347,17 @@ end if loading[3] ~= false then
 		print("TimGui|Game script not found")
 		FoundScript = false
 	else
-		local success, response = pcall(function()
-			loadstring(gameScr)()
+		local ii = Instance.new("BoolValue")
+		ii.Changed:Connect(function()
+			local success, response = pcall(function()
+				loadstring(gameScr)()
+			end)
+			if not success then
+				error("TimGui|Error load game script:\n" .. response)
+			end
 		end)
-		if not success then
-			warn("TimGui|Error load game script:\n" .. response)
-		end
+		ii.Value = true
+		wait()
 	end
 end if loading[4] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
