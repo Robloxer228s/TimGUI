@@ -1,216 +1,258 @@
---MM2
-local ESP = _G.TimGui.Add.CB("ESP", "MM2", "ESP", 3)
-local ESPM = _G.TimGui.Add.CB("ESPM", "ESP Murder", "ESP", 4, "ESP на убийцу")
-local ESPS = _G.TimGui.Add.CB("ESPS", "ESP Sheriff", "ESP", 5, "ESP на шерифа")
-local ESPA = _G.TimGui.Add.CB("ESPA", "ESP All", "ESP", 6, "ESP на всех")
-local ESPGD = _G.TimGui.Add.CB("ESPGD", "ESP Dropped gun", "ESP", 7, "ESP на пистолет")
-local murd
-local sher 
-_G.TimGui.Add.G("MM2") 
+-- Murder Mystory 2
+local GetData = game.ReplicatedStorage.Remotes.Gameplay.GetCurrentPlayerData
+local Data = GetData:InvokeServer()
+local ESPGroup = _G.TimGui.Groups.ESP
+local group = _G.TimGui.Groups.CreateNewGroup("MM2")
+local ESP = {}
+local Murder
+local Sheriff
+local Roles = {
+	MM2 = {Innocent, Sheriff, Murderer};
+	Infection = {"Survivor", "Zombie"};
+	FreezeTag = {"Freezer", "Runner"};
+}
+ESPGroup.Create(0,"MM2","MM2","MM2")
+ESP.Innocent = ESPGroup.Create(2,"Innocent","ESP to innocent","ESP на невиновного")
+ESP.Murderer = ESPGroup.Create(2,"Murderer","ESP to murderer","ESP на убийцу")
+ESP.Sheriff = ESPGroup.Create(2,"Sheriff","ESP to sheriff","ESP на шерифа")
+ESP.Killed = ESPGroup.Create(2,"Killed","ESP to killed","ESP на убитых")
+ESP.GunDrop = ESPGroup.Create(2,"Gun","ESP to dropped gun","ESP на пистолет")
+local ESPColor = {
+	Murderer = Color3.new(1,0,0),
+	Sheriff = Color3.new(0,0,1),
+	Innocent = Color3.new(0,1,0)
+}
 
-_G.TimGui.Add.B("TPSM", "TP to map", "MM2", 6, "ТП на карту", function() 
-local rand = game.Workspace.Normal.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
-end) 
+local function ESPUpd(char,color)
+	if char then
+		local ESPObj = char:FindFirstChild("NotESP")
+		if not ESPObj then
+			ESPObj = Instance.new("Highlight")
+			ESPObj.Parent = char
+			ESPObj.Name = "NotESP"
+			ESPObj.Adornee = char
+			ESPObj.Archivable = true
+			ESPObj.Enabled = true
+			ESPObj.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			ESPObj.FillTransparency = 0.5
+			ESPObj.OutlineTransparency = 0
+		end
+		ESPObj.FillColor = color
+		ESPObj.OutlineColor = color
+	end
+end
 
-_G.TimGui.Add.B("TPMM", "TP to spawn", "MM2", 5, "ТП на спавн", function()
-local rand = game.Workspace.Lobby.Spawns:GetChildren() 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rand[math.random(1, #rand)].CFrame + Vector3.new(0, 2.5, 0) 
+local SheriffNick = group.Create(0,"SheriffNick","Sheriff: nobody","Шериф: никто")
+local MurderNick = group.Create(0,"MurderNick","Murder: nobody","Убийца: никто")
+local GunDropName = "GunDrop"
+local Map
+local function NewMap(isMap)
+	if isMap then
+		wait()
+		if isMap:FindFirstChild("Base") then
+			Map = isMap
+		end
+	else
+		for k,v in pairs(game.Workspace:GetChildren()) do
+			NewMap(v)
+		end
+	end
+end
+game.Workspace.ChildAdded:Connect(NewMap)
+while Map == nil do
+	NewMap()
+	wait()
+end
+
+local FirstAFK = true
+local MoneyVisual = "CoinVisual"
+local reset = group.Create(2,"AFKReset","Reset on full bag","Умерать при полном шишке")
+group.Create(2,"AFK","AFK(get money)","АФК",function(val)
+	if FirstAFK then
+		FirstAFK = false
+		local function getMoney()
+			local money
+			local dist
+			local char = game.Players.LocalPlayer.Character
+			if not char then return end
+			if not char.PrimaryPart then return end
+			if not Map:FindFirstChild("CoinContainer") then return end
+			local children = Map.CoinContainer:GetChildren()
+			if #children == 0 then return end
+			local visibles = 0
+			for k,v in pairs(children) do
+				local visual = v:FindFirstChild(MoneyVisual)
+				if visual then
+					if visual.Transparency == 0 then
+						visibles += 1
+						local pos = v.Position - char.PrimaryPart.Position
+						local thisDist = math.abs(pos.X) + math.abs(pos.Y) + math.abs(pos.Z)
+						if dist == nil then
+							dist = thisDist
+							money = v
+						elseif thisDist < dist then
+							dist = thisDist
+							money = v
+						end
+					end
+				end
+			end
+			if visibles == 0 then
+				if reset.Value then
+					if char:FindFirstChild("Humanoid") then
+						if Data[char.Name] then
+							if not Data[char.Name].Dead then
+								char.Humanoid:TakeDamage(math.huge)
+							end
+						end
+					end
+				end
+				return
+			end
+			return money,dist
+		end
+		while task.wait(0.2) do
+			if val.Value then
+				local money,distance = getMoney()
+				if money then
+					local char = game.Players.LocalPlayer.Character
+					local timer = math.abs(distance)/35
+					if timer < 30 then
+						local goal = {}
+						goal.CFrame = CFrame.new(money.Position) -- + Vector3.new(0, 0, 0)
+						local Tween = game:GetService("TweenService"):Create(char.PrimaryPart, TweenInfo.new(timer), goal)
+						for t=1,20 do
+							Tween:Play() 
+							wait(timer/20)
+							Tween:Pause()
+							if money then
+								local visual = money:FindFirstChild(MoneyVisual)
+								if visual then
+									if visual.Transparency == 0 then continue end
+								end
+							end
+							break
+						end
+					end
+				end
+			end
+		end
+	end
 end)
 
-_G.TimGui.Add.B("TDG", "TP to dropped gun", "MM2", 4, "ТП к пистолету", function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Normal.GunDrop.CFrame
-end) 
-
-
-_G.TimGui.Add.B("TPM", "TP to murder", "MM2", 1, "ТП к убийце", function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = murd.Character.HumanoidRootPart.CFrame
-end) 
-
-_G.TimGui.Add.B("TPS", "TP to sheriff", "MM2", 2, "ТП к шерифу", function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = sher.Character.HumanoidRootPart.CFrame
-end) 
-
-_G.TimGui.Add.B("KA", "Kill All", "MM2", 3, "Убить всех", function()
-for k,v in pairs(game.Players:GetChildren()) do
-if _G.TimGui.SpareFriends then
-if v:IsFriendsWith(game.Players.LocalPlayer.UserId) then continue end
+group.Create(0,"TPs","Teleports","Телепорты")
+local function GetRandomSpwn(parent)
+	local children = parent:GetChildren()
+	return children[math.random(1,#children)]
 end
-if not (v == game.Players.LocalPlayer) then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
-wait(0.75) 
-end
-end
-end) 
-
-local Money = _G.TimGui.Add.CB("Money", "Farm (with fly)", "MM2", 7, "АФК(С полëтом)") 
---local Time = _G.ATBF("Time", "Farm time: ", "MM2", 7, "АФК таймер: ") 
---Time.Text = 1
-local lastmon
-
-local MoneyGet = function() 
-local poss
-local mon
-if game.Workspace:FindFirstChild("Normal") == nil then return nil end
-if game.Workspace.Normal:FindFirstChild("CoinContainer") then
-for k, v in pairs(game.Workspace.Normal.CoinContainer:GetChildren()) do
-local monn = v.CFrame
-local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local pos = 0
-local Check = monn.X - playerPos.X
-if Check < 0 then
-Check = - Check
-end
-pos = pos + Check
-local Check = monn.Y - playerPos.Y
-if Check < 0 then
-Check = - Check
-end
-pos = pos + Check
-local Check = monn.Z - playerPos.Z
-if Check < 0 then
-Check = - Check
-end
-pos = pos + Check
-if poss == nil and not (lastmon == v) then
-poss = pos
-mon = v
-elseif not (lastmon == v) then
-if poss > pos then
-poss = pos
-mon = v
-end
-end
-end
-end
-if not (lastmon == nil) then lastmon:Destroy() end
-lastmon = mon
-local send = {}
-send.obj = mon
-send.pos = poss
-return send
-end
-
-local whileee = Instance.new("BoolValue")
-whileee.Changed:Connect(function() 
-while true do 
-wait(0.75) 
-pcall(function()
-local Moneyy
-if Money.Value then Moneyy = MoneyGet() end
-if Money.Value and not (Moneyy == nil) then
-local MoneyOb = Moneyy.obj
---local timer = tonumber(Time.Text) 
-local timer = 2.25
-if timer == nil then timer = 1 end
-if timer < 1 then timer = 1 end
-timer = timer * (Moneyy.pos / 100)
-if timer < 45 then
-local pos = Instance.new("Part") 
-pos.Position = MoneyOb.Position + Vector3.new(0, -2.75, 0) 
-pos.Orientation = Vector3.new(0, 180, 0)
-local goal = {}
-goal.CFrame = pos.CFrame
-game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(timer), goal):Play() 
-wait(timer)
-end
-end
-end) 
-end
-end) 
-whileee.Value = true
-
-local AIM = _G.TimGui.Add.CB("AIMM", "AIM to murd", "MM2", 8, "Автонаводка на марда")
-local AAIM = _G.TimGui.Add.CB("AAIMM", "Auto AIM to murd", "MM2", 9, "АвтоАИМ на марда")
+group.Create(1,"TP to map","TP to map","ТП на карту",function()
+	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = GetRandomSpwn(Map.Spawns).CFrame
+end)
+group.Create(1,"TP to spawn","TP to spawn","ТП на спавн",function()
+	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = GetRandomSpwn(game.Workspace.Lobby.Spawns).CFrame
+end)
+group.Create(1,"TP to gun","TP to gun","ТП к пистолету",function()
+	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Map[GunDropName].CFrame
+end)
+group.Create(1,"TP to murder","TP to murder","ТП к убийце",function()
+	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Murder.Character.PrimaryPart.CFrame
+end)
+group.Create(1,"TP to sheriff","TP to sheriff","ТП к шерифу",function()
+	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Sheriff.Character.PrimaryPart.CFrame
+end)
+group.Create(0,"AutoTPs","Auto Teleports","Авто телепорты")
+local autoTPMurd = group.Create(2,"AutoTP to murder","AutoTP to murder","АвтоТП к убийце")
+local autoTPSher = group.Create(2,"AutoTP to sheriff","AutoTP to sheriff","АвтоТП к шерифу")
+group.Create(0,"AIM","AIM","АИМ")
+local AIM = group.Create(2,"AIMM","AIM to murder","Наводка на убийцу")
+local AAIM = group.Create(2,"AAIM","AutoAIM to murder","Авто наводка на убийцу")
 
 game:GetService("RunService").RenderStepped:Connect(function()
-if AAIM.Value and game.Players.LocalPlayer.Character:FindFirstChild("Gun") then
-AIM.Value = true
-elseif AAIM.Value then
-AIM.Value = false
-end
-if AIM.Value then
-game.Workspace.Camera.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.Head.Position, murd.Character.HumanoidRootPart.Position) 
-end
-end) 
+	local char = game.Players.LocalPlayer.Character
+	if char then
+		if Murder then
+			if AAIM.Value and char:FindFirstChild("Gun") then
+				AIM.Main.Value = true
+			elseif AAIM.Value then
+				AIM.Main.Value = false
+			end if AIM.Value then
+				game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(char.Head.Position, Murder.Character.HumanoidRootPart.Position) 
+			end
+			if autoTPMurd.Value then
+				char.PrimaryPart.CFrame = Murder.Character.PrimaryPart.CFrame
+			end
+		end if Sheriff then
+			if autoTPSher.Value then
+				game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Sheriff.Character.PrimaryPart.CFrame
+			end
+		end
+	end
+end)
 
-while true do 
-wait(1) 
-pcall(function()
-local char = game.Workspace:FindFirstChild("GunDrop")
-if not char then 
-char = game.Workspace.Normal:FindFirstChild("GunDrop")
-end
-if char then
-if ESP.Value and ESPGD.Value then
-if not char:FindFirstChild("NotEsp") then
-local ESPn = Instance.new("Highlight")
-ESPn.Parent = char
-ESPn.Name = "NotEsp"
-ESPn.Adornee = char
-ESPn.Archivable = true
-ESPn.Enabled = true
-ESPn.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-ESPn.FillColor = Color3.new(0,1,1)
-ESPn.FillTransparency = 0.5
-ESPn.OutlineColor = ESPn.FillColor
-ESPn.OutlineTransparency = 0
-end
-elseif char:FindFirstChild("NotEsp") then
-char.NotEsp:Destroy() 
-end
-end
-for k,v in pairs(game.Players:GetChildren()) do
-if v.Character then
-if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then
-murd = v
-end
-if v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then
-sher = v
-end
-local char = v.Character
-if ESPA.Value or v == sher or v == murd then 
-if ESP.Value then
-if not char:FindFirstChild("NotEsp") then
-local ESPn = Instance.new("Highlight")
-ESPn.Parent = char
-ESPn.Name = "NotEsp"
-ESPn.Adornee = char
-ESPn.Archivable = true
-ESPn.Enabled = true
-ESPn.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-ESPn.FillColor = Color3.new(0,1,0)
-ESPn.FillTransparency = 0.5
-ESPn.OutlineColor = ESPn.FillColor
-ESPn.OutlineTransparency = 0
-else
-char.NotEsp.FillColor = Color3.new(0,1,0) 
-end
-elseif char:FindFirstChild("NotEsp") then
-char.NotEsp:Destroy()
-end
-elseif char:FindFirstChild("NotEsp") then
-char.NotEsp:Destroy()
-end
-end
-if sher then
-if sher.Character then
-if sher.Character:FindFirstChild("NotEsp") and not ESPS.Value then
-sher.Character.NotEsp:Destroy() 
-elseif sher.Character:FindFirstChild("NotEsp") and ESPS.Value then
-sher.Character.NotEsp.FillColor = Color3.new(0, 0, 1) 
-end
-end
-end
-if murd then
-if murd.Character then
-if murd.Character:FindFirstChild("NotEsp") and not ESPM.Value then
-murd.Character.NotEsp:Destroy() 
-elseif murd.Character:FindFirstChild("NotEsp") and ESPM.Value then
-murd.Character.NotEsp.FillColor = Color3.new(1, 0, 0) 
-end
-end
-end
-end
-end) --pcall
+while task.wait(0.25) do
+	Data = GetData:InvokeServer()
+	local gundrop = Map:FindFirstChild(GunDropName)
+	if gundrop then
+		ESPUpd(gundrop,Color3.new(1,1,0))
+	end
+	Murder = nil
+	Sheriff = nil
+	for _,player in pairs(game.Players:GetPlayers()) do
+		if player == game.Players.LocalPlayer then continue end
+		local v = Data[player.Name]
+		local active = false
+		if not v then
+			if ESP.Killed.Value then
+				active = true
+				ESPUpd(player.Character,Color3.new(1,1,1))
+			end
+		else
+			if v.Dead then
+				if ESP.Killed.Value then
+					active = true
+					ESPUpd(player.Character,Color3.new(1,1,1))
+				end
+			else
+				if ESP[v.Role] then
+					if ESP[v.Role].Value then
+						active = true
+						ESPUpd(player.Character,ESPColor[v.Role])
+					end
+					if v.Role == "Sheriff" then
+						Sheriff = player
+					elseif v.Role == "Murderer" then
+						Murder = player
+					end
+				elseif v.Role == "Hero" then
+					Sheriff = player
+					if ESP.Sheriff.Value then
+						active = true
+						ESPUpd(player.Character,ESPColor.Sheriff)
+					end
+				end
+			end
+		end
+		if active == false then
+			local ESPObj = player.Character
+			if ESPObj then
+				ESPObj = ESPObj:FindFirstChild("NotESP")
+				if ESPObj then
+					ESPObj:Destroy()
+				end
+			end
+		end
+	end
+	if Sheriff then
+		SheriffNick.Text = "Sheriff: "..Sheriff.Name
+		SheriffNick.RusText = "Шериф: "..Sheriff.Name
+	else
+		SheriffNick.Text = "Sheriff: nobody"
+		SheriffNick.RusText = "Шериф: никто"
+	end if Murder then
+		MurderNick.Text = "Murder: "..Murder.Name
+		MurderNick.RusText = "Убийца: "..Murder.Name
+	else
+		MurderNick.Text = "Murder: nobody"
+		MurderNick.RusText = "Убийца: никто"
+	end
 end
