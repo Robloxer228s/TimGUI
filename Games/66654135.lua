@@ -44,7 +44,7 @@ local Map
 local function NewMap(isMap)
 	if isMap then
 		wait()
-		if isMap:FindFirstChild("Spawns") and isMap.Name ~= "Lobby" then
+		if isMap:FindFirstChild("Base") or isMap:FindFirstChild("CoinContainer") then
 			Map = isMap
 		end
 	else
@@ -185,6 +185,9 @@ game:GetService("RunService").RenderStepped:Connect(function()
 end)
 
 while task.wait(0.25) do
+	if not Map.Parent then
+		NewMap()
+	end
 	Data = GetData:InvokeServer()
 	local gundrop = Map:FindFirstChild(GunDropName)
 	if gundrop then
