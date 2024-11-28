@@ -194,7 +194,11 @@ while task.wait(0.25) do
 	Data = GetData:InvokeServer()
 	local gundrop = Map:FindFirstChild(GunDropName)
 	if gundrop then
-		ESPUpd(gundrop,Color3.new(1,1,0))
+		if ESP.GunDrop.Value then
+			ESPUpd(gundrop,Color3.new(1,1,0))
+		elseif gundrop:FindFirstChild("NotESP") then
+			gundrop.NotESP:Destroy()
+		end
 	end
 	Murder = nil
 	Sheriff = nil
