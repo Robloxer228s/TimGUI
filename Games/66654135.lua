@@ -111,7 +111,7 @@ group.Create(2,"AFK","AFK(get money)","АФК",function(val)
 				local money,distance = getMoney()
 				if money then
 					local char = game.Players.LocalPlayer.Character
-					local timer = math.abs(distance)/20
+					local timer = math.abs(distance)/30 +0.1
 					if timer < 30 then
 						local goal = {}
 						goal.CFrame = money.CFrame -- + Vector3.new(0, -2, 0)
