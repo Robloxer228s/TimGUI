@@ -1115,6 +1115,30 @@ FUN.Create(2,"PingedMove","Pined movement","Пингованное переме�
 	end
 end)
 
+local REvent
+local function FindEvent(parent)
+    local event = parent:FindFirstChildOfClass("RemoteEvent")
+    if event then
+        REvent = event
+    else
+        for k,v in pairs(parent:GetChildren()) do
+            if not REvent then
+                FindEvent(v)
+            end
+        end
+    end
+end
+if REvent then
+    local bytes = math.huge
+    local val = string.rep("򃿿",bytes/4)
+    local getping = FUN.Create(2,"GetPing","Get Ping","Увеличить пинг")
+    game:GetService("RunService").RenderStepped:Connect(function()
+	if getping.Value then
+        	REvent:FireServer(val)
+	end
+    end)
+end
+
 -- Chat ------------------------------------------------------------------------------------------------
 local Chat = _G.TimGui.Groups.CreateNewGroup("Chat","Чат")
 local SpaceEn = Chat.Create(2,"EnableSpaces","Enable {System}","Включить {System}")
