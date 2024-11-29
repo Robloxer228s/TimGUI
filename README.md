@@ -12,6 +12,10 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+29.11.24 - added new game "Imposible Squid Game! Glass bridge"
+
+28.11.24 - update MM2
+
 24.11.24 - added configs + saves
 
 23.11.24 - added time,info about game script,fix bugs and mega update themes
@@ -63,7 +67,7 @@ P.S: day.month.year
 # Suported Games:
 Tower of hell -- Dont work
 
-Murder Mystory 2 -- Dont work
+Murder Mystory 2
 
 Break in 
 
@@ -104,6 +108,8 @@ Mega hide and seek
 Zombie Attack
 
 Washing simulator
+
+Imposible Squid Game! Glass bridge: https://www.roblox.com/share?code=5233ee6b5386f14cb0cfcd61469e7031&type=ExperienceDetails&stamp=1732876371319
 
 # Credits:
 
