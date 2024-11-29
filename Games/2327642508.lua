@@ -15,7 +15,7 @@ local function TPClothing(notrare,fullbaskNR)
             	_G.TimGui.Print("Warning","You don't have enough washing machine capacity","Проблема","Тебе не хватает место в машинах")
             elseif 0 < LocalPlayer.NonSaveVars.BackpackAmount.Value and LocalPlayer.NonSaveVars.BasketStatus.Value == "Clean" then
             	_G.TimGui.Print("Warning","You can't put dirty laundry in a clean basket","Проблема","Ты не можешь положить это в корзину с чистыми панталонами")
-            elseif LocalPlayer_upvr_2.NonSaveVars.BackpackAmount.Value < LocalPlayer_upvr_2.NonSaveVars.BasketSize.Value then
+            elseif LocalPlayer.NonSaveVars.BackpackAmount.Value < LocalPlayer.NonSaveVars.BasketSize.Value then
             	_G.TimGui.Print("Warning","Basket is full","Проблема","Корзина пуста")
             else
             	game.SoundService.Misc.Pick:Play()
