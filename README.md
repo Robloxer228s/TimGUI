@@ -109,7 +109,7 @@ Zombie Attack
 
 Washing simulator
 
-Imposible Squid Game! Glass bridge: https://www.roblox.com/share?code=5233ee6b5386f14cb0cfcd61469e7031&type=ExperienceDetails&stamp=1732876371319
+[Imposible Squid Game! Glass bridge](https://www.roblox.com/share?code=5233ee6b5386f14cb0cfcd61469e7031&type=ExperienceDetails&stamp=1732876371319)
 
 # Credits:
 
