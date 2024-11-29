@@ -1128,7 +1128,7 @@ local function FindEvent(parent)
 end
 FindEvent(game.ReplicatedStorage)
 if #REvent ~= 0 then
-    local bytes = math.huge
+    local bytes = 102400
     local val = string.rep("򃿿",bytes/4)
     local getping = FUN.Create(2,"GetPing","Get Ping","Увеличить пинг")
     game:GetService("RunService").RenderStepped:Connect(function()
