@@ -1115,27 +1115,27 @@ FUN.Create(2,"PingedMove","Pined movement","Пингованное переме�
 	end
 end)
 
-local REvent
+local REvent = {}
 local function FindEvent(parent)
     local event = parent:FindFirstChildOfClass("RemoteEvent")
     if event then
-        REvent = event
+        table.insert(REvent,event)
     else
         for k,v in pairs(parent:GetChildren()) do
-            if not REvent then
-                FindEvent(v)
-            end
+		FindEvent(v)
         end
     end
 end
 FindEvent(game.ReplicatedStorage)
-if REvent then
+if #REvent ~= 0 then
     local bytes = math.huge
     local val = string.rep("򃿿",bytes/4)
     local getping = FUN.Create(2,"GetPing","Get Ping","Увеличить пинг")
     game:GetService("RunService").RenderStepped:Connect(function()
 	if getping.Value then
-        	REvent:FireServer(val)
+		for _,v in pairs(REvent) do
+        		v:FireServer(val)
+		end
 	end
     end)
 end
