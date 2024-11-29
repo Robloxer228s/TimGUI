@@ -226,6 +226,7 @@ Color.Colors = {
 table.insert(ButtonColors,Color)
 Color = table.clone(ButtonColors)
 local actived = SaveColor
+local updating = false
 for k,v in pairs(Color) do
 	local ke = group.Create(2,v.Name,v.Text,v.Rus,function(val)
 		if val.Value then
@@ -233,7 +234,7 @@ for k,v in pairs(Color) do
 				Colors[key] = value
 			end
 			Colors.SetColors()
-		elseif actived == val.Name then
+		elseif actived == val.Name and not updating then
 			val.Main.Value = true
 		end
 	end)
@@ -246,6 +247,7 @@ end
 
 Colors.OnChange(function()
 	_G.TimGui.Saves.Save("Color",nil)
+	updating = true
 	for k,v in pairs(ButtonColors) do
 		local this = true
 		for key,val in pairs(v) do
@@ -260,6 +262,7 @@ Colors.OnChange(function()
 			_G.TimGui.Saves.Save("Color",k.Name)
 		end
 	end
+	updating = false
 end)
 
 _G.TimGui.Groups.Settings.Create(1,"Themes","Themes","Темы",function()
