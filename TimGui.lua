@@ -101,13 +101,11 @@ timeLol.Size = UDim2.new(1,0,1,0)
 timeLol.Text = "Loading"
 timeLol.TextScaled = true
 timeLol.BackgroundTransparency = 1
-local iii = Instance.new("BoolValue")
-iii.Changed:Connect(function()
+task.spawn(function()
 	while task.wait(0.5) and timeLol.Parent do
 		timeLol.Text = os.date("%H:%M:%S",os.time())
 	end
 end)
-iii.Value = true
 
 AO.Name = "Arrow"
 AO.BackgroundTransparency = 100
@@ -536,13 +534,9 @@ Colors.SetColors = function()
 			end
 		end
 	end
-	local ii = Instance.new("BoolValue")
 	for _,v in pairs(OnChangeColor) do
-		ii.Changed:Connect(function() v() end)
+		task.spawn(function() v() end)
 	end
-	ii.Value = true
-	wait()
-	ii:Destroy()
 end
 
 Colors.ResetColors = function()
@@ -1347,8 +1341,7 @@ end if loading[3] ~= false then
 		print("TimGui|Game script not found")
 		FoundScript = false
 	else
-		local ii = Instance.new("BoolValue")
-		ii.Changed:Connect(function()
+		task.spawn(function()
 			local success, response = pcall(function()
 				loadstring(gameScr)()
 			end)
@@ -1356,19 +1349,15 @@ end if loading[3] ~= false then
 				error("TimGui|Error load game script:\n" .. response)
 			end
 		end)
-		ii.Value = true
-		wait()
 	end
 end if loading[4] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
 end
-_G.Setup = nil
-wait()
-iii:Destroy()
 OptimizeClose.Main.Value = true
+_G.Setup = nil
+print("TimGui|Loaded!")
 if FoundScript then
 	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
 else
 	_G.TimGui.Print("Loaded","TimGui is loaded!Game script not found.","Загружено","TimGui загружен!Игры не найдена.")
 end
-print("TimGui|Loaded!")
