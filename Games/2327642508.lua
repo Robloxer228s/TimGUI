@@ -5,6 +5,9 @@ local Events = game.ReplicatedStorage.Events
 group.Create(2,"Speed","Donate: NitroSpeed","НитроСкорость",function(val)
     LocalPlayer.Gamepasses.NitroSpeed.Value = val.Value
 end)
+group.Create(1,"DC","Drop cloth in chute","Положить чистую одежду",function(val)
+    Events.DropClothesInChute:FireServer()
+end)
 group.Create(0,"Tittle","Grab","Брать")
 group.Create(0,"TIP","P.S:It grab clothings in 25 studs","P.S:Оно берёт одежду менее 25 шагов")
 local function TPClothing(notrare,fullbaskNR)
