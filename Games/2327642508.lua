@@ -177,7 +177,7 @@ while task.wait() do
 				if empty - grabing < 5 then
 					grabing = grabing - (empty-grabing+5)
 				end
-				TPClothing(true,math.ceil())
+				TPClothing(true,grabing)
 			end
 		end
 	end
