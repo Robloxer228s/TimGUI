@@ -1,4 +1,5 @@
 local LocalPlayer = game.Players.LocalPlayer
+local RunService = game:GetService("RunService")
 local AnticheatGroup = _G.TimGui.Groups.CreateNewGroup("ACGroup")
 local Mouse = LocalPlayer:GetMouse()
 local DefaultGravity = game.Workspace.Gravity
@@ -418,7 +419,7 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 	end
 end)
 
-game:GetService("RunService").RenderStepped:connect(function()
+RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		if not LocalPlayer.Character.PrimaryPart then return end
 		if SVTwo.Value == true then
@@ -535,7 +536,22 @@ end
 Player.Create(1,"Backpack","Control Backpack","Контроль рюкзака",function()
 	Backpack.OpenGroup()
 end)
-
+local enabled = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
+local Power = 100000
+RunService.PostSimulation:Connect(function()
+    if enabled.Value then
+        local char = LocalPlayer.Character
+        if char then
+            local HRP = char.PrimaryPart
+            if HRP then
+                local velocity = HRP.Velocity
+                HRP.Velocity = (velocity + Vector3.new(0,5,0)) *Power
+                RunService.RenderStepped:Wait()
+                HRP.Velocity = velocity
+            end
+        end
+    end
+end)
 -- Fly ----
 Player.Create(0,"FlyTittle","Fly","Полёт")
 local speed = Player.Create(3,"FlyNMS","Fly speed:","Скорость полёта:")
@@ -577,7 +593,7 @@ local nowe = not Fly.Value
 		end
 		for i = 1, speeds do
 			spawn(function()
-				local hb = game:GetService("RunService").Heartbeat
+				local hb = RunService.Heartbeat
 				tpwalking = true
 				local chr = game.Players.LocalPlayer.Character
 				local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
@@ -632,7 +648,7 @@ local nowe = not Fly.Value
 			plr.Character.Humanoid.PlatformStand = true
 		end
 		while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
-			game:GetService("RunService").RenderStepped:Wait()
+			RunService.RenderStepped:Wait()
 			if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
 				speed = speed+.5+(speed/maxspeed)
 				if speed > maxspeed then
@@ -751,7 +767,7 @@ AO.RigidityEnabled = true
 AV.AngularVelocity = Vector3.new(1000,1000,1000)
 AV.MaxTorque = math.huge
 
-game:GetService("RunService").RenderStepped:Connect(function()
+RunService.RenderStepped:Connect(function()
 	if LocalPlayer.Character then
 		if MyFly.Value then
 			Pos.CFrame = workspace.CurrentCamera.CFrame
@@ -1094,7 +1110,7 @@ local NotFling = FUN.Create(2,"Fling","Fling?","Арабская ночь",funct
 	end
 end)
 
-game:GetService("RunService").RenderStepped:connect(function()
+RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		if not LocalPlayer.Character.PrimaryPart then return end
 		if Happy and HappyMod.Value then
@@ -1131,7 +1147,7 @@ if #REvent ~= 0 then
     local bytes = 102400
     local val = string.rep("򃿿",bytes/4)
     local getping = FUN.Create(2,"GetPing","Get Ping","Увеличить пинг")
-    game:GetService("RunService").RenderStepped:Connect(function()
+    RunService.RenderStepped:Connect(function()
 	if getping.Value then
 		for _,v in pairs(REvent) do
         		v:FireServer(val)
@@ -1402,7 +1418,7 @@ if game:GetService("UserInputService").TouchEnabled then
 	end
 
 	LocalPlayer:GetMouse().Move:Connect(upd)
-	game:GetService("RunService").RenderStepped:Connect(upd)
+	RunService.RenderStepped:Connect(upd)
     	workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(function(char)
 		local char = workspace.CurrentCamera.CameraSubject.Parent
 		if char:IsA("Model") then
