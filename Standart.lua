@@ -419,8 +419,7 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 	end
 end)
 
-local NoCollideForOther = Players.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков")
-
+local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков")
 RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		if not LocalPlayer.Character.PrimaryPart then return end
