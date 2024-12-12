@@ -536,10 +536,10 @@ end
 Player.Create(1,"Backpack","Control Backpack","Контроль рюкзака",function()
 	Backpack.OpenGroup()
 end)
-local enabled = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
+local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
 local Power = 100000
 RunService.PostSimulation:Connect(function()
-    if enabled.Value then
+    if walkfling.Value then
         local char = LocalPlayer.Character
         if char then
             local HRP = char.PrimaryPart
