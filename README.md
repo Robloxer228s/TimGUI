@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+12.12.24 - added walk fling + can collide for other players
+
 29.11.24 - added new game "Imposible Squid Game! Glass bridge"
 
 28.11.24 - update MM2
