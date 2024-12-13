@@ -435,7 +435,7 @@ RunService.RenderStepped:connect(function()
 	end if NoCollideForOther.Value then
         for k,v in pairs(game.Players:GetPlayers()) do
             if v ~= LocalPlayer then
-		if i.Character then
+		if v.Character then
 	                for _,i in pairs(v.Character:GetChildren()) do
 	                    if i:IsA("BasePart") then
 	                        i.CanCollide = false
