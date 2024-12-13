@@ -550,7 +550,15 @@ Player.Create(1,"Backpack","Control Backpack","Контроль рюкзака",
 	Backpack.OpenGroup()
 end)
 local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
-local Power = 100000
+local OldPowerWF = 100000
+local Power = OldPowerWF
+local walkfling = Player.Create(2,"MegaWalkFling","Mega Power for Walkfling","Супер сила для отпуливателя",function(val)
+    if val.Value then
+        Power = 10000000000000000000000
+    else
+        Power = OldPowerWF
+    end
+end) 
 RunService.PostSimulation:Connect(function()
     if walkfling.Value then
         local char = LocalPlayer.Character
