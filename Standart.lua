@@ -349,7 +349,15 @@ local DOMK = Map.Create(2,"DontOutMapKill","No kill out map","Не убивай 
 		game.Workspace.FallenPartsDestroyHeight = DefaultFPDH
 	end
 end)
-
+-- Other --
+Map.Create(0,"TittleOther","Other","Другие")
+Map.Create(1,"NCFA","No collide for all","Убрать косания каждому",function()
+    for k,v in pairs(game.Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            v.CanCollide = false
+        end
+    end
+end)
 -- Player ------------------------------------------
 local Player = _G.TimGui.Groups.CreateNewGroup("Player","Игрок")
 
@@ -813,7 +821,7 @@ end)
 local function StartFly(val)
 	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,(not val) or SeatOnFly.Value)
 	if UsePS.Value then
-		LocalPlayer.Character.Humanoid.PlatformStand = val
+		LocalPlayer.Character.Humanoid.PlatformStand = val or (not SeatOnFly.Value and not LocalPlayer.Character.Humanoid.Sit)
 	else
 		LocalPlayer.Character.Animate.Enabled = not val
 		if not val then
