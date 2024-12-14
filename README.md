@@ -117,7 +117,7 @@ Washing simulator
 
 # Credits:
 
-Fly - infinity Yeld and fly GUI v3
+Fly,Walkfling(i'm rewrite) - infinity Yeld
 
 Noclip - Noname gui with one button
 
