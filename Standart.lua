@@ -612,27 +612,25 @@ Player.Objects.InvisFly.Main.Value = false
 wait(0.1)
 end
 local nowe = not Fly.Value
-	if nowe == true then
-		nowe = false
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
-		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
-		if bv then bv:Destroy() end
-		if bg then bg:Destroy() end
-	else 
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,nowe)
+	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+	LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+	if bv then bv:Destroy() end
+	if bg then bg:Destroy() end
+	if Fly.Value then
 		nowe = true
 		local speeds = tonumber(speed.Main.Text)
 		if speeds == nil then
@@ -657,21 +655,6 @@ local nowe = not Fly.Value
 		for i,v in next, Hum:GetPlayingAnimationTracks() do
 			v:AdjustSpeed(0)
 		end
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
 		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
 	end
 
@@ -694,7 +677,7 @@ local nowe = not Fly.Value
 		if nowe == true then
 			plr.Character.Humanoid.PlatformStand = true
 		end
-		while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
+		while Fly.Value or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
 			RunService.RenderStepped:Wait()
 			if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
 				speed = speed+.5+(speed/maxspeed)
@@ -745,7 +728,7 @@ local nowe = not Fly.Value
 		if nowe == true then
 			plr.Character.Humanoid.PlatformStand = true
 		end
-		while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
+		while Fly.Value or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
 			wait()
 
 			if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
