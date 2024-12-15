@@ -385,13 +385,9 @@ local function SetWSNewChar(char)
 	end)
 end
 LocalPlayer.CharacterAdded:Connect(SetWSNewChar)
-local ii = Instance.new("BoolValue")
-ii.Changed:Connect(function()
+task.spawn(function()
     SetWSNewChar(LocalPlayer.Character)
 end)
-ii.Value = true
-wait()
-ii:Destroy()
 
 local JumpPower = Player.Create(3,"JumpPower","JumpPower:","Сила прыжка:")
 Player.Create(1,"SetJump","Set JumpPower","Установить силу прыжка",function()
