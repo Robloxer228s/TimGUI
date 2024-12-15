@@ -839,7 +839,7 @@ end)
 local function StartFly(val)
 	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,(not val) or SeatOnFly.Value)
 	if UsePS.Value then
-		LocalPlayer.Character.Humanoid.PlatformStand = val or (not SeatOnFly.Value and not LocalPlayer.Character.Humanoid.Sit)
+		LocalPlayer.Character.Humanoid.PlatformStand = not (not val or (SeatOnFly.Value and LocalPlayer.Character.Humanoid.Sit))
 	else
 		LocalPlayer.Character.Animate.Enabled = not val
 		if not val then
