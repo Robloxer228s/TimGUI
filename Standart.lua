@@ -372,17 +372,22 @@ local function SetWSNewChar(char)
 	char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
 		if char.Humanoid.MoveDirection == Stand then
 			if MoveSetter then MoveSetter:Disconnect() end
+            		MoveSetter = nil
 		elseif not MoveSetter and Setter.Value then
-            print(1)
 			MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 				if Setter.Value then
-                    char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
-                end
+                    			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
+                		end
 			end)
 			wait()
 			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
 		end
 	end)
+	while task.wait(0.5) do
+		if Setter.Value then
+			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
+		end
+	end
 end
 LocalPlayer.CharacterAdded:Connect(SetWSNewChar)
 task.spawn(function()
