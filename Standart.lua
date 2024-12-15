@@ -462,7 +462,25 @@ local NoT = Player.Create(2,"Notouch","No CanTouch","Убрать косания
 		end
 	end
 end)
-
+local AnimSpeed = Player.Create(3,"AnimSpeed1","Speed for animation:","Скорость анимации:")
+local AnimSpeedEnabled = Player.Create(2,"AnimSpeedEnabled1","Enable speed for animation","Включить скорость анимации")
+RunService.RenderStepped:Connect(function()
+    if AnimSpeedEnabled.Value then
+        local char = LocalPlayer.Character
+        local animator = char:FindFirstChildOfClass("Humanoid")
+        if animator then
+            animator = animator:FindFirstChildOfClass("Animator")
+            if animator then
+                local speed = tonumber(AnimSpeed.Value)
+                if speed ~= nil then
+                    for _,v in pairs(animator:GetPlayingAnimationTracks()) do
+                        v:AdjustSpeed(speed)
+                    end
+                end
+            end
+        end
+    end
+end)
 local NoA = Player.Create(2,"NoAnim","No animate","Убрать анимации",function(val)
 	LocalPlayer.Character.Animate.Enabled = not val.Value
 end)
