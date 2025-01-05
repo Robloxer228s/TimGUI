@@ -981,13 +981,17 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 	Fly.Main.Value = false
 	MyFly.Main.Value = false
 	Spin.Main.Value = false
-	InvisiblePlayer.Main.Value = false
+	if not script:FindFirstChild(LocalPlayer.Name) then	
+		InvisiblePlayer.Main.Value = false
+	end
 	wait(0.1)
 	NoA.Main.Value = NoAV
 	NoT.Main.Value = NoTV
 	Fly.Main.Value = FlyV
 	MyFly.Main.Value = MyFlyV
-	InvisiblePlayer.Main.Value = invis
+	if not script:FindFirstChild(LocalPlayer.Name) then	
+		InvisiblePlayer.Main.Value = invis
+	end
 	wait(0.1)
 	Spin.Main.Value = SpinV
 end)
