@@ -600,6 +600,63 @@ RunService.PostSimulation:Connect(function()
         end
     end
 end)
+local InvisiblePlayer = Player.Create(2,"InvisiblePlayer2","Invisible","Невидимость",function(val)
+	local char = LocalPlayer.Character
+	if char:FindFirstChildOfClass("Humanoid").RigType.Name == "R15" then
+        if val.Value then
+            _G.TimGui.Print("R15","Touch don't work","R15","Косания не работают")
+            char.Archivable = true
+            local newchar = char:Clone()
+            char.PrimaryPart.CFrame = CFrame.new(0,1000000,0)
+            wait(LocalPlayer:GetNetworkPing()+0.25)
+            LocalPlayer.Character = newchar
+            newchar.Parent = char.Parent
+            char.Parent = game.Lighting
+            newchar:FindFirstChildOfClass("Humanoid").Died:Connect(function()
+		local value = val.Value
+                val.Main.Value = false
+		wait()
+		val.Main.Value = value
+            end)
+        else
+            local oldChar = game.Lighting:FindFirstChild(LocalPlayer.Name)
+            if oldChar then
+                oldChar.Parent = char.Parent
+                char:Destroy()
+                LocalPlayer.Character = oldChar
+            else
+                _G.TimGui.Print("visible","Your character not found","Видимость","Твой персонаж не найден")
+            end
+        end
+	else
+		if val.Value then
+            _G.TimGui.Print("R6","Touch work","R6","Косания работают")
+			local oldHRP = char.HumanoidRootPart
+			local pos = oldHRP.CFrame
+			local newHRP = oldHRP:Clone()
+			oldHRP.CFrame = CFrame.new(0,1000000,0)
+			wait(LocalPlayer:GetNetworkPing()+0.25)
+			oldHRP.Name = "HRP"
+			newHRP.Parent = char
+		else
+			local HRP = char:FindFirstChild("HRP")
+			local HumRP = char:FindFirstChild("HumanoidRootPart")
+			if HRP and HumRP then
+				HRP.Name = "HumanoidRootPart"
+				HumRP:Destroy()
+			end
+		end
+	end
+    for _,v in pairs(LocalPlayer.Character:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "HRP" then
+            if val.Value then
+                v.Transparency = 0.5
+            else
+                v.Transparency = 0
+            end
+        end
+    end
+end)
 -- Fly ----
 Player.Create(0,"FlyTittle","Fly","Полёт")
 local speed = Player.Create(3,"FlyNMS","Fly speed:","Скорость полёта:")
@@ -908,17 +965,20 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 	local FlyV = Fly.Value
 	local MyFlyV = MyFly.Value
 	local SpinV = Spin.Value
+	local invis = InvisiblePlayer.Value
 	char:WaitForChild("HumanoidRootPart")
 	NoA.Main.Value = false
 	NoT.Main.Value = false
 	Fly.Main.Value = false
 	MyFly.Main.Value = false
 	Spin.Main.Value = false
+	InvisiblePlayer.Main.Value = false
 	wait(0.1)
 	NoA.Main.Value = NoAV
 	NoT.Main.Value = NoTV
 	Fly.Main.Value = FlyV
 	MyFly.Main.Value = MyFlyV
+	InvisiblePlayer.Main.Value = invis
 	wait(0.1)
 	Spin.Main.Value = SpinV
 end)
