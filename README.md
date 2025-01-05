@@ -12,7 +12,7 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
-05.01.25 - new year, invisible player
+05.01.25 - new year, invisible player + new game: "Musically chira"
 
 14.12.24 - added no collide for map + fix fly with sit
 
@@ -93,7 +93,7 @@ Zooo
 
 The Door 🚪 10M+ VISITS! 
 
-Obby Leader
+[Obby Leader](https://www.roblox.com/share?code=98d8aff63a0e434da939c26483f902d6&type=ExperienceDetails&stamp=1736109493032)
 
 Rainbow Friends -- not tested
 
@@ -115,7 +115,13 @@ Zombie Attack
 
 Washing simulator
 
+Cart ride into rdite
+
+[Cart + Car ride into GigaNoob](https://www.roblox.com/share?code=6b1c965025d9cc47b5579a6b7bfe980e&type=ExperienceDetails&stamp=1736109529864)
+
 [Imposible Squid Game! Glass bridge](https://www.roblox.com/share?code=5233ee6b5386f14cb0cfcd61469e7031&type=ExperienceDetails&stamp=1732876371319)
+
+[Musically chair](https://www.roblox.com/share?code=2337aebe00178e4eaea0d768769c9331&type=ExperienceDetails&stamp=1736109459355)
 
 # Credits:
 
