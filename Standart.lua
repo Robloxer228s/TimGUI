@@ -603,29 +603,38 @@ end)
 local InvisiblePlayer = Player.Create(2,"InvisiblePlayer2","Invisible","Невидимость",function(val)
 	local char = LocalPlayer.Character
 	if char:FindFirstChildOfClass("Humanoid").RigType.Name == "R15" then
-        if val.Value then
-            _G.TimGui.Print("R15","Touch don't work","R15","Косания не работают")
-            char.Archivable = true
-            local newchar = char:Clone()
-            char.PrimaryPart.CFrame = CFrame.new(0,1000000,0)
-            wait(LocalPlayer:GetNetworkPing()+0.25)
-            LocalPlayer.Character = newchar
-            newchar.Parent = char.Parent
-            char.Parent = game.Lighting
-            newchar:FindFirstChildOfClass("Humanoid").Died:Connect(function()
-		local value = val.Value
-                val.Main.Value = false
-		wait()
-		val.Main.Value = value
-            end)
-        else
-            local oldChar = game.Lighting:FindFirstChild(LocalPlayer.Name)
-            if oldChar then
-                oldChar.Parent = char.Parent
-                char:Destroy()
-                LocalPlayer.Character = oldChar
-            else
-                _G.TimGui.Print("visible","Your character not found","Видимость","Твой персонаж не найден")
+        	if val.Value then
+	            _G.TimGui.Print("R15","Touch don't work","R15","Косания не работают")
+	            char.Archivable = true
+	            local newchar = char:Clone()
+	            char.PrimaryPart.CFrame = CFrame.new(0,1000000,0)
+	            wait(LocalPlayer:GetNetworkPing()+0.25)
+	            LocalPlayer.Character = newchar
+	            newchar.Parent = char.Parent
+	            char.Parent = script
+	            newchar:FindFirstChildOfClass("Humanoid").Died:Connect(function()
+	                local value = val.Value
+	                val.Main.Value = false
+	                wait(0.5)
+	                val.Main.Value = value
+	            end)
+        	else
+	            local oldChar = script:FindFirstChild(LocalPlayer.Name) or script:FindFirstChildOfClass("Model")
+	            if oldChar then
+	                local pos = char.PrimaryPart.CFrame
+	                oldChar.Parent = char.Parent
+	                LocalPlayer.Character = oldChar
+	                oldChar.PrimaryPart.CFrame = pos
+	                char:Destroy()
+	                game.Workspace.CurrentCamera.CameraSubject = oldChar:FindFirstChild("Humanoid")
+	                local anim = oldChar:FindFirstChild("Animate")
+	                if anim then
+	                    anim.Enabled = false
+	                    wait()
+	                    anim.Enabled = true
+	                end
+            		else
+                		_G.TimGui.Print("visible","Your character not found","Видимость","Твой персонаж не найден")
             end
         end
 	else
