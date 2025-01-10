@@ -14,6 +14,7 @@ _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
 _G.TimGui.Colors = {}
 _G.TimGui.Path = {}
+_G.TimGui.Keybinds = {}
 
 --_G.TimGui.Values.x2 = false
 _G.TimGui.Values.Spare = {}
@@ -222,27 +223,33 @@ AddTB.LeftControl = {ShortName="LCtrl", Pressed=false}
 AddTB.RightControl = {ShortName="RCtrl", Pressed=false}
 AddTB.LeftAlt = {ShortName="LAlt", Pressed=false}
 AddTB.RightAlt = {ShortName="RAlt", Pressed=false}
+_G.TimGui.Keybinds.GetTable = function() return table.clone(Keybinds) end
+
+_G.TimGui.Keybinds.Set = function(Button,Key)
+	local GB = Button.Parent.Name .. "." .. Button.Object.Name
+	for b,v in pairs(Keybinds) do
+		for k,v in pairs(v) do 
+			if k == GB then
+				Keybinds[b][k] = nil
+				Button.Object.Keybind.Text = ""
+			end
+		end
+		if Key ~= "" and Key ~= nil then
+			Button.Object.Keybind.Text = Key
+			if Button.Type == 1 then
+				Keybinds[Key][GB] = Button.EmulateClick
+			elseif Button.Type == 2 then
+				Keybinds[Key][GB] = Button.ChangeValue
+			end
+		end
+	end
+end
+
 local function NewButton(Button)
 	if SelectKeybind.YN ~= nil then return end
 	SelectKeybind.Key = ""
-	SelectKeybind.GB = Button.Parent.Name .. "." .. Button.Object.Name
 	SelectKeybind.YN = _G.TimGui.askYN("Select a key","Key is not selected","Выбери клавишу","Клавиша не выбрана",function()
-		for b,v in pairs(Keybinds) do
-			for k,v in pairs(v) do 
-				if k == SelectKeybind.GB then
-					Keybinds[b][k] = nil
-					Button.Object.Keybind.Text = ""
-				end
-			end
-		end
-		if SelectKeybind.Key ~= "" then
-			Button.Object.Keybind.Text = SelectKeybind.Key
-			if Button.Type == 1 then
-				Keybinds[SelectKeybind.Key][SelectKeybind.GB] = Button.EmulateClick
-			elseif Button.Type == 2 then
-				Keybinds[SelectKeybind.Key][SelectKeybind.GB] = Button.ChangeValue
-			end
-		end
+		_G.TimGui.Keybinds.Set(Button,SelectKeybind.Key)
 		SelectKeybind = {}
 	end,function()
 		SelectKeybind = {}
