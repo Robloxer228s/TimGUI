@@ -579,7 +579,7 @@ end)
 -- WalkFling----
 local WFSettings = _G.TimGui.Groups.CreateNewGroup("WFSettings")
 local WFChanges = {}
-WFSettigs.Visible = false
+WFSettings.Visible = false
 WFSettings.Create(1,"SettingsWF","Settings for walkfling","Настройки для отпуливателя",function() WFSettings.OpenGroup() end)
 WFSettings.Create(0,"PowersTittle","Powers for walkfling","Силы для отпуливателя")
 local Power = 100000
