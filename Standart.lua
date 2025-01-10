@@ -28,6 +28,7 @@ end)
 local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
 enable.Main.Value = true
 local all = clopGroup.Create(2,"All","Enable for all(disabled for friends)","Включить для всех(выключенный для друзей)")
+all.CFGSave = true
 local function clopFunct(who,i)
      if i == game.Players.LocalPlayer.Name or i == "all" then
           if not enable.Value then return end
@@ -245,6 +246,7 @@ local AlightRotation = Instance.new("AlignOrientation",AlightFolder)
 AlightObjectValue = Map.Create(2,"PTM","Pin selected to you","Прикрепить выбранное в тебя")
 local ParentAOCam = AnticheatGroup.Create(2,"PTMParentCam","Use parent cam to pin","Использовать камеру для прикрепления")
 ParentAOCam.Main.Value = true
+ParentAOCam.CFGSave = true
 
 AlightFolder.Name = "VeryImportandFolder"
 AlightPosition.MaxForce = math.huge
@@ -349,6 +351,7 @@ local DOMK = Map.Create(2,"DontOutMapKill","No kill out map","Не убивай 
 		game.Workspace.FallenPartsDestroyHeight = DefaultFPDH
 	end
 end)
+DOMK.CFGSave = true
 -- Other --
 Map.Create(0,"TittleOther","Other","Другие")
 Map.Create(1,"NCFA","No collide for all","Убрать косания каждому",function()
@@ -580,7 +583,7 @@ end)
 local WFSettings = _G.TimGui.Groups.CreateNewGroup("WFSettings")
 local WFChanges = {}
 WFSettings.Visible = false
-WFSettings.Create(1,"SettingsWF","Settings for walkfling","Настройки для отпуливателя",function() WFSettings.OpenGroup() end)
+Player.Create(1,"SettingsWF","Settings for walkfling","Настройки для отпуливателя",function() WFSettings.OpenGroup() end)
 WFSettings.Create(0,"PowersTittle","Powers for walkfling","Силы для отпуливателя")
 local Power = 100000
 local function ChangerPWF(val)
@@ -632,6 +635,9 @@ local YWFP = WFSettings.Create(3,"Y","Y:","Y:")
 local ZWFP = WFSettings.Create(3,"Z","Z:","Z:")
 WFChanges[4] = WFSettings.Create(2,"SetCP","Set Custom Pos","Установить свою позицию",function(val) ChangerPWF(val) end)
 WFChanges[1].Main.Value = true
+for _,v in pairs(WFChanges) do
+	v.CFGSave = true
+end
 local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
 RunService.PostSimulation:Connect(function()
     if walkfling.Value then
@@ -905,6 +911,10 @@ local ParentCamera = AnticheatGroup.Create(2,"FlyUParentCamera","Use camera for 
 ParentCamera.Main.Value = true
 UsePS.Main.Value = true
 safeInvisFly.Main.Value = true
+safeInvisFly.CFGSave = true
+UsePS.CFGSave = true
+ParrentCamera.CFGSave = true
+SeatOnFly.CFGSave = true
 
 Pos.CanCollide = false
 Pos.Anchored = true
@@ -1051,6 +1061,8 @@ end)
 local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
 local ESPV = ESPG.Create(2,"ESPV","ESP-main","Стандартная подсветка")
 local ESPTC = ESPG.Create(2,"ESPTC","Use team color(ESP-main)","Использовать цвет команды")
+ESPTC.Main.Value = true
+ESPTC.CFGSave = true
 
 local function SetESP(player)
 	if ESPV.Value and player ~= LocalPlayer then
@@ -1315,6 +1327,8 @@ end
 local Chat = _G.TimGui.Groups.CreateNewGroup("Chat","Чат")
 local SpaceEn = Chat.Create(2,"EnableSpaces","Enable {System}","Включить {System}")
 local Spaces = "																																			  {System}: "
+SpaceEn.CFGSave = true
+SpaceEn.Visible = false
 local function Send(Message)
 	local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
 	if SpaceEn.Value then
