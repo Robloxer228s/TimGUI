@@ -576,15 +576,62 @@ end
 Player.Create(1,"Backpack","Control Backpack","Контроль рюкзака",function()
 	Backpack.OpenGroup()
 end)
-local OldPowerWF = 100000
-local Power = OldPowerWF
-Player.Create(2,"MegaWalkFling","Mega Power for Walkfling","Супер сила для отпуливателя",function(val)
+-- WalkFling----
+local WFSettings = _G.TimGui.Groups.CreateNewGroup("WFSettings")
+local WFChanges = {}
+WFSettigs.Visible = false
+WFSettings.Create(1,"SettingsWF","Settings for walkfling","Настройки для отпуливателя",function() WFSettings.OpenGroup() end)
+WFSettings.Create(0,"PowersTittle","Powers for walkfling","Силы для отпуливателя")
+local Power = 100000
+local function ChangerPWF(val)
+    local trues = false
+    for _,v in pairs(WFChanges) do
+        if val.Value then
+            if v ~= val then
+                v.Main.Value = false
+            end
+        end
+        if v.Value then
+            trues = true
+        end
+    end
+    if not trues then
+        WFChanges[1].Main.Value = true
+    end
+end
+WFChanges[1] = WFSettings.Create(2,"DefPower","Default Power","Стандартная сила",function(val)
+    if val.Value then
+        Power = 100000
+    end
+    ChangerPWF(val)
+end)
+WFChanges[2] = WFSettings.Create(2,"MegaWalkFling","Set Mega Power","Поставить супер силу",function(val)
     if val.Value then
         Power = 10000000000000000000000
-    else
-        Power = OldPowerWF
     end
-end) 
+    ChangerPWF(val)
+end)
+local PowerValue = WFSettings.Create(3,"PVCustom","Custom(example:100000):","Своя(например:100000):")
+WFChanges[3] = WFSettings.Create(2,"CustomSet","Set Custom Power","Поставить Свою силу",function(val)
+    if val.Value then
+        local CustomPower = tonumber(PowerValue.Value)
+        if CustomPower then
+            Power = CustomPower
+            ChangerPWF(val)
+        else
+            _G.TimGui.Print("WalkFling","Custom power not a number","ОтпуливателЬ","Твоя сила не число")
+            val.Main.Value = false
+        end
+    else
+        ChangerPWF(val)
+    end
+end)
+WFSettings.Create(0,"PositionTittle","Custom position","Своя позиция")
+local XWFP = WFSettings.Create(3,"X","X:","X:")
+local YWFP = WFSettings.Create(3,"Y","Y:","Y:")
+local ZWFP = WFSettings.Create(3,"Z","Z:","Z:")
+WFChanges[4] = WFSettings.Create(2,"SetCP","Set Custom Pos","Установить свою позицию",function(val) ChangerPWF(val) end)
+WFChanges[1].Main.Value = true
 local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
 RunService.PostSimulation:Connect(function()
     if walkfling.Value then
@@ -593,7 +640,11 @@ RunService.PostSimulation:Connect(function()
             local HRP = char.PrimaryPart
             if HRP then
                 local velocity = HRP.Velocity
-                HRP.Velocity = (velocity + Vector3.new(0,5,0)) *Power
+                if not WFChanges[4].Value then
+                    HRP.Velocity = (velocity + Vector3.new(0,5,0)) *Power
+                else
+                    HRP.Velocity = Vector3.new(XWFP.Value,YWFP.Value,ZWFP.Value)
+                end
                 RunService.RenderStepped:Wait()
                 HRP.Velocity = velocity
             end
