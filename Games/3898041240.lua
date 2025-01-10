@@ -1,4 +1,5 @@
 -- Obby leader
+local LocalPlayer = game.Players.LocalPlayer
 local group = _G.TimGui.Groups.CreateNewGroup("Leader", "Лидер") 
 local leader = function()
 for k, v in pairs(game.Players:GetChildren()) do
@@ -11,7 +12,7 @@ end
 
 
 group.Create(1,"Touch","TP to leader","ТП к лидеру",function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
+LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end)
 
 group.Create(1,"GetAllMoney","Get All Money","Собрать все монетки",function()
@@ -34,17 +35,17 @@ local autogeter = group.Create(2,"AutoGet","Auto Get Money","Брать моне
 
 while true do
 wait(0.05) 
-if not game.Players.LocalPlayer.Character then continue end
-if not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then continue end
+if not LocalPlayer.Character then continue end
+if not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then continue end
 if ATP.Value then
 local lead = leader()
 if lead then
 if not lead:FindFirstChild("HumanoidRootPart") then continue end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
+LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end
 end 
 if boostEn.Value then
-    game.Players.LocalPlayer.PlayerGui.StayOnScreen.Boost.Visible =  true
+    LocalPlayer.PlayerGui.StayOnScreen.Boost.Visible =  true
 end
 if autogeter.Value then
   local pos = LocalPlayer.Character.PrimaryPart.CFrame
