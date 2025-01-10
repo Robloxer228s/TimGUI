@@ -14,7 +14,7 @@ group.Create(1,"Touch","TP to leader","ТП к лидеру",function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end)
 
-leader.Create(1,"GetAllMoney","Get All Money","Собрать все монетки",function()
+group.Create(1,"GetAllMoney","Get All Money","Собрать все монетки",function()
     local pos = LocalPlayer.Character.PrimaryPart.CFrame
     for k,v in pairs(game.Workspace.ClearAfterRound:GetChildren()) do
         if v.Name == "Coin" then
