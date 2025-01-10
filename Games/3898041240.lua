@@ -48,6 +48,7 @@ if boostEn.Value then
     LocalPlayer.PlayerGui.StayOnScreen.Boost.Visible =  true
 end
 if autogeter.Value then
+  if not LocalPlayer.Character.PrimaryPart then continue end
   local pos = LocalPlayer.Character.PrimaryPart.CFrame
     for k,v in pairs(game.Workspace.ClearAfterRound:GetChildren()) do
         if v.Name == "Coin" then
