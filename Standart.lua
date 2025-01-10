@@ -913,7 +913,7 @@ UsePS.Main.Value = true
 safeInvisFly.Main.Value = true
 safeInvisFly.CFGSave = true
 UsePS.CFGSave = true
-ParrentCamera.CFGSave = true
+ParentCamera.CFGSave = true
 SeatOnFly.CFGSave = true
 
 Pos.CanCollide = false
