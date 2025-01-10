@@ -743,6 +743,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 		elseif typ == 2 then
 			local Value = Instance.new("BoolValue",Object)
 			Obj.Main = Value
+			Obj.CFGSave = false
 			Value.Changed:Connect(function()
 				Obj.Value = Value.Value
 				local goal = {}
@@ -799,6 +800,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				Value.Position = UDim2.new(0.5,0,0,0)
 				Value.Text = ""
 				Obj.Main = Value
+				Obj.CFGSave = true
 				Value:GetPropertyChangedSignal("Text"):Connect(function()
 					Obj.Value = Value.Text
 					local emul = Instance.new("BoolValue")
