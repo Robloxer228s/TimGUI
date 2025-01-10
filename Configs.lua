@@ -55,9 +55,11 @@ if _G.TimGui.Saves.Enabled then
 					local groupsave = save[gn] or {}
 					local adding = false
 					for on,obj in pairs(g.Objects) do
-						if obj.Type == 3 then
-							groupsave[tostring(on)] = obj.Value
-							adding = true
+						if obj.CFGSave then
+							if obj.Type == 3 or obj.Type == 2 then
+								groupsave[tostring(on)] = obj.Value
+								adding = true
+							end
 						end
 					end
 					if adding then
@@ -76,8 +78,12 @@ if _G.TimGui.Saves.Enabled then
 				if LoadGroup ~= nil then
 					for k,v in pairs(LoadGroup.Objects) do
 						if tab[k] ~= nil then
-							if v.Type == 3 then
-								v.Main.Text = tab[k]
+							if v.CFGSave then
+								if v.Type == 3 then
+									v.Main.Text = tab[k]
+								elseif v.Type == 2 then
+									v.Main.Value = tab[k]
+								end
 							end
 						end
 					end
