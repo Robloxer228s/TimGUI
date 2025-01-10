@@ -14,9 +14,23 @@ group.Create(1,"Touch","TP to leader","ТП к лидеру",function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = leader().HumanoidRootPart.CFrame
 end)
 
+leader.Create(1,"GetAllMoney","Get All Money","Собрать все монетки",function()
+    local pos = LocalPlayer.Character.PrimaryPart.CFrame
+    for k,v in pairs(game.Workspace.ClearAfterRound:GetChildren()) do
+        if v.Name == "Coin" then
+            if v.Union.Transparency == 0 then
+                LocalPlayer.Character.PrimaryPart.CFrame = v.Union.CFrame
+                wait()
+            end
+        end
+    end
+    LocalPlayer.Character.PrimaryPart.CFrame = pos
+end)
+
 local ATP =  group.Create(2,"AutoTP","AutoTP to leader","АвтоТП к лидеру")
 
 local boostEn = group.Create(2,"VisibleBoost","Set visible for boost","Делать усиление видимым")
+local autogeter = group.Create(2,"AutoGet","Auto Get Money","Брать монеты автоматом")
 
 while true do
 wait(0.05) 
@@ -32,4 +46,16 @@ end
 if boostEn.Value then
     game.Players.LocalPlayer.PlayerGui.StayOnScreen.Boost.Visible =  true
 end
+if autogeter.Value then
+  local pos = LocalPlayer.Character.PrimaryPart.CFrame
+    for k,v in pairs(game.Workspace.ClearAfterRound:GetChildren()) do
+        if v.Name == "Coin" then
+            if v.Union.Transparency == 0 then
+                LocalPlayer.Character.PrimaryPart.CFrame = v.Union.CFrame
+                wait()
+            end
+        end
+    end
+    LocalPlayer.Character.PrimaryPart.CFrame = pos
+  end
 end
