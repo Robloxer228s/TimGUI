@@ -80,6 +80,7 @@ if _G.TimGui.Saves.Enabled then
 				keysSave[k] = key
 			end
 			writefile(pathKeys..selected,HttpService:JSONEncode(keysSave))
+			_G.TimGui.Print("Configs","Saved","Конфигурации","Сохранено")
 		else
 			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
 		end
