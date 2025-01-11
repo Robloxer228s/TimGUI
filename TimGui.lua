@@ -1043,6 +1043,10 @@ local RusLang = Settings.Create(2,"RusLang","Русский язык","English l
 end)
 if _G.TimGui.Saves.Enabled then
 	RusLang.Main.Value = _G.TimGui.Saves.Load("RussianLanguage") == "true"
+	if math.random(1,100) == 5 then
+		_G.TimGui.Path.Logo[1].Text = "I"
+		_G.TimGui.Path.Logo[3].Text = "Cura"
+	end
 else
 	local tmp = game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru"
 	if os.date("%H",0) or tmp then
@@ -1189,6 +1193,7 @@ end)
 PrintTimeT.Main.Text = 2.5
 local PrintEnable = Settings.Create(2,"PrintEnable","Enable messages","Включить уведомления")
 PrintEnable.Main.Value = true
+PrintEnable.CFGSave = true
 local stroke = 5
 local size = 250
 _G.TimGui.Print = function(Zag,Txt,ZagRus,TxtRus)
