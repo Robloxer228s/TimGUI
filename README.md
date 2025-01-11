@@ -73,7 +73,7 @@ P.S: day.month.year
 # Suported Games:
 Tower of hell -- Dont work
 
-Murder Mystory 2
+[Murder Mystory 2](https://www.roblox.com/share?code=30095ada9095784a9722ce4419735b55&type=ExperienceDetails&stamp=1736553373981)
 
 Break in 
 
@@ -81,25 +81,25 @@ Break in 2
 
 Froggy 
 
-Build A Boat For Treasure
+[Build A Boat For Treasure](https://www.roblox.com/share?code=617b329e011981488239bee67a7713d7&type=ExperienceDetails&stamp=1736553405530)
 
-Zombie lab
+[Zombie lab](https://www.roblox.com/share?code=43cf0f6737f173428ba0dcbc8bf7f623&type=ExperienceDetails&stamp=1736553431848)
 
-GET TO THE TOP!
+[GET TO THE TOP!](https://www.roblox.com/share?code=d9fc31441ce9124a9be48a84fefae1f5&type=ExperienceDetails&stamp=1736553500994)
 
-LUCKY BLOCKS Battlegrounds
+[LUCKY BLOCKS Battlegrounds](https://www.roblox.com/share?code=260a6b603b753146a96ef716ea824945&type=ExperienceDetails&stamp=1736553543086)
 
-Zooo
+[Zooo](https://www.roblox.com/share?code=b650d37cd1bc324d90e9802fbd5dae7b&type=ExperienceDetails&stamp=1736553612541)
 
 The Door 🚪 10M+ VISITS! 
 
 [Obby Leader](https://www.roblox.com/share?code=98d8aff63a0e434da939c26483f902d6&type=ExperienceDetails&stamp=1736109493032)
 
-Rainbow Friends -- not tested
+[Rainbow Friends](https://www.roblox.com/share?code=0b0ac366934f394f8a180bb83f97213d&type=ExperienceDetails&stamp=1736553680670) -- not tested
 
-Death Ball
+[Death Ball](https://www.roblox.com/share?code=4ee05f950770e34798834b7a4a3e5842&type=ExperienceDetails&stamp=1736553634801)
 
-How Many
+[How Many](https://www.roblox.com/share?code=ad4cf9b1b98eac4989574e6855fda74c&type=ExperienceDetails&stamp=1736553571715)
 
 Musically chairs -- game is deleted
 
@@ -107,13 +107,13 @@ Blocks and props
 
 Chaos Jenga
 
-Floor is lava
+[Floor is lava](https://www.roblox.com/share?code=4bfb6bf8b862cd408da588f04b6af43a&type=ExperienceDetails&stamp=1736553297734)
 
-Mega hide and seek
+[Mega hide and seek](https://www.roblox.com/share?code=ffac4d0ce7032b48879920415c180615&type=ExperienceDetails&stamp=1736553250341)
 
 Zombie Attack
 
-Washing simulator
+[Washing simulator](https://www.roblox.com/share?code=ef3263496c06dd419908b8230299f8ce&type=ExperienceDetails&stamp=1736553327964)
 
 Cart ride into rdite
 
