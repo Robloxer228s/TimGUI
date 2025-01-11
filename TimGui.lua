@@ -1112,7 +1112,7 @@ task.spawn(function()
         wait(KD)
         if AllTP.Value then
             for k,v in pairs(game.Players:GetPlayers()) do
-                if not _G.TimGui.Values.Spare[v.Name] then
+                if not _G.TimGui.Values.Spare[v.Name] and v ~= LocalPlayer then
                     AutoTPto = v.Name
                     AutoTP.Text = "Auto TP to "..AutoTPto
                     AutoTP.RusText = "Авто ТП к "..AutoTPto
