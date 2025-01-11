@@ -226,6 +226,9 @@ AddTB.RightAlt = {ShortName="RAlt", Pressed=false}
 _G.TimGui.Keybinds.GetTable = function() return table.clone(Keybinds) end
 
 _G.TimGui.Keybinds.Set = function(Button,Key)
+	if Keybinds[Button] == nil then
+		Keybinds[Button] = {}
+	end
 	local GB = Button.Parent.Name .. "." .. Button.Object.Name
 	for b,v in pairs(Keybinds) do
 		for k,v in pairs(v) do 
@@ -290,9 +293,6 @@ game:GetService("UserInputService").InputBegan:Connect(function(input,focus)
 					tmp.Value = true
 				end
 			else
-				if Keybinds[button] == nil then
-					Keybinds[button] = {}
-				end
 				SelectKeybind.Key = button
 				if _G.TimGui.Values.RusLang then
 					SelectKeybind.YN.text.Text = "Выбранная клавиша: "..button
