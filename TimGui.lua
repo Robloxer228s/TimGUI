@@ -1104,7 +1104,7 @@ end)
 TPTP.Create(0,"AllTpTittle","All TP","ТП ко всем")
 local AllTpCouldown = TPTP.Create(3,"AllTpCD","All tp time:","КД при тп ко всем:")
 local AllTP = TPTP.Create(2,"AllTp","All TP","ТП ко всем",function(val)
-    AutoTP.Value = val.Value
+    AutoTP.Main.Value = val.Value
 end)
 task.spawn(function()
     while true do
@@ -1113,7 +1113,7 @@ task.spawn(function()
         if AllTP.Value then
             for k,v in pairs(game.Players:GetPlayers()) do
                 if not _G.TimGui.Values.Spare[v.Name] then
-                    AutoTPto = n
+                    AutoTPto = v
                     AutoTP.Text = "Auto TP to "..AutoTPto
                     AutoTP.RusText = "Авто ТП к "..AutoTPto
                     wait(KD)
