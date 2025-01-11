@@ -1101,6 +1101,27 @@ end)
 TPTP.Create(1,6,"Offset","Смещение",function()
 	TPoff.OpenGroup()
 end)
+TPTP.Create(0,"AllTpTittle","All TP","ТП ко всем")
+local AllTpCouldown = TPTP.Create(3,"AllTpCD","All tp time:","КД при тп ко всем:")
+local AllTP = TPTP.Create(2,"AllTp","All TP","ТП ко всем",function(val)
+    AutoTP.Value = val.Value
+end)
+task.spawn(function()
+    while true do
+        local KD = tonumber(AllTpCouldown.Value) or 1
+        wait(KD)
+        if AllTP.Value then
+            for k,v in pairs(game.Players:GetPlayers()) do
+                if not _G.TimGui.Values.Spare[v.Name] then
+                    AutoTPto = n
+                    AutoTP.Text = "Auto TP to "..AutoTPto
+                    AutoTP.RusText = "Авто ТП к "..AutoTPto
+                    wait(KD)
+                end
+            end
+        end
+    end
+end)
 TPTP.Create(0,7,"Players","Игроки")
 local function AddedPlayer(v)
 	local n = v.Name
