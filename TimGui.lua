@@ -226,8 +226,8 @@ AddTB.RightAlt = {ShortName="RAlt", Pressed=false}
 _G.TimGui.Keybinds.GetTable = function() return table.clone(Keybinds) end
 
 _G.TimGui.Keybinds.Set = function(Button,Key)
-	if Keybinds[Button] == nil then
-		Keybinds[Button] = {}
+	if Keybinds[Key] == nil then
+		Keybinds[Key] = {}
 	end
 	local GB = Button.Parent.Name .. "." .. Button.Object.Name
 	for b,v in pairs(Keybinds) do
