@@ -15,6 +15,7 @@ local addingClass = {}
 addingClass.Highlight = {"Adornee","DepthMode","Enabled","FillColor","FillTransparency","OutlineColor","OutlineTransparency"}
 local ClassProperties do
 	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
+	print(2)
 	ClassProperties = {}
 	for i = 1, #Data do
 		local Table = Data[i]
@@ -72,6 +73,13 @@ TEgui.ResetOnSpawn = false
 TEgui.Name = "TExplorer"
 TEgui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 
+local Highlight = Instance.new("Highlight",TEgui)
+Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+Highlight.FillColor = Color3.new(0.3,0.3,1)
+Highlight.FillTransparency = 0.75
+Highlight.OutlineColor = Color3.new(0.1,0.1,1)
+Highlight.OutlineTransparency = 0.1
+
 local Frame = Instance.new("Frame",TEgui)
 Frame.Size = UDim2.new(0.1,100,1,0)
 Frame.Position = UDim2.new(0.9,-100,0,0)
@@ -92,7 +100,9 @@ local function getParents(obj: Instance)
 	local parents = 0
 	local par = obj
 	while true do
-		if par.Parent == game then
+		if par.Parent == nil then
+			return -1
+		elseif par.Parent == game then
 			return parents
 		else
 			par = par.Parent
@@ -252,6 +262,7 @@ local function SelectNew(obj)
 	if SelectedTEobj then
 		SelectedTEobj.Button.BackgroundTransparency = 1
 	end
+	Highlight.Adornee = obj.Object
 	obj.Button.BackgroundTransparency = 0
 	Props:ClearAllChildren()
 	for _,v in pairs(PropListeners) do
