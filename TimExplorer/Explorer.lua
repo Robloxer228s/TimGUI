@@ -14,8 +14,7 @@ local types = {
 local addingClass = {}
 addingClass.Highlight = {"Adornee","DepthMode","Enabled","FillColor","FillTransparency","OutlineColor","OutlineTransparency"}
 local ClassProperties do
-	local Data = game.ReplicatedStorage.RemoteFunction:InvokeServer()
-	print(2)
+	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
 	ClassProperties = {}
 	for i = 1, #Data do
 		local Table = Data[i]
@@ -54,12 +53,11 @@ local ClassProperties do
 		end
 	end
 end
-wait(4)
 local guiParent = LocalPlayer.PlayerGui
 if not RunService:IsStudio() then
 	guiParent = game.CoreGui
 end
-local Images = require(script.GetImages)
+local Images = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/images.json"))
 
 local Sizes = {}
 Sizes.YObj = 25
