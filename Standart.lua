@@ -1075,69 +1075,81 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 end)
 
 -- ESP -------------------------------------------------------
+local ESP = Instance.new("Folder",_G.TimGui.Path.gui)
+local ESPB = {}
 local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
-local ESPV = ESPG.Create(2,"ESPV","ESP-main","Стандартная подсветка")
-local ESPTC = ESPG.Create(2,"ESPTC","Use team color(ESP-main)","Использовать цвет команды")
-ESPTC.Main.Value = true
-ESPTC.CFGSave = true
-
-local function SetESP(player)
-	if ESPV.Value and player ~= LocalPlayer then
-		local char = player.Character
-		local ESP = Instance.new("Highlight",char)
-		ESP.Name = "NotEsp"
-		ESP.Adornee = char
-		ESP.Archivable = true
-		ESP.Enabled = true
-		ESP.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-		ESP.FillColor = Color3.new(1,1,1)
-		if ESPTC.Value then
-			ESP.FillColor = player.TeamColor.Color
-		end
-		ESP.FillTransparency = 0.5
-		ESP.OutlineColor = ESP.FillColor
-		ESP.OutlineTransparency = 0
-	end
+local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех")
+ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды")
+ESP.Name = "NOOOOTesp"
+local function updESPpl(v)
+    local highlight = ESP:FindFirstChild(v.Name)
+    if highlight then
+        highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
+    end
 end
+local function updESP()
+    for k,v in pairs(game.Players:GetPlayers()) do
+        updESPpl(v)
+    end
+end
+local NoTeamEnabled
+for k,v in pairs(game.Teams:GetChildren()) do
+    ESPB[v] = ESPG.Create(2,v.Name,"Esp to "..v.Name,"Подсветить "..v.Name,updESP)
+    NoTeamEnabled = true
+end
+if not NoTeamEnabled then
+    ESPB["NoTeam"].Visible = false
+end
+allESP.OnChange(updESP)
+local function createHighlight(v)
+    local highlight = Instance.new("Highlight",ESP)
+    highlight.Name = v.Name
+    highlight.FillTransparency = 0.5
+    highlight.OutlineTransparency = 0
+    highlight.FillColor = v.TeamColor.Color
+    highlight.OutlineColor = highlight.FillColor
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    highlight.Adornee = v.Character
+    highlight.Enabled = false
+    updESPpl(v)
+    return highlight
+end
+local function NewPlayer(v)
+    if v ~= LocalPlayer then
+        local highlight = createHighlight(v)
+        highlight.Destroying:Connect(function()
+            wait()
+            highlight = ESP:FindFirstChild(v.Name)
+        end)
+        v.CharacterAdded:Connect(function()
+            highlight.Adornee = v.Character
+            updESPpl(v)
+        end)
+        v:GetPropertyChangedSignal("Team"):Connect(function()
+            highlight.FillColor = v.TeamColor.Color
+            highlight.OutlineColor = highlight.FillColor
+            updESPpl(v)
+        end)
+    end
+end
+for _,v in pairs(game.Players:GetPlayers()) do
+    NewPlayer(v)
+end
+game.Players.PlayerAdded:Connect(NewPlayer)
 
-ESPV.OnChange(function() 
-	for k,player in pairs(game.Players:GetChildren()) do
-		if ESPV.Value then
-			SetESP(player)
-		else
-			local ESP = player.Character:FindFirstChild("NotEsp") or player.Character:FindFirstChildOfClass("Highlight")
-			if Esp then
-				Esp:Destroy()
-			end
-		end
-	end
+game.Players.PlayerRemoving:Connect(function(v)
+    local highlight = ESP:FindFirstChild(v.Name)
+    if highlight then highlight:Destroy() end
 end)
 
-game.Players.PlayerAdded:Connect(function(player)
-	player.CharacterAdded:Connect(function(char) 
-		SetESP(player)
-	end) 
-end) 
-
-for k,player in pairs(game.Players:GetPlayers()) do
-	player.CharacterAdded:Connect(function(char) 
-		SetESP(player)
-	end)
-end
-
-ESPTC.OnChange(function() 
-	for k,player in pairs(game.Players:GetChildren()) do
-		local ESP = player.Character:FindFirstChild("NotEsp") or player.Character:FindFirstChildOfClass("Highlight")
-		if ESsP then
-			if ESPTC.Value then
-				ESP.FillColor = player.TeamColor.Color
-			else
-				ESP.FillColor = Color3.new(1,1,1)
-			end
-		end
-	end
+ESPG.Create(1,"reload","Reload ESP","Перезагрузить(при баге)",function()
+    ESP:ClearAllChildren()
+    for k,v in pairs(game.Players:GetPlayers()) do
+        if v ~= LocalPlayer then
+            createHighlight(v)
+        end
+    end
 end)
-
 -- Freeze players ---------------------------------------------------
 local FP = _G.TimGui.Groups.CreateNewGroup("Freeze players","Заморозка игроков")
 local teams = {}
