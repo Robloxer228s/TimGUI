@@ -488,7 +488,13 @@ end)
 local NoA = Player.Create(2,"NoAnim","No animate","Убрать анимации",function(val)
 	LocalPlayer.Character.Animate.Enabled = not val.Value
 end)
-
+local countingDash = Instance.new("Part")
+Player.Create(1,"Dash","Dash","Рывок",function()
+    local HRP = LocalPlayer.Character.HumanoidRootPart
+    countingDash.CFrame = HRP.CFrame
+    countingDash.Position = Vector3.new(1,1,1)
+    HRP.Velocity = (countingDash.CFrame * Vector3.new(0,50,-200))
+end)
 Player.Create(1,"Sit","Sit","Сесть",function(val)
 	LocalPlayer.Character.Humanoid.Sit = not LocalPlayer.Character.Humanoid.Sit
 end)
