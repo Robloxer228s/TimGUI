@@ -917,7 +917,8 @@ ParentCamera.CFGSave = true
 SeatOnFly.CFGSave = true
 local LV, AV, AO, Pos, FlyFolder
 local function reloadMyFly()
-	local FlyFolder = Instance.new("Folder")
+	MyFly.Main.Value = false
+	FlyFolder = Instance.new("Folder")
 	FlyFolder.Name = "VeryImportand"
 	
 	LV = Instance.new("LinearVelocity",FlyFolder)
