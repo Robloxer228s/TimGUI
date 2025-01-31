@@ -893,12 +893,6 @@ local nowe = not Fly.Value
 	end
 end)
 
-local FlyFolder = Instance.new("Folder")
-FlyFolder.Name = "VeryImportand"
-local LV = Instance.new("LinearVelocity",FlyFolder)
-local AV = Instance.new("AngularVelocity",FlyFolder)
-local AO = Instance.new("AlignOrientation",FlyFolder)
-local Pos = Instance.new("Part",FlyFolder)
 local Speed = 60
 Player.Create(3,"FlySpeedv2","Fly v2 Speed:","Скорость полёта v2:",function(val)
 	Speed = tonumber(val.Value)
@@ -921,15 +915,26 @@ safeInvisFly.CFGSave = true
 UsePS.CFGSave = true
 ParentCamera.CFGSave = true
 SeatOnFly.CFGSave = true
+local LV, AV, AO, Pos, FlyFolder
+local function reloadMyFly()
+	local FlyFolder = Instance.new("Folder")
+	FlyFolder.Name = "VeryImportand"
+	
+	LV = Instance.new("LinearVelocity",FlyFolder)
+	AV = Instance.new("AngularVelocity",FlyFolder)
+	AO = Instance.new("AlignOrientation",FlyFolder)
+	Pos = Instance.new("Part",FlyFolder)
 
-Pos.CanCollide = false
-Pos.Anchored = true
-Pos.Transparency = 1
-LV.MaxForce = math.huge
-AO.Attachment1 = Instance.new("Attachment",Pos)
-AO.RigidityEnabled = true
-AV.AngularVelocity = Vector3.new(1000,1000,1000)
-AV.MaxTorque = math.huge
+	Pos.CanCollide = false
+	Pos.Anchored = true
+	Pos.Transparency = 1
+	LV.MaxForce = math.huge
+	AO.Attachment1 = Instance.new("Attachment",Pos)
+	AO.RigidityEnabled = true
+	AV.AngularVelocity = Vector3.new(1000,1000,1000)
+	AV.MaxTorque = math.huge
+end reloadMyFly()
+Player.Create(1,"reloadFly","Reload fly v2","Перезапустить полёт",reloadMyFly)
 
 RunService.RenderStepped:Connect(function()
 	if LocalPlayer.Character then
@@ -955,6 +960,7 @@ end)
 
 local function StartFly(val)
 	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,(not val) or SeatOnFly.Value)
+	Fly.Main.Value = false 
 	if UsePS.Value then
 		LocalPlayer.Character.Humanoid.PlatformStand = not (not val or (SeatOnFly.Value and LocalPlayer.Character.Humanoid.Sit))
 	else
@@ -1008,7 +1014,11 @@ MyFly.OnChange(function(val)
 		FlyFolder.Parent = nil
 	end
 end)
-
+SeatOnFly.OnChange(function()
+	if MyFly.Value then
+		_G.TimGui.Print("Fly","Restart fly","Полёт","Перезапусти полёт")
+	end
+end)
 Fling.OnChange(function()
 	AO.Enabled = not Fling.Value
 	AV.Enabled = Fling.Value
