@@ -1094,8 +1094,11 @@ local function updESPpl(v)
         highlight.OutlineColor = highlight.FillColor
         highlight.FillColor = v.TeamColor.Color
         highlight.Adornee = v.Character
-        highlight.board.Adornee = v.Character
-        highlight.board.nick.TextColor3 = v.TeamColor.Color
+	local board = highlight:FindFirstChild("board")
+	if board then
+	        highlight.board.Adornee = v.Character
+	        highlight.board.nick.TextColor3 = v.TeamColor.Color
+	end
     end
 end
 local function updESP()
@@ -1122,65 +1125,66 @@ local function createHighlight(v)
     highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
     highlight.Adornee = v.Character
     highlight.Enabled = false
-    local board = Instance.new("BillboardGui",highlight)
-    local size = tonumber(sizeTexts.Value)
-    if not size then size = oldSizeText end
-    board.Size = UDim2.new(size,0,size/3.3,0)
-    board.Name = "board"
-    board.Adornee = v.Character
-    board.AlwaysOnTop = true
-    local name = Instance.new("TextLabel",board)
-    name.Size = UDim2.new(1,0,0.6,0)
-    name.BackgroundTransparency = 1
-    name.TextStrokeTransparency = 0
-    name.TextColor3 = v.TeamColor.Color
-    name.TextScaled = true
-    name.Text = v.Name
-    name.Name = "nick"
-    local dist = Instance.new("TextLabel",board)
-    dist.Size = UDim2.new(0.6,0,0.4,0)
-    dist.Position = UDim2.new(0,0,0.6,0)
-    dist.BackgroundTransparency = 1
-    dist.TextStrokeTransparency = 0
-    dist.TextStrokeColor3 = Color3.new(1,1,1)
-    dist.TextColor3 = Color3.new(0,0,0)
-    dist.TextScaled = true
-    dist.Text = 0
-    local health = Instance.new("TextLabel",board)
-    health.Size = UDim2.new(0.4,0,0.4,0)
-    health.Position = UDim2.new(0.6,0,0.6,0)
-    health.BackgroundTransparency = 1
-    health.TextStrokeTransparency = 0
-    health.TextColor3 = Color3.new(1,1,0)
-    health.TextScaled = true
-    health.Text = ".../..."
-    board.Enabled = highlight.Enabled
-    highlight:GetPropertyChangedSignal("Enabled"):Connect(function()
-        board.Enabled = highlight.Enabled and enableTexts.Value
-    end)
-    task.spawn(function()
-        while highlight.Parent do
-            wait(0.2)
-            board.Enabled = highlight.Enabled and enableTexts.Value
-            if board.Enabled then
-                if LocalPlayer.Character and v.Character then
-                    local LHRP = LocalPlayer.Character.PrimaryPart
-                    local HRP = v.Character.PrimaryPart
-                    if LHRP and HRP then
-                        local count = LHRP.Position - HRP.Position
-                        local adding = math.abs(count.X) + math.abs(count.Y) + math.abs(count.Z)
-                        dist.Text = math.floor(adding)
-                    end
-                    if v.Character:FindFirstChild("Humanoid") then
-                        local HP = v.Character.Humanoid.Health
-                        local MHP = v.Character.Humanoid.MaxHealth
-                        local res = HP/MHP
-                        health.Text = math.floor(HP).."/"..MHP
-                        health.TextColor3 = Color3.new(res,1-res,0)
-                    end
-                end
-            end
-        end
+    if enableTexts.Value then
+	    local board = Instance.new("BillboardGui",highlight)
+	    local size = tonumber(sizeTexts.Value)
+	    if not size then size = oldSizeText end
+	    board.Size = UDim2.new(size,0,size/3.3,0)
+	    board.Name = "board"
+	    board.Adornee = v.Character
+	    board.AlwaysOnTop = true
+	    board.Enabled = false
+	    local name = Instance.new("TextLabel",board)
+	    name.Size = UDim2.new(1,0,0.6,0)
+	    name.BackgroundTransparency = 1
+	    name.TextStrokeTransparency = 0
+	    name.TextColor3 = v.TeamColor.Color
+	    name.TextScaled = true
+	    name.Text = v.Name
+	    name.Name = "nick"
+	    local dist = Instance.new("TextLabel",board)
+	    dist.Size = UDim2.new(0.6,0,0.4,0)
+	    dist.Position = UDim2.new(0,0,0.6,0)
+	    dist.BackgroundTransparency = 1
+	    dist.TextStrokeTransparency = 0
+	    dist.TextStrokeColor3 = Color3.new(1,1,1)
+	    dist.TextColor3 = Color3.new(0,0,0)
+	    dist.TextScaled = true
+	    dist.Text = 0
+	    local health = Instance.new("TextLabel",board)
+	    health.Size = UDim2.new(0.4,0,0.4,0)
+	    health.Position = UDim2.new(0.6,0,0.6,0)
+	    health.BackgroundTransparency = 1
+	    health.TextStrokeTransparency = 0
+	    health.TextColor3 = Color3.new(1,1,0)
+	    health.TextScaled = true
+	    health.Text = ".../..."
+	    highlight:GetPropertyChangedSignal("Enabled"):Connect(function()
+	        board.Enabled = highlight.Enabled
+	    end)
+	    task.spawn(function()
+	        while highlight.Parent do
+	            wait(0.2)
+	            if board.Enabled then
+	                if LocalPlayer.Character and v.Character then
+	                    local LHRP = LocalPlayer.Character.PrimaryPart
+	                    local HRP = v.Character.PrimaryPart
+	                    if LHRP and HRP then
+	                        local count = LHRP.Position - HRP.Position
+	                        local adding = math.abs(count.X) + math.abs(count.Y) + math.abs(count.Z)
+	                        dist.Text = math.floor(adding)
+	                    end
+	                    if v.Character:FindFirstChild("Humanoid") then
+	                        local HP = v.Character.Humanoid.Health
+	                        local MHP = v.Character.Humanoid.MaxHealth
+	                        local res = HP/MHP
+	                        health.Text = math.floor(HP).."/"..MHP
+	                        health.TextColor3 = Color3.new(res,1-res,0)
+	                    end
+	                end
+	            end
+	        end
+	end
     end)
     updESPpl(v)
     return highlight,board
