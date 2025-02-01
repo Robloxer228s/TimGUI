@@ -1080,7 +1080,7 @@ local ESPB = {}
 local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
 local sizeTexts = ESPG.Create(3,"SizeTxt","Size of text:","Размер текста")
 local enableTexts = ESPG.Create(2,"Txt","Enable text","Включить текст")
-local oldSizeText = 10
+local oldSizeText = 7
 enableTexts.CFGSave = true
 enableTexts.Main.Value = true
 sizeTexts.Main.Text = oldSizeText
@@ -1091,8 +1091,8 @@ local function updESPpl(v)
     local highlight = ESP:FindFirstChild(v.Name)
     if highlight then
         highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
-        highlight.OutlineColor = highlight.FillColor
         highlight.FillColor = v.TeamColor.Color
+	highlight.OutlineColor = highlight.FillColor
         highlight.Adornee = v.Character
 	local board = highlight:FindFirstChild("board")
 	if board then
