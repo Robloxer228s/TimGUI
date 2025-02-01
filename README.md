@@ -12,6 +12,10 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+31.01.25 - esp(update #1)
+
+25.01.25 - TExplorer (pre update)
+
 11.01.25 - config update(Saving keybinds,Saving toogle buttons) + update script for "Obby Leader"
 
 05.01.25 - new year, invisible player + new game: "Musically chairs"
