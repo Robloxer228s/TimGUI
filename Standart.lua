@@ -1077,13 +1077,18 @@ end)
 -- ESP -------------------------------------------------------
 local ESP = Instance.new("Folder",_G.TimGui.Path.gui)
 local ESPB = {}
-local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
+local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP3","Подсветка")
+local enableTexts = ESPG.Create(2,"Txt","Enable text","Включить текст")
+enableTexts.CFGSave = true
+enableTexts.Main.Value = true
 local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех")
 ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды")
 ESP.Name = "NOOOOTesp"
 local function updESPpl(v)
     local highlight = ESP:FindFirstChild(v.Name)
     if highlight then
+        highlight.Adornee = v.Character
+        highlight.board.Adornee = v.Character
         highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
     end
 end
@@ -1111,29 +1116,92 @@ local function createHighlight(v)
     highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
     highlight.Adornee = v.Character
     highlight.Enabled = false
+    local board = Instance.new("BillboardGui",highlight)
+    board.Size = UDim2.new(15,0,4,0)
+    board.Name = "board"
+    board.Adornee = v.Character
+    board.AlwaysOnTop = true
+    local name = Instance.new("TextLabel",board)
+    name.Size = UDim2.new(1,0,0.6,0)
+    name.BackgroundTransparency = 1
+    name.TextStrokeTransparency = 0
+    name.TextColor3 = v.TeamColor.Color
+    name.TextScaled = true
+    name.Text = v.Name
+    name.Name = "nick"
+    local dist = Instance.new("TextLabel",board)
+    dist.Size = UDim2.new(0.6,0,0.4,0)
+    dist.Position = UDim2.new(0,0,0.6,0)
+    dist.BackgroundTransparency = 1
+    dist.TextStrokeTransparency = 0
+    dist.TextStrokeColor3 = Color3.new(1,1,1)
+    dist.TextColor3 = Color3.new(0,0,0)
+    dist.TextScaled = true
+    dist.Text = 0
+    local health = Instance.new("TextLabel",board)
+    health.Size = UDim2.new(0.4,0,0.4,0)
+    health.Position = UDim2.new(0.6,0,0.6,0)
+    health.BackgroundTransparency = 1
+    health.TextStrokeTransparency = 0
+    health.TextColor3 = Color3.new(1,1,0)
+    health.TextScaled = true
+    health.Text = ".../..."
+    board.Enabled = highlight.Enabled
+    highlight:GetPropertyChangedSignal("Enabled"):Connect(function()
+        board.Enabled = highlight.Enabled and enableTexts.Value
+    end)
+    task.spawn(function()
+        while highlight.Parent do
+            wait(0.2)
+            board.Enabled = highlight.Enabled and enableTexts.Value
+            if board.Enabled then
+                if LocalPlayer.Character and v.Character then
+                    local LHRP = LocalPlayer.Character.PrimaryPart
+                    local HRP = v.Character.PrimaryPart
+                    if LHRP and HRP then
+                        local count = LHRP.Position - HRP.Position
+                        local adding = math.abs(count.X) + math.abs(count.Y) + math.abs(count.Z)
+                        dist.Text = math.floor(adding)
+                    end
+                    if v.Character:FindFirstChild("Humanoid") then
+                        local HP = v.Character.Humanoid.Health
+                        local MHP = v.Character.Humanoid.MaxHealth
+                        local res = HP/MHP
+                        health.Text = math.floor(HP).."/"..MHP
+                        health.TextColor3 = Color3.new(res,1-res,0)
+                    end
+                end
+            end
+        end
+    end)
     updESPpl(v)
-    return highlight
+    return highlight,board
 end
 local function NewPlayer(v)
-    if v ~= LocalPlayer then
-        local highlight = createHighlight(v)
-        highlight.Destroying:Connect(function()
-            wait()
-            highlight = ESP:FindFirstChild(v.Name)
-        end)
-        v.CharacterAdded:Connect(function()
-            highlight.Adornee = v.Character
-            updESPpl(v)
-        end)
-        v:GetPropertyChangedSignal("Team"):Connect(function()
-            highlight.FillColor = v.TeamColor.Color
-            highlight.OutlineColor = highlight.FillColor
-            updESPpl(v)
-        end)
+    if not v.Character then
+        v.CharacterAdded:Wait()
     end
+    local highlight,board = createHighlight(v)
+    highlight.Destroying:Connect(function()
+        wait()
+        highlight = ESP:FindFirstChild(v.Name)
+    end)
+    v.CharacterAdded:Connect(function()
+        wait()
+        print(v.Name,"new char")
+        updESPpl(v)
+    end)
+    v:GetPropertyChangedSignal("Team"):Connect(function()
+        highlight.FillColor = v.TeamColor.Color
+        highlight.OutlineColor = highlight.FillColor
+        board.nick.TextColor3 = v.TeamColor.Color
+        updESPpl(v)
+    end)
 end
 for _,v in pairs(game.Players:GetPlayers()) do
-    NewPlayer(v)
+    if v ~= LocalPlayer then
+        NewPlayer(v)
+    end
 end
 game.Players.PlayerAdded:Connect(NewPlayer)
 
@@ -1141,14 +1209,17 @@ game.Players.PlayerRemoving:Connect(function(v)
     local highlight = ESP:FindFirstChild(v.Name)
     if highlight then highlight:Destroy() end
 end)
-
-ESPG.Create(1,"reload","Reload ESP","Перезагрузить(при баге)",function()
+local function reloadESP()
     ESP:ClearAllChildren()
     for k,v in pairs(game.Players:GetPlayers()) do
         if v ~= LocalPlayer then
             createHighlight(v)
         end
     end
+end
+ESPG.Create(1,"reload","Reload ESP","Перезагрузить",reloadESP)
+enableTexts.OnChange(function()
+    reloadESP()
 end)
 -- Freeze players ---------------------------------------------------
 local FP = _G.TimGui.Groups.CreateNewGroup("Freeze players","Заморозка игроков")
