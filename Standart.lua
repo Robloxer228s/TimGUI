@@ -1077,19 +1077,25 @@ end)
 -- ESP -------------------------------------------------------
 local ESP = Instance.new("Folder",_G.TimGui.Path.gui)
 local ESPB = {}
-local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP3","Подсветка")
+local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
+local sizeTexts = ESPG.Create(3,"SizeTxt","Size of text:","Размер текста")
 local enableTexts = ESPG.Create(2,"Txt","Enable text","Включить текст")
+local oldSizeText = 10
 enableTexts.CFGSave = true
 enableTexts.Main.Value = true
+sizeTexts.Main.Text = oldSizeText
 local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех")
 ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды")
 ESP.Name = "NOOOOTesp"
 local function updESPpl(v)
     local highlight = ESP:FindFirstChild(v.Name)
     if highlight then
+        highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
+        highlight.OutlineColor = highlight.FillColor
+        highlight.FillColor = v.TeamColor.Color
         highlight.Adornee = v.Character
         highlight.board.Adornee = v.Character
-        highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
+        highlight.board.nick.TextColor3 = v.TeamColor.Color
     end
 end
 local function updESP()
@@ -1117,7 +1123,9 @@ local function createHighlight(v)
     highlight.Adornee = v.Character
     highlight.Enabled = false
     local board = Instance.new("BillboardGui",highlight)
-    board.Size = UDim2.new(15,0,4,0)
+    local size = tonumber(sizeTexts.Value)
+    if not size then size = oldSizeText end
+    board.Size = UDim2.new(size,0,size/3.3,0)
     board.Name = "board"
     board.Adornee = v.Character
     board.AlwaysOnTop = true
@@ -1181,20 +1189,13 @@ local function NewPlayer(v)
     if not v.Character then
         v.CharacterAdded:Wait()
     end
-    local highlight,board = createHighlight(v)
-    highlight.Destroying:Connect(function()
-        wait()
-        highlight = ESP:FindFirstChild(v.Name)
-    end)
+    createHighlight(v)
     v.CharacterAdded:Connect(function()
         wait()
-        print(v.Name,"new char")
         updESPpl(v)
     end)
     v:GetPropertyChangedSignal("Team"):Connect(function()
-        highlight.FillColor = v.TeamColor.Color
-        highlight.OutlineColor = highlight.FillColor
-        board.nick.TextColor3 = v.TeamColor.Color
+        wait()
         updESPpl(v)
     end)
 end
@@ -1220,6 +1221,15 @@ end
 ESPG.Create(1,"reload","Reload ESP","Перезагрузить",reloadESP)
 enableTexts.OnChange(function()
     reloadESP()
+end)
+sizeTexts.OnChange(function(v)
+    local size = tonumber(v.Value)
+    if size ~= oldSizeText then
+        if size then
+            oldSizeText = size
+            reloadESP()
+        end
+    end
 end)
 -- Freeze players ---------------------------------------------------
 local FP = _G.TimGui.Groups.CreateNewGroup("Freeze players","Заморозка игроков")
