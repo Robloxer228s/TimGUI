@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+01.02.25 - esp(update #2)
+
 31.01.25 - esp(update #1)
 
 25.01.25 - TExplorer (pre update)
