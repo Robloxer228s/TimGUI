@@ -1077,28 +1077,36 @@ end)
 -- ESP -------------------------------------------------------
 local ESP = Instance.new("Folder",_G.TimGui.Path.gui)
 local ESPB = {}
-local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
+local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP v2","Подсветка")
 local sizeTexts = ESPG.Create(3,"SizeTxt","Size of text:","Размер текста")
 local enableTexts = ESPG.Create(2,"Txt","Enable text","Включить текст")
 local oldSizeText = 7
 enableTexts.CFGSave = true
 enableTexts.Main.Value = true
 sizeTexts.Main.Text = oldSizeText
+local MercyESP = ESPG.Create(2,"colorMercy","Change color for mercy","Заменять цвет для пощады")
 local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех")
 ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды")
 ESP.Name = "NOOOOTesp"
+MercyESP.CFGSave = true
+MercyESP.Main.Value = true
 local function updESPpl(v)
     local highlight = ESP:FindFirstChild(v.Name)
     if highlight then
         highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
         highlight.FillColor = v.TeamColor.Color
-	highlight.OutlineColor = highlight.FillColor
+        if MercyESP.Value then
+            if _G.TimGui.Values.Spare[v.Name] then
+                highlight.FillColor = Color3.new(0.25,1,0.25)
+            end
+        end
+	    highlight.OutlineColor = highlight.FillColor
         highlight.Adornee = v.Character
-	local board = highlight:FindFirstChild("board")
-	if board then
+	    local board = highlight:FindFirstChild("board")
+	    if board then
 	        highlight.board.Adornee = v.Character
 	        highlight.board.nick.TextColor3 = v.TeamColor.Color
-	end
+	    end
     end
 end
 local function updESP()
@@ -1120,10 +1128,7 @@ local function createHighlight(v)
     highlight.Name = v.Name
     highlight.FillTransparency = 0.5
     highlight.OutlineTransparency = 0
-    highlight.FillColor = v.TeamColor.Color
-    highlight.OutlineColor = highlight.FillColor
     highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-    highlight.Adornee = v.Character
     highlight.Enabled = false
     if enableTexts.Value then
 	    local board = Instance.new("BillboardGui",highlight)
@@ -1131,7 +1136,6 @@ local function createHighlight(v)
 	    if not size then size = oldSizeText end
 	    board.Size = UDim2.new(size,0,size/3.3,0)
 	    board.Name = "board"
-	    board.Adornee = v.Character
 	    board.AlwaysOnTop = true
 	    board.Enabled = false
 	    local name = Instance.new("TextLabel",board)
@@ -1235,6 +1239,7 @@ sizeTexts.OnChange(function(v)
         end
     end
 end)
+MercyESP.OnChange(updESP)
 -- Freeze players ---------------------------------------------------
 local FP = _G.TimGui.Groups.CreateNewGroup("Freeze players","Заморозка игроков")
 local teams = {}
