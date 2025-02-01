@@ -1184,8 +1184,8 @@ local function createHighlight(v)
 	                end
 	            end
 	        end
-	end
-    end)
+    	  end)
+    end
     updESPpl(v)
     return highlight,board
 end
