@@ -1209,7 +1209,9 @@ local function NewPlayer(v)
 end
 for _,v in pairs(game.Players:GetPlayers()) do
     if v ~= LocalPlayer then
-        NewPlayer(v)
+	task.spawn(function()
+        	NewPlayer(v)
+	end)
     end
 end
 game.Players.PlayerAdded:Connect(NewPlayer)
