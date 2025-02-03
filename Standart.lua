@@ -335,6 +335,33 @@ game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 		AlightFolder.Parent = game.Workspace.CurrentCamera
 	end
 end)
+
+local ypos
+local PartWTA = Instance.new("Part",game.Workspace.CurrentCamera)
+PartWTA.Anchored = true
+PartWTA.Size = Vector3.new(20,1,20)
+PartWTA.Transparency = 1
+PartWTA.CanCollide = false
+
+local WTA = Map.Create(2,"Floor","Walk to air","Ходить по воздуху",function(val)
+    PartWTA.CanCollide = val.Value
+    if val.Value then
+        if not LocalPlayer.Character then
+            LocalPlayer.CharacterAdded:Wait()
+        end
+        local HRPP = LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+        ypos = HRPP.Position.Y-3.5
+    end
+end)
+RunService.RenderStepped:Connect(function()
+    if LocalPlayer.Character and WTA.Value then
+	PartWTA.CanCollide = true
+        local HRP = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if HRP then
+            PartWTA.Position = Vector3.new(HRP.Position.X,ypos,HRP.Position.Z)
+        end
+    end
+end)
 -- Gravity --
 Map.Create(0,"GravityTittle","Gravity","Гравитация")
 local GV = Map.Create(3,"GravityValue","Gravity:","Гравитация:")
