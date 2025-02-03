@@ -336,32 +336,6 @@ game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 	end
 end)
 
-local ypos
-local PartWTA = Instance.new("Part",game.Workspace.CurrentCamera)
-PartWTA.Anchored = true
-PartWTA.Size = Vector3.new(20,1,20)
-PartWTA.Transparency = 1
-PartWTA.CanCollide = false
-
-local WTA = Map.Create(2,"Floor","Walk to air","Ходить по воздуху",function(val)
-    PartWTA.CanCollide = val.Value
-    if val.Value then
-        if not LocalPlayer.Character then
-            LocalPlayer.CharacterAdded:Wait()
-        end
-        local HRPP = LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-        ypos = HRPP.Position.Y-3.5
-    end
-end)
-RunService.RenderStepped:Connect(function()
-    if LocalPlayer.Character and WTA.Value then
-	PartWTA.CanCollide = true
-        local HRP = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-        if HRP then
-            PartWTA.Position = Vector3.new(HRP.Position.X,ypos,HRP.Position.Z)
-        end
-    end
-end)
 -- Gravity --
 Map.Create(0,"GravityTittle","Gravity","Гравитация")
 local GV = Map.Create(3,"GravityValue","Gravity:","Гравитация:")
@@ -385,6 +359,42 @@ Map.Create(1,"NCFA","No collide for all","Убрать косания каждо
     for k,v in pairs(game.Workspace:GetDescendants()) do
         if v:IsA("BasePart") then
             v.CanCollide = false
+        end
+    end
+end)
+local ypos
+local PartWTA = Instance.new("Part")
+local ParentWTACam = AnticheatGroup.Create(2,"WTAarentCam","Use parent cam for walk to air","Использовать камеру для ходьбы по воздуху")
+ParentWTACam.Main.Value = true
+ParentWTACam.CFGSave = true
+
+PartWTA.Anchored = true
+PartWTA.Size = Vector3.new(20,1,20)
+PartWTA.Transparency = 1
+PartWTA.CanCollide = false
+local WTA = Map.Create(2,"Floor","Walk to air","Ходить по воздуху",function(val)
+    PartWTA.CanCollide = val.Value
+    if val.Value then
+	if ParentWTACam.Value then
+		PartWTA.Parent = game.Workspace.CurrentCamera
+	else
+		PartWTA.Parent = game.Workspace
+	end
+        if not LocalPlayer.Character then
+            LocalPlayer.CharacterAdded:Wait()
+        end
+        local HRPP = LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+        ypos = HRPP.Position.Y-3.5
+    else
+	PartWTA.Parent = nil
+    end
+end)
+RunService.RenderStepped:Connect(function()
+    if LocalPlayer.Character and WTA.Value then
+	PartWTA.CanCollide = true
+        local HRP = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if HRP then
+            PartWTA.Position = Vector3.new(HRP.Position.X,ypos,HRP.Position.Z)
         end
     end
 end)
