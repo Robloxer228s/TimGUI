@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+03.02.25 - added underground war 2.0
+
 01.02.25 - esp(update #2)
 
 31.01.25 - esp(update #1)
@@ -80,6 +82,8 @@ P.S: day.month.year
 
 # Suported Games:
 Tower of hell -- Dont work
+
+[Underground war 2.0](https://www.roblox.com/share?code=ea1067fa38ccab43b0f04fe6557ec29a&type=ExperienceDetails&stamp=1738617065522)
 
 [Murder Mystory 2](https://www.roblox.com/share?code=30095ada9095784a9722ce4419735b55&type=ExperienceDetails&stamp=1736553373981)
 
