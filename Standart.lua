@@ -131,6 +131,7 @@ Waypoints.Create(1,2,"Save for this game","Сохранить для этой и
     else
         delfile(pathWay)
     end
+    _G.TimGui.Print("Waypoints","Saved","Вайпоинты","Сохранено")
 end).Visible = _G.TimGui.Saves.Enabled
 Waypoints.Create(0,5,"Your waypoints","Твои вайпоинты")
 if _G.TimGui.Saves.Enabled then
