@@ -94,27 +94,62 @@ _G.TimGui.AddCommand("clop",clopFunct)
 _G.TimGui.AddCommand("bug",clopFunct)
 
 -- Waypoints ------------------------
+local LocalPlayer = game.Players.LocalPlayer
+
 local WayCFrames = {}
-local Waypoints = _G.TimGui.Groups.CreateNewGroup("Waypoints","Вайпоинты")
+local Waypoints = _G.TimGui.Groups.CreateNewGroup("Waypoints 9","Вайпоинты")
 local Name = Waypoints.Create(3,1,"Name","Имя")
-Waypoints.Create(1,2,"Create/edit","Создать/изменить",function()
-	local wayname = Name.Value
-	WayCFrames[wayname] = LocalPlayer.Character.PrimaryPart.CFrame
+local pathWay = "TimGui/Waypoints/"
+if _G.TimGui.Saves.Enabled then makefolder(pathWay) end
+Waypoints.Create(1,2,"Save for this game","Сохранить для этой игры",function()
+	local SaveTab = {}
+    local saving = false
+    for k,v in pairs(WayCFrames) do
+        saving = true
+        SaveTab[k] = string.split(tostring(v),", ")
+    end
+    if saving then
+        writefile(pathWay,game.HttpService:JSONEncode(SaveTab))
+    else
+        delfile(pathWay)
+    end
+end).Visible = _G.TimGui.Saves.Enabled
+local function CreateWaypoint(wayname,position)
+    WayCFrames[wayname] = position
 	if Waypoints.Objects[wayname] == nil then
 		Waypoints.Create(1,wayname,wayname,wayname,function()
 			LocalPlayer.Character.PrimaryPart.CFrame = WayCFrames[wayname]
 		end)
 	end
+end
+Waypoints.Create(1,3,"Create/edit","Создать/изменить",function()
+	CreateWaypoint(Name.Value,LocalPlayer.Character.PrimaryPart.CFrame)
 end)
-Waypoints.Create(1,3,"Delete","Удалить",function()
+Waypoints.Create(1,4,"Delete","Удалить",function()
 	WayCFrames[Name.Value] = nil
 	local Way = Waypoints.Objects[Name.Value]
 	if Way ~= nil then
 		Way.Destroy()
 	end
 end)
-Waypoints.Create(0,4,"Your waypoints","Твои вайпоинты")
-
+Waypoints.Create(0,5,"Your waypoints","Твои вайпоинты")
+if _G.TimGui.Saves.Enabled then
+    local checker = pathWay..game.GameId
+    local finded = false
+    for k,v in pairs(listfiles(pathWay)) do
+        if v == checker then
+            finded = true
+            break
+        end
+    end
+    pathWay = checker
+    if finded then
+        local loadWaypoints = game.HttpService:JSONDecode(readfile(pathWay)) or {}
+        for k,v in pairs(loadWaypoints) do
+            CreateWaypoint(k,CFrame.new(table.unpack(v)))
+        end
+    end
+end
 -- Map --------------------------------
 AnticheatGroup.Create(0,"Map","Map","Карта")
 local Map = _G.TimGui.Groups.CreateNewGroup("Map","Карта")
