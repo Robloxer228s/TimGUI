@@ -101,19 +101,6 @@ local Waypoints = _G.TimGui.Groups.CreateNewGroup("Waypoints 9","Вайпоин�
 local Name = Waypoints.Create(3,1,"Name","Имя")
 local pathWay = "TimGui/Waypoints/"
 if _G.TimGui.Saves.Enabled then makefolder(pathWay) end
-Waypoints.Create(1,2,"Save for this game","Сохранить для этой игры",function()
-	local SaveTab = {}
-    local saving = false
-    for k,v in pairs(WayCFrames) do
-        saving = true
-        SaveTab[k] = string.split(tostring(v),", ")
-    end
-    if saving then
-        writefile(pathWay,game.HttpService:JSONEncode(SaveTab))
-    else
-        delfile(pathWay)
-    end
-end).Visible = _G.TimGui.Saves.Enabled
 local function CreateWaypoint(wayname,position)
     WayCFrames[wayname] = position
 	if Waypoints.Objects[wayname] == nil then
@@ -132,6 +119,19 @@ Waypoints.Create(1,4,"Delete","Удалить",function()
 		Way.Destroy()
 	end
 end)
+Waypoints.Create(1,2,"Save for this game","Сохранить для этой игры",function()
+	local SaveTab = {}
+    local saving = false
+    for k,v in pairs(WayCFrames) do
+        saving = true
+        SaveTab[k] = string.split(tostring(v),", ")
+    end
+    if saving then
+        writefile(pathWay,game.HttpService:JSONEncode(SaveTab))
+    else
+        delfile(pathWay)
+    end
+end).Visible = _G.TimGui.Saves.Enabled
 Waypoints.Create(0,5,"Your waypoints","Твои вайпоинты")
 if _G.TimGui.Saves.Enabled then
     local checker = pathWay..game.GameId
