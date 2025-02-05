@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+05.02.25 - added save for waypoints
+
 03.02.25 - added underground war 2.0
 
 01.02.25 - esp(update #2)
