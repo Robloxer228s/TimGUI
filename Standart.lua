@@ -1622,15 +1622,19 @@ BrightnessChange = Light.Create(2,"BrightnessChange","Auto change brightness","�
 end)
 
 game.Lighting:GetPropertyChangedSignal("Brightness"):Connect(function()
-	if game.Lighting.Brightness == BrightnessTxt.Text then return end
 	if not BrightnessChange.Value then return end
 	game.Lighting.Brightness = tonumber(BrightnessTxt.Value) 
 end)
 
 local ClockTime = Light.Create(3,"ClcTime","Clock time:","Время:") 
-Light.Create(1,"SetClc","Set clock time","Установить время",function() 
+local setClcTime = Light.Create(1,"SetClc","Set clock time","Установить время",function() 
 	game.Lighting.ClockTime = tonumber(ClockTime.Value) 
 end) 
+
+game.Lighting:GetPropertyChangedSignal("ClockTime"):Connect(function()
+	if not setClcTime.Value then return end
+	game.Lighting.ClockTime = tonumber(ClockTime.Value) 
+end)
 
 local light
 local LRange = Light.Create(3,"LRange","Light range:","Дистанция света:") 
@@ -1639,8 +1643,8 @@ Light.Create(2,"Lighting","Lighting Character","Свечащийся персо�
 	if val.Value then
 		light = Instance.new("PointLight") 
 		light.Name = "Light"
-		light.Range = tonumber(LRange.Text) 
-		light.Brightness = tonumber(LBright.Text) 
+		light.Range = tonumber(LRange.Value) 
+		light.Brightness = tonumber(LBright.Value) 
 		light.Parent = game.Players.LocalPlayer.Character.PrimaryPart
 	else
 		light:Destroy()
@@ -1648,7 +1652,6 @@ Light.Create(2,"Lighting","Lighting Character","Свечащийся персо�
 end)
 LRange.Main.Text = 100
 LBright.Main.Text = 1
-
 -- Camera -----------------------------------------------------------
 local Camera = _G.TimGui.Groups.CreateNewGroup("Camera","Камера")
 local gui = _G.TimGui.Path.gui
