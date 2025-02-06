@@ -1471,13 +1471,18 @@ local NotFling = FUN.Create(2,"Fling","Fling?","Арабская ночь",funct
 	end
 end)
 
+local SlowFall = Player.Create(2,"SlowFall","Slow fall for character","Замедленное падение")
 RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
-		if not LocalPlayer.Character.PrimaryPart then return end
-		if Happy and HappyMod.Value then
-			LocalPlayer.Character.Humanoid:ChangeState(4)
-		end if NotFling.Value then
-			LocalPlayer.Character.PrimaryPart.AssemblyAngularVelocity += Vector3.new(0,500,0)
+		local HRP = LocalPlayer.Character:FindFirstChild("HumanoidRootPart") or LocalPlayer.Character.PrimaryPart
+		if HRP then 
+			if Happy and HappyMod.Value then
+				LocalPlayer.Character.Humanoid:ChangeState(4)
+			end if NotFling.Value then
+			    HRP.AssemblyAngularVelocity += Vector3.new(0,500,0)
+			end if SlowFall.Value then
+		            HRP.Velocity = Vector3.new(HRP.Velocity.X,0,HRP.Velocity.Z)
+		        end
 		end
 	end
 end)
