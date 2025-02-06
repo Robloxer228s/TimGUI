@@ -1471,7 +1471,7 @@ local NotFling = FUN.Create(2,"Fling","Fling?","Арабская ночь",funct
 	end
 end)
 
-local SlowFall = Player.Create(2,"SlowFall","Slow fall for character","Замедленное падение")
+local SlowFall = FUN.Create(2,"SlowFall","Slow fall for character","Замедленное падение")
 RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		local HRP = LocalPlayer.Character:FindFirstChild("HumanoidRootPart") or LocalPlayer.Character.PrimaryPart
