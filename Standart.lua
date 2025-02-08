@@ -5,6 +5,7 @@ local Mouse = LocalPlayer:GetMouse()
 local DefaultGravity = game.Workspace.Gravity
 local DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
 local clopGroup = _G.TimGui.Groups.CreateNewGroup("Clop")
+local Settings = _G.TimGui.Groups.Settings
 local function GetMoveDirection(v)
 	local move = LocalPlayer.Character.Humanoid.MoveDirection
 	local Camera = workspace.CurrentCamera
@@ -19,12 +20,15 @@ local function GetMoveDirection(v)
 end
 AnticheatGroup.Visible = false
 clopGroup.Visible = false
-_G.TimGui.Groups.Settings.Create(1,"Clop","Bug","Клоп",function()
+Settings.Create(1,"Clop","Bug","Клоп",function()
      clopGroup.OpenGroup()
 end)
-_G.TimGui.Groups.Settings.Create(1,"Anticheat","Anticheat","Античит",function()
+Settings.Create(1,"Anticheat","Anticheat","Античит",function()
      AnticheatGroup.OpenGroup()
 end)
+Settings.Create(2,"MaxSimulateRadius","Set max simulate radius","Поставить максимальную прогрузку физики",function()
+    setsimulationradius(math.huge)
+end).CFGSave = true
 local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
 enable.Main.Value = true
 local all = clopGroup.Create(2,"All","Enable for all(disabled for friends)","Включить для всех(выключенный для друзей)")
