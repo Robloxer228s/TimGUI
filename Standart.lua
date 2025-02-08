@@ -982,12 +982,12 @@ AnticheatGroup.Create(0,"FlyTittle","Fly v2","Полёт v2")
 local UsePS = AnticheatGroup.Create(2,"FlyUPS","Use PlatformStand","Использовать PlatformStand")
 local ParentCamera = AnticheatGroup.Create(2,"FlyUParentCamera","Use camera for fly","Использовать камеру для полёта")
 ParentCamera.Main.Value = true
-UsePS.Main.Value = true
 safeInvisFly.Main.Value = true
 safeInvisFly.CFGSave = true
 UsePS.CFGSave = true
 ParentCamera.CFGSave = true
 SeatOnFly.CFGSave = true
+SeatOnFly.Main.Value = true
 local LV, AV, AO, Pos, FlyFolder
 local function reloadMyFly()
 	MyFly.Main.Value = false
