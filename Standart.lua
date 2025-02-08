@@ -1722,7 +1722,7 @@ Camera.Create(1,"MaxDistance","Max Zoom of camera","Максимальный з�
 end)
 
 -- Other ------------------------------------------------------------------------------------
-local group = _G.TimGui.Groups.CreateNewGroup("Other3","Другое")
+local group = _G.TimGui.Groups.CreateNewGroup("Other","Другое")
 
 if game:GetService("UserInputService").TouchEnabled then
   local Sgui = Instance.new("ScreenGui",LocalPlayer.PlayerGui)
@@ -1819,10 +1819,18 @@ group.Create(0,"Try hack game","Try hack game","Попытки взлома иг
 local function CheckParent(v,name)
     local res = v
     while true do
+        if res == nil then error(v:GetFullName()) end
         res = res.Parent
         if res == nil then return end
-        if res.Parent == game then return end
-        if string.find(string.lower(res.Name),name) ~= nil == name then
+        if res == game then return end
+        print(type(name))
+        if type(name) ~= "string" then
+            local result = name(res)
+            print(1,result)
+            if result then
+                return res
+            end
+        elseif string.find(string.lower(res.Name),name) ~= nil == name then
             return res
         end
     end
@@ -1876,7 +1884,6 @@ group.Create(1,"Attempt disable anticheat","Attempt disable anticheat","Попы
     FireObj({LocalPlayer,LocalPlayer.Character,game.ReplicatedFirst},"BaseScript","anticheat",true,function(v)
         Attempt += 1
         v.Enabled = false
-        print(v:GetFullName())
     end)
     if Attempt == 0 then
         _G.TimGui.Print("Anticheat","Not found","Античит","Не найдено")
@@ -1917,228 +1924,25 @@ group.Create(1,"Attempt activate all privilegies","Attempt activate all privileg
     end
 end)
 
-local HideGui = group.Create(2,"Hide All Guis","Hide All Guis","Спрятать весь интерфейс")
-local Hided = {}
-local function UpdHideGui(obj,hide)
-    if hide then
-        Hided[obj] = obj.Enabled
-        obj.Enabled = false
-    elseif Hided[obj] then
-        obj.Enabled = Hided[obj]
-    end
-end
-local function NewGui(gui)
-    if gui:IsA("LayerCollector") then
-        gui:GetPropertyChangedSignal("Enabled"):Connect(function()
-            if gui.Enabled then
-                UpdHideGui(gui,HideGui.Value)
+group.Create(1,"SetVelocityToYourChar","Set Velocity To Your Char","Прикрепить все обьекты в твою позицию",function()
+    local folder = Instance.new("Folder",game.Workspace.CurrentCamera)
+    for k,v in pairs(game.Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            if not v.Anchored then
+                local function parentF(p)
+                    if p:IsA("Model") then
+                        return game.Players:GetPlayerFromCharacter(p)
+                    end
+                end
+                if not CheckParent(v,parentF) then
+                    local Velocity = Instance.new("AlignPosition",folder)
+                    Velocity.Mode = 0
+                    Velocity.MaxForce = math.huge
+                    Velocity.Attachment0 = v:FindFirstChildOfClass("Attachment") or Instance.new("Attachment",v)
+                    Velocity.Position = LocalPlayer.Character.PrimaryPart.Position
+                end
             end
-        end)
-        UpdHideGui(gui,HideGui.Value)
-    end
-end
-LocalPlayer.PlayerGui.ChildAdded:Connect(NewGui)
-for k,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
-    NewGui(v)
-end
-HideGui.OnChange(function(val)
-    for k,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
-        if v:IsA("LayerCollector") then
-            UpdHideGui(v,val.Value)
         end
-    end
-end)local group = _G.TimGui.Groups.CreateNewGroup("Other3","Другое")
-
-if game:GetService("UserInputService").TouchEnabled then
-  local Sgui = Instance.new("ScreenGui",LocalPlayer.PlayerGui)
-  local SCenter = Instance.new("ImageLabel",Sgui)
-  local SButton = Instance.new("ImageButton",Sgui)
-  local Enabled = Instance.new("BoolValue",Sgui)
-  local LSize = 32 
-  local LBSizeD = 1.25
-  local OldHumanoid
-
-  Sgui.IgnoreGuiInset = true
-  Sgui.Name = "MouseLock(ShiftLock)"
-    Sgui.Enabled = false
-  Sgui.ResetOnSpawn = false
-  Sgui.DisplayOrder = 1
-
-  SCenter.Image = "rbxasset://textures/MouseLockedCursor.png"
-  SCenter.Size = UDim2.new(0,LSize,0,LSize)
-  SCenter.Position = UDim2.new(0.5,-LSize/2,0.5,-LSize/2)
-  SCenter.BackgroundTransparency = 1
-  SCenter.Visible = false
-
-  SButton.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
-  SButton.Size = UDim2.new(0,62/LBSizeD,0,62/LBSizeD)
-  SButton.Position = UDim2.new(0.875,-62/LBSizeD,0.775,-62/LBSizeD)
-  SButton.BackgroundTransparency = 1
-  SButton.Activated:Connect(function() Enabled.Value = not Enabled.Value end)
-
-  Enabled.Name = "Enabled"
-  Enabled.Changed:Connect(function()
-    local char = workspace.CurrentCamera.CameraSubject.Parent
-    LocalPlayer.Character.Humanoid.AutoRotate = not Enabled.Value
-    SCenter.Visible = Enabled.Value
-    if Enabled.Value then
-      SButton.Image = "rbxasset://textures/ui/mouseLock_on@2x.png"
-      if char:FindFirstChild("Humanoid") then
-        oldHumanoid = char.Humanoid
-        char.Humanoid.CameraOffset += Vector3.new(2.5,0,0)
-      end
-    else
-      SButton.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
-      if char:FindFirstChild("Humanoid") then
-        if oldHumanoid then
-          oldHumanoid.CameraOffset += Vector3.new(-2.5,0,0)
-        end
-      end
-    end
-  end)
-
-  local function upd()
-    if Enabled.Value then
-      local camera = workspace.CurrentCamera
-      local Char = camera.CameraSubject.Parent
-      if Char:IsA("Model") then
-        local HRP = Char.PrimaryPart
-        if HRP then
-          local Length = 900000
-          local CamR = Vector3.new(camera.CFrame.LookVector.X *Length, HRP.Position.Y, camera.CFrame.LookVector.Z*Length)
-          HRP.CFrame = CFrame.new(HRP.Position, CamR)
-        end
-      end
-    end
-  end
-
-  LocalPlayer:GetMouse().Move:Connect(upd)
-  RunService.RenderStepped:Connect(upd)
-      workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(function(char)
-        local char = workspace.CurrentCamera.CameraSubject.Parent
-            if char:IsA("Model") then
-                local en = Enabled.Value
-                Enabled.Value = false
-                char:WaitForChild("HumanoidRootPart",math.huge)
-                wait()
-                Enabled.Value = en
-            end
-      end)
-      group.Create(2,"SL(ML)","Shift Lock/Mouse Lock(for mobile)","Шифт лок/блокировка мыши (для телефонов)",function(val)
-          Sgui.Enabled = val.Value
-      end)
-else
-    if mouse1click ~= nil then
-        group.Create(2,"Clicker","AutoClicker","Автокликер",function(val)
-            wait(1)
-            while task.wait() and val.Value do
-                mouse1click()
-            end
-        end)
-    end
-    group.Create(1,"SL","Enable shift Lock","Включить shiftlock switch",function()
-        LocalPlayer.DevEnableMouseLock = true
-    end)
-end
-group.Create(0,"Try hack game","Try hack game","Попытки взлома игры")
-local function CheckParent(v,name)
-    local res = v
-    while true do
-        res = res.Parent
-        if res == nil then return end
-        if res.Parent == game then return end
-        if string.find(string.lower(res.Name),name) ~= nil == name then
-            return res
-        end
-    end
-end
-local function FireObj(into,class,name,par,fire)
-    if type(into) == "table" then
-        for _,v in pairs(into) do
-            FireObj(v,class,name,par,fire)
-        end return
-    end
-    for k,v in pairs(into:GetDescendants()) do
-        if class == nil or v:IsA(class) then
-            local res = string.lower(v.Name)
-            if par then
-                if CheckParent(v,name) then
-                    fire(v) continue
-            end end
-            if string.find(res,name) ~= nil then fire(v) end
-        end
-    end
-end
-
-group.Create(1,"Attempt delete kill","Attempt delete killparts","Попытаться удалить все убивашки",function()
-    local Attempt = 0 
-    FireObj(game.Workspace,"BasePart","kill",true,function(v)
-        Attempt += 1
-        v:Destroy()
-    end)
-    if Attempt == 0 then
-        _G.TimGui.Print("Killbricks","Not found","Убивашки","Не найдено")
-    else
-        _G.TimGui.Print("Killbricks",Attempt.." parts has been delete","Убивашки","Удаленно: "..Attempt)
-    end
-end)
-
-group.Create(1,"Attempt Get Passes","Attempt Get All Passes","Попытаться получить все геймпассы",function()
-    local Attempt = 0
-    FireObj(LocalPlayer,"BoolValue","pass",true,function(v)
-        Attempt += 1
-        v.Value = not v.Value
-    end)
-    if Attempt == 0 then
-        _G.TimGui.Print("Gamepasses","Not found","Gamepasses","Не найдено")
-    else
-        _G.TimGui.Print("Gamepasses",Attempt.." has been activated","Gamepasses","Активировано: "..Attempt)
-    end
-end)
-
-group.Create(1,"Attempt disable anticheat","Attempt disable anticheat","Попытаться отключить античит",function()
-    local Attempt = 0
-    FireObj({LocalPlayer,LocalPlayer.Character,game.ReplicatedFirst},"BaseScript","anticheat",true,function(v)
-        Attempt += 1
-        v.Enabled = false
-        print(v:GetFullName())
-    end)
-    if Attempt == 0 then
-        _G.TimGui.Print("Anticheat","Not found","Античит","Не найдено")
-    else
-        _G.TimGui.Print("Anticheat",Attempt.." scripts has been disabled","Античит","Выключено: "..Attempt.." скриптов")
-    end
-end)
-
-group.Create(1,"Attempt Get PassesGUI","Attempt Make Visible All Gui(for pass)","Попытаться открыть все окна (с пассами)",function()
-    local Attempt = 0 
-    FireObj(LocalPlayer,"LayerCollector","pass",false,function(v)
-        Attempt += 1
-        v.Enabled = not v.Enabled
-    end) FireObj(LocalPlayer,"GuiObject","pass",false,function(v)
-        Attempt += 1
-        v.Visible = not v.Visible
-    end)
-    if Attempt == 0 then
-        _G.TimGui.Print("Gamepasses","Not found","Gamepasses","Не найдено")
-    else
-        _G.TimGui.Print("Gamepasses",Attempt.." has been activated","Gamepasses","Активировано: "..Attempt)
-    end
-end)
-
-group.Create(1,"Attempt activate all privilegies","Attempt activate all privilegies?","Попытаться получить все привилегии?",function()
-    local Attempt = 0
-    for k,v in pairs(LocalPlayer:GetDescendants()) do
-        if v:IsA("BoolValue") then
-            if not v.Value then
-                Attempt += 1
-            end v.Value = true
-        end
-    end
-    if Attempt == 0 then
-        _G.TimGui.Print("Privilegies?","Not found","Privilegies?","Не найдено")
-    else
-        _G.TimGui.Print("Privilegies?",Attempt.." has been activated","Привилегии?","Активировано: "..Attempt)
     end
 end)
 
