@@ -1823,10 +1823,8 @@ local function CheckParent(v,name)
         res = res.Parent
         if res == nil then return end
         if res == game then return end
-        print(type(name))
         if type(name) ~= "string" then
             local result = name(res)
-            print(1,result)
             if result then
                 return res
             end
