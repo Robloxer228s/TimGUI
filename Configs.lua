@@ -41,13 +41,18 @@ if _G.TimGui.Saves.Enabled then
 		writefile(path..name.Value,"{}")
 		writefile(pathKeys..name.Value,"{}")
 		CreateCFGButton(path..name.Value)
+		_G.TimGui.Print("Configs","Created","Конфигурации","Создано")
 	end)
 	group.Create(0,3,"Manage configs","Управление конфигами")
 	group.Create(1,4,"Delete","Удалить",function()
 		if selected ~= nil then
 			delfile(path..selected)
+			delfile(pathKeys..selected)
 			loadedCFG[selected].Destroy()
 			loadedCFG[selected] = nil
+			_G.TimGui.Print("Configs","Deleted","Конфигурации","Удалено")
+		else
+			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
 		end
 	end)
 	group.Create(1,5,"Save","Сохранить",function()
