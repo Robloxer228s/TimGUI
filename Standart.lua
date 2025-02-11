@@ -543,7 +543,7 @@ local NoT = Player.Create(2,"Notouch","No CanTouch","Убрать косания
 		end
 	end
 end)
-local AnimSpeed = Player.Create(3,"AnimSpeed1","Speed for animation:","Скорость анимации:")
+local AnimSpeed = Player.Create(3,"AnimSpeed","Speed for animation:","Скорость анимации:")
 local AnimSpeedEnabled = Player.Create(2,"AnimSpeedEnabled1","Enable speed for animation","Включить скорость анимации")
 RunService.RenderStepped:Connect(function()
     if AnimSpeedEnabled.Value then
@@ -566,11 +566,13 @@ local NoA = Player.Create(2,"NoAnim","No animate","Убрать анимации
 	LocalPlayer.Character.Animate.Enabled = not val.Value
 end)
 local countingDash = Instance.new("Part")
+local Dashing
 Player.Create(1,"Dash","Dash","Рывок",function()
     local HRP = LocalPlayer.Character.HumanoidRootPart
     countingDash.CFrame = HRP.CFrame
     countingDash.Position = Vector3.new(1,1,1)
-    HRP.Velocity = (countingDash.CFrame * Vector3.new(0,50,-200))
+    Dashing = (countingDash.CFrame * Vector3.new(0,50,-200))
+    HRP.Velocity = Dashing
 end)
 Player.Create(1,"Sit","Sit","Сесть",function(val)
 	LocalPlayer.Character.Humanoid.Sit = not LocalPlayer.Character.Humanoid.Sit
@@ -721,7 +723,9 @@ WFChanges[1].Main.Value = true
 for _,v in pairs(WFChanges) do
 	v.CFGSave = true
 end
-local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o")
+local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливатель o_o",function()
+	Dashing = nil
+end)
 RunService.PostSimulation:Connect(function()
     if walkfling.Value then
         local char = LocalPlayer.Character
@@ -736,6 +740,10 @@ RunService.PostSimulation:Connect(function()
                 end
                 RunService.RenderStepped:Wait()
                 HRP.Velocity = velocity
+		if Dashing then
+			HRP.Velocity = Dashing
+			Dashing = nil
+		end
             end
         end
     end
