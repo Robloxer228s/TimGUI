@@ -533,11 +533,15 @@ end)
 
 local MultyJump = Player.Create(2,"MultyJump","MultyJump","Прыжок от воздуха")
 
+local ReloadMJ = false
 game:GetService("UserInputService").JumpRequest:Connect(function()
-	if MultyJump.Value then
+	if MultyJump.Value and not ReloadMJ then
+		ReloadMJ = true
 		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.None)
-		wait(0.1)
+		wait(0)
 		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		wait(0.1)
+		ReloadMJ = false
 	end
 end)
 
