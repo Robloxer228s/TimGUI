@@ -101,7 +101,7 @@ _G.TimGui.AddCommand("bug",clopFunct)
 local LocalPlayer = game.Players.LocalPlayer
 
 local WayCFrames = {}
-local Waypoints = _G.TimGui.Groups.CreateNewGroup("Waypoints 9","Вайпоинты")
+local Waypoints = _G.TimGui.Groups.CreateNewGroup("Waypoints","Вайпоинты")
 local Name = Waypoints.Create(3,1,"Name","Имя")
 local pathWay = "TimGui/Waypoints/"
 if _G.TimGui.Saves.Enabled then makefolder(pathWay) end
@@ -536,7 +536,7 @@ local MultyJump = Player.Create(2,"MultyJump","MultyJump","Прыжок от в�
 game:GetService("UserInputService").JumpRequest:Connect(function()
 	if MultyJump.Value then
 		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.None)
-		wait()
+		wait(0.1)
 		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 	end
 end)
