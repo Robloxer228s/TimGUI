@@ -445,22 +445,54 @@ local WalkSpeed = Player.Create(3,"WalkSpeed","WalkSpeed:","Скорость х�
 local Setter = Player.Create(2,"SetWalkSpeed","Set WalkSpeed","Установить скорость ходьбы",function()
 	LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
 end)
+local UseCamParentSpeed = AnticheatGroup.Create(2,"WSCamParent","Use parent camera for walkspeed v2","Использовать камеру для скорости v2")
+local SpeedVelocity = Instance.new("LinearVelocity")
+local twoWS = Player.Create(2,"WalkspeedV2","Set walkspeed v2","Установить скорость V2",function(val)
+    if val.Value then
+        if UseCamParentSpeed then
+            SpeedVelocity.Parent = game.Workspace.CurrentCamera
+        else
+            SpeedVelocity.Parent = game.Workspace
+        end
+        local HRP = LocalPlayer.Character.PrimaryPart
+        if HRP then
+            SpeedVelocity.Attachment0 = HRP:FindFirstChildOfClass("Attachment") or Instance.new("Attachment")
+        end
+    else
+        SpeedVelocity.Parent = nil
+        SpeedVelocity.Attachment0 = nil
+    end
+end)
+SpeedVelocity.ForceLimitMode = 1
 local function SetWSNewChar(char)
 	local MoveSetter
 	local Stand = Vector3.new(0,0,0)
-	char:WaitForChild("Humanoid")
-	char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
-		if char.Humanoid.MoveDirection == Stand then
+	local oldVal = twoWS.Value
+	twoWS.Main.Value = false
+	wait()
+	twoWS.Main.Value = oldVal
+	local hum = char:WaitForChild("Humanoid")
+	hum:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+		if twoWS.Value then
+		        local speed = tonumber(WalkSpeed.Value)
+			if speed then
+			    local direction = hum.MoveDirection *Vector3.new(speed,speed,speed)
+			    local absDir = Vector3.new(math.abs(direction.X),math.abs(direction.Y),math.abs(direction.Z))
+			    SpeedVelocity.MaxAxesForce = absDir*Vector3.new(2000,2000,2000)
+			    SpeedVelocity.VectorVelocity = direction
+			end
+		end
+		if hum.MoveDirection == Stand then
 			if MoveSetter then MoveSetter:Disconnect() end
             		MoveSetter = nil
 		elseif not MoveSetter and Setter.Value then
-			MoveSetter = char.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+			MoveSetter = hum:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 				if Setter.Value then
-                    			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
+                    			hum.WalkSpeed = tonumber(WalkSpeed.Value)
                 		end
 			end)
 			wait()
-			char.Humanoid.WalkSpeed = tonumber(WalkSpeed.Value)
+			hum.WalkSpeed = tonumber(WalkSpeed.Value)
 		end
 	end)
 	while task.wait(0.5) do
