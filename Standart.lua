@@ -508,6 +508,7 @@ end)
 
 local JumpPower = Player.Create(3,"JumpPower","JumpPower:","Сила прыжка:")
 Player.Create(1,"SetJump","Set JumpPower","Установить силу прыжка",function()
+	LocalPlayer.Character.Humanoid.UseJumpPower = true
 	LocalPlayer.Character.Humanoid.JumpPower = tonumber(JumpPower.Value)
 end)
 
