@@ -24,7 +24,7 @@ if decompile then
 	end}
 end
 local ClassProperties do
-	local Data = game:HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
+	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
 	print(2)
 	ClassProperties = {}
 	for i = 1, #Data do
