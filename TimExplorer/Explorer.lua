@@ -487,28 +487,27 @@ Output.TextXAlignment = Enum.TextXAlignment.Left
 Output.TextYAlignment = Enum.TextYAlignment.Top
 Output.TextScaled = true
 local buttonsOut = {}
-buttonsOut["×"] = {function()
+table.insert(buttonsOut,{"×",function()
 	OutputF.Visible = false
-end,Color3.new(1,0.1,0.1)}
+end,Color3.new(1,0.1,0.1)})
+local toclipboard = true
 if toclipboard then
-	buttonsOut["📑"] = {function()
+	table.insert(buttonsOut,{"📑",function()
 		toclipboard(Output.Text)
-	end,Color3.new(0.1,0.4,1)}
+	end,Color3.new(0.1,0.4,1)})
 end
-local i = 0
-for k,v in pairs(buttonsOut) do
-	i += 1
+for y,v in pairs(buttonsOut) do
 	local ButtonM = Instance.new("TextButton",OutputMenu)
 	ButtonM.Size = UDim2.new(0,Sizes.Square,1,0)
-	ButtonM.Text = k
+	ButtonM.Text = v[1]
 	ButtonM.TextColor3 = Color3.new(1,1,1)
-	ButtonM.BackgroundColor3 = v[2]
+	ButtonM.BackgroundColor3 = v[3]
 	ButtonM.TextScaled = true
-	ButtonM.Position = UDim2.new(1,-Sizes.Square,0,0)
-	ButtonM.Activated:Connect(v[1])
+	ButtonM.Position = UDim2.new(1,-Sizes.Square*y,0,0)
+	ButtonM.Activated:Connect(v[2])
 end
 local OutInfo = Instance.new("TextLabel",OutputMenu)
-OutInfo.Size = UDim2.new(1,-Sizes.Square*i,1,0)
+OutInfo.Size = UDim2.new(1,-Sizes.Square*#buttonsOut,1,0)
 OutInfo.TextColor3 = Color3.new(1,1,1)
 OutInfo.BackgroundTransparency = 1
 OutInfo.TextScaled = true
