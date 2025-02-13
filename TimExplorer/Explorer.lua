@@ -25,7 +25,6 @@ if decompile then
 end
 local ClassProperties do
 	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
-	print(2)
 	ClassProperties = {}
 	for i = 1, #Data do
 		local Table = Data[i]
@@ -195,9 +194,6 @@ local function Update()
 			end
 		end
 		Objects.CanvasSize = UDim2.new(1,Sizes.XObj*(#tab-1)-10,0,Sizes.YObj*instCount)
-		if RunService:IsStudio() then
-			print("UPD")
-		end
 	else
 		WaitForReload = true
 	end
@@ -405,7 +401,6 @@ local function SelectNew(obj)
 					value.Interactable = false
 				end
 			else
-				print(name,typ)
 				value = Instance.new("TextBox",prop)
 				value.BackgroundTransparency = 1
 				value.Text = tostring(obj.Object[name])
@@ -435,7 +430,6 @@ local function SelectNew(obj)
 							end
 							
 						end
-						print(typ)
 					end)
 				else
 					value.TextEditable = false
