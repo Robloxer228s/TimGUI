@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+13.02.25 - update ToH (Hided functions with anticheat + new functions)
+
 12.02.25 - Added "Set walkspeed v2"
 
 08.02.25 - update group "Other"
