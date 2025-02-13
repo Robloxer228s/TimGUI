@@ -785,7 +785,7 @@ RunService.PostSimulation:Connect(function()
         end
     end
 end)
-local InvisiblePlayer = Player.Create(2,"InvisiblePlayer2","Invisible","Невидимость",function(val)
+local InvisiblePlayer = Player.Create(2,"InvisiblePlayer","Invisible","Невидимость",function(val)
 	local char = LocalPlayer.Character
 	if char:FindFirstChildOfClass("Humanoid").RigType.Name == "R15" then
         	if val.Value then
