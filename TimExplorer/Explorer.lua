@@ -11,10 +11,20 @@ local types = {
 	Part0="Instance",
 	Part1="Instance",
 }
+local SetOut
 local addingClass = {}
 addingClass.Highlight = {"Adornee","DepthMode","Enabled","FillColor","FillTransparency","OutlineColor","OutlineTransparency"}
+local classMenu = {}
+classMenu.BasePart = {TP=function(obj)
+	LocalPlayer.Character.PrimaryPart.CFrame = obj.Object.CFrame
+end}
+if decompile then
+	classMenu.BaseScript = {["📤"]=function(obj)
+		SetOut(obj.Object.Name,decompile(obj.Object))
+	end}
+end
 local ClassProperties do
-	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
+	local Data = game:HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
 	print(2)
 	ClassProperties = {}
 	for i = 1, #Data do
@@ -54,12 +64,12 @@ local ClassProperties do
 		end
 	end
 end
+wait(4)
 local guiParent = LocalPlayer.PlayerGui
 if not RunService:IsStudio() then
 	guiParent = game.CoreGui
 end
 local Images = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/images.json"))
-
 local Sizes = {}
 Sizes.YObj = 25
 Sizes.XObj = 30
@@ -241,6 +251,7 @@ local function SetEnum(obj:Instance,name:string)
 end
 
 local settingNewInst
+local latestNewInst
 local function SetInstance(obj:Instance,name:string)
 	settingNewInst = function(new)
 		settingNewInst = nil
@@ -254,6 +265,12 @@ local function toNew(str:string)
 	return table.unpack(new)
 end
 
+local MenuClass = Instance.new("Frame",TEgui)
+MenuClass.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+MenuClass.Position = UDim2.new(0.9,-100-Sizes.Menu,1,-Sizes.Menu)
+MenuClass.Size = UDim2.new(0,Sizes.Menu,0,Sizes.Menu)
+MenuClass.BackgroundTransparency = 1
+
 local function SelectNew(obj)
 	if settingNewInst ~= nil then
 		settingNewInst(obj.Object)
@@ -261,12 +278,31 @@ local function SelectNew(obj)
 	end
 	if SelectedTEobj then
 		SelectedTEobj.Button.BackgroundTransparency = 1
-	end
+	end SelectedTEobj = obj
 	Highlight.Adornee = obj.Object
 	obj.Button.BackgroundTransparency = 0
 	Props:ClearAllChildren()
 	for _,v in pairs(PropListeners) do
 		v:Disconnect()
+	end
+	MenuClass:ClearAllChildren()
+	for k,v in pairs(classMenu) do
+		if obj.Object:IsA(k) then
+			local y = 0
+			for k,v in pairs(v) do
+				local func = Instance.new("TextButton",MenuClass)
+				func.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+				func.Text = k
+				func.Size = UDim2.new(1,0,0,Sizes.Menu)
+				func.Position = UDim2.new(0,0,0,-y)
+				func.TextScaled = true
+				func.TextColor3 = Color3.new(1,1,1)
+				func.Activated:Connect(function()
+					v(obj)
+				end)
+				y += 1
+			end
+		end
 	end
 	local classProps = ClassProperties[obj.Object.ClassName] or {}
 	classProps = table.clone(classProps)
@@ -353,6 +389,13 @@ local function SelectNew(obj)
 						end)
 					else
 						value.Activated:Connect(function()
+							if settingNewInst then
+								settingNewInst(nil)
+								if latestNewInst == value then
+									return
+								end
+							end
+							latestNewInst = value
 							value.Text = "Choose new"
 							SetInstance(obj.Object,name)
 						end)
@@ -414,6 +457,12 @@ local function SelectNew(obj)
 					end
 				elseif typ == "EnumItem" then
 					value.Text = obj.Object[name].Name
+				elseif typ == "Instance" then
+					if obj.Object[name] == nil then
+						value.Text = ""
+					else
+						value.Text = obj.Object[name].Name
+					end
 				else
 					value.Text = tostring(obj.Object[name])
 				end
@@ -424,6 +473,57 @@ local function SelectNew(obj)
 	Props.CanvasSize = UDim2.new(0,0,0,(Sizes.YProp+Sizes.InsertProp)*(y))
 end
 
+local OutputF = Instance.new("Frame",TEgui)
+OutputF.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+OutputF.Size = UDim2.new(0.5,0,0.65,0)
+OutputF.Position = UDim2.new(0.125,0,0.25,0)
+local OutputMenu = Instance.new("Frame",OutputF)
+OutputMenu.Size = UDim2.new(1,0,0.1,0)
+OutputMenu.BackgroundColor3 = Color3.fromRGB(64,64,64)
+Sizes.Square = OutputMenu.AbsoluteSize.Y
+local Output = Instance.new("TextBox",OutputF)
+Output.Size = UDim2.new(1,0,0.9,0)
+Output.Position = UDim2.new(0,0,0.1,0)
+Output.BackgroundTransparency = 1
+Output.TextColor3 = Color3.new(1,1,1)
+Output.MultiLine = true
+Output.ClearTextOnFocus = false
+Output.TextEditable = false
+Output.TextXAlignment = Enum.TextXAlignment.Left
+Output.TextYAlignment = Enum.TextYAlignment.Top
+Output.TextScaled = true
+local buttonsOut = {}
+buttonsOut["×"] = {function()
+	OutputF.Visible = false
+end,Color3.new(1,0.1,0.1)}
+if toclipboard then
+	buttonsOut["📑"] = {function()
+		toclipboard(Output.Text)
+	end,Color3.new(0.1,0.4,1)}
+end
+local i = 0
+for k,v in pairs(buttonsOut) do
+	i += 1
+	local ButtonM = Instance.new("TextButton",OutputMenu)
+	ButtonM.Size = UDim2.new(0,Sizes.Square,1,0)
+	ButtonM.Text = k
+	ButtonM.TextColor3 = Color3.new(1,1,1)
+	ButtonM.BackgroundColor3 = v[2]
+	ButtonM.TextScaled = true
+	ButtonM.Position = UDim2.new(1,-Sizes.Square,0,0)
+	ButtonM.Activated:Connect(v[1])
+end
+local OutInfo = Instance.new("TextLabel",OutputMenu)
+OutInfo.Size = UDim2.new(1,-Sizes.Square*i,1,0)
+OutInfo.TextColor3 = Color3.new(1,1,1)
+OutInfo.BackgroundTransparency = 1
+OutInfo.TextScaled = true
+OutputF.Visible = false
+function SetOut(Z,T)
+	OutInfo.Text = Z
+	Output.Text = T
+	OutputF.Visible = true
+end
 local MenuFuncs = {}
 local copy
 MenuFuncs["🗑️"] = function()
@@ -439,6 +539,9 @@ end
 MenuFuncs["📋"] = function()
 	copy.Parent = SelectedTEobj.Object
 	copy = copy:Clone()
+end 
+MenuFuncs["🔗"] = function()
+	SetOut("Path to ".. SelectedTEobj.Object.Name,"game." .. SelectedTEobj.Object:GetFullName())
 end 
 local Menu = Instance.new("Frame",TEgui)
 Menu.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
@@ -545,7 +648,6 @@ function Create(obj: Instance)
 	end
 	Button.Activated:Connect(function()
 		SelectNew(TEobj)
-		SelectedTEobj = TEobj
 	end)
 	Update()
 end
@@ -588,5 +690,45 @@ task.spawn(function()
 		if TEgui.Enabled then
 			UpdsPerS = 0
 		end
+	end
+end)
+
+local holdingCTRL = false
+local holdingShift = false
+UIS.InputBegan:Connect(function(input)
+	if not UIS:GetFocusedTextBox() then
+		if input.KeyCode == Enum.KeyCode.Delete then
+			if SelectedTEobj then
+				SelectedTEobj.Object:Destroy()
+			end
+		elseif holdingCTRL == true then
+			if input.KeyCode == Enum.KeyCode.V then
+				if holdingShift then
+					copy.Parent = SelectedTEobj.Object
+				else
+					copy.Parent = SelectedTEobj.Object.Parent
+				end
+				copy = copy:Clone()
+				
+			elseif input.KeyCode == Enum.KeyCode.C then
+				copy = SelectedTEobj.Object:Clone()
+			elseif input.KeyCode == Enum.KeyCode.X then
+				copy = SelectedTEobj.Object
+				copy.Parent = script
+			end
+		end
+	end
+	if input.KeyCode == Enum.KeyCode.LeftControl then
+		holdingCTRL = true
+	elseif input.KeyCode == Enum.KeyCode.LeftShift then
+		holdingShift = true
+	end
+end)
+
+UIS.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftControl then
+		holdingCTRL = false
+	elseif input.KeyCode == Enum.KeyCode.LeftShift then
+		holdingShift = false
 	end
 end)
