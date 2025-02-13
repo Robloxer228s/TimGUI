@@ -581,7 +581,7 @@ local NoT = Player.Create(2,"Notouch","No CanTouch","Убрать косания
 	end
 end)
 local AnimSpeed = Player.Create(3,"AnimSpeed","Speed for animation:","Скорость анимации:")
-local AnimSpeedEnabled = Player.Create(2,"AnimSpeedEnabled1","Enable speed for animation","Включить скорость анимации")
+local AnimSpeedEnabled = Player.Create(2,"AnimSpeedEnabled","Enable speed for animation","Включить скорость анимации")
 RunService.RenderStepped:Connect(function()
     if AnimSpeedEnabled.Value then
         local char = LocalPlayer.Character
