@@ -89,7 +89,7 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
-Tower of hell -- Dont work
+[Tower of hell](https://www.roblox.com/share?code=f74e6b36d1580d4dac97152a4fb1d4d1&type=ExperienceDetails&stamp=1739475720852) + hided funcs with anticheat
 
 [Underground war 2.0](https://www.roblox.com/share?code=ea1067fa38ccab43b0f04fe6557ec29a&type=ExperienceDetails&stamp=1738617065522)
 
