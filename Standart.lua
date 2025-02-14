@@ -632,7 +632,7 @@ Player.Create(1,"TPTool","TPTool","ТПВтулка",function(val)
 	Tele.Equipped:connect(function(Mouse)
 		Mouse.Button1Down:connect(function()
 			if Mouse.Target then
-			game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name).PrimaryPart.CFrame = (CFrame.new(Mouse.Hit.x, Mouse.Hit.y + 5, Mouse.Hit.z))
+			LocalPlayer.Character.PrimaryPart.CFrame = (CFrame.new(Mouse.Hit.x, Mouse.Hit.y + 5, Mouse.Hit.z))
 			end
 		end)
 	end)
