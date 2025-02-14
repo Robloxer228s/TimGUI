@@ -3,6 +3,7 @@ local LocalPlayer = game.Players.LocalPlayer
 local group = _G.TimGui.Groups.CreateNewGroup("Leader", "Лидер") 
 local leader = function()
 for k, v in pairs(game.Players:GetChildren()) do
+  if not v.Character then continue end
   if v.Character:FindFirstChild("LeaderHighlight") then
     if _G.TimGui.Values.Spare[v.Name] then return nil end
       return v.Character
