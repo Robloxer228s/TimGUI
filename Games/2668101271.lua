@@ -45,10 +45,12 @@ game.Workspace.ChildAdded:Connect(function(child)
             if GrabPart then
                 GrabPart = GrabPart.Part1
                 child.Destroying:Wait()
-                if ThrowOut.Value then
-                    GrabPart.RotVelocity += Vector3.new(0,100000,0)
-            end if TPEnable.Value and GrabPart.Anchored == false then
-                    GrabPart.CFrame = TPpos
+                if GrabPart.Anchored == false then
+                    if ThrowOut.Value then
+                        GrabPart.RotVelocity += Vector3.new(0,100000,0)
+                    end if TPEnable.Value then
+                        GrabPart.CFrame = TPpos
+                    end
                 end
             end
         end
