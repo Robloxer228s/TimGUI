@@ -3,6 +3,7 @@ local group = _G.TimGui.Groups.CreateNewGroup("Fling Things and Fling People","�
 local CharEvents = game.ReplicatedStorage.CharacterEvents
 
 local AntiGrab = group.Create(2,"AntiGrab","Anti grab","Запретить взятие")
+AntiGrab.CFGSave = true
 local function DisableGrab(char)
     if AntiGrab.Value then
         char:WaitForChild("HumanoidStateTypeByGettingFlung").Enabled = false
