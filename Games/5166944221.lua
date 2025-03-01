@@ -1,5 +1,6 @@
 --DeathBall
 local userInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 local attach = true
 _G.TimGui.Add.G("DeathBall")
 local Auto = _G.TimGui.Add.CB("Auto","Auto(buged)","DeathBall",2,"Авто(баганый)")
@@ -54,8 +55,7 @@ end)
 AFKvvv.Value = true
 
 
-while true do
-wait(0.05) 
+while RunService.RenderStepped:Wait() do
 local ball = game.Workspace:WaitForChild("Part") 
 if ball.Highlight.FillColor == RB and attach then
 local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
