@@ -2,15 +2,15 @@
 local userInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local attach = true
-_G.TimGui.Add.G("DeathBall")
-local Auto = _G.TimGui.Add.CB("Auto","Auto(buged)","DeathBall",2,"Авто(баганый)")
-local Arabic = _G.TimGui.Add.CB("Arabic","Arabic","DeathBall",3,"Арабик")
-local radios = _G.TimGui.Add.TB("rad","Radius(50studs)(0-off):","DeathBall",1,"Радиус(50шпилек)(0-выкл):")
-_G.TimGui.Add.B("spawn","TP to spawn","DeathBall",4,"ТП на спавн", function() 
+local group = _G.TimGui.Groups.CreateNewGroup("DeathBall")
+local Auto = group.Create(2,"Auto","Auto(buged)","Авто(баганый)")
+local Arabic = group.Create(2,"Arabic","Arabic","Арабик")
+local radios = group.Create(2,"rad","Radius(50studs)(0-off):","Радиус(50шпилек)(0-выкл):")
+group.Create(1,"spawn","TP to spawn","ТП на спавн", function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SpawnLocation.CFrame
 end) 
-radios.Text = 0
-radios:GetPropertyChangedSignal("Text"):Connect(function()
+radios.Main.Text = 0
+radios.Main:GetPropertyChangedSignal("Text"):Connect(function()
 local without_letters = string.gsub(radios.Text, "[A-z]","")
 if without_letters == radios.Text then
 return
@@ -40,7 +40,7 @@ end
 local AFKvvv = Instance.new("BoolValue")
 AFKvvv.Changed:Connect(function()
 local InterFrame = game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD").HolderBottom.IntermissionFrame
-local AFK = _G.TimGui.Add.CB("AFK","AFK(tp to intermission)","DeathBall",5,"АФК(ТП в интермиссию)")
+local AFK = group.Create(2,"AFK","AFK(tp to intermission)","АФК(ТП в интермиссию)")
 InterFrame.DescriptionLabel.Changed:Connect(function()
 if InterFrame.Visible and AFK.Value then
 if _G.debug then
@@ -66,8 +66,8 @@ Check = ball.CFrame.Y - playerPos.Y
 pos = pos + math.abs(Check)
 Check = ball.CFrame.Z - playerPos.Z
 pos = pos + math.abs(Check)
-if radios.Text == "" then
-radios.Text = 1
+if radios.Main.Text == "" then
+radios.Main.Text = 1
 end
 if Auto.Value == true then
 if not (prev == nil) then
@@ -91,7 +91,7 @@ wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = ball.CFrame
 end
 end
-elseif pos < radios.Text*50 then
+elseif pos < radios.Value*50 then
 CLC() 
 end
 elseif not (ball.Highlight.FillColor == RB) then
