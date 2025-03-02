@@ -10,7 +10,7 @@ local AutoRadius = group.Create(2,"AutoForRad","Auto for selected radius","Ав�
 group.Create(1,"spawn","TP to spawn","ТП на спавн", function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SpawnLocation.CFrame
 end) 
-radios.Main.Text = 0
+radios.Main.Text = 1
 
 
 local rad = 0
