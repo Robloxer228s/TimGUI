@@ -85,7 +85,7 @@ while RunService.RenderStepped:Wait() do
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = ball.CFrame
                 end
             end
-        elseif AutoForRad.Value then
+        elseif AutoRadius.Value then
             if pos < radios.Value*50 then
                 CLC() 
             end
