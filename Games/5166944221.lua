@@ -52,7 +52,7 @@ AFKvvv.Value = true
 while RunService.RenderStepped:Wait() do
     local ball = game.Workspace:WaitForChild("Part",math.huge) 
     if ball.Highlight.FillColor == RB and attach then
-        local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
         local pos = math.abs((playerPos-ball.CFrame.Position).Magnitude)
         --local Check = ball.CFrame.X - playerPos.X
         --pos = pos + math.abs(Check)
