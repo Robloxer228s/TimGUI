@@ -2,21 +2,15 @@
 local userInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local attach = true
-local group = _G.TimGui.Groups.CreateNewGroup("DeathBall2")
+local group = _G.TimGui.Groups.CreateNewGroup("DeathBall")
 local Auto = group.Create(2,"Auto","Auto(buged)","Авто(баганый)")
 local Arabic = group.Create(2,"Arabic","Arabic","Арабик")
-local radios = group.Create(3,"rad","Radius(50studs)(0-off):","Радиус(50шпилек)(0-выкл):")
+local radios = group.Create(3,"rad","Radius(50studs)(0-off):","Радиус(50шпилек):")
+local AutoRadius = group.Create(2,"AutoForRad","Auto for selected radius","Авто для выбраного радиуса")
 group.Create(1,"spawn","TP to spawn","ТП на спавн", function() 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SpawnLocation.CFrame
 end) 
 radios.Main.Text = 0
-radios.Main:GetPropertyChangedSignal("Text"):Connect(function()
-local without_letters = string.gsub(radios.Text, "[A-z]","")
-if without_letters == radios.Text then
-return
-end
-radios.Text = without_letters
-end)
 
 
 local rad = 0
@@ -66,7 +60,7 @@ while RunService.RenderStepped:Wait() do
         --pos = pos + math.abs(Check)
         --Check = ball.CFrame.Z - playerPos.Z
         --pos = pos + math.abs(Check)
-        if radios.Main.Text == "" then
+        if tonumber(radios.Main.Text) then
             radios.Main.Text = 1
         end
         if Auto.Value == true then
@@ -91,8 +85,10 @@ while RunService.RenderStepped:Wait() do
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = ball.CFrame
                 end
             end
-        elseif pos < radios.Value*50 then
-            CLC() 
+        elseif AutoForRad.Value then
+            if pos < radios.Value*50 then
+                CLC() 
+            end
         end
     elseif not (ball.Highlight.FillColor == RB) then
         attach = true
