@@ -18,6 +18,9 @@ local RB = Color3.new(1, 0, 0)
 local prev
 
 local ReLoad = Instance.new("BoolValue")
+local ReloadEnable = group.Create(2,"Reload","Reload enabled","Перезарядка для авто отбивания")
+ReloadEnable.Value = true
+ReloadEnable.CFGSave = true
 ReLoad.Changed:Connect(function()
     wait(1.25)
     attach = true
@@ -25,8 +28,10 @@ end)
 
 local function CLC()
     game:service("VirtualInputManager"):SendKeyEvent(true, "F", false, game) 
-    attach = false
-    ReLoad.Value = not ReLoad.Value
+    if ReloadEnable.Value then
+        attach = false
+        ReLoad.Value = not ReLoad.Value
+    end
     prev = nil
     rad = 0
 end
