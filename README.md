@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+02.03.25 - added Eat huge waffle
+
 13.02.25 - update ToH (Hided functions with anticheat + new functions)
 
 12.02.25 - Added "Set walkspeed v2"
@@ -89,6 +91,8 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
+Eat huge waffle
+
 [Tower of hell](https://www.roblox.com/share?code=f74e6b36d1580d4dac97152a4fb1d4d1&type=ExperienceDetails&stamp=1739475720852) + hided funcs with anticheat
 
 [Underground war 2.0](https://www.roblox.com/share?code=ea1067fa38ccab43b0f04fe6557ec29a&type=ExperienceDetails&stamp=1738617065522)
