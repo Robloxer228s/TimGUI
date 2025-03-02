@@ -59,13 +59,13 @@ while RunService.RenderStepped:Wait() do
     local ball = game.Workspace:WaitForChild("Part",math.huge) 
     if ball.Highlight.FillColor == RB and attach then
         local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-        local pos = 0
-        local Check = ball.CFrame.X - playerPos.X
-        pos = pos + math.abs(Check)
-        Check = ball.CFrame.Y - playerPos.Y
-        pos = pos + math.abs(Check)
-        Check = ball.CFrame.Z - playerPos.Z
-        pos = pos + math.abs(Check)
+        local pos = math.abs((playerPos-ball.CFrame.Position).Magnitude)
+        --local Check = ball.CFrame.X - playerPos.X
+        --pos = pos + math.abs(Check)
+        --Check = ball.CFrame.Y - playerPos.Y
+        --pos = pos + math.abs(Check)
+        --Check = ball.CFrame.Z - playerPos.Z
+        --pos = pos + math.abs(Check)
         if radios.Main.Text == "" then
             radios.Main.Text = 1
         end
