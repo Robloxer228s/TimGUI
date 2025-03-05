@@ -22,6 +22,7 @@ if decompile then
 	classMenu.BaseScript = {["📤"]=function(obj)
 		SetOut(obj.Object.Name,decompile(obj.Object))
 	end}
+	classMenu.ModuleScript = classMenu.BaseScript
 end
 local ClassProperties do
 	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
