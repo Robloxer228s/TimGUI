@@ -1864,6 +1864,13 @@ else
         LocalPlayer.DevEnableMouseLock = true
     end)
 end
+group.Create(1,"ToggleTE","Toggle TimExplorer","Переключить TExplorer",function()
+    if game.CoreGui:FindFirstChild("TExplorer") then
+        game.CoreGui.TExplorer.Enabled = not game.CoreGui.TExplorer.Enabled
+        return
+    end 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimExplorer/Explorer.lua"))()
+end)
 group.Create(0,"Try hack game","Try hack game","Попытки взлома игры")
 local function CheckParent(v,name)
     local res = v
