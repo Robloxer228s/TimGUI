@@ -12,7 +12,7 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
-06.03.25 - Add Pinnig(to other) + upd Fling people for DisableBarrier
+06.03.25 - Add Pinnig(to other) + upd Fling people for DisableBarrier + added "Math Murder"
 
 02.03.25 - added Eat huge waffle
 
