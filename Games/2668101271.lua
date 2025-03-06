@@ -56,3 +56,12 @@ game.Workspace.ChildAdded:Connect(function(child)
         end
     end
 end)
+
+group.Create(2,"DisableBarrier","Disable Barrier For Houses","Выключить бырьер домов",function(v)
+    for k,v in pairs(game.Workspace.Plots:GetChildren()) do
+        for kk,vv in pairs(v.Barrier:GetChildren()) do
+            vv.CanCollide = not v.Value
+            vv.CanTouch = not v.Value
+        end
+    end
+end)
