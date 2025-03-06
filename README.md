@@ -12,6 +12,10 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+06.03.25 - Add Pinnig(to other)
+
+~04.03.25 - Add Fling things and people
+
 02.03.25 - added Eat huge waffle
 
 13.02.25 - update ToH (Hided functions with anticheat + new functions)
