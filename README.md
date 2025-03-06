@@ -95,6 +95,10 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
+[Math Murder](https://www.roblox.com/share?code=a97de22400427741a01a25fe49d7b27f&type=ExperienceDetails&stamp=1741289706212)
+
+[Fling things and people](https://www.roblox.com/share?code=0c54fc0e833d7a4b954a5a44e262b4b6&type=ExperienceDetails&stamp=1741289771712)
+
 Eat huge waffle
 
 [Tower of hell](https://www.roblox.com/share?code=f74e6b36d1580d4dac97152a4fb1d4d1&type=ExperienceDetails&stamp=1739475720852) + hided funcs with anticheat
