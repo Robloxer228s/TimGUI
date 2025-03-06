@@ -1,5 +1,5 @@
 local mathing = game.Workspace.Map.Functional.Screen.SurfaceGui.MainFrame.MainGameContainer.MainTxtContainer.QuestionText
-local group = _G.TimGui.Groups.CreateNewGroup("math")
+local group = _G.TimGui.Groups.CreateNewGroup("math","матиматика")
 local ansewer = group.Create(2,"GiveAnsw","Get ansewer","Получать ответы")
 ansewer.CFGSave = true
 mathing:GetPropertyChangedSignal("Text"):Connect(function()
