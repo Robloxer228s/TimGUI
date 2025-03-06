@@ -2000,6 +2000,49 @@ group.Create(1,"SetVelocityToYourChar","Set Velocity To Your Char","Прикре
     end
 end)
 
+local PinedObjects
+local OldPosition
+local function addPartToPin(Part)
+    local function parentF(p)
+        if p:IsA("Model") then
+            return game.Players:GetPlayerFromCharacter(p)
+        end
+    end
+    if not CheckParent(Part,parentF) then
+        local Velocity = Instance.new("AlignPosition",PinedObjects)
+        Velocity.Mode = 0
+        Velocity.MaxForce = math.huge
+        Velocity.MaxVelocity = math.huge
+        Velocity.Attachment0 = Part:FindFirstChildOfClass("Attachment") or Instance.new("Attachment",Part)
+        Velocity.Position = OldPosition
+    end
+end
+local Pinning = group.Create(2,"Pinning","Pinning all","Прикреплять все в твою позицию",function(val)
+    if val.Value then
+        PinedObjects = Instance.new("Folder",game.Workspace.CurrentCamera)
+        OldPosition = LocalPlayer.Character.HumanoidRootPart.Position
+        for k,v in pairs(game.Workspace:GetDescendants()) do
+            if v:IsA("BasePart") then
+                if not v.Anchored then
+                    addPartToPin(v)
+                end
+            end
+        end
+    else
+        PinedObjects:Destroy()
+    end
+end)
+
+game.Workspace.DescendantAdded:Connect(function(v)
+    if Pinning.Value then
+        if v:IsA("BasePart") then
+            if not v.Anchored then
+                addPartToPin(v)
+            end
+        end
+    end
+end)
+
 local HideGui = group.Create(2,"Hide All Guis","Hide All Guis","Спрятать весь интерфейс")
 local Hided = {}
 local function UpdHideGui(obj,hide)
