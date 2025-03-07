@@ -1445,6 +1445,21 @@ end
 -- FUN --------------------------------
 local FUN = _G.TimGui.Groups.CreateNewGroup("FUN","ВЕСЕЛЬЕ")
 
+FUN.Create(1,"KickYou","Kick for you(use for bugs)","Кикнуть тебя",function()
+    if _G.TimGui.Values.RusLang then
+        LocalPlayer:Kick("Пакеда, хихихи")
+    else
+        LocalPlayer:Kick("Bye bye.")
+    end
+end)
+
+FUN.Create(1,"Reset","Reset Character","Перевозродится",function()
+    local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.Health = -1
+    end
+end)
+
 local Happy = false
 local Spiderman = FUN.Create(2,"Spiderman","Spiderman","Человек паук")
 local Rope
@@ -2061,21 +2076,6 @@ group.Create(1,"UpRotation2","Set rotation to up for all","Повернуть о
                 end
             end
         end
-    end
-end)
-
-group.Create(1,"KickYou","Kick for you(use for bugs)","Кикнуть тебя",function()
-    if _G.TimGui.Values.RusLang then
-        LocalPlayer:Kick("Пакеда, хихихи")
-    else
-        LocalPlayer:Kick("Bye bye.")
-    end
-end)
-
-group.Create(1,"KickYou","Kick for you(use for bugs)","Кикнуть тебя",function()
-    local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-    if hum then
-        hum.Health = -1
     end
 end)
 
