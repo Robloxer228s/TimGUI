@@ -1199,7 +1199,7 @@ end)
 -- ESP -------------------------------------------------------
 local ESP = Instance.new("Folder",_G.TimGui.Path.gui)
 local ESPB = {}
-local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP v2","Подсветка")
+local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
 local sizeTexts = ESPG.Create(3,"SizeTxt","Size of text:","Размер текста")
 local enableTexts = ESPG.Create(2,"Txt","Enable text","Включить текст")
 local oldSizeText = 7
