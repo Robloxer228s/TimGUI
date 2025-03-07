@@ -1977,17 +1977,17 @@ group.Create(1,"Attempt activate all privilegies","Attempt activate all privileg
         _G.TimGui.Print("Privilegies?",Attempt.." has been activated","Привилегии?","Активировано: "..Attempt)
     end
 end)
+local function parentF(p)
+    if p:IsA("Model") then
+        return game.Players:GetPlayerFromCharacter(p)
+    end
+end
 
 group.Create(1,"SetVelocityToYourChar","Set Velocity To Your Char","Прикрепить все обьекты в твою позицию",function()
     local folder = Instance.new("Folder",game.Workspace.CurrentCamera)
     for k,v in pairs(game.Workspace:GetDescendants()) do
         if v:IsA("BasePart") then
             if not v.Anchored then
-                local function parentF(p)
-                    if p:IsA("Model") then
-                        return game.Players:GetPlayerFromCharacter(p)
-                    end
-                end
                 if not CheckParent(v,parentF) then
                     local Velocity = Instance.new("AlignPosition",folder)
                     Velocity.Mode = 0
@@ -2003,11 +2003,6 @@ end)
 local PinedObjects
 local OldPosition
 local function addPartToPin(Part)
-    local function parentF(p)
-        if p:IsA("Model") then
-            return game.Players:GetPlayerFromCharacter(p)
-        end
-    end
     if not CheckParent(Part,parentF) then
         local Velocity = Instance.new("AlignPosition",PinedObjects)
         Velocity.Mode = 0
@@ -2040,6 +2035,47 @@ game.Workspace.DescendantAdded:Connect(function(v)
                 addPartToPin(v)
             end
         end
+    end
+end)
+
+local PowerOfKick = group.Create(3,"PowerOfKick","Power:","Сила:")
+group.Create(1,"UpVelocity2","Set velocity to up for all","Подкинуть обьетки",function(val)
+    for k,v in pairs(game.Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            if not v.Anchored then
+                if not CheckParent(v,parentF) then
+                    v.Velocity = Vector3.new(0,tonumber(PowerOfKick.Value) or 100,0)
+                end
+            end
+        end
+    end
+end)
+
+group.Create(1,"UpRotation2","Set rotation to up for all","Повернуть обьетки",function(val)
+    for k,v in pairs(game.Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            if not v.Anchored then
+                if not CheckParent(v,parentF) then
+                    local rot = tonumber(PowerOfKick.Value) or 100
+                    v.AssemblyAngularVelocity = Vector3.new(rot,rot,rot)
+                end
+            end
+        end
+    end
+end)
+
+group.Create(1,"KickYou","Kick for you(use for bugs)","Кикнуть тебя",function()
+    if _G.TimGui.Values.RusLang then
+        LocalPlayer:Kick("Пакеда, хихихи")
+    else
+        LocalPlayer:Kick("Bye bye.")
+    end
+end)
+
+group.Create(1,"KickYou","Kick for you(use for bugs)","Кикнуть тебя",function()
+    local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.Health = -1
     end
 end)
 
