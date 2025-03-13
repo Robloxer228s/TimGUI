@@ -24,8 +24,12 @@ if decompile then
 	classMenu.ModuleScript = classMenu.BaseScript
 end
 local ClassProperties do
-	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
-	print(2)
+	local Data
+	if RunService:IsStudio() then
+		Data = game.ReplicatedStorage.RemoteFunction:InvokeServer()
+	else
+		Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
+	end
 	ClassProperties = {}
 	for i = 1, #Data do
 		local Table = Data[i]
@@ -64,8 +68,14 @@ local ClassProperties do
 		end
 	end
 end
-local guiParent = game.CoreGui
-local Images = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/images.json"))
+local guiParent,Images
+if RunService:IsStudio() then
+	guiParent = LocalPlayer.PlayerGui
+	Images = require(script.GetImages) or {}
+else
+	guiParent = game.CoreGui
+	Images = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/images.json"))
+end
 
 local Sizes = {}
 Sizes.YObj = 25
@@ -406,7 +416,6 @@ local function SelectNew(obj)
 					value.Interactable = false
 				end
 			else
-				print(name,typ)
 				value = Instance.new("TextBox",prop)
 				value.BackgroundTransparency = 1
 				value.Text = tostring(obj.Object[name])
@@ -436,7 +445,6 @@ local function SelectNew(obj)
 							end
 							
 						end
-						print(typ)
 					end)
 				else
 					value.TextEditable = false
