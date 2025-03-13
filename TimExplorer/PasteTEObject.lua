@@ -3,7 +3,7 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 		TEObj = game.HttpService:JSONDecode(TEObj)
 	end
 	local Inst = Instance.new(TEObj["Props"]["ClassName"]["value"],parent)
-	if TEObj["Props"]["ClassName"]["value"] then
+	if TEObj["Props"]["ClassName"]["value"] == "Seat" then
 		local reload = true
 		Inst.Touched:Connect(function(other:Instance)
 			local char = game.Players.LocalPlayer.Character
