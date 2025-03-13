@@ -52,14 +52,19 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				else
 					print("UnknownType:",v["type"],"Property:",k)
 				end
+			elseif v["type"] == "BrickColor" then
+				Inst[k] = BrickColor.new(v["value"])
 			elseif v["type"] == "Instance" then
-				local Path = string.split(v["value"],".")
-				local Obj = game
-				for _,v in pairs(Path) do
-					Obj = Obj:FindFirstChild(v)
-					if not Obj then
-						Obj = nil
-						break
+				local Obj
+				if v["value"] ~= nil then
+					local Path = string.split(v["value"],".")
+					Obj = game
+					for _,v in pairs(Path) do
+						Obj = Obj:FindFirstChild(v)
+						if not Obj then
+							Obj = nil
+							break
+						end
 					end
 				end
 				Inst[k] = Obj
