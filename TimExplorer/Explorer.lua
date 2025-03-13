@@ -2,7 +2,6 @@ local LocalPlayer = game.Players.LocalPlayer
 local RunService = game:GetService("RunService")
 local UIS = game.UserInputService
 
-local InstanceMouseSelection = "rbxasset://textures/GlueCursor.png"
 local types = {
 	Adornee="Instance",
 	PrimaryPart="Instance",
@@ -26,6 +25,7 @@ if decompile then
 end
 local ClassProperties do
 	local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
+	print(2)
 	ClassProperties = {}
 	for i = 1, #Data do
 		local Table = Data[i]
@@ -64,12 +64,9 @@ local ClassProperties do
 		end
 	end
 end
-wait(4)
-local guiParent = LocalPlayer.PlayerGui
-if not RunService:IsStudio() then
-	guiParent = game.CoreGui
-end
+local guiParent = game.CoreGui
 local Images = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/images.json"))
+
 local Sizes = {}
 Sizes.YObj = 25
 Sizes.XObj = 30
@@ -195,6 +192,9 @@ local function Update()
 			end
 		end
 		Objects.CanvasSize = UDim2.new(1,Sizes.XObj*(#tab-1)-10,0,Sizes.YObj*instCount)
+		if RunService:IsStudio() then
+			print("UPD")
+		end
 	else
 		WaitForReload = true
 	end
@@ -268,6 +268,22 @@ MenuClass.Position = UDim2.new(0.9,-100-Sizes.Menu,1,-Sizes.Menu)
 MenuClass.Size = UDim2.new(0,Sizes.Menu,0,Sizes.Menu)
 MenuClass.BackgroundTransparency = 1
 
+local function GetProperties(ClassName)
+	local res = table.clone(ClassProperties[ClassName]) or {}
+	if res[1] == nil then
+		table.insert(res,"Archivable")
+		table.insert(res,"Name")
+		table.insert(res,"Parent")
+	end
+	table.insert(res,"ClassName")
+	if addingClass[ClassName] then
+		for _,v in pairs(addingClass[ClassName]) do
+			table.insert(res,v)
+		end
+	end
+	return res
+end
+
 local function SelectNew(obj)
 	if settingNewInst ~= nil then
 		settingNewInst(obj.Object)
@@ -301,20 +317,8 @@ local function SelectNew(obj)
 			end
 		end
 	end
-	local classProps = ClassProperties[obj.Object.ClassName] or {}
-	classProps = table.clone(classProps)
+	local classProps = GetProperties(obj.Object.ClassName)
 	local y = 0
-	if classProps[1] == nil then
-		table.insert(classProps,"Archivable")
-		table.insert(classProps,"Name")
-		table.insert(classProps,"Parent")
-	end
-	table.insert(classProps,"ClassName")
-	if addingClass[obj.Object.ClassName] then
-		for _,v in pairs(addingClass[obj.Object.ClassName]) do
-			table.insert(classProps,v)
-		end
-	end
 	for _,name in pairs(classProps) do
 		local prop = Instance.new("Frame",Props)
 		prop.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
@@ -402,6 +406,7 @@ local function SelectNew(obj)
 					value.Interactable = false
 				end
 			else
+				print(name,typ)
 				value = Instance.new("TextBox",prop)
 				value.BackgroundTransparency = 1
 				value.Text = tostring(obj.Object[name])
@@ -431,6 +436,7 @@ local function SelectNew(obj)
 							end
 							
 						end
+						print(typ)
 					end)
 				else
 					value.TextEditable = false
@@ -491,7 +497,6 @@ local buttonsOut = {}
 table.insert(buttonsOut,{"×",function()
 	OutputF.Visible = false
 end,Color3.new(1,0.1,0.1)})
-local toclipboard = true
 if toclipboard then
 	table.insert(buttonsOut,{"📑",function()
 		toclipboard(Output.Text)
@@ -536,7 +541,47 @@ MenuFuncs["📋"] = function()
 end 
 MenuFuncs["🔗"] = function()
 	SetOut("Path to ".. SelectedTEobj.Object.Name,"game." .. SelectedTEobj.Object:GetFullName())
-end 
+end
+MenuFuncs["🌐"] = function()
+	local Object = {}
+	local function GetObject(obj)
+		local thisObjTab = {}
+		if obj == nil then
+			obj = SelectedTEobj.Object
+		end
+		thisObjTab["Props"] = {}
+		for _,prop in pairs(GetProperties(obj.ClassName)) do
+			local prTab = {}
+			prTab["type"] = typeof(obj[prop])
+			if prTab["type"] == "Instance" then
+				prTab["value"] = obj[prop]:GetFullName()
+			elseif prTab["type"] == "number" or prTab["type"] == "string" or prTab["type"] == "boolean" then
+				prTab["value"] = obj[prop]
+			elseif prTab["type"] == "EnumItem" then
+				prTab["value"] = obj[prop].Value
+			else
+				local val = tostring(obj[prop])
+				if string.find(val,", ") then
+					prTab["value"] = string.split(val,", ")
+				else
+					prTab["value"] = tostring(val)
+				end
+			end
+			if prTab["type"] == "nil" then
+				prTab["type"] = "Instance"
+				prTab["value"] = nil
+			end
+			thisObjTab["Props"][prop] = prTab
+		end
+		local children = {}
+		for _,v in pairs(obj:GetChildren()) do
+			table.insert(children,GetObject(v))
+		end
+		thisObjTab["Children"] = children
+		return thisObjTab
+	end
+	SetOut("TEObject for ".. SelectedTEobj.Object.Name,game.HttpService:JSONEncode(GetObject()))
+end
 local Menu = Instance.new("Frame",TEgui)
 Menu.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 Menu.Position = UDim2.new(0.9,-100-Sizes.Menu,0,0)
@@ -626,6 +671,9 @@ function Create(obj: Instance)
 			listeners["ChildAdded"]:Disconnect()
 			listeners["ChildRemoved"]:Disconnect()
 		end
+	end)
+	listeners["NameChanged"] = obj:GetPropertyChangedSignal("Name"):Connect(function()
+		Button.Text = obj.Name
 	end)
 	listeners["ParentChanged"] = obj.AncestryChanged:Connect(function()
 		Update()
