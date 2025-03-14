@@ -1,3 +1,7 @@
+function _G.GetTEObject()
+	
+end
+
 local LocalPlayer = game.Players.LocalPlayer
 local RunService = game:GetService("RunService")
 local UIS = game.UserInputService
@@ -555,44 +559,43 @@ MenuFuncs["🔗"] = function()
 end
 local lastPage = 0
 local LenLast
-MenuFuncs["🌐"] = function()
-	local Object = {}
-	local function GetObject(obj)
-		local thisObjTab = {}
-		if obj == nil then
-			obj = SelectedTEobj.Object
-		end
-		thisObjTab["Props"] = {}
-		for _,prop in pairs(GetProperties(obj.ClassName)) do
-			local prTab = {}
-			prTab["type"] = typeof(obj[prop])
-			if prTab["type"] == "Instance" then
-				prTab["value"] = obj[prop]:GetFullName()
-			elseif prTab["type"] == "number" or prTab["type"] == "string" or prTab["type"] == "boolean" then
-				prTab["value"] = obj[prop]
-			elseif prTab["type"] == "EnumItem" then
-				prTab["value"] = obj[prop].Value
-			else
-				local val = tostring(obj[prop])
-				if string.find(val,", ") then
-					prTab["value"] = string.split(val,", ")
-				else
-					prTab["value"] = tostring(val)
-				end
-			end
-			if prTab["type"] == "nil" then
-				prTab["type"] = "Instance"
-				prTab["value"] = nil
-			end
-			thisObjTab["Props"][prop] = prTab
-		end
-		local children = {}
-		for _,v in pairs(obj:GetChildren()) do
-			table.insert(children,GetObject(v))
-		end
-		thisObjTab["Children"] = children
-		return thisObjTab
+local function GetObject(obj)
+	local thisObjTab = {}
+	if obj == nil then
+		obj = SelectedTEobj.Object
 	end
+	thisObjTab["Props"] = {}
+	for _,prop in pairs(GetProperties(obj.ClassName)) do
+		local prTab = {}
+		prTab["type"] = typeof(obj[prop])
+		if prTab["type"] == "Instance" then
+			prTab["value"] = obj[prop]:GetFullName()
+		elseif prTab["type"] == "number" or prTab["type"] == "string" or prTab["type"] == "boolean" then
+			prTab["value"] = obj[prop]
+		elseif prTab["type"] == "EnumItem" then
+			prTab["value"] = obj[prop].Value
+		else
+			local val = tostring(obj[prop])
+			if string.find(val,", ") then
+				prTab["value"] = string.split(val,", ")
+			else
+				prTab["value"] = tostring(val)
+			end
+		end
+		if prTab["type"] == "nil" then
+			prTab["type"] = "Instance"
+			prTab["value"] = nil
+		end
+		thisObjTab["Props"][prop] = prTab
+	end
+	local children = {}
+	for _,v in pairs(obj:GetChildren()) do
+		table.insert(children,GetObject(v))
+	end
+	thisObjTab["Children"] = children
+	return thisObjTab
+end
+MenuFuncs["🌐"] = function()
 	local result = game.HttpService:JSONEncode(GetObject())
 	local len = string.len(result)
 	if len > 199999 then
@@ -609,6 +612,18 @@ MenuFuncs["🌐"] = function()
 	else
 		SetOut("TEObject for ".. SelectedTEobj.Object.Name,result)
 	end
+	if toclipboard then
+		toclipboard(result)
+	end
+end
+if writefile then
+	local path = "TimGui/Maps/"
+	pcall(function()
+		makefolder(path)
+		MenuFuncs["📥"] = function()
+			writefile(path..SelectedTEobj.Object.Name,game.HttpService:JSONEncode(GetObject()))
+		end
+	end)
 end
 local Menu = Instance.new("Frame",TEgui)
 Menu.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
