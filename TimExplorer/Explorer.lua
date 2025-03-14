@@ -279,8 +279,11 @@ MenuClass.Size = UDim2.new(0,Sizes.Menu,0,Sizes.Menu)
 MenuClass.BackgroundTransparency = 1
 
 local function GetProperties(ClassName)
-	local res = table.clone(ClassProperties[ClassName]) or {}
-	if res[1] == nil then
+	local res
+	if ClassProperties[ClassName] then
+		res = table.clone(ClassProperties[ClassName]) or {}
+	else
+		res = {}
 		table.insert(res,"Archivable")
 		table.insert(res,"Name")
 		table.insert(res,"Parent")
