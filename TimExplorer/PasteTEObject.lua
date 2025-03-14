@@ -84,4 +84,5 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 			warn("Error on create: "..tostring(r))
 		end
 	end
+	return Inst
 end
