@@ -1367,6 +1367,7 @@ if _G.Setup ~= nil then
 end
 if loading[1] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/MapLoader.lua"))()
 end if loading[2] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
 end if loading[3] ~= false then
