@@ -9,12 +9,6 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 			local char = game.Players.LocalPlayer.Character
 			if other.Parent == char and reload and char:FindFirstChildOfClass("Humanoid").Sit == false then
 				local SeatWeld = Instance.new("Weld",Inst)
-				SeatWeld.Part0 = Inst
-				SeatWeld.Part1 = char:FindFirstChild("HumanoidRootPart")
-				SeatWeld.C0 = CFrame.new(0,Inst.Size.Y/2,0)
-				SeatWeld.C1 = CFrame.new(0,char:FindFirstChild("HumanoidRootPart").RootRigAttachment.CFrame.Y/2,0)
-				SeatWeld.C1 += Vector3.new(0,-char:FindFirstChildOfClass("Humanoid").BodyDepthScale.Value,0)
-				char:FindFirstChildOfClass("Humanoid").Sit = true
 				local Connect Connect = char:FindFirstChildOfClass("Humanoid"):GetPropertyChangedSignal("Sit"):Connect(function()
 					SeatWeld:Destroy()
 					Connect:Disconnect()
@@ -23,6 +17,18 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 					wait(1)
 					reload = true
 				end)
+				SeatWeld.Part0 = Inst
+				SeatWeld.C0 = CFrame.new(0,Inst.Size.Y/2,0)
+				if char:FindFirstChild("HumanoidRootPart") then
+					SeatWeld.Part1 = char.HumanoidRootPart
+					if char.HumanoidRootPart:FindFirstChild("RootRigAttachment") then
+						SeatWeld.C1 = CFrame.new(0,char.HumanoidRootPart.RootRigAttachment.CFrame.Y/2,0)
+						SeatWeld.C1 += Vector3.new(0,-char.Humanoid.BodyDepthScale.Value,0)
+					else
+						SeatWeld.C1 = CFrame.new(0,-char.HumanoidRootPart.Size.Y/2,0)
+					end
+				end
+				char:FindFirstChildOfClass("Humanoid").Sit = true
 				while SeatWeld do
 					wait(0.75)
 					SeatWeld.Enabled = false
