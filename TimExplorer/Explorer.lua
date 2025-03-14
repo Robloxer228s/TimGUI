@@ -1,7 +1,3 @@
-function _G.GetTEObject()
-	
-end
-
 local LocalPlayer = game.Players.LocalPlayer
 local RunService = game:GetService("RunService")
 local UIS = game.UserInputService
