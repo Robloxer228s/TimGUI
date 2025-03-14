@@ -601,7 +601,7 @@ MenuFuncs["🌐"] = function()
 			lastPage = 0
 		end
 		lastPage += 1
-		SetOut("TEObject for ".. SelectedTEobj.Object.Name.." ("..lastPage.."/"..pages..")",string.sub(result,199999*(lastPage-1),199999*lastPage))
+		SetOut("TEObject for ".. SelectedTEobj.Object.Name.." ("..lastPage.."/"..pages..")",string.sub(result,199999*(lastPage-1)+1,199999*lastPage))
 		LenLast = string.len(result)
 	else
 		SetOut("TEObject for ".. SelectedTEobj.Object.Name,result)
