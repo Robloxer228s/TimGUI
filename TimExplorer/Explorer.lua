@@ -597,11 +597,14 @@ MenuFuncs["🌐"] = function()
 	local len = string.len(result)
 	if len > 199999 then
 		local pages = math.ceil(len/199999)
+		local addSim = 0
 		if LenLast ~= len then
 			lastPage = 0
+		else
+			addSim = 1
 		end
 		lastPage += 1
-		SetOut("TEObject for ".. SelectedTEobj.Object.Name.." ("..lastPage.."/"..pages..")",string.sub(result,199999*(lastPage-1)+1,199999*lastPage))
+		SetOut("TEObject for ".. SelectedTEobj.Object.Name.." ("..lastPage.."/"..pages..")",string.sub(result,199999*(lastPage-1)+addSim,199999*lastPage))
 		LenLast = string.len(result)
 	else
 		SetOut("TEObject for ".. SelectedTEobj.Object.Name,result)
