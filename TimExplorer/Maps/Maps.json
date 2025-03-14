@@ -1,1 +1,4 @@
-{"1.json":["Test","Тест"]}
+{
+  "1.json":["Park","Парк"],
+  "house.json":["TreeHouse(adding to park)","Дом на дереве(в парке)"]
+}
