@@ -46,12 +46,14 @@ for name,v in pairs(builtin) do
 		end
 	end).CFGSave = true
 end
-local YourMap = Group.Create(0,2,"Your Maps","Твои карты")
-YourMap.Visible = false
-for k,v in pairs(listfiles(pathYM)) do
-	if isfile(v) then
-		CreateNew(v)
-		YourMap.Visible = true
+if _G.TimGui.Saves.Enabled then
+	local YourMap = Group.Create(0,2,"Your Maps","Твои карты")
+	YourMap.Visible = false
+	for k,v in pairs(listfiles(pathYM)) do
+		if isfile(v) then
+			CreateNew(v)
+			YourMap.Visible = true
+		end
 	end
 end
 Group.Create(0,3,"TP in map","ТП на карту")
