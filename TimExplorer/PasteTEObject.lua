@@ -9,14 +9,6 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 			local char = game.Players.LocalPlayer.Character
 			if other.Parent == char and reload and char:FindFirstChildOfClass("Humanoid").Sit == false then
 				local SeatWeld = Instance.new("Weld",Inst)
-				local Connect Connect = char:FindFirstChildOfClass("Humanoid"):GetPropertyChangedSignal("Sit"):Connect(function()
-					SeatWeld:Destroy()
-					Connect:Disconnect()
-					reload = false
-					SeatWeld = nil
-					wait(1)
-					reload = true
-				end)
 				SeatWeld.Part0 = Inst
 				SeatWeld.C0 = CFrame.new(0,Inst.Size.Y/2,0)
 				if char:FindFirstChild("HumanoidRootPart") then
@@ -29,6 +21,14 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 					end
 				end
 				char:FindFirstChildOfClass("Humanoid").Sit = true
+				local Connect Connect = char:FindFirstChildOfClass("Humanoid"):GetPropertyChangedSignal("Sit"):Connect(function()
+					SeatWeld:Destroy()
+					Connect:Disconnect()
+					reload = false
+					SeatWeld = nil
+					wait(1)
+					reload = true
+				end)
 				while SeatWeld do
 					wait(0.75)
 					SeatWeld.Enabled = false
