@@ -26,7 +26,7 @@ end
 local ClassProperties do
 	local Data
 	if RunService:IsStudio() then
-		Data = game.ReplicatedStorage.RemoteFunction:InvokeServer()
+		Data = script.Parent.RemoteFunction:InvokeServer()
 	else
 		Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
 	end
@@ -71,7 +71,7 @@ end
 local guiParent,Images
 if RunService:IsStudio() then
 	guiParent = LocalPlayer.PlayerGui
-	Images = require(script.GetImages) or {}
+	Images = {}
 else
 	guiParent = game.CoreGui
 	Images = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/images.json"))
@@ -446,7 +446,7 @@ local function SelectNew(obj)
 							else
 								obj.Object[name] = value.Text 
 							end
-							
+
 						end
 					end)
 				else
@@ -553,6 +553,8 @@ end
 MenuFuncs["🔗"] = function()
 	SetOut("Path to ".. SelectedTEobj.Object.Name,"game." .. SelectedTEobj.Object:GetFullName())
 end
+local lastPage = 0
+local LenLast
 MenuFuncs["🌐"] = function()
 	local Object = {}
 	local function GetObject(obj)
@@ -591,7 +593,19 @@ MenuFuncs["🌐"] = function()
 		thisObjTab["Children"] = children
 		return thisObjTab
 	end
-	SetOut("TEObject for ".. SelectedTEobj.Object.Name,game.HttpService:JSONEncode(GetObject()))
+	local result = game.HttpService:JSONEncode(GetObject())
+	local len = string.len(result)
+	if len > 199999 then
+		local pages = math.ceil(len/199999)
+		if LenLast ~= len then
+			lastPage = 0
+		end
+		lastPage += 1
+		SetOut("TEObject for ".. SelectedTEobj.Object.Name.." ("..lastPage.."/"..pages..")",string.sub(result,199999*(lastPage-1),199999*lastPage))
+		LenLast = string.len(result)
+	else
+		SetOut("TEObject for ".. SelectedTEobj.Object.Name,result)
+	end
 end
 local Menu = Instance.new("Frame",TEgui)
 Menu.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
@@ -762,7 +776,7 @@ UIS.InputBegan:Connect(function(input)
 					copy.Parent = SelectedTEobj.Object.Parent
 				end
 				copy = copy:Clone()
-				
+
 			elseif input.KeyCode == Enum.KeyCode.C then
 				copy = SelectedTEobj.Object:Clone()
 			elseif input.KeyCode == Enum.KeyCode.X then
