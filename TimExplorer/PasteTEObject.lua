@@ -83,6 +83,16 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				if val[#val] == "" then
 					val[#val] = nil
 				end Inst[k] = NumberRange.new(table.unpack(val))
+			elseif v["type"] == "NumberSequence" then
+				local val = string.split(v["value"]," ")
+				if val[#val] == "" then
+					val[#val] = nil
+				end
+				local Sequence = {}
+				for k=1,(#val/3) do
+					Sequence[k] = NumberSequenceKeypoint.new(val[k], val[k+1], val[k+2])
+				end
+				Inst[k] = NumberRange.new(table.unpack(Sequence))
 			else
 				Inst[k] = v["value"]
 			end
