@@ -54,7 +54,7 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				elseif v["type"] == "UDim" then
 					Inst[k] = UDim.new(table.unpack(v["value"]))
 				elseif v["type"] == "UDim2" then
-					for k,v in pairs(v.Value) do
+					for k,v in pairs(v.value) do
 						v.Value[k] = string.gsub(v,"}","")
 						v.Value[k] = string.gsub(v,"{","")
 					end
