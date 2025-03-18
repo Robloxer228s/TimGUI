@@ -7,6 +7,7 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 		local reload = true
 		Inst.Touched:Connect(function(other:Instance)
 			local char = game.Players.LocalPlayer.Character
+			if _G.TimGui then if _G.TimGui.Values.InvisibleCharacter then return end end
 			if other.Parent == char and reload and char:FindFirstChildOfClass("Humanoid").Sit == false then
 				local SeatWeld = Instance.new("Weld",Inst)
 				SeatWeld.Part0 = Inst
