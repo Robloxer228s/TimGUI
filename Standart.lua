@@ -785,58 +785,164 @@ RunService.PostSimulation:Connect(function()
         end
     end
 end)
-local InvisiblePlayer = Player.Create(2,"InvisiblePlayer","Invisible","Невидимость",function(val)
+local InvisibleSettings = _G.TimGui.Groups.CreateNewGroup("InvisibleSettings")
+InvisibleSettings.Visible = false
+Player.Create(1,"InvsSet","Invisible settings","Настройки невидимости",function()
+	InvisibleSettings.OpenGroup()
+end)
+
+local InvsTypes = {}
+local Types = {}
+local InvisVariant = 1
+InvisibleSettings.Create(0,0,"R15","R15")
+Types[1] = {"Default","Стандартный"}
+Types[2] = {"Change character","Смена персонажа"}
+Types[3] = {"HipHeight change","Смена высоты"}
+for k,v in pairs(Types) do
+	InvsTypes[k] = InvisibleSettings.Create(2,k,v[1],v[2],function(val)
+		local i = 0
+		for CheckK,v in pairs(InvsTypes) do
+			if v.Value then i += 1 end
+			if CheckK ~= k then
+				v.Main.Value = false
+			end
+		end
+		if i == 0 then
+			val.Main.Value = true
+		end if val.Value then
+			InvisVariant = k
+		end
+	end)
+	InvsTypes[k].CFGSave = true
+end
+InvsTypes[1].Main.Value = true
+local InvsYPosCustom = InvisibleSettings.Create(3,"YPos","Y Position:","Y позиция:")
+InvsYPosCustom.Main.Text = 1000
+
+local FirstVInvFolder
+_G.TimGui.Values.InvisibleCharacter = false
+local function SetInvisible(val)
+	_G.TimGui.Values.InvisibleCharacter = val.Value
 	local char = LocalPlayer.Character
 	if char:FindFirstChildOfClass("Humanoid").RigType.Name == "R15" then
-        	if val.Value then
-	            _G.TimGui.Print("R15","Touch don't work","R15","Косания не работают")
-	            char.Archivable = true
-	            local newchar = char:Clone()
-	            char.PrimaryPart.CFrame = CFrame.new(0,1000000,0)
-	            wait(LocalPlayer:GetNetworkPing()+0.25)
-	            LocalPlayer.Character = newchar
-	            newchar.Parent = char.Parent
-	            char.Parent = script
-	            newchar:FindFirstChildOfClass("Humanoid").Died:Connect(function()
-	                local value = val.Value
-	                val.Main.Value = false
-	                wait(0.5)
-	                val.Main.Value = value
-	            end)
-        	else
-	            local oldChar = script:FindFirstChild(LocalPlayer.Name) or script:FindFirstChildOfClass("Model")
-	            if oldChar then
-	                local pos = char.PrimaryPart.CFrame
-	                oldChar.Parent = char.Parent
-	                LocalPlayer.Character = oldChar
-	                oldChar.PrimaryPart.CFrame = pos
-	                char:Destroy()
-	                game.Workspace.CurrentCamera.CameraSubject = oldChar:FindFirstChild("Humanoid")
-	                local anim = oldChar:FindFirstChild("Animate")
-	                if anim then
-	                    anim.Enabled = false
-	                    wait()
-	                    anim.Enabled = true
-	                end
-            		else
-                		_G.TimGui.Print("visible","Your character not found","Видимость","Твой персонаж не найден")
-            end
-        end
+		local YPos = tonumber(InvsYPosCustom.Value) or 1000
+		if val.Value == false then
+			YPos = -YPos
+		end
+		if InvisVariant == 1 then
+			if val.Value then
+				_G.TimGui.Print("R15 - Default","Touch working","R15 - Стандарт","Косания работают")
+			end
+			LocalPlayer.Character.Humanoid.CameraOffset -= Vector3.new(0,YPos,0)
+			LocalPlayer.Character.LowerTorso.Root.C0 -= Vector3.new(0,YPos,0)
+			LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,YPos,0)
+			if val.Value then
+				local CollisionTable = {}
+				FirstVInvFolder = Instance.new("Folder",game.Workspace.CurrentCamera)
+				for k,v in pairs(LocalPlayer.Character:GetChildren()) do
+					if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+						v.Touched:Connect(function(other)
+							if other.CanCollide and FirstVInvFolder then
+								if CollisionTable[other] == nil then
+									local temp
+									if other:IsA("TrussPart") then
+										temp = Instance.new("TrussPart",FirstVInvFolder)
+									else
+										temp = Instance.new("Part",FirstVInvFolder)
+									end
+									temp.Anchored = true
+									temp.CanTouch = false
+									temp.Transparency = 1
+									temp.CFrame = other.CFrame + Vector3.new(0,YPos,0)
+									temp.Size = other.Size
+									if other:IsA("Part") then
+										temp.Shape = other.Shape
+									end if other.Anchored then
+										temp.Velocity = other.Velocity
+									end
+									CollisionTable[other] = {obj=temp,Deleting=false}
+									wait(10)
+									CollisionTable[other].Deleting = true
+								else
+									CollisionTable[other].Size = other.Size
+									CollisionTable[other].CFrame = other.CFrame
+								end
+							end
+						end)
+						v.TouchEnded:Connect(function(other)
+							if not CollisionTable[other] then return end
+							wait(15)
+							if CollisionTable[other] and CollisionTable[other].Deleting then
+								CollisionTable[other].obj:Destroy()
+								CollisionTable[other] = nil
+							end
+						end)
+					end
+				end
+			else
+				FirstVInvFolder:Destroy()
+			end
+		elseif InvisVariant == 2 then
+			if val.Value then
+				_G.TimGui.Print("R15 - Change Character","Touch don't working","R15 - Изменение персонажа","Косания не работают")
+				char.Archivable = true
+				local newchar = char:Clone()
+				char.PrimaryPart.CFrame = CFrame.new(0,1000000,0)
+				char.PrimaryPart.Anchored = true
+				wait(LocalPlayer:GetNetworkPing()+0.25)
+				LocalPlayer.Character = newchar
+				newchar.Parent = char.Parent
+				char.Parent = script
+				newchar:FindFirstChildOfClass("Humanoid").Died:Connect(function()
+					local value = val.Value
+					val.Main.Value = false
+					wait(0.5)
+					val.Main.Value = value
+				end)
+			else
+				local oldChar = script:FindFirstChild(LocalPlayer.Name) or script:FindFirstChildOfClass("Model")
+				if oldChar then
+					local pos = char.PrimaryPart.CFrame
+					oldChar.Parent = char.Parent
+					LocalPlayer.Character = oldChar
+					oldChar.PrimaryPart.CFrame = pos
+					oldChar.PrimaryPart.Anchored = true
+					char:Destroy()
+					game.Workspace.CurrentCamera.CameraSubject = oldChar:FindFirstChild("Humanoid")
+					local anim = oldChar:FindFirstChild("Animate")
+					if anim then
+						anim.Enabled = false
+						wait()
+						anim.Enabled = true
+					end
+				else
+					_G.TimGui.Print("visible","Your character not found","Видимость","Твой персонаж не найден")
+				end
+			end
+		elseif InvisVariant == 3 then
+			if val.Value then
+				_G.TimGui.Print("R15 - HipHeight","Touch working","R15 - Высота","Косания работают")
+			end
+			char.Humanoid.CameraOffset -= Vector3.new(0,YPos,0)
+			char.Humanoid.HipHeight += YPos
+		end
 	else
 		if val.Value then
-            _G.TimGui.Print("R6","Touch work","R6","Косания работают")
+            		_G.TimGui.Print("R6","Touch working","R6","Косания работают")
 			local oldHRP = char.HumanoidRootPart
 			local pos = oldHRP.CFrame
 			local newHRP = oldHRP:Clone()
 			oldHRP.CFrame = CFrame.new(0,1000000,0)
 			wait(LocalPlayer:GetNetworkPing()+0.25)
 			oldHRP.Name = "HRP"
+			oldHRP.Anchored = true
 			newHRP.Parent = char
 		else
 			local HRP = char:FindFirstChild("HRP")
 			local HumRP = char:FindFirstChild("HumanoidRootPart")
 			if HRP and HumRP then
 				HRP.Name = "HumanoidRootPart"
+				HRP.Anchored = false
 				HumRP:Destroy()
 			end
 		end
@@ -850,6 +956,17 @@ local InvisiblePlayer = Player.Create(2,"InvisiblePlayer","Invisible","Неви�
             end
         end
     end
+end
+local InvisiblePlayer = Player.Create(2,"InvisiblePlayer","Invisible","Невидимость",SetInvisible)
+LocalPlayer.CharacterAdded:Connect(function(char)
+	if InvisiblePlayer.Value then
+		char:WaitForChild("HumanoidRootPart",math.huge)
+		char:WaitForChild("Humanoid",math.huge)
+		wait()
+		if not script:FindFirstChild(LocalPlayer.Name) then	
+			SetInvisible({Value=true})
+		end
+	end
 end)
 -- Fly ----
 Player.Create(0,"FlyTittle","Fly","Полёт")
