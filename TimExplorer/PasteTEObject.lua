@@ -55,8 +55,8 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 					Inst[k] = UDim.new(table.unpack(v["value"]))
 				elseif v["type"] == "UDim2" then
 					for k,v in pairs(v.value) do
-						v.Value[k] = string.gsub(v,"}","")
-						v.Value[k] = string.gsub(v,"{","")
+						v.value[k] = string.gsub(v,"}","")
+						v.value[k] = string.gsub(v,"{","")
 					end
 					Inst[k] = UDim2.new(table.unpack(v.Value))
 				else
@@ -101,7 +101,7 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				end
 				local Sequence = {}
 				for k=1,(#val/5) do
-					local i = (k-1)*3+1
+					local i = (k-1)*5+1
 					Sequence[k] = ColorSequenceKeypoint.new(val[i], Color3.new(val[i+1],val[i+2],val[i+3]))
 				end
 				Inst[k] = ColorSequence.new(Sequence)
