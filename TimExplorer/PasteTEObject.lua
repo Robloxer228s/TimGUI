@@ -90,7 +90,8 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				end
 				local Sequence = {}
 				for k=1,(#val/3) do
-					Sequence[k] = NumberSequenceKeypoint.new(val[k], val[k+1], val[k+2])
+					local i = k*3
+					Sequence[k] = NumberSequenceKeypoint.new(val[i], val[i+1], val[i+2])
 				end
 				Inst[k] = NumberSequence.new(Sequence)
 			elseif v["type"] == "ColorSequence" then
@@ -100,7 +101,8 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				end
 				local Sequence = {}
 				for k=1,(#val/5) do
-					Sequence[k] = ColorSequenceKeypoint.new(val[k], Color3.new(val[k+1],val[k+2],val[k+3]))
+					local i = k*3
+					Sequence[k] = ColorSequenceKeypoint.new(val[i], Color3.new(val[i+1],val[i+2],val[i+3]))
 				end
 				Inst[k] = ColorSequence.new(Sequence)
 			else
