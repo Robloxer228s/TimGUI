@@ -785,6 +785,7 @@ RunService.PostSimulation:Connect(function()
         end
     end
 end)
+--Invisible
 local InvisibleSettings = _G.TimGui.Groups.CreateNewGroup("InvisibleSettings")
 InvisibleSettings.Visible = false
 Player.Create(1,"InvsSet","Invisible settings","Настройки невидимости",function()
@@ -935,8 +936,9 @@ local function SetInvisible(val)
 			oldHRP.CFrame = CFrame.new(0,1000000,0)
 			wait(LocalPlayer:GetNetworkPing()+0.25)
 			oldHRP.Name = "HRP"
-			oldHRP.Anchored = true
 			newHRP.Parent = char
+			wait()
+			oldHRP.Anchored = true
 		else
 			local HRP = char:FindFirstChild("HRP")
 			local HumRP = char:FindFirstChild("HumanoidRootPart")
