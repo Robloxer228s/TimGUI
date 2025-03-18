@@ -92,7 +92,7 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				for k=1,(#val/3) do
 					Sequence[k] = NumberSequenceKeypoint.new(val[k], val[k+1], val[k+2])
 				end
-				Inst[k] = NumberRange.new(table.unpack(Sequence))
+				Inst[k] = NumberRange.new(Sequence)
 			else
 				Inst[k] = v["value"]
 			end
