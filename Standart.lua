@@ -937,14 +937,11 @@ local function SetInvisible(val)
 			wait(LocalPlayer:GetNetworkPing()+0.25)
 			oldHRP.Name = "HRP"
 			newHRP.Parent = char
-			wait()
-			oldHRP.Anchored = true
 		else
 			local HRP = char:FindFirstChild("HRP")
 			local HumRP = char:FindFirstChild("HumanoidRootPart")
 			if HRP and HumRP then
 				HRP.Name = "HumanoidRootPart"
-				HRP.Anchored = false
 				HumRP:Destroy()
 			end
 		end
