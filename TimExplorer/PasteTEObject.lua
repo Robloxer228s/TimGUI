@@ -54,7 +54,7 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 				elseif v["type"] == "UDim" then
 					Inst[k] = UDim.new(table.unpack(v["value"]))
 				elseif v["type"] == "UDim2" then
-					Inst[k] = UDim2.new(table.unpack(v["value"]))
+					Inst[k] = UDim2.new(table.unpack(game.HttpService:JSONDecode(v["value"][1])),table.unpack(game.HttpService:JSONDecode(v["value"][2])))
 				else
 					print("UnknownType:",v["type"],"Property:",k)
 				end
@@ -74,6 +74,11 @@ function _G.PasteTEObject(TEObj,parent:Instance)
 					end
 				end
 				Inst[k] = Obj
+			elseif v["type"] == "NumberRange" then
+				local val = string.split(v["value"]," ")
+				if val[#val] == "" then
+					val[#val] = nil
+				end Inst[k] = NumberRange.new(table.unpack(val))
 			else
 				Inst[k] = v["value"]
 			end
