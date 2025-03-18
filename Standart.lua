@@ -937,6 +937,8 @@ local function SetInvisible(val)
 			wait(LocalPlayer:GetNetworkPing()+0.25)
 			oldHRP.Name = "HRP"
 			newHRP.Parent = char
+			wait()
+			newHRP.CFrame = pos
 		else
 			local HRP = char:FindFirstChild("HRP")
 			local HumRP = char:FindFirstChild("HumanoidRootPart")
