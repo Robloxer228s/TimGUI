@@ -1356,6 +1356,7 @@ end)
 
 local loading = {true,true,true,true}
 local FoundScript = true
+local AprilFUN = false
 if _G.Setup ~= nil then
 	local loader = _G.Setup.Load
 	if loader ~= nil then
@@ -1388,11 +1389,18 @@ end if loading[3] ~= false then
 	end
 end if loading[4] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
+end if os.date("%m",os.time()) == "04" then
+    if tonumber(os.date("%d",os.time())) < 4 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Fun/April.lua"))()
+	AprilFUN = true
+    end
 end
 OptimizeClose.Main.Value = true
 _G.Setup = nil
 print("TimGui|Loaded!")
-if FoundScript then
+if AprilFUN then
+	_G.TimGui.Print("Loaded","Happy 1 april","Загружено","С 1 апреля")
+elseif FoundScript then
 	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
 else
 	_G.TimGui.Print("Loaded","TimGui is loaded!Game script not found.","Загружено","TimGui загружен!Игры не найдена.")
