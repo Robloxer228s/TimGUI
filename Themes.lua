@@ -18,7 +18,7 @@ local UpTrans = group.Create(3,"UpperTransparency","Tittle background transparen
 end)
 local UpTransTittle = group.Create(3,"UpperTittleTransparency","Tittle transparency%:","Прозрачность верхнего текста%:",function(val)
     if val.Value then
-        local UpperTrans = (tonumber(UpTrans.Value) or 50)/100
+        local UpperTrans = (tonumber(val.Value) or 50)/100
         for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
             if v:IsA("TextLabel") then
                 v.TextTransparency = UpperTrans
