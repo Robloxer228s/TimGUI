@@ -1705,74 +1705,68 @@ if #REvent ~= 0 then
 end
 
 -- Chat ------------------------------------------------------------------------------------------------
-local Chat = _G.TimGui.Groups.CreateNewGroup("Chat","Чат")
-local SpaceEn = Chat.Create(2,"EnableSpaces","Enable {System}","Включить {System}")
-local Spaces = "																																			  {System}: "
-SpaceEn.CFGSave = true
-SpaceEn.Visible = false
-local function Send(Message)
-	local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
-	if SpaceEn.Value then
-		Event:FireServer(Spaces .. Message, "All")
-	else
-		Event:FireServer(Message, "All")
-	end
-	--print(Message)
+local ChatGroup = _G.TimGui.Groups.CreateNewGroup("Chat","Чат")
+local ChatsChannels = {}
+ChatGroup.Create(0,"Channels","Channels","Каналы")
+for k,v in pairs(game.TextChatService.TextChannels:GetChildren()) do
+    ChatsChannels[v.Name] = ChatGroup.Create(2,"Ch"..v.Name,v.Name,v.Name)
+    ChatsChannels[v.Name].CFGSave = true
+    ChatsChannels[v.Name].Channel = v
 end
 
-local PlEn = Chat.Create(2,"LeftOrJoin","Enable Player Join/left","Включить Player Join/left")
-local DeadMes = Chat.Create(2,"PlDeadMessage","Enable Player is dead.","Включить Player is dead")
-
-local function Char(player)
-	player.CharacterRemoving:Connect(function()
-		wait()
-		if player.Parent and DeadMes.Value then
-			if SpaceEn.Value then
-				Send(Spaces .. player.Name .. " is dead.")
-			else
-				Send(player.Name .. " is dead.")
-			end
-		end
-	end)
+local function SendToChat(message)
+    for k,v in pairs(ChatsChannels) do
+        if v.Value then
+            v:SendAsync(message)
+        end
+    end
 end
-
-game.Players.PlayerAdded:Connect(function(child)
-	if PlEn.Value then
-		if SpaceEn.Value then
-			Send(Spaces .. child.Name .. " joined in the game.")
-		else
-			Send(child.Name .. " joined in the game.")
-		end
-	end
-	Char(child)
+ChatGroup.Create(0,"MessagesPL","Messages with player","Сообщения с игроком")
+local JoinText = ChatGroup.Create(3,"PlayerJoined","On player join:","При входе игрока:")
+local JoinValue = ChatGroup.Create(2,"SendPlJoined","Sending player join","Отправка при входе")
+JoinText.Main.Text = "#name is joined"
+local LeftText = ChatGroup.Create(3,"PlayerLefted","On player left:","При выходе игрока:")
+local LeftValue = ChatGroup.Create(2,"SendPlLefted","Sending player left","Отправка при выходе")
+LeftText.Main.Text = "#name is left"
+local DiesText = ChatGroup.Create(3,"PlayerLefted","On player die:","При смерти игрока:")
+local DiesValue = ChatGroup.Create(2,"SendPlLefted","Sending player died","Отправка при смерти")
+DiesText.Main.Text = "#name is dead"
+game.Players.PlayerRemoving:Connect(function(player)
+    if LeftValue.Value then
+        SendToChat(string.gsub(LeftText.Value,"#name",player.Name))
+    end
 end)
-
-for k,v in pairs(game.Players:GetPlayers()) do
-	Char(v)
+local function PlayerDieConnect(player)
+    local function NewChar(char)
+        char:WaitForChild("Humanoid",math.huge).Died:Connect(function()
+            if DiesValue.Value then
+                SendToChat(string.gsub(DiesText.Value,"#name",player.Name))
+            end
+        end)
+    end
+    player.CharacterAdded:Connect(NewChar)
+    if player.Character ~= nil then
+        NewChar(player.Character)
+    end
 end
-
-game.Players.PlayerRemoving:Connect(function(child)
-	if PlEn.Value then
-		if SpaceEn.Value then
-			Send(Spaces .. child.Name .. " out the game.")
-		else
-			Send(child.Name .. " out the game.")
-		end
-	end
+game.Players.PlayerAdded:Connect(function(player)
+    if JoinValue.Value then
+        SendToChat(string.gsub(JoinText.Value,"#name",player.Name))
+    end
+    PlayerDieConnect(player)
 end)
-
-local messageSp = Chat.Create(3,"SpamMessage","Message:","Сообщение:")
-Chat.Create(2,"SpamButton","Spam","Спам",function(val)
-	while val.Value do
-		wait()
-		Send(messageSp.Main.Text)
-	end
+ChatGroup.Create(0,"Message","Message","Сообщение")
+local Mess = ChatGroup.Create(3,"MessageTxt","Message:","Сообщение:")
+ChatGroup.Create(1,"Send","Send","Отправить",function()
+    SendToChat(Mess.Value)
 end)
-
-if not game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") then 
-	Chat.Destroy()
-end
-
+local Couldown = ChatGroup.Create(3,"TimerSpam","Timer for spam:","Перезарядка спама:")
+ChatGroup.Create(2,"Spam","Spam","Спам",function(val)
+    while val.Value do
+        task.wait(tonumber(Couldown.Value))
+        SendToChat(Mess.Value)
+    end
+end)
 -- Lighting ------------------------------------------------------------------------------------
 local Light = _G.TimGui.Groups.CreateNewGroup("Lighting","Освещение")
 local Fog = game.Lighting.FogEnd
