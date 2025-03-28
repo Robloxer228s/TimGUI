@@ -10,8 +10,43 @@ local Def = Colors.GetDefaultColors()
 local TB = Def.ToggleButton
 local Print = Def.Print
 group.Visible = false
+local UpEnable
+local UpTrans = group.Create(3,"UpperTransparency","Tittle background transparency%:","Прозрачность верха%:",function(val)
+    if UpEnable.Value then
+        _G.TimGui.Path.Main.BackgroundTransparency = (tonumber(val.Value) or 50) /100
+    end
+end)
+local UpTransTittle = group.Create(3,"UpperTransparency","Tittle transparency%:","Прозрачность верхнего текста%:",function(val)
+    if val.Value then
+        local UpperTrans = (tonumber(UpTrans.Value) or 50)/100
+        for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
+            if v:IsA("TextLabel") then
+                v.TextTransparency = UpperTrans
+            else
+                v.BackgroundTransparency = UpperTrans
+            end
+        end
+    end
+end)
+UpEnable = group.Create(2,"SetUpperTrans","Set tittle transparancy","Установить прозрачность",function(val)
+    local UpperTrans
+    if val.Value then
+        UpperTrans = tonumber(UpTrans.Value) or 50
+    else
+        UpperTrans = 0
+    end
+    UpperTrans = UpperTrans/100
+    _G.TimGui.Path.Main.BackgroundTransparency = UpperTrans
+    for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
+        if v:IsA("TextLabel") then
+            v.TextTransparency = UpperTrans
+        else
+            v.BackgroundTransparency = UpperTrans
+        end
+    end
+end)
+UpEnable.CFGSave = true
 group.Create(0,"Modes","Modes","Режимы")
-
 if SaveColor == nil then
 	SaveColor = "Default"
 end
