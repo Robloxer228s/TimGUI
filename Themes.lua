@@ -16,7 +16,7 @@ local UpTrans = group.Create(3,"UpperTransparency","Tittle background transparen
         _G.TimGui.Path.Main.BackgroundTransparency = (tonumber(val.Value) or 50) /100
     end
 end)
-local UpTransTittle = group.Create(3,"UpperTransparency","Tittle transparency%:","Прозрачность верхнего текста%:",function(val)
+local UpTransTittle = group.Create(3,"UpperTittleTransparency","Tittle transparency%:","Прозрачность верхнего текста%:",function(val)
     if val.Value then
         local UpperTrans = (tonumber(UpTrans.Value) or 50)/100
         for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
@@ -31,12 +31,12 @@ end)
 UpEnable = group.Create(2,"SetUpperTrans","Set tittle transparancy","Установить прозрачность",function(val)
     local UpperTrans
     if val.Value then
-        UpperTrans = tonumber(UpTrans.Value) or 50
+        UpperTrans = tonumber(UpTransTittle.Value) or 50
     else
         UpperTrans = 0
     end
     UpperTrans = UpperTrans/100
-    _G.TimGui.Path.Main.BackgroundTransparency = UpperTrans
+    _G.TimGui.Path.Main.BackgroundTransparency = (tonumber(UpTrans.Value) or 50) /100
     for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
         if v:IsA("TextLabel") then
             v.TextTransparency = UpperTrans
