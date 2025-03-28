@@ -1733,8 +1733,8 @@ JoinText.Main.Text = "#name is joined"
 local LeftText = ChatGroup.Create(3,"PlayerLefted","On player left:","При выходе игрока:")
 local LeftValue = ChatGroup.Create(2,"SendPlLefted","Sending player left","Отправка при выходе")
 LeftText.Main.Text = "#name is left"
-local DiesText = ChatGroup.Create(3,"PlayerLefted","On player die:","При смерти игрока:")
-local DiesValue = ChatGroup.Create(2,"SendPlLefted","Sending player died","Отправка при смерти")
+local DiesText = ChatGroup.Create(3,"PlayerDied","On player die:","При смерти игрока:")
+local DiesValue = ChatGroup.Create(2,"SendPlDied","Sending player died","Отправка при смерти")
 DiesText.Main.Text = "#name is dead"
 game.Players.PlayerRemoving:Connect(function(player)
     if LeftValue.Value then
