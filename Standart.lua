@@ -1707,7 +1707,7 @@ end
 -- Chat ------------------------------------------------------------------------------------------------
 local ChatGroup = _G.TimGui.Groups.CreateNewGroup("Chat","Чат")
 local ChatsChannels = {}
-if game.TextChatService:FindFirstChild("TextChannels" then
+if game.TextChatService:FindFirstChild("TextChannels") then
     ChatGroup.Create(0,"Channels","Channels","Каналы")
     for k,v in pairs(game.TextChatService.TextChannels:GetChildren()) do
         ChatsChannels[v.Name] = ChatGroup.Create(2,"Ch"..v.Name,v.Name,v.Name)
