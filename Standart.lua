@@ -1707,18 +1707,23 @@ end
 -- Chat ------------------------------------------------------------------------------------------------
 local ChatGroup = _G.TimGui.Groups.CreateNewGroup("Chat","Чат")
 local ChatsChannels = {}
-ChatGroup.Create(0,"Channels","Channels","Каналы")
-for k,v in pairs(game.TextChatService.TextChannels:GetChildren()) do
-    ChatsChannels[v.Name] = ChatGroup.Create(2,"Ch"..v.Name,v.Name,v.Name)
-    ChatsChannels[v.Name].CFGSave = true
-    ChatsChannels[v.Name].Channel = v
+if game.TextChatService:FindFirstChild("TextChannels" then
+    ChatGroup.Create(0,"Channels","Channels","Каналы")
+    for k,v in pairs(game.TextChatService.TextChannels:GetChildren()) do
+        ChatsChannels[v.Name] = ChatGroup.Create(2,"Ch"..v.Name,v.Name,v.Name)
+        ChatsChannels[v.Name].CFGSave = true
+        ChatsChannels[v.Name].Channel = v
+    end
 end
-
 local function SendToChat(message)
     for k,v in pairs(ChatsChannels) do
         if v.Value then
-            v:SendAsync(message)
+            v.Channel:SendAsync(message)
         end
+    end
+    local ChatFolder = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents")
+    if ChatFolder then
+        ChatFolder.SayMessageRequest:FireServer(message,"All")
     end
 end
 ChatGroup.Create(0,"MessagesPL","Messages with player","Сообщения с игроком")
