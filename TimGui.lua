@@ -18,6 +18,7 @@ _G.TimGui.Keybinds = {}
 
 --_G.TimGui.Values.x2 = false
 _G.TimGui.Values.Spare = {}
+_G.TimGui.Values.PlayersWithSpare = {}
 _G.TimGui.Values.Opened = false
 _G.TimGui.Values.SpareButtons = {}
 _G.TimGui.Values.GroupOpened = nil
@@ -1043,9 +1044,18 @@ local RusLang = Settings.Create(2,"RusLang","Русский язык","English l
 end)
 if _G.TimGui.Saves.Enabled then
 	RusLang.Main.Value = _G.TimGui.Saves.Load("RussianLanguage") == "true"
+	local Secret = {
+		{"I","Cura"},
+		{"Пря","Рассиа"},
+		{"Мышка","сосиска"},
+		{"Babka","tapka"},
+		{"Курица","на ножке"},
+		{"Роскомнадзор","Т#а#и"}
+	}
 	if math.random(1,100) == 5 then
-		_G.TimGui.Path.Logo[1].Text = "I"
-		_G.TimGui.Path.Logo[3].Text = "Cura"
+		local rand = Secret[math.random(1,#Secret)]
+		_G.TimGui.Path.Logo[1].Text = rand[1]
+		_G.TimGui.Path.Logo[3].Text = rand[2]
 	end
 else
 	local tmp = game.LocalizationService.SystemLocaleId == "ru-ru" or game.LocalizationService.RobloxLocaleId == "ru-ru"
@@ -1282,6 +1292,7 @@ Settings.Create(1,"Example","Example notification","Пример уведомл�
 end)
 
 Settings.Create(0,"Other","Other","Другое")
+local PlayersToSpare = _G.TimGui.Values.PlayersWithSpare
 local SpareButtons = _G.TimGui.Values.SpareButtons
 local SpareTable = _G.TimGui.Values.Spare
 local Spare = _G.TimGui.Groups.CreateNewGroup("Mercy")
@@ -1308,6 +1319,11 @@ local function PlAdd(Player)
 	local Name = Player.Name
 	SpareButtons[Name] = Spare.Create(2,Name,Name,Name,function(val)
 		SpareTable[Name] = val.Value
+		if val.Value then
+			PlayersToSpare[Name] = Player
+		else
+			PlayersToSpare[Name] = nil
+		end
 	end)
 	if SpareTable[Name] ~= nil then
 		SpareButtons[Name].Main.Value = SpareTable[Name]
@@ -1392,7 +1408,7 @@ end if loading[4] ~= false then
 end if os.date("%m",os.time()) == "04" then
     if tonumber(os.date("%d",os.time())) < 4 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Fun/April.lua"))()
-	AprilFUN = true
+		AprilFUN = true
     end
 end
 OptimizeClose.Main.Value = true
