@@ -1903,7 +1903,7 @@ Camera.Create(1,"MaxDistance","Max Zoom of camera","Максимальный з�
 end)
 
 -- Other ------------------------------------------------------------------------------------
-local group = _G.TimGui.Groups.CreateNewGroup("Other","Другое")
+local group = _G.TimGui.Groups.CreateNewGroup("Other3","Другое")
 
 if game:GetService("UserInputService").TouchEnabled then
   local Sgui = Instance.new("ScreenGui",LocalPlayer.PlayerGui)
@@ -2077,6 +2077,26 @@ group.Create(1,"Attempt disable anticheat","Attempt disable anticheat","Попы
         _G.TimGui.Print("Anticheat",Attempt.." scripts has been disabled","Античит","Выключено: "..Attempt.." скриптов")
     end
 end)
+
+group.Create(1,"Attempt disable scripts with Kick","Attempt disable scripts with Kick","Попытаться отключить скрипты с киком",function()
+    local Attempt = 0
+    for k,v in pairs(game:GetDescendants()) do
+        if v:IsA("BaseScript") then
+            pcall(function()
+                local decoder = decompile(v)
+                if string.find(decoder,":Kick") then
+                    Attempt += 1
+                    v.Enabled = false
+                end
+            end)
+            if Attempt == 0 then
+                _G.TimGui.Print("Antikick","Not found","Антикик","Не найдено")
+            else
+                _G.TimGui.Print("Antikick",Attempt.." scripts has been disabled","Антикик","Выключено: "..Attempt.." скриптов")
+            end
+        end
+    end
+end).Visible = (decompile ~= nil)
 
 group.Create(1,"Attempt Get PassesGUI","Attempt Make Visible All Gui(for pass)","Попытаться открыть все окна (с пассами)",function()
     local Attempt = 0 
