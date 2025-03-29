@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+28.03.25 - added Esp for Dead rails,added transparency (theme)...
+
 06.03.25 - Add Pinnig(to other) + upd Fling people for DisableBarrier + added "Math Murder"
 
 02.03.25 - added Eat huge waffle
@@ -95,6 +97,8 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
+Dead rails
+
 [Math Murder](https://www.roblox.com/share?code=a97de22400427741a01a25fe49d7b27f&type=ExperienceDetails&stamp=1741289706212)
 
 [Fling things and people](https://www.roblox.com/share?code=0c54fc0e833d7a4b954a5a44e262b4b6&type=ExperienceDetails&stamp=1741289771712)
