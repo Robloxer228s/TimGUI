@@ -38,7 +38,7 @@ local function killZombie(char,spare)
 		math.huge,
 	}
 	if spare then
-		args[3] = -25
+		args[3] = -10
 	end
 	if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 		if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
