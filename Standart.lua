@@ -1713,6 +1713,7 @@ if game.TextChatService:FindFirstChild("TextChannels") then
         ChatsChannels[v.Name] = ChatGroup.Create(2,"Ch"..v.Name,v.Name,v.Name)
         ChatsChannels[v.Name].CFGSave = true
         ChatsChannels[v.Name].Channel = v
+        ChatsChannels[v.Name].Value = v.Name == "RBXGeneral"
     end
 end
 local function SendToChat(message)
