@@ -38,7 +38,7 @@ local function killZombie(char,spare)
 		math.huge,
 	}
 	if spare then
-		args[3] = -10
+		args[3] = -100
 	end
 	if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 		if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
@@ -117,7 +117,7 @@ while true do
 		end
 	else
 		for _, v in pairs(_G.TimGui.Values.PlayersWithSpare) do
-			if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+			if v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") then
 				killZombie(v.Character,true)
 			end 
 		end
