@@ -12,6 +12,10 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+03.04.25 - TP to players UPDATE
+
+30.03.25 - added 1 April event
+
 28.03.25 - added Esp for Dead rails,added transparency (theme)...
 
 06.03.25 - Add Pinnig(to other) + upd Fling people for DisableBarrier + added "Math Murder"
