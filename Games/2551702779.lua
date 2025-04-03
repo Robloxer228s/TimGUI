@@ -118,7 +118,7 @@ while true do
 	else
 		for _, v in pairs(_G.TimGui.Values.PlayersWithSpare) do
 			if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-				killZombie(v,true)
+				killZombie(v.Character,true)
 			end 
 		end
 	end
