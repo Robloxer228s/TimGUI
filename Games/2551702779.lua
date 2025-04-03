@@ -29,22 +29,23 @@ end)
 group.Create(0,"Tittle3","Kill zombies","Убийство зомби")
 local aknz = group.Create(2,"aknz","Kill NPC Zombies(auto)","Убить НПС зомби(авто)")
 
-local function killZombie(char) 
+local function killZombie(char,spare) 
 	if not char:FindFirstChild("HumanoidRootPart") then return false end
-	if _G.TimGui.Values.Spare[char.Name] then return true end
+	if _G.TimGui.Values.Spare[char.Name] and not spare then return true end
 	local args = {
-		[1] = char:WaitForChild("Humanoid"),
-		[2] = char:WaitForChild("HumanoidRootPart"),
-		[3] = math.huge,
+		char:WaitForChild("Humanoid"),
+		char:WaitForChild("HumanoidRootPart"),
+		math.huge,
 	}
-	--In character
+	if spare then
+		args[3] = -25
+	end
 	if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 		if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
 			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").GunScript_Server.InflictTarget:FireServer(unpack(args))
 			return true
 		end
 	end
-	-- Find gun and kill char
 	for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 		if v:FindFirstChild("GunScript_Server") then
 			v.GunScript_Server.InflictTarget:FireServer(unpack(args))
@@ -74,6 +75,7 @@ group.Create(1,"knz","Kill NPC Zombies","Убить НПС зомби",function(
 	end
 end) 
 
+local Godmode = group.Create(2,"GodMode","God mode for mercy","Бесмертие для зомби с пощадой")
 local KTZWAM = group.Create(2,"KAM","Kill those zombies who are moving","убивать, тех зомби кто двигается")
 local function Check(Char) 
 	local function Changed()
@@ -106,11 +108,17 @@ end
 game.Players.PlayerAdded:Connect(NewPlayer)
 
 while true do 
-	wait(1) 
+	wait(0.5) 
 	if aknz.Value then
 		for k, v in pairs(game.Workspace.Zombies:GetChildren()) do
 			if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
 				killZombie(v)
+			end 
+		end
+	else
+		for _, v in pairs(_G.TimGui.Values.PlayersWithSpare) do
+			if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+				killZombie(v,true)
 			end 
 		end
 	end
