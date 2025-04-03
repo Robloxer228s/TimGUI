@@ -1050,7 +1050,8 @@ if _G.TimGui.Saves.Enabled then
 		{"Мышка","сосиска"},
 		{"Babka","tapka"},
 		{"Курица","на ножке"},
-		{"Роскомнадзор","Т#а#и"}
+		{"Роскомнадзор","Т#а#и"},
+		{"Ёпен","бобень"}
 	}
 	if math.random(1,100) == 5 then
 		local rand = Secret[math.random(1,#Secret)]
@@ -1066,16 +1067,6 @@ end
 Settings.OpenGroup()
 
 local TPTP = _G.TimGui.Groups.CreateNewGroup("TP to players","ТП к игрокам")
-local MACP = 8
-TPTP.Create(3,1,"Multyply anticipate","Множитель предугадывания",function(val)
-	MACP = tonumber(val.Value)
-	if MACP == nil then
-		MACP = 8
-	end
-end).Main.Text = MACP
-local ACP = TPTP.Create(2,2,"to anticipate position","Предугадать движение")
-local TPRot = TPTP.Create(2,3,"TP with rotation","ТП с поворотом")
-TPRot.Main.Value = true
 local AutoTP = TPTP.Create(2,4,"Auto TP","Авто ТП")
 local AutoTPto = nil
 TPTP.Create(1,5,"TP to random player","ТП к случайному игроку",function()
@@ -1090,26 +1081,42 @@ TPTP.Create(1,5,"TP to random player","ТП к случайному игроку
 		LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation)
 	end
 end)
-local TPoff = _G.TimGui.Groups.CreateNewGroup("TPoffset")
-TPoff.Visible = false
+local TPSettings = _G.TimGui.Groups.CreateNewGroup("TPSettings")
+TPSettings.Visible = false
+local TPRot = TPSettings.Create(2,3,"TP with rotation","ТП с поворотом")
+TPRot.Main.Value = true
+TPRot.CFGSave = true
 local Offset = Vector3.new(0,0,0)
-TPoff.Create(3,"X","X:","X:",function(value)
+TPSettings.Create(0,"Offset","Offset","Смещение")
+TPSettings.Create(3,"X","X:","X:",function(value)
 	local num = tonumber(value.Value)
 	if num == nil then num = 0 end
 	Offset = Vector3.new(num,Offset.Y,Offset.Z)
 end)
-TPoff.Create(3,"Y","Y:","Y:",function(value)
+TPSettings.Create(3,"Y","Y:","Y:",function(value)
 	local num = tonumber(value.Value)
 	if num == nil then num = 0 end
 	Offset = Vector3.new(Offset.X,num,Offset.Z)
 end)
-TPoff.Create(3,"Z","Z:","Z:",function(value)
+TPSettings.Create(3,"Z","Z:","Z:",function(value)
 	local num = tonumber(value.Value)
 	if num == nil then num = 0 end
 	Offset = Vector3.new(Offset.X,Offset.Y,num)
 end)
-TPTP.Create(1,6,"Offset","Смещение",function()
-	TPoff.OpenGroup()
+TPSettings.Create(0,"TAP","Changes position","Изменения позиции")
+local MaxACP = 25
+TPSettings.Create(3,"TAPTimeTicks","Time(tick) to change range:","Таймер(тик) для смены диапазоны:",function(val)
+	MaxACP = tonumber(val.Value) or 25
+end).Main.Text = MaxACP
+local MinRangeMA = TPSettings.Create(3,"MinMA","Minimum","Минимальный множитель")
+local MaxRangeMA = TPSettings.Create(3,"MaxMA","Maximum","Максимальный множитель")
+local ACP = TPSettings.Create(2,"ACP","to anticipate position","Предугадать движение")
+local TPToForward = TPSettings.Create(2,"Forward","Add forward position","Добавить позицию спереди")
+MinRangeMA.Main.Text = 5
+MaxRangeMA.Main.Text = 10
+ACP.CFGSave = true
+TPTP.Create(1,6,"Settings","Настройки",function()
+	TPSettings.OpenGroup()
 end)
 TPTP.Create(0,"AllTpTittle","All TP","ТП ко всем")
 local AllTpCouldown = TPTP.Create(3,"AllTpCD","All tp time:","КД при тп ко всем:")
@@ -1133,36 +1140,48 @@ task.spawn(function()
     end
 end)
 TPTP.Create(0,7,"Players","Игроки")
+local ACPStep = 0
+local TPRotPart = Instance.new("Part")
+local function GetPosForTP(HRP,Hum)
+	local pos = HRP.CFrame + Offset
+	if (TPToForward.Value or ACP.Value) and Hum then
+		ACPStep += 1
+		if ACPStep > MaxACP then
+			ACPStep = 1
+		end
+		local maxx = tonumber(MaxRangeMA.Value) or 9
+		local minn = tonumber(MinRangeMA.Value) or 6
+		if maxx < minn then
+			local oldmaxx = maxx
+			maxx = minn
+			minn = oldmaxx
+		end
+		XACP = minn+(maxx-minn)*(ACPStep/MaxACP)
+		XACP = Vector3.new(XACP,XACP,XACP)
+		if ACP.Value then
+			pos += Hum.MoveDirection *XACP
+		elseif TPToForward.Value then
+			pos += HRP.CFrame.LookVector *XACP
+		end
+	end
+	if not TPRot.Value then
+		TPRotPart.CFrame = pos
+		TPRotPart.Orientation = LocalPlayer.Character.PrimaryPart.Orientation
+		pos = TPRotPart.CFrame
+	end
+	return pos
+end
 local function AddedPlayer(v)
 	local n = v.Name
 	TPTP.Create(1,n,n,n,function()
 		AutoTPto = n
 		AutoTP.Text = "Auto TP to "..AutoTPto
 		AutoTP.RusText = "Авто ТП к "..AutoTPto
-		local AddPos = Vector3.new(0,0,0)
-		if ACP.Value then
-			local hum = v.Character.Humanoid
-			AddPos = hum.MoveDirection * Vector3.new(MACP,MACP,MACP)
-		end
-		AddPos += Offset
-		if v.Character:FindFirstChild("HumanoidRootPart") then
-			if TPRot.Value then
-				LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
-			else
-				LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
-			end
+		local HRP = v.Character:FindFirstChild("HumanoidRootPart")
+		if HRP then
+			LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
 		else
-			LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
-			wait(0.5)
-			if v.Character:FindFirstChild("HumanoidRootPart") then
-				if TPRot.Value then
-					LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
-				else
-					LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
-				end
-			else
-				_G.TimGui.Print("TP","Player not loaded.","ТП","Игрок не прогружен")
-			end
+			_G.TimGui.Print("TP","Player not loaded.","ТП","Игрок не прогружен")
 		end
 	end)
 end
@@ -1179,31 +1198,9 @@ RunService.RenderStepped:Connect(function()
 	if AutoTPto ~= nil and AutoTP.Value then
 		local v = game.Players:FindFirstChild(AutoTPto)
 		if v then
-			local AddPos = Vector3.new(0,0,0)
-			if ACP.Value then
-				local hum = v.Character.Humanoid
-				AddPos = hum.MoveDirection * Vector3.new(MACP,MACP,MACP)
-			end
-			AddPos += Offset
-			if v.Character:FindFirstChild("HumanoidRootPart") then
-				if TPRot.Value then
-					LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
-				else
-					LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
-				end
-			else
-				LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.WorldPivot
-				wait(0.5)
-				if v.Character:FindFirstChild("HumanoidRootPart") then
-					if TPRot.Value then
-						LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + AddPos
-					else
-						LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation) + AddPos
-					end
-				else
-					AutoTPto.Main.Value = false
-					_G.TimGui.Print("TP","Player not loaded.","ТП","Игрок не прогружен")
-				end
+			local HRP = v.Character:FindFirstChild("HumanoidRootPart")
+			if HRP then
+				LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
 			end
 		end
 	end
