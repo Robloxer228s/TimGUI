@@ -1388,27 +1388,29 @@ if loading[1] ~= false then
 end if loading[2] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
 end if loading[3] ~= false then
-	local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
-	print("TimGui|"..game.GameId)
-	if string.sub(gameScr,1,3)=="404" then
-		print("TimGui|Game script not found")
-		FoundScript = false
-	else
-		task.spawn(function()
-			local success, response = pcall(function()
-				loadstring(gameScr)()
+	pcall(function()
+		local gameScr = game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
+		print("TimGui|"..game.GameId)
+		if string.sub(gameScr,1,3)=="404" then
+			print("TimGui|Game script not found")
+			FoundScript = false
+		else
+			task.spawn(function()
+				local success, response = pcall(function()
+					loadstring(gameScr)()
+				end)
+				if not success then
+					error("TimGui|Error load game script:\n" .. response)
+				end
 			end)
-			if not success then
-				error("TimGui|Error load game script:\n" .. response)
-			end
-		end)
-	end
+		end
+	end)
 end if loading[4] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
 end if os.date("%m",os.time()) == "04" then
     if tonumber(os.date("%d",os.time())) < 4 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Fun/April.lua"))()
-		AprilFUN = true
+	AprilFUN = true
     end
 end
 OptimizeClose.Main.Value = true
