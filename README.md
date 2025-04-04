@@ -12,6 +12,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+04.04.25 - added Troll rabit_cotten
+
 03.04.25 - TP to players UPDATE
 
 30.03.25 - added 1 April event
@@ -101,6 +103,8 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
+[Troll rabit_cotten](https://www.roblox.com/share?code=5f3e57621c8c5b4b804eef1e5d1fd6f4&type=ExperienceDetails&stamp=1743797348517)
+
 Dead rails
 
 [Math Murder](https://www.roblox.com/share?code=a97de22400427741a01a25fe49d7b27f&type=ExperienceDetails&stamp=1741289706212)
