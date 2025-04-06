@@ -117,11 +117,13 @@ while true do
 				killZombie(v)
 			end 
 		end
-	else
+	end if Godmode.Value then
 		for _, v in pairs(_G.TimGui.Values.PlayersWithSpare) do
-			if v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") then
-				killZombie(v.Character,true)
-			end 
+			if v.Character then
+				if v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") then
+					killZombie(v.Character,true)
+				end 
+			end
 		end
 	end
 end 
