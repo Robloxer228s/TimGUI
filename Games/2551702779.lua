@@ -38,31 +38,33 @@ local function killZombie(char,spare)
 		math.huge,
 	}
 	if spare then
-		args[3] = -100
+		args[3] = -math.huge
 	end
-	if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
-		if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
-			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").GunScript_Server.InflictTarget:FireServer(unpack(args))
-			return true
+	for k,pl in pairs(game.Players:GetPlayers()) do
+		if pl.Character:FindFirstChildOfClass("Tool") then
+			if pl.Character:FindFirstChildOfClass("Tool"):FindFirstChild("GunScript_Server") then
+				pl.Character:FindFirstChildOfClass("Tool").GunScript_Server.InflictTarget:FireServer(unpack(args))
+				return true
+			end
 		end
-	end
-	for k,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-		if v:FindFirstChild("GunScript_Server") then
-			v.GunScript_Server.InflictTarget:FireServer(unpack(args))
-			return true
+		for k,v in pairs(pl.Backpack:GetChildren()) do
+			if v:FindFirstChild("GunScript_Server") then
+				v.GunScript_Server.InflictTarget:FireServer(unpack(args))
+				return true
+			end
 		end
 	end
 	return false
 end
 
-group.Create(1,"kaz","Kill All Zombies","Убить всех зомби",function() 
+group.Create(1,"kaz","Kill opposite team","Убить противоположну команду",function() 
 	for k,v in pairs(game.Players:GetPlayers()) do
 		killZombie(v.Character)
 	end
 end) 
 
-local ZN = group.Create(3,"ZN","Zombie:","Зомби:") 
-group.Create(1,"kz","Kill Zombie","Убить зомби",function() 
+local ZN = group.Create(3,"ZN","Zombie:","Чела:") 
+group.Create(1,"kz","Kill Zombie","Убить чела",function() 
 	v = game.Players:FindFirstChild(ZN.Value) 
 	if v then
 		killZombie(v.Character)
@@ -75,8 +77,8 @@ group.Create(1,"knz","Kill NPC Zombies","Убить НПС зомби",function(
 	end
 end) 
 
-local Godmode = group.Create(2,"GodMode","God mode for mercy","Бесмертие для зомби с пощадой")
-local KTZWAM = group.Create(2,"KAM","Kill those zombies who are moving","убивать, тех зомби кто двигается")
+local Godmode = group.Create(2,"GodMode","God mode for mercy","Бесмертие для людей с пощадой")
+local KTZWAM = group.Create(2,"KAM","Kill those opposite team who are moving","убивать, тех кто двигается(против. комманда)")
 local function Check(Char) 
 	local function Changed()
 		if KTZWAM.Value then 
