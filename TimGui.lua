@@ -1076,7 +1076,8 @@ TPTP.Create(1,5,"TP to random player","ТП к случайному игроку
 	AutoTPto = player.Name
 	AutoTP.Text = "Auto TP to "..AutoTPto
 	AutoTP.RusText = "Авто ТП к "..AutoTPto
-	LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
+	local HRP = v.Character.PrimaryPart
+	LocalPlayer.Character.PrimaryPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
 end)
 local TPSettings = _G.TimGui.Groups.CreateNewGroup("TPSettings")
 TPSettings.Visible = false
