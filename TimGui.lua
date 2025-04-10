@@ -1069,17 +1069,14 @@ Settings.OpenGroup()
 local TPTP = _G.TimGui.Groups.CreateNewGroup("TP to players","ТП к игрокам")
 local AutoTP = TPTP.Create(2,4,"Auto TP","Авто ТП")
 local AutoTPto = nil
+local GetPosForTP
 TPTP.Create(1,5,"TP to random player","ТП к случайному игроку",function()
 	local player = game.Players:GetChildren()
 	player = player[math.random(1,(#player)-1)+1]
 	AutoTPto = player.Name
 	AutoTP.Text = "Auto TP to "..AutoTPto
 	AutoTP.RusText = "Авто ТП к "..AutoTPto
-	if TPRot.Value then
-		LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
-	else
-		LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation)
-	end
+	LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
 end)
 local TPSettings = _G.TimGui.Groups.CreateNewGroup("TPSettings")
 TPSettings.Visible = false
