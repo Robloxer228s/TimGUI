@@ -1,12 +1,12 @@
 local Slaps = {
-    b={"Default+Extended","Стандартная+Удлинённая"},
-    GeneralHit={"Dual","Двойная"},
-    SnowHit={"Snow","Снег"},
-    PullHit={"Pull","Тяни"},
-    BullHit={"Bull","Бык"},
-    HitSwapper={"Swapper","Заменитель"},
-    DiceHit={"Dice","Игральная кость"},
-    HtStun={"Stun","Оглушитель"}
+    {"b","Default+Extended","Стандартная+Удлинённая"},
+    {"GeneralHit","Dual","Двойная"},
+    {"SnowHit","Snow","Снег"},
+    {"PullHit","Pull","Тяни"},
+    {"BullHit","Bull","Бык"},
+    {"HitSwapper","Swapper","Заменитель"},
+    {"DiceHit","Dice","Игральная кость"},
+    {"HtStun","Stun","Оглушитель"}
 }
 local Hit = game.ReplicatedStorage.b
 local LocalPlayer = game.Players.LocalPlayer
@@ -17,8 +17,8 @@ SB.Create(1,"SYS","Select your slap","Выбери свою перчатку",fu
     SS.OpenGroup()
 end)
 for k,v in pairs(Slaps) do
-    local ThisEvent = game.ReplicatedStorage:FindFirstChild(k)
-    SS.Create(2,k,v[1],v[2],function(val)
+    local ThisEvent = game.ReplicatedStorage:FindFirstChild(v[1])
+    SS.Create(2,v[1],v[2],v[3],function(val)
         if val.Value then
             Hit = ThisEvent
             for k,v in pairs(SS.Objects) do
