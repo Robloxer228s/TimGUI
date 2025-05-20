@@ -88,7 +88,7 @@ SB.Create(2,"Auto hit","Auto hit all(afk)","Автобить всех(афк)",f
     end
 end)
 local DistanceNearby = SB.Create(3,"DAHN","Distance of auto hit nearby","Дистанция для удара рядом")
-Distance.Main.Text = 20
+DistanceNearby.Main.Text = 20
 SB.Create(2,"Auto hit nearby","Auto hit nearby","Автобить всех кто рядом",function(val)
     if val.Value then
         local LHRP = LocalPlayer.Character.PrimaryPart
