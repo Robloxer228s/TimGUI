@@ -12,7 +12,8 @@ local Slaps = {
 	{"PusherHit","Pusher","Толкатель"},
 	{"hitAnchor","Anchor","Якорь"},
 	{"BoomerangH","Boomerang","Бумеранг"},
-	{"CelestialHit","Moon","Луна(за победу в поединке)"}
+	{"CelestialHit","Moon","Луна(за победу в поединке)"},
+	{"SlappleHit","Slapple","Слэпл"}
 }
 local Hit = game.ReplicatedStorage.b
 local LocalPlayer = game.Players.LocalPlayer
