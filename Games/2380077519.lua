@@ -13,7 +13,9 @@ local Slaps = {
 	{"hitAnchor","Anchor","Якорь"},
 	{"BoomerangH","Boomerang","Бумеранг"},
 	{"CelestialHit","Moon","Луна(за победу в поединке)"},
-	{"SlappleHit","Slapple","Слэпл"}
+	{"SlappleHit","Slapple","Слэпл"},
+        {"PlagueHit","Plague","Заражение"}
+
 }
 local Hit = game.ReplicatedStorage.b
 local LocalPlayer = game.Players.LocalPlayer
@@ -38,8 +40,8 @@ for k,v in pairs(Slaps) do
         end
     end).Main.Value = Hit == ThisEvent
 end
-local DefRTP = 0.45
-local DefRE = 0.5
+local DefRTP = 0.4
+local DefRE = 0.6
 local ReloadTP = SB.Create(3,"Reload after TP","Reload after TP","Перезарядка после ТП")
 local ReloadEvent = SB.Create(3,"Reload after fire event","Reload after fire event","Перезарядка после запуска перчатки")
 ReloadTP.Main.Text = DefRTP
