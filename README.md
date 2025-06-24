@@ -1,3 +1,8 @@
+# How to use:
+Paste this in your executor:
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
+
 # Status:
 last games script update: 09.11.24
 
@@ -12,7 +17,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
-04.04.25 - added Troll rabit_cotten
+
+24.06.25 - added how to use in readme
 
 03.04.25 - TP to players UPDATE
 
