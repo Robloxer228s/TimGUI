@@ -9,6 +9,7 @@ print([[=============================================
 			|  |   |  | \/ |						    |
 			|  |   |  |    |       gui                  |
 			=============================================]])
+if not _G.TimGui then _G.TimGui = {} warn("Tim gui launched aren't from main.lua") end
 _G.TimGui = {}
 _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
