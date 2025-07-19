@@ -1,5 +1,5 @@
 # How to use:
-Paste this in your executor:
+Paste this in your executor and run:
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
 
@@ -17,6 +17,8 @@ themes don't work for askYN :(
 P.S: day.month.year
 
 # Update logs:
+
+20.07.25 - added Fast ProximityPrompts
 
 24.06.25 - added how to use in readme
 
