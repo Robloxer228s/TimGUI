@@ -2135,7 +2135,36 @@ local function parentF(p)
         return game.Players:GetPlayerFromCharacter(p)
     end
 end
-
+local ProxPrompts = {}
+local FProxPrompts
+local function ChangeProxPrompt(v)
+    ProxPrompts[v] = v.HoldDuration
+    v.HoldDuration = 0
+    v:GetPropertyChangedSignal("HoldDuration"):Once(function()
+        if FProxPrompts.Value then
+            ChangeProxPrompt(v)
+        end
+    end)
+end
+FProxPrompts = group.Create(2,"FProxPrompts","Fast Proximity Prompts","Быстрое Задержевание(подберание)",function(val)
+    if val.Value then
+        for k,v in pairs(game.Workspace:GetDescendants()) do
+            if v:IsA("ProximityPrompt") then
+                ChangeProxPrompt(v)
+            end
+        end
+    else
+        for p,v in pairs(ProxPrompts) do
+            p.HoldDuration = v
+        end
+    end
+end) game.Workspace.DescendantAdded:Connect(function(v)
+    if v:IsA("ProximityPrompt") then
+        if FProxPrompts.Value then
+            ChangeProxPrompt(v)
+        end
+    end
+end)
 group.Create(1,"SetVelocityToYourChar","Set Velocity To Your Char","Прикрепить все обьекты в твою позицию",function()
     local folder = Instance.new("Folder",game.Workspace.CurrentCamera)
     for k,v in pairs(game.Workspace:GetDescendants()) do
