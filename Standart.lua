@@ -1904,7 +1904,7 @@ Camera.Create(1,"MaxDistance","Max Zoom of camera","Максимальный з�
 end)
 
 -- Other ------------------------------------------------------------------------------------
-local group = _G.TimGui.Groups.CreateNewGroup("Other3","Другое")
+local group = _G.TimGui.Groups.CreateNewGroup("Other","Другое")
 
 if game:GetService("UserInputService").TouchEnabled then
   local Sgui = Instance.new("ScreenGui",LocalPlayer.PlayerGui)
