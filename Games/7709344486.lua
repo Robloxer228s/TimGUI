@@ -15,6 +15,7 @@ local WalkTo = {}
 local function newCharacter(char:Model)
 	char:WaitForChild("Humanoid")
 	char:WaitForChild("HumanoidRootPart")
+	task.wait()
 	Character = char
 	Velocity.Attachment0 = Character.PrimaryPart:FindFirstChildOfClass("Attachment")
 	RagdollEnabled,WalkTo = false,{}
