@@ -18,6 +18,8 @@ P.S: day.month.year
 
 # Update logs:
 
+30.08.25 - added Steal a brainrot(super steal in other)
+
 20.07.25 - added Fast ProximityPrompts
 
 24.06.25 - added how to use in readme
@@ -111,6 +113,8 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
+Steal a brainrot
+
 [Troll rabit_cotten](https://www.roblox.com/share?code=5f3e57621c8c5b4b804eef1e5d1fd6f4&type=ExperienceDetails&stamp=1743797348517)
 
 Dead rails
