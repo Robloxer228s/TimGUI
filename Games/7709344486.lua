@@ -39,9 +39,11 @@ end local Hitbox = game.Workspace:WaitForChild("SpawnLocation")
 game:GetService("RunService").RenderStepped:Connect(function()
 	if Character.PrimaryPart and RagdollEnabled then
 		local to = WalkTo[1]
-		if (Character.PrimaryPart.Position-to).Magnitude<5 then
-			table.remove(WalkTo,1)
-			to = WalkTo[1]
+		if to then
+			if (Character.PrimaryPart.Position-to).Magnitude<5 then
+				table.remove(WalkTo,1)
+				to = WalkTo[1]
+			end
 		end if to then
 			Velocity.Position = to
 			Velocity.Enabled = true
