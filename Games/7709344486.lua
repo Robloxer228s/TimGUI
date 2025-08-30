@@ -2,7 +2,7 @@ local LocalPlayer = game.Players.LocalPlayer
 local Velocity = Instance.new("AlignPosition",game.Workspace.CurrentCamera)
 local RagdollEnabled = false
 local UseItem = game.ReplicatedStorage.Packages.Net:WaitForChild("RE/UseItem")
-local SuperSteal = _G.TimGui.Groups.Other.Create("SuperSteal","Super steal(requires TaserGun)","Супер ворование(требуется электрошокер)")
+local SuperSteal = _G.TimGui.Groups.Other.Create(2,"SuperSteal","Super steal(requires TaserGun)","Супер ворование(требуется электрошокер)")
 local path = game:GetService("PathfindingService"):CreatePath{
 	AgentCanClimb=true,
 	AgentCanJump=true,
@@ -56,6 +56,7 @@ for k,v in pairs(game.Workspace.Plots:GetChildren()) do
 		BasePos = Hitbox.CFrame
 	end
 end local function onSteal()
+	if not SuperSteal.Value then return end
 	if not LocalPlayer.Character then return end
 	local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 	if hum then
@@ -63,6 +64,7 @@ end local function onSteal()
 		if item then
 			hum:EquipTool(item) 
 			UseItem:FireServer(Character.PrimaryPart)
+		else _G.TimGui.Print("Taser gun requires","You dont have taser gun","Нужен электрошокер","У тебя нет электрошокера")
 		end VelocityNewPath(BasePos.Position-BasePos.LookVector*Hitbox.Size.Z*1.5)
 	end
 end for k,v in pairs(game.Workspace.Plots:GetDescendants()) do
