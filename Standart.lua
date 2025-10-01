@@ -687,7 +687,7 @@ local function NewItem(Item)
 	end
 end
 
-LocalPlayer.Backpack.ChildAdded:Connect(NewItem)
+LocalPlayer:WaitForChild("Backpack").ChildAdded:Connect(NewItem)
 LocalPlayer.CharacterAdded:Connect(function()
 	LocalPlayer.Backpack.ChildAdded:Connect(NewItem)
 	for k,v in pairs(LocalPlayer.Backpack:GetChildren()) do
