@@ -2277,3 +2277,57 @@ HideGui.OnChange(function(val)
         end
     end
 end)
+-- ANIMATIONS -----------------------------------------------
+local Animations = _G.TimGui.Groups.CreateNewGroup("Animations(R15)","Анимации(R15)")
+local Anims = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/AnimationsR15.json"))
+local function Update()
+    local Character = LocalPlayer.Character
+    if not Character then return end
+    local hum = Character:FindFirstChildOfClass("Humanoid")
+    if not hum then return end
+    local Animator = hum:FindFirstChildOfClass("Animator")
+    if not Animator then return end
+    local animsEnabled = false
+    for k,v in pairs(Anims) do
+        if v[1] == true then 
+            animsEnabled = true
+            break
+        end
+    end local Animate = Character:FindFirstChild("Animate")
+    if Animate then
+        if animsEnabled and Animate.Enabled then
+            for k,v in pairs(Animator:GetPlayingAnimationTracks()) do
+                v:Stop()
+            end
+        end
+        Animate.Enabled = not animsEnabled
+    end for k,v in pairs(Anims) do
+        pcall(function()
+            if not v[2] then
+                v[2] = Animator:LoadAnimation(v[3])
+                v[2].Looped = true
+            end
+            if v[1] == true then
+                if not v[2].IsPlaying then
+                    v[2]:Play()
+                end
+            else v[2]:Stop()
+            end
+        end)
+    end
+end LocalPlayer.CharacterAdded:Connect(function(char)
+    for k,v in pairs(Anims) do
+        v[2] = nil
+    end
+    char:WaitForChild("Humanoid"):WaitForChild("Animator")
+    Update()
+end)
+for k,v in pairs(Anims) do
+    local Anim = Instance.new("Animation")
+    Anim.AnimationId = v[1]
+    Anims[k] = {false,nil,Anim}
+    Animations.Create(2,v[1],v[2],v[3],function(val)
+        Anims[k][1] = val.Value
+        Update()
+    end)
+end
