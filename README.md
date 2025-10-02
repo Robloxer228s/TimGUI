@@ -18,6 +18,8 @@ P.S: day.month.year
 
 # Update logs:
 
+02.08.25 - added Settings for dash
+
 30.08.25 - added Steal a brainrot(super steal in other)
 
 20.07.25 - added Fast ProximityPrompts
