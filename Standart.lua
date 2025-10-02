@@ -631,7 +631,7 @@ function UpdDSettings()
         dashAdd += Vector3.new(0,50,-200)
     end
 end UpdDSettings()
-Player.Create(1,"Dash2","Dash","Рывок",function()
+Player.Create(1,"Dash","Dash","Рывок",function()
     local HRP = LocalPlayer.Character.HumanoidRootPart
     countingDash.CFrame = HRP.CFrame
     countingDash.Position = Vector3.new(1,1,1)
