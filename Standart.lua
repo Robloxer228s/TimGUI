@@ -604,11 +604,38 @@ local NoA = Player.Create(2,"NoAnim","No animate","Убрать анимации
 end)
 local countingDash = Instance.new("Part")
 local Dashing
-Player.Create(1,"Dash","Dash","Рывок",function()
+local DashSettings = _G.TimGui.Groups.CreateNewGroup("DashSettings")
+DashSettings.Visible = false
+Player.Create(1,"DashSettings","Dash settings","Настройки рывка",DashSettings.OpenGroup)
+local dashOffset,dashAdd = Vector3.new(0,0,0),Vector3.new(0,0,0)
+local UpdDSettings
+local function UpdateDashSettings()
+    UpdDSettings()
+end
+local DefaultDashEnabled = DashSettings.Create(2,"DefDash","Default dash enabled","Рывок по умолчанию",UpdateDashSettings)
+DefaultDashEnabled.Main.Value = true
+DefaultDashEnabled.CFGSave = true
+DashSettings.Create(0,"OffsetTittle","Offset","Смещение")
+local XDash = DashSettings.Create(3,"X","X:","X:",UpdateDashSettings)
+local YDash = DashSettings.Create(3,"Y","Y:","Y:",UpdateDashSettings)
+local ZDash = DashSettings.Create(3,"Z","Z:","Z:",UpdateDashSettings)
+DashSettings.Create(0,"AddingTittle","Add velocity","Добавления")
+local XAddDash = DashSettings.Create(3,"XAdd","X:","X:",UpdateDashSettings)
+local YAddDash = DashSettings.Create(3,"YAdd","Y:","Y:",UpdateDashSettings)
+local ZAddDash = DashSettings.Create(3,"ZAdd","Z:","Z:",UpdateDashSettings)
+function UpdDSettings()
+    print(XDash.Value)
+    dashOffset = Vector3.new(tonumber(XDash.Value)or 0,tonumber(YDash.Value)or 0,tonumber(ZDash.Value)or 0)
+    dashAdd = Vector3.new(tonumber(XAddDash.Value)or 0,tonumber(YAddDash.Value)or 0,tonumber(ZAddDash.Value)or 0)
+    if DefaultDashEnabled.Value then
+        dashAdd += Vector3.new(0,50,-200)
+    end
+end UpdDSettings()
+Player.Create(1,"Dash2","Dash","Рывок",function()
     local HRP = LocalPlayer.Character.HumanoidRootPart
     countingDash.CFrame = HRP.CFrame
     countingDash.Position = Vector3.new(1,1,1)
-    Dashing = (countingDash.CFrame * Vector3.new(0,50,-200))
+    Dashing = (countingDash.CFrame * dashAdd)+dashOffset
     HRP.Velocity = Dashing
 end)
 Player.Create(1,"Sit","Sit","Сесть",function(val)
