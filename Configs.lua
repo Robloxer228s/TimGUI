@@ -20,7 +20,7 @@ if _G.TimGui.Configs.Enabled then
 			CFGData.Games[tostring(game.GameId)] = selected
 		else CFGData.Selected = selected
 			CFGData.Games[tostring(game.GameId)] = nil
-		end 
+		end _G.TimGui.Configs.Saves.Save("SaveAllValues",_G.TimGui.Configs.IgnoreCFGSaveFuncs)
 		_G.TimGui.Saves.Save("ConfigsData",game:GetService("HttpService"):JSONEncode(CFGData))
 	end
 	local name = group.Create(3,1,"Name:","Имя:",function(val)
@@ -88,7 +88,7 @@ if _G.TimGui.Configs.Enabled then
 	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
 	group.Create(2,8,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
 		_G.TimGui.Configs.IgnoreCFGSaveFuncs = val.Value
-		_G.TimGui.Configs.Saves.Save("SaveAllValues",val.Value)
+		SaveCFGData()
 	end).Main.Value = _G.TimGui.Configs.Saves.Load("SaveAllValues")
 	group.Create(0,9,"Configs","Конфигурации")
 	for _,v in pairs(listfiles(path)) do
