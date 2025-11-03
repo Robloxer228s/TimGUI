@@ -1,102 +1,305 @@
-local HttpService = game:GetService("HttpService")
-if _G.TimGui.Configs.Enabled then
-	local group = _G.TimGui.Groups.CreateNewGroup("Configs")
-	local path = _G.TimGui.Configs.Path
-	local CFGData = _G.TimGui.Saves.Load("ConfigsData")
-	if CFGData then
-		CFGData = game:GetService("HttpService"):JSONDecode(CFGData)
-	else CFGData = {Games={}}
-	end
-	local loadedCFG = {}
-	local selected
-	local SaveDefGame
-	local LoadCFG = CFGData.Games[tostring(game.GameId)] or CFGData.Selected
-	group.Visible = false
-	group.CFGSave = false
-	_G.TimGui.Groups.Settings.Create(1,"Configs","Configs","Конфигурации",function()
-		group.OpenGroup()
-	end) local function SaveCFGData()
-		if SaveDefGame.Value then
-			CFGData.Games[tostring(game.GameId)] = selected
-		else CFGData.Selected = selected
-			CFGData.Games[tostring(game.GameId)] = nil
-		end 
-		_G.TimGui.Saves.Save("ConfigsData",game:GetService("HttpService"):JSONEncode(CFGData))
-	end
-	local name = group.Create(3,1,"Name:","Имя:",function(val)
-		local result = string.gsub(val.Main.Text,"/","")
-		if result ~= val.Main.Text then
-			val.Main.Text = result
-		end
-	end) local function CreateCFGButton(path)
-		local name = string.split(path,"/")
-		name = name[#name]
-		loadedCFG[name] = group.Create(2,name,name,name,function(val)
-			if val.Value then
-				local lastsel = selected
-				selected = name
-				if lastsel ~= nil then
-					loadedCFG[lastsel].Main.Value = false
-				end if LoadCFG == name then
-					LoadCFG = nil
-				else SaveCFGData()
-				end
-				_G.TimGui.Configs.Load(name)
-			elseif selected == name then
-				selected = nil
-			end
-		end)
-		if name == LoadCFG then
-			loadedCFG[name].Main.Value = true
-		end
-	end
-	group.Create(1,2,"Create empty","Создать пустой",function()
-		writefile(path..name.Value,HttpService:JSONEncode({Funcs={},Values={}}))
-		CreateCFGButton(path..name.Value)
-		_G.TimGui.Print("Configs","Created","Конфигурации","Создано")
-	end)
-	group.Create(0,3,"Manage configs","Управление конфигами")
-	group.Create(1,4,"Save","Сохранить",function()
-		if selected ~= nil then
-			_G.TimGui.Configs.Save()
-		else
-			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
-		end
-	end)
-	group.Create(1,5,"Reload","Перезагрузить",function()
-		if selected ~= nil then
-			_G.TimGui.Configs.Load()
-		else
-			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
-		end
-	end)
-	group.Create(1,6,"Delete","Удалить",function()
-		if selected ~= nil then
-			delfile(path..selected)
-			loadedCFG[selected].Destroy()
-			loadedCFG[selected] = nil
-			selected = nil
-			_G.TimGui.Print("Configs","Deleted","Конфигурации","Удалено")
-		else
-			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
-		end
-	end)
-	SaveDefGame = group.Create(2,7,"Set default for this game","Установить по умолчанию для этой игры",function(val)
-		if selected ~= nil then
-			SaveCFGData()
-		else
-			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
-		end
-	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
-	group.Create(2,8,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
-		if selected ~= nil then
-			_G.TimGui.Configs.IgnoreCFGSaveFuncs = val.Value
-		else
-			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
-		end
-	end)
-	group.Create(0,9,"Configs","Конфигурации")
-	for _,v in pairs(listfiles(path)) do
-		CreateCFGButton(v)
-	end
+local colors = _G.TimGui.Colors
+local group = _G.TimGui.Groups.CreateNewGroup("Themes")
+local objpos = _G.TimGui.ObjectPosition
+local SaveMode = _G.TimGui.Saves.Load("Modes")
+local SaveColor = _G.TimGui.Saves.Load("Color")
+local TGPath = _G.TimGui.Path
+local NormSize = TGPath.Main.Size
+local Colors = _G.TimGui.Colors
+local Def = Colors.GetDefaultColors()
+local TB = Def.ToggleButton
+local Print = Def.Print
+group.Visible = false
+local UpEnable
+local UpTrans = group.Create(3,"UpperTransparency","Tittle background transparency%:","Прозрачность верха%:",function(val)
+    if UpEnable.Value then
+        _G.TimGui.Path.Main.BackgroundTransparency = (tonumber(val.Value) or 50) /100
+    end
+end)
+local UpTransTittle = group.Create(3,"UpperTittleTransparency","Tittle transparency%:","Прозрачность верхнего текста%:",function(val)
+    if val.Value then
+        local UpperTrans = (tonumber(val.Value) or 50)/100
+        for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
+            if v:IsA("TextLabel") then
+                v.TextTransparency = UpperTrans
+            else
+                v.BackgroundTransparency = UpperTrans
+            end
+        end
+    end
+end)
+UpEnable = group.Create(2,"SetUpperTrans","Set tittle transparancy","Установить прозрачность",function(val)
+    local UpperTrans
+    if val.Value then
+        UpperTrans = tonumber(UpTransTittle.Value) or 50
+    else
+        UpperTrans = 0
+    end
+    UpperTrans = UpperTrans/100
+    _G.TimGui.Path.Main.BackgroundTransparency = (tonumber(UpTrans.Value) or 50) /100
+    for k,v in pairs(_G.TimGui.Path.Logo:GetChildren()) do
+        if v:IsA("TextLabel") then
+            v.TextTransparency = UpperTrans
+        else
+            v.BackgroundTransparency = UpperTrans
+        end
+    end
+end)
+UpEnable.CFGSave = true
+group.Create(0,"Modes","Modes","Режимы")
+if SaveColor == nil then
+	SaveColor = "Default"
 end
+
+local function double(Disconnect)
+	local texts = 0
+	objpos.Connect(UDim.new(1,0)-TGPath.Main.Size.X,function(k,v,def)
+		def()
+	end,function(k,v)
+		if k == 0 then
+			texts = 0
+		end
+		local ypos = (k+texts)/2
+		local xpos = UDim.new(0,0)
+		if v.Type == 0 then
+			local PNT = k+texts
+			ypos = math.ceil(ypos)
+			v.Object.Size = UDim2.new(1,0,0,50)
+			texts += 1
+			if ypos*2 ~= PNT then
+				texts += 1
+			end
+		else
+			ypos = math.floor(ypos)
+			v.Object.Size = UDim2.new(0.5,0,0,50)
+			if ypos *2 ~= (k+texts) then
+				xpos = v.Object.Size.X
+			end
+		end
+		v.Object.Position = UDim2.new(xpos,UDim.new(0,50*ypos))
+	end,Disconnect)
+end
+
+group.Create(2,"Double","Double","Двойной",function(val)
+    if val.Value then
+        _G.TimGui.Path.Main.Size = UDim2.new(0,700,1,0)
+	_G.TimGui.Saves.Save("Modes","Double")
+        double(function()
+		TGPath.Main.Size = NormSize
+		val.Main.Value = false
+		_G.TimGui.Saves.Save("Modes",nil)
+	end)
+    else
+        objpos.Disconnect()
+    end
+end).Main.Value = SaveMode == "Double"
+
+group.Create(2,"DoubleMini","Double-mini","Двойной-мини",function(val)
+    if val.Value then
+		TGPath.Main.Size = NormSize
+	_G.TimGui.Saves.Save("Modes","DoubleMini")
+        double(function()
+			val.Main.Value = false
+			_G.TimGui.Saves.Save("Modes",nil)
+		end)
+    else
+        objpos.Disconnect()
+    end
+end).Main.Value = SaveMode == "DoubleMini"
+
+group.Create(2,"Mini","Mini","Мини",function(val)
+    if val.Value then
+		TGPath.Main.Size = UDim2.new(0,250,1,0)
+	_G.TimGui.Saves.Save("Modes","Mini")
+        objpos.Connect(UDim.new(1,0)-TGPath.Main.Size.X,function(k,v,def)
+			def()
+		end,function(k,v,def)
+			def()
+		end,function()
+			val.Main.Value = false
+			TGPath.Main.Size = NormSize
+			_G.TimGui.Saves.Save("Modes",nil)
+		end)
+    else
+        objpos.Disconnect()
+    end
+end).Main.Value = SaveMode == "Mini"
+
+group.Create(0,"Colors","Colors","Цвета")
+local ButtonColors = {}
+local Color = {}
+Color.Name = "Default"
+Color.Text = "Blue(Default)"
+Color.Rus = "Синяя(стандартная)"
+Color.Colors = Def
+table.insert(ButtonColors,Color)
+local Color = {}
+Color.Name = "Green"
+Color.Text = "Green"
+Color.Rus = "Зелёная"
+Color.Colors = {
+	MainBackground=Color3.new(Def.MainBackground.R,Def.MainBackground.B,Def.MainBackground.G),
+	GroupsBackground=Color3.new(Def.GroupsBackground.R,Def.GroupsBackground.B,Def.GroupsBackground.G),
+	TextBoxBackground=Color3.new(Def.TextBoxBackground.R,Def.TextBoxBackground.B,Def.TextBoxBackground.G),
+	Button = Color3.new(Def.Button.R,Def.Button.B,Def.Button.G),
+	Text=Def.Text,
+	Arrow=Def.Arrow,
+	ToggleButton=TB,
+	Print={
+		Background=Color3.new(Print.Background.R,Print.Background.B,Print.Background.G),
+		Outline=Color3.new(Print.Outline.R,Print.Outline.B,Print.Outline.G),
+		Timer=Color3.new(Print.Timer.R,Print.Timer.B,Print.Timer.G)
+	}
+}
+table.insert(ButtonColors,Color)
+Color = {}
+Color.Name = "Red"
+Color.Text = "Red"
+Color.Rus = "Красная"
+Color.Colors = {
+	MainBackground=Color3.new(Def.MainBackground.B,Def.MainBackground.G,Def.MainBackground.R),
+	GroupsBackground=Color3.new(Def.GroupsBackground.B,Def.GroupsBackground.G,Def.GroupsBackground.R),
+	TextBoxBackground=Color3.new(Def.TextBoxBackground.B,Def.TextBoxBackground.G,Def.TextBoxBackground.R),
+	Button = Color3.new(Def.Button.B,Def.Button.G,Def.Button.R),
+	Text=Def.Text,
+	Arrow=Def.Arrow,
+	ToggleButton=TB,
+	Print={
+		Background=Color3.new(Print.Background.B,Print.Background.G,Print.Background.R),
+		Outline=Color3.new(Print.Outline.B,Print.Outline.G,Print.Outline.R),
+		Timer=Color3.new(Print.Timer.B,Print.Timer.G,Print.Timer.R)
+	}
+}
+table.insert(ButtonColors,Color)
+Color = {}
+Color.Name = "Yellow"
+Color.Text = "Yellow"
+Color.Rus = "Жёлтый"
+Color.Colors = {
+	MainBackground=Color3.new(0.3, 0.3, 0.15),
+	GroupsBackground=Color3.new(0.25,0.25,0.15),
+	TextBoxBackground=Color3.fromRGB(76,76,38),
+	Button=Color3.fromRGB(100,100,50),
+	Text=Def.Text,
+	Arrow=Def.Arrow,
+	ToggleButton={
+		Enabled=Color3.new(0,1,0.3),
+		Disabled=Color3.new(1,0,0.3)
+	},
+	Print={
+		Background=Color3.fromRGB(76,76,38),
+		Outline=Color3.fromRGB(200,200,100),
+		Timer=Color3.fromRGB(110,110,60)
+	}
+}
+table.insert(ButtonColors,Color)
+Color = {}
+Color.Name = "Grey"
+Color.Text = "Grey"
+Color.Rus = "Серая"
+Color.Colors = {
+	MainBackground=Color3.new(0.3, 0.3, 0.3),
+	GroupsBackground=Color3.new(0.25,0.25,0.25),
+	TextBoxBackground=Color3.fromRGB(76,76,76),
+	Button=Color3.fromRGB(100,100,100),
+	Text=Def.Text,
+	Arrow=Def.Arrow,
+	ToggleButton={
+		Enabled=Color3.new(0.1,1,0.1),
+		Disabled=Color3.new(1,0.1,0.1)
+	},
+	Print={
+		Background=Color3.fromRGB(76,76,76),
+		Outline=Color3.fromRGB(200,200,200),
+		Timer=Color3.fromRGB(110,110,110)
+	}
+}
+table.insert(ButtonColors,Color)
+Color = {}
+Color.Name = "DGray"
+Color.Text = "DarkGray"
+Color.Rus = "Тёмно серая"
+Color.Colors = {
+	MainBackground=Color3.new(0.15, 0.15, 0.15),
+	GroupsBackground=Color3.new(0.1,0.1,0.1),
+	TextBoxBackground=Color3.fromRGB(38,38,38),
+	Button=Color3.fromRGB(50,50,50),
+	Text=Def.Text,
+	Arrow=Def.Arrow,
+	ToggleButton={
+		Enabled=Color3.new(0.15,1,0.15),
+		Disabled=Color3.new(1,0.15,0.15)
+	},
+	Print={
+		Background=Color3.fromRGB(38,38,38),
+		Outline=Color3.fromRGB(100,100,100),
+		Timer=Color3.fromRGB(60,60,60)
+	}
+}
+table.insert(ButtonColors,Color)
+Color = {}
+Color.Name = "Black"
+Color.Text = "Black"
+Color.Rus = "Чёрная"
+Color.Colors = {
+	MainBackground=Color3.new(0.05, 0.05, 0.05),
+	GroupsBackground=Color3.new(0.02,0.02,0.02),
+	TextBoxBackground=Color3.new(0.1,0.1,0.1),
+	Button=Color3.fromRGB(25,25,25),
+	Text=Def.Text,
+	Arrow=Def.Arrow,
+	ToggleButton={
+		Enabled=Color3.new(0.2,1,0.2),
+		Disabled=Color3.new(1,0.2,0.2)
+	},
+	Print={
+		Background=Color3.new(0.1,0.1,0.1),
+		Outline=Color3.fromRGB(50,50,50),
+		Timer=Color3.fromRGB(30,30,30)
+	}
+}
+table.insert(ButtonColors,Color)
+Color = table.clone(ButtonColors)
+local actived = SaveColor
+local updating = false
+for k,v in pairs(Color) do
+	local ke = group.Create(2,v.Name,v.Text,v.Rus,function(val)
+		if val.Value then
+			for key,value in pairs(v.Colors) do
+				Colors[key] = value
+			end
+			Colors.SetColors()
+		elseif actived == val.Name and not updating then
+			val.Main.Value = true
+		end
+	end)
+	ButtonColors[ke] = v.Colors
+	if v.Name == SaveColor then
+		ke.Main.Value = true
+	end
+	ButtonColors[k] = nil
+end
+
+Colors.OnChange(function()
+	_G.TimGui.Saves.Save("Color",nil)
+	updating = true
+	for k,v in pairs(ButtonColors) do
+		local this = true
+		for key,val in pairs(v) do
+			if Colors[key] ~= val then 
+				this = false
+				break
+			end
+		end
+		k.Main.Value = this
+		if this then
+			actived = k.Name
+			_G.TimGui.Saves.Save("Color",k.Name)
+		end
+	end
+	updating = false
+end)
+
+_G.TimGui.Groups.Settings.Create(1,"Themes","Themes","Темы",function()
+    group.OpenGroup()
+end)
