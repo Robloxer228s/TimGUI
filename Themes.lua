@@ -90,7 +90,7 @@ if _G.TimGui.Configs.Enabled then
 	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
 	group.Create(2,8,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
 		if selected ~= nil then
-			SaveCFGData()
+			_G.TimGui.Configs.IgnoreCFGSaveFuncs = val.Value
 		else
 			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
 		end
