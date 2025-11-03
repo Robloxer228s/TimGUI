@@ -1071,6 +1071,7 @@ _G.TimGui.Configs.Load = function(name)
 		if not data then return false end
 		local s,r = pcall(function()
 			_G.TimGui.Configs.Loaded = HttpService:JSONDecode(data)
+			_G.TimGui.Configs.Loaded.Name = name
 		end) if not s then warn(r) return false end
 	end local save = _G.TimGui.Configs.Loaded.Funcs
 	for gn,g in pairs(_G.TimGui.Groups) do
