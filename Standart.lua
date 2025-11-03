@@ -26,9 +26,6 @@ end)
 Settings.Create(1,"Anticheat","Anticheat","Античит",function()
      AnticheatGroup.OpenGroup()
 end)
-Settings.Create(2,"MaxSimulateRadius","Set max simulate radius","Поставить максимальную прогрузку физики",function()
-    setsimulationradius(math.huge)
-end).CFGSave = true
 local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
 enable.Main.Value = true
 local all = clopGroup.Create(2,"All","Enable for all(disabled for friends)","Включить для всех(выключенный для друзей)")
@@ -158,6 +155,9 @@ end
 -- Map --------------------------------
 AnticheatGroup.Create(0,"Map","Map","Карта")
 local Map = _G.TimGui.Groups.CreateNewGroup("Map","Карта")
+Map.Create(2,"MaxSimulateRadius","Set max simulate radius","Поставить максимальную прогрузку физики",function()
+    setsimulationradius(math.huge)
+end).CFGSave = true
 local obj
 local Select = {}
 Map.Create(0,"SelectTittle","Selected","Выбранное")
