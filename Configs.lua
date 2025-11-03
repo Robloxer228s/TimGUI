@@ -1,16 +1,34 @@
 local HttpService = game:GetService("HttpService")
-if _G.TimGui.Saves.Enabled then
+if _G.TimGui.Configs.Enabled then
 	local group = _G.TimGui.Groups.CreateNewGroup("Configs")
-	local path = "TimGui/Configs/"
-	local pathKeys = "TimGui/KeybindsConfigs/"
+	local path = _G.TimGui.Configs.Path
+	local CFGData = _G.TimGui.Saves.Load("ConfigsData")
+	if CFGData then
+		CFGData = game:GetService("HttpService"):JSONDecode(CFGData)
+	else CFGData = {Games={}}
+	end
 	local loadedCFG = {}
 	local selected
-	local lastCFG = _G.TimGui.Saves.Load("Config")
+	local SaveDefGame
+	local LoadCFG = CFGData.Games[tostring(game.GameId)] or CFGData.Selected
 	group.Visible = false
+	group.CFGSave = false
 	_G.TimGui.Groups.Settings.Create(1,"Configs","Configs","Конфигурации",function()
 		group.OpenGroup()
-	end)
-	local function CreateCFGButton(path)
+	end) local function SaveCFGData()
+		if SaveDefGame.Value then
+			CFGData.Games[tostring(game.GameId)] = selected
+		else CFGData.Selected = selected
+			CFGData.Games[tostring(game.GameId)] = nil
+		end 
+		_G.TimGui.Saves.Save("ConfigsData",game:GetService("HttpService"):JSONEncode(CFGData))
+	end
+	local name = group.Create(3,1,"Name:","Имя:",function(val)
+		local result = string.gsub(val.Main.Text,"/","")
+		if result ~= val.Main.Text then
+			val.Main.Text = result
+		end
+	end) local function CreateCFGButton(path)
 		local name = string.split(path,"/")
 		name = name[#name]
 		loadedCFG[name] = group.Create(2,name,name,name,function(val)
@@ -19,116 +37,59 @@ if _G.TimGui.Saves.Enabled then
 				selected = name
 				if lastsel ~= nil then
 					loadedCFG[lastsel].Main.Value = false
+				end if LoadCFG == name then
+					LoadCFG = nil
+				else SaveCFGData()
 				end
-				_G.TimGui.Saves.Save("Config",name)
+				_G.TimGui.Configs.Load(name)
 			elseif selected == name then
 				selected = nil
 			end
 		end)
-		if name == lastCFG then
+		if name == LoadCFG then
 			loadedCFG[name].Main.Value = true
 		end
 	end
-	makefolder(path)
-	makefolder(pathKeys)
-	local name = group.Create(3,1,"Name:","Имя:",function(val)
-		local result = string.gsub(val.Main.Text,"/","")
-		if result ~= val.Main.Text then
-			val.Main.Text = result
-		end
-	end)
 	group.Create(1,2,"Create empty","Создать пустой",function()
-		writefile(path..name.Value,"{}")
-		writefile(pathKeys..name.Value,"{}")
+		writefile(path..name.Value,HttpService:JSONEncode({Funcs={},Values={}}))
 		CreateCFGButton(path..name.Value)
 		_G.TimGui.Print("Configs","Created","Конфигурации","Создано")
 	end)
 	group.Create(0,3,"Manage configs","Управление конфигами")
-	group.Create(1,4,"Delete","Удалить",function()
+	group.Create(1,4,"Save","Сохранить",function()
+		if selected ~= nil then
+			_G.TimGui.Configs.Save()
+		else
+			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
+		end
+	end)
+	group.Create(1,5,"Reload","Перезагрузить",function()
+		if selected ~= nil then
+			_G.TimGui.Configs.Load()
+		else
+			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
+		end
+	end)
+	group.Create(1,6,"Delete","Удалить",function()
 		if selected ~= nil then
 			delfile(path..selected)
-			delfile(pathKeys..selected)
 			loadedCFG[selected].Destroy()
 			loadedCFG[selected] = nil
+			selected = nil
 			_G.TimGui.Print("Configs","Deleted","Конфигурации","Удалено")
 		else
 			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
 		end
 	end)
-	group.Create(1,5,"Save","Сохранить",function()
+	SaveDefGame = group.Create(2,7,"Set default for this game","Установить по умолчанию для этой игры",function(val)
 		if selected ~= nil then
-			local save = HttpService:JSONDecode(readfile(path..selected)) or {}
-			for gn,g in pairs(_G.TimGui.Groups) do
-				if type(g) == "table" and gn ~= groups then
-					local groupsave = save[gn] or {}
-					local adding = false
-					for on,obj in pairs(g.Objects) do
-						if obj.CFGSave then
-							if obj.Type == 3 or obj.Type == 2 then
-								groupsave[tostring(on)] = obj.Value
-								adding = true
-							end
-						end
-					end
-					if adding then
-						save[gn] = groupsave
-					end
-				end
-			end
-			writefile(path..selected,HttpService:JSONEncode(save))
-			local keysSave = HttpService:JSONDecode(readfile(pathKeys..selected)) or {}
-			for k,v in pairs(_G.TimGui.Keybinds.GetTable()) do
-				local key = {}
-				for nm,_ in pairs(v) do
-					table.insert(key,nm)
-				end
-				keysSave[k] = key
-			end
-			writefile(pathKeys..selected,HttpService:JSONEncode(keysSave))
-			_G.TimGui.Print("Configs","Saved","Конфигурации","Сохранено")
+			SaveCFGData()
 		else
-			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
+			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
 		end
-	end)
-	local loadCFG = group.Create(1,6,"Load","Загрузить",function()
-		if selected ~= nil then
-			local save = HttpService:JSONDecode(readfile(path..selected))
-			for name,tab in pairs(save) do
-				local LoadGroup = _G.TimGui.Groups[name]
-				if LoadGroup ~= nil then
-					for k,v in pairs(LoadGroup.Objects) do
-						if tab[k] ~= nil then
-							if v.CFGSave then
-								if v.Type == 3 then
-									v.Main.Text = tab[k]
-								elseif v.Type == 2 then
-									v.Main.Value = tab[k]
-								end
-							end
-						end
-					end
-				end
-			end
-			local keysSave = HttpService:JSONDecode(readfile(pathKeys..selected)) or {}
-			for key,v in pairs(keysSave) do
-				for _,name in pairs(v) do
-					local split = string.split(name,".")
-					local group = _G.TimGui.Groups[split[1]]
-					if group then
-						local obj = group.Objects[split[2]]
-						if obj then
-							_G.TimGui.Keybinds.Set(obj,key)
-						end
-					end
-				end
-			end
-		else
-			_G.TimGui.Print("Configs","Config not selected","Конфигурации","Не выбрано")
-		end
-	end)
-	group.Create(0,7,"Configs","Конфигурации")
+	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
+	group.Create(0,8,"Configs","Конфигурации")
 	for _,v in pairs(listfiles(path)) do
 		CreateCFGButton(v)
 	end
-	loadCFG.EmulateClick()
 end
