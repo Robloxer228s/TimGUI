@@ -9,8 +9,9 @@ print([[=============================================
 			|  |   |  | \/ |						    |
 			|  |   |  |    |       gui                  |
 			=============================================]])
-if not _G.TimGui then _G.TimGui = {} warn("Tim gui launched aren't from main.lua") end
 _G.TimGui = {}
+_G.TimGui.Configs = {}
+_G.TimGui.Modules = {}
 _G.TimGui.Groups = {}
 _G.TimGui.Values = {}
 _G.TimGui.Colors = {}
@@ -132,7 +133,7 @@ Objects.Size = UDim2.new(1, -100, 1, -25)
 Objects.Position = UDim2.new(0, 100, 0, 25) 
 Objects.ScrollingDirection = 2
 
-_G.TimGui.askYN = function(name,text,rusname,rustxt,onyes,onno)
+_G.TimGui.Modules.AskYN = function(name,text,rusname,rustxt,onyes,onno)
 	local Menu = Instance.new("ImageLabel",_G.TimGui.Path.Main.Parent) 
 	Menu.Name = "askYN"
 	Menu.Size = UDim2.new(0, 425, 0, 300)
@@ -195,7 +196,7 @@ _G.TimGui.askYN = function(name,text,rusname,rustxt,onyes,onno)
 	goal.Position = UDim2.new(0.5, -212.5, 0.5, -150) 
 	game:GetService("TweenService"):Create(Menu, TweenInfo.new(1), goal):Play() 
 	return Menu
-end
+end _G.TimGui.askYN = _G.TimGui.Modules.AskYN
 
 _G.TimGui.Open = function()
 	local OC = not _G.TimGui.Values.Opened
@@ -228,10 +229,14 @@ AddTB.RightAlt = {ShortName="RAlt", Pressed=false}
 _G.TimGui.Keybinds.GetTable = function() return table.clone(Keybinds) end
 
 _G.TimGui.Keybinds.Set = function(Button,Key)
-	if Keybinds[Key] == nil then
+	if Key and Keybinds[Key] == nil then
 		Keybinds[Key] = {}
 	end
 	local GB = Button.Parent.Name .. "." .. Button.Object.Name
+	Button.Keybind = Key
+	if Key =="" then
+		Button.Keybind = nil
+	end
 	for b,v in pairs(Keybinds) do
 		for k,v in pairs(v) do 
 			if k == GB then
@@ -601,6 +606,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 	group.RusName = rus
 	group.Objects = {}
 	group.Visible = true
+	group.CFGSave = true
 	group.OpenGroup = function()
 		for k,v in pairs(Objects:GetChildren()) do
 			v.Visible = false
@@ -840,13 +846,12 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 			end
 			Obj = nil
 			Update(group)
-		end
-		Update(group)
+		end Update(group)
 		local oldParams = table.clone(Obj)
-		local whil = Instance.new("BoolValue")
-		whil.Changed:Connect(function()
+		local firstWhile = true
+		task.spawn(function()
 			while Obj ~= nil do
-				if _G.TimGui.Values.Opened or not OptimizeTable.OnClose then
+				if _G.TimGui.Values.Opened or firstWhile or not OptimizeTable.OnClose then
 					if _G.TimGui.Values.RusLang ~= true then
 						if Obj.Text ~= oldParams.Text then
 							Obj.TextObject.Text = Obj.Text
@@ -882,13 +887,28 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 						Obj.Value = Obj.Main.Text
 					end
 					oldParams = table.clone(Obj)
-				end
+					if firstWhile then
+						task.wait()
+						firstWhile = false
+						Obj.DefaultValue = Obj.Value
+						task.wait()
+						local CFGGroup = _G.TimGui.Configs.Loaded.Funcs[group.Name]
+						if CFGGroup and CFGGroup[name] then
+							if typ == 2 then
+								Obj.Main.Value = CFGGroup[name].Value
+							elseif typ == 3 then
+								Obj.Main.Text = CFGGroup[name].Value
+							end if CFGGroup[name].Keybind then
+								_G.TimGui.Keybinds.Set(Obj,CFGGroup[name].Keybind)
+							end
+						end
+					end
+				end 
 				if OptimizeTable.Timer then wait(updTime) end
 				wait()
 				if OptimizeTable.TwoTimer then wait(updTime) end
 			end
 		end)
-		whil.Value = true
 		return Obj
 	end
 	group.Destroy = function()
@@ -901,8 +921,7 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 		Update()
 	end
 	local oldGroup = table.clone(group)
-	local whil = Instance.new("BoolValue")
-	whil.Changed:Connect(function()
+	task.spawn(function()
 		while group ~= nil do
 			if _G.TimGui.Values.Opened or not OptimizeTable.OnClose then
 				if group.RusName ~= oldGroup.RusName then
@@ -923,12 +942,11 @@ _G.TimGui.Groups.CreateNewGroup = function(name,rus)
 				end
 				oldGroup = table.clone(group)
 			end
-			if OptimizeTable.Timer then wait(updTime) end
-			wait()
-			if OptimizeTable.TwoTimer then wait(updTime) end
+			if OptimizeTable.Timer then task.wait(updTime) end
+			task.wait()
+			if OptimizeTable.TwoTimer then task.wait(updTime) end
 		end
 	end)
-	whil.Value = true
 	Update()
 	return group
 end
@@ -939,12 +957,14 @@ _G.TimGui.Path.Main = f
 _G.TimGui.Path.Groups = Groups
 _G.TimGui.Path.Buttons = Objects
 _G.TimGui.Path.FlyButtonsGui = FBGui
--- Saves ------------------------------------------
+-- Saves/Configs ------------------------------------------
 _G.TimGui.Saves = {}
 local pathSaves = "TimGui/Saves/"
+local configsSaves = "TimGui/ConfigsV2/"
 local SavesSuccess,response = pcall(function()
 	makefolder("TimGui")
 	makefolder(pathSaves)
+	makefolder(configsSaves)
 	writefile("TimGui/Test","TimGui|Testing saves...")
 	print(readfile("TimGui/Test"))
 	print(table.unpack(listfiles("TimGui")))
@@ -956,6 +976,7 @@ else
 	print("TimGui|Saves working!")
 end
 _G.TimGui.Saves.Enabled = SavesSuccess
+_G.TimGui.Saves.Path = pathSaves
 _G.TimGui.Saves.Save = function(name,value)
 	if SavesSuccess then
 		if value == nil then
@@ -976,11 +997,103 @@ _G.TimGui.Saves.Load = function(name)
 		end
 	end
 	return nil
+end _G.TimGui.Configs.Enabled = SavesSuccess
+_G.TimGui.Configs.Loaded = {Name="Default", Funcs={},Values={}}
+_G.TimGui.Configs.Path = configsSaves
+_G.TimGui.Configs.IgnoreCFGSaveFuncs = false
+_G.TimGui.Configs.SaveValues = function()
+	if not _G.TimGui.Configs.Enabled then
+		warn("TimGui|Try to use configs, but configs don't work!")
+		return false
+	end if not _G.TimGui.Configs.Loaded then
+		warn("TimGui|CFG is nil") return false
+	end
+	local CFGValue = table.clone(_G.TimGui.Configs.Loaded)
+	if not CFGValue.Name then
+		warn("TimGui|CFG Name is nil") return false
+	end
+	local Name = CFGValue.Name
+	CFGValue.Name = nil
+	writefile(configsSaves..Name,HttpService:JSONEncode(CFGValue))
 end
--- Functions --------------------------------------
-_G.TimGui.AddCommand = function(com,funct)
+_G.TimGui.Configs.Save = function()
+	if not _G.TimGui.Configs.Enabled then
+		return warn("TimGui|Try to use configs, but configs don't work!")
+	end
+	local Save = _G.TimGui.Configs.Loaded.Funcs or{}
+	for groupName,group in pairs(_G.TimGui.Groups) do
+		if type(group) == "table" and group.CFGSave then
+			local groupSave = Save[groupName]or{}
+			for k,v in pairs(group.Objects) do
+				local res = {}
+				local InSave = false
+				if v.CFGSave or _G.TimGui.Configs.IgnoreCFGSaveFuncs then
+					if v.Value ~= v.DefaultValue then
+						res.Value = v.Value
+						InSave = true
+					end
+				end if v.Keybind then 
+					res.Keybind = v.Keybind
+					InSave = true
+				end if InSave then 
+					groupSave[k] = res
+				else
+					groupSave[k] = nil
+				end
+			end local GroupIsChanged = false
+			for k,v in pairs(groupSave) do
+				GroupIsChanged = true break
+			end if GroupIsChanged then 
+				Save[groupName] = groupSave
+			else Save[groupName] = nil
+			end
+		end
+	end _G.TimGui.Configs.Loaded.Funcs = Save
+	_G.TimGui.Configs.SaveValues()
+end _G.TimGui.Configs.ResetToDefault = function()
+	for gn,g in pairs(_G.TimGui.Groups) do
+		if type(g)=="table" and g.CFGSave then
+			for k,v in pairs(g.Objects) do
+				if v.Type==2 then
+					v.Main.Value = v.DefaultValue
+				elseif v.Type==3 then
+					v.Main.Text = v.DefaultValue
+				end if v.Keybind ~= nil then
+					_G.TimGui.Keybinds.Set(v)
+				end
+			end
+		end
+	end
+end
+_G.TimGui.Configs.Load = function(name)
+	if name and name ~= _G.TimGui.Configs.Loaded.Name then
+		local data = readfile(configsSaves..name)
+		if not data then return false end
+		local s,r = pcall(function()
+			_G.TimGui.Configs.Loaded = HttpService:JSONDecode(data)
+		end) if not s then warn(r) return false end
+	end local save = _G.TimGui.Configs.Loaded.Funcs
+	for gn,g in pairs(_G.TimGui.Groups) do
+		if type(g)=="table" and g.CFGSave then
+			for k,v in pairs(g.Objects) do
+				local val = v.DefaultValue
+				if save[gn] and save[gn][k] then
+					if save[gn][k].Value ~= nil then val = save[gn][k].Value end
+					_G.TimGui.Keybinds.Set(v,save[gn][k].Keybind)
+				else _G.TimGui.Keybinds.Set(v)
+				end if v.Type==2 then
+					v.Main.Value = val
+				elseif v.Type==3 then
+					v.Main.Text = val
+				end
+			end
+		end
+	end return true
+end
+-- Modules --------------------------------------
+_G.TimGui.Modules.AddChatCommand = function(com,funct)
      Commands[com] = funct
-end
+end _G.TimGui.AddCommand = _G.TimGui.Modules.AddChatCommand
 
 game.TextChatService.MessageReceived:Connect(function(Message)
      local message = Message.Text
@@ -1004,7 +1117,7 @@ local function NewPlayer(player)
                local com = Commands[com]
                if com then
                     com(table.unpack(args))
-		end
+				end
           end
      end)
 end
@@ -1015,6 +1128,7 @@ end
 game.Players.PlayerAdded:Connect(NewPlayer)
 
 local Settings = _G.TimGui.Groups.CreateNewGroup("Settings","Настройки")
+Settings.CFGSave = false
 local RusLang = Settings.Create(2,"RusLang","Русский язык","English language",function(Value)
 	_G.TimGui.Values.RusLang = Value.Value
 	_G.TimGui.Saves.Save("RussianLanguage",Value.Value)
@@ -1070,15 +1184,17 @@ Settings.OpenGroup()
 local TPTP = _G.TimGui.Groups.CreateNewGroup("TP to players","ТП к игрокам")
 local AutoTP = TPTP.Create(2,4,"Auto TP","Авто ТП")
 local AutoTPto = nil
-local GetPosForTP
 TPTP.Create(1,5,"TP to random player","ТП к случайному игроку",function()
 	local player = game.Players:GetChildren()
 	player = player[math.random(1,(#player)-1)+1]
 	AutoTPto = player.Name
 	AutoTP.Text = "Auto TP to "..AutoTPto
 	AutoTP.RusText = "Авто ТП к "..AutoTPto
-	local HRP = v.Character.PrimaryPart
-	LocalPlayer.Character.PrimaryPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
+	if TPRot.Value then
+		LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+	else
+		LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation)
+	end
 end)
 local TPSettings = _G.TimGui.Groups.CreateNewGroup("TPSettings")
 TPSettings.Visible = false
@@ -1208,6 +1324,7 @@ end)
 Settings.Create(0,"Notificaton","Notificaton","Уведомления")
 local PrintTime = 2.5
 local PrintTimeT = Settings.Create(3,"TimeNotification","Time of notification:","Время уведомления:",function(val)
+	_G.TimGui.Saves.Save("TimeNotification",val.Value)
 	PrintTime = tonumber(val.Value)
 	if PrintTime == nil then
 		PrintTime = 2.5
@@ -1217,8 +1334,10 @@ local PrintTimeT = Settings.Create(3,"TimeNotification","Time of notification:",
 		PrintTime = 30
 	end
 end)
-PrintTimeT.Main.Text = 2.5
-local PrintEnable = Settings.Create(2,"PrintEnable","Enable messages","Включить уведомления")
+PrintTimeT.Main.Text = _G.TimGui.Saves.Load("TimeNotification")or 2.5
+local PrintEnable = Settings.Create(2,"PrintEnable","Enable messages","Включить уведомления",function(val)
+	_G.TimGui.Saves.Save("notificationEnabled",val.Value)
+end) PrintEnable.Main.Value = _G.TimGui.Saves.Save("notificationEnabled")=="true"
 PrintEnable.Main.Value = true
 PrintEnable.CFGSave = true
 local stroke = 5
@@ -1353,6 +1472,7 @@ Optimize.Visible = false
 local OptimizeClose = Optimize.Create(2,"OptimizeOnClosed","Optimize on timgui if closed","Оптимизация timgui, если он закрыт",function(val)
     OptimizeTable.OnClose = val.Value
 end)
+OptimizeClose.Main.Value = true
 Optimize.Create(2,"OptimizeTimer","Optimize timer","Оптимизация таймером",function(val)
     OptimizeTable.Timer = val.Value
 end).Main.Value = true
@@ -1410,7 +1530,6 @@ end if os.date("%m",os.time()) == "04" then
 	AprilFUN = true
     end
 end
-OptimizeClose.Main.Value = true
 _G.Setup = nil
 print("TimGui|Loaded!")
 if AprilFUN then
