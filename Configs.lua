@@ -84,8 +84,6 @@ if _G.TimGui.Configs.Enabled then
 	SaveDefGame = group.Create(2,7,"Set default for this game","Установить по умолчанию для этой игры",function(val)
 		if selected ~= nil then
 			SaveCFGData()
-		else
-			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
 		end
 	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
 	group.Create(0,8,"Configs","Конфигурации")
