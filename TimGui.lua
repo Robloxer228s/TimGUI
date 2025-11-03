@@ -1089,7 +1089,7 @@ _G.TimGui.Configs.Load = function(name)
 			end
 		end
 	end return true
-end
+end _G.TimGui.Configs.Saves = {}
 _G.TimGui.Configs.Saves.Save = function(name,data)
 	_G.TimGui.Configs.Loaded.Values[name] = data
 	_G.TimGui.Configs.SaveValues()
