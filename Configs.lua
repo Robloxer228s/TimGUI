@@ -86,7 +86,11 @@ if _G.TimGui.Configs.Enabled then
 			SaveCFGData()
 		end
 	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
-	group.Create(0,8,"Configs","Конфигурации")
+	group.Create(2,8,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
+		_G.TimGui.Configs.IgnoreCFGSaveFuncs = val.Value
+		_G.TimGui.Configs.Saves.Save("SaveAllValues",val.Value)
+	end).Main.Value = _G.TimGui.Configs.Saves.Load("SaveAllValues")
+	group.Create(0,9,"Configs","Конфигурации")
 	for _,v in pairs(listfiles(path)) do
 		CreateCFGButton(v)
 	end
