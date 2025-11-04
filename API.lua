@@ -71,7 +71,7 @@ end API.ESP.SetBoardSize = function(size)
 	BoardsSize = tonumber(size)or 7
 	for k,v in pairs(BoardsPlrs) do 
 		v.Size = UDim2.new(BoardsSize,0,BoardsSize/3.3,0)
-	end
+	end API.ESP.Refresh()
 end
 API.Players.ForEveryone(function(Player)
 	local highlight = Instance.new("Highlight",ESPFolder)
