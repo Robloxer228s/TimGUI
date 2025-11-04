@@ -1510,6 +1510,7 @@ if _G.Setup ~= nil then
 		loading[4] = loader.Configs
 	end
 end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/API.lua"))()
 if loading[1] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/MapLoader.lua"))()
