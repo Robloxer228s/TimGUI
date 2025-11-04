@@ -9,7 +9,7 @@ if _G.TimGui.Configs.Enabled then
 	end
 	local loadedCFG = {}
 	local selected
-	local SaveDefGame
+	local SaveDefGame,OnlyOpen
 	local LoadCFG = CFGData.Games[tostring(game.GameId)] or CFGData.Selected
 	group.Visible = false
 	group.CFGSave = false
@@ -40,8 +40,10 @@ if _G.TimGui.Configs.Enabled then
 				end if LoadCFG == name then
 					LoadCFG = nil
 				else SaveCFGData()
+				end if OnlyOpen.Value then
+					_G.TimGui.Configs.Open(name)
+				else _G.TimGui.Configs.Load(name)
 				end
-				_G.TimGui.Configs.Load(name)
 			elseif selected == name then
 				selected = nil
 			end
@@ -80,17 +82,21 @@ if _G.TimGui.Configs.Enabled then
 		else
 			_G.TimGui.Print("Configs","Please, select config","Конфигурации","Пожалуйста, выбири конфигурацию")
 		end
+	end) OnlyOpen = group.Create(2,7,"Only open(dont load saves)","Только открытие(не загружать сохранения)",function(val)
+		if selected ~= nil then
+			SaveCFGData()
+		end
 	end)
-	SaveDefGame = group.Create(2,7,"Set default for this game","Установить по умолчанию для этой игры",function(val)
+	SaveDefGame = group.Create(2,8,"Set default for this game","Установить по умолчанию для этой игры",function(val)
 		if selected ~= nil then
 			SaveCFGData()
 		end
 	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
-	group.Create(2,8,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
+	group.Create(2,9,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
 		_G.TimGui.Configs.IgnoreCFGSaveFuncs = val.Value
 		SaveCFGData()
 	end).Main.Value = _G.TimGui.Configs.Saves.Load("SaveAllValues")
-	group.Create(0,9,"Configs","Конфигурации")
+	group.Create(0,10,"Configs","Конфигурации")
 	for _,v in pairs(listfiles(path)) do
 		CreateCFGButton(v)
 	end
