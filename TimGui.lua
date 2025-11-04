@@ -1064,8 +1064,7 @@ end _G.TimGui.Configs.ResetToDefault = function()
 			end
 		end
 	end
-end
-_G.TimGui.Configs.Load = function(name)
+end _G.TimGui.Configs.Open = function()
 	if name and name ~= _G.TimGui.Configs.Loaded.Name then
 		local data = readfile(configsSaves..name)
 		if not data then return false end
@@ -1073,7 +1072,11 @@ _G.TimGui.Configs.Load = function(name)
 			_G.TimGui.Configs.Loaded = HttpService:JSONDecode(data)
 			_G.TimGui.Configs.Loaded.Name = name
 		end) if not s then warn(r) return false end
-	end local save = _G.TimGui.Configs.Loaded.Funcs
+	end return true
+end
+_G.TimGui.Configs.Load = function(name)
+	_G.TimGui.Configs.Open(name) 
+	local save = _G.TimGui.Configs.Loaded.Funcs
 	for gn,g in pairs(_G.TimGui.Groups) do
 		if type(g)=="table" and g.CFGSave then
 			for k,v in pairs(g.Objects) do
@@ -1165,6 +1168,7 @@ local RusLang = Settings.Create(2,"RusLang","Русский язык","English l
 		end
 	end
 end)
+Settings.Create(2,"Reset","Reset to default","Сбросить к стандартным",_G.TimGui.Configs.ResetToDefault())
 if _G.TimGui.Saves.Enabled then
 	RusLang.Main.Value = _G.TimGui.Saves.Load("RussianLanguage") == "true"
 	local Secret = {
