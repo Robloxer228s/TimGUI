@@ -1064,7 +1064,7 @@ end _G.TimGui.Configs.ResetToDefault = function()
 			end
 		end
 	end
-end _G.TimGui.Configs.Open = function()
+end _G.TimGui.Configs.Open = function(name)
 	if name and name ~= _G.TimGui.Configs.Loaded.Name then
 		local data = readfile(configsSaves..name)
 		if not data then return false end
