@@ -18,6 +18,10 @@ P.S: day.month.year
 
 # Update logs:
 
+04.11.25 - debug+update configurations, create separate api for games
+
+03.11.25 - new Configurations
+
 02.08.25 - added Settings for dash
 
 30.08.25 - added Steal a brainrot(super steal in other)
