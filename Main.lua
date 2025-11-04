@@ -13,8 +13,8 @@ if type(_G.TimGui)~="table" then
     _G.TimGui = {}
     Open()
 else 
-  if _G.TimGui.Modules and _G.TimGui.Modules.askYN then
-    _G.TimGui.Modules.askYN("TimGui is alredy running", "Do you want to continue? \n (This may break the script)", "TimGui уже запущен", "Вы хотите продолжить? \n (Это может сломать скрипт)", Open) 
+  if _G.TimGui.Modules and _G.TimGui.Modules.AskYN then
+    _G.TimGui.Modules.AskYN("TimGui is alredy running", "Do you want to continue? \n (This may break the script)", "TimGui уже запущен", "Вы хотите продолжить? \n (Это может сломать скрипт)", Open) 
   else Open()
   end
 end
