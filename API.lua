@@ -18,7 +18,11 @@ end
 API.ESP = {}
 local Binded = {}
 local HighlightsPlrs = {}
-local ESPFolder = Instance.new("Folder",_G.TimGui.Path.gui)
+local ESPFolder = Instance.new("Folder")
+if _G.TimGui and _G.TimGui.Path then
+	ESPFolder.Parent = _G.TimGui.Path.gui
+else ESPFolder.Parent = game.CoreGui
+end ESPFolder.Name = "NotESP"
 local BoardsSize = 7
 API.ESP.Bind = function(PrioryN,func)
 	local Priory = Binded[PrioryN]
@@ -38,9 +42,10 @@ API.ESP.Refresh = function(Player:Player?)
 	else 
 		local Priory = {}
 		for k,v in pairs(Binded) do
+			print(k,v)
 			table.insert(Priory,{k,v})
 		end table.sort(Priory,function(a,b)
-			return a[1]>b[2]
+			return a[1]>b[1]
 		end) local res,broke
 		for _,v in pairs(Priory) do
 			for _,f in pairs(v[2]) do
@@ -54,8 +59,8 @@ API.ESP.Refresh = function(Player:Player?)
 				end
 			end if broke or res then break end
 		end local highlight = HighlightsPlrs[Player]
-		local board = highlight:FindFirstChild("board")
 		if not highlight then warn("No highlight for "..Player.Name) return end
+		local board = highlight:FindFirstChild("board")
 		if not board then warn("No board for "..Player.Name) return end
 		if not res then
 			highlight.Enabled = false
@@ -69,8 +74,8 @@ API.ESP.Refresh = function(Player:Player?)
 	end
 end API.ESP.SetBoardSize = function(size)
 	BoardsSize = tonumber(size)or 7
-	for k,v in pairs(BoardsPlrs) do 
-		v.Size = UDim2.new(BoardsSize,0,BoardsSize/3.3,0)
+	for k,v in pairs(HighlightsPlrs) do 
+		v.board.Size = UDim2.new(BoardsSize,0,BoardsSize/3.3,0)
 	end API.ESP.Refresh()
 end
 API.Players.ForEveryone(function(Player)
