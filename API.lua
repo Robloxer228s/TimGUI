@@ -57,6 +57,7 @@ API.ESP.Refresh = function(Player:Player?)
 						res = val
 						break
 					end
+				else task.spawn(function() error(val) end)
 				end
 			end if broke or res then break end
 		end local highlight = HighlightsPlrs[Player]
