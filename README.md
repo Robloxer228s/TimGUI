@@ -18,6 +18,8 @@ P.S: day.month.year
 
 # Update logs:
 
+05.11.25 - esp update (with use new api)
+
 04.11.25 - debug+update configurations, create separate api for games
 
 03.11.25 - new Configurations
