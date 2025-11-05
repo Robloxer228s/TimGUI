@@ -1,12 +1,12 @@
 # How to use:
 Paste this in your executor and run:
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
+```
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
+```
 
 # Status:
-```
-  Maybe someday there will be documentation here.
-```
+Maybe someday there will be documentation here.
 
 last games script update: 09.11.24
 
