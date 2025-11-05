@@ -1342,7 +1342,7 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 end)
 
 -- ESP -------------------------------------------------------
-local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP v2","Подсветка")
+local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
 local ESPB = {}
 ESPG.Create(3,"SizeTxt","Size of text:","Размер текста",function(val)
 	if tonumber(val.Value) then
