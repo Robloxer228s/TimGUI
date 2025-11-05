@@ -42,20 +42,21 @@ API.ESP.Refresh = function(Player:Player?)
 	else 
 		local Priory = {}
 		for k,v in pairs(Binded) do
-			print(k,v)
 			table.insert(Priory,{k,v})
 		end table.sort(Priory,function(a,b)
 			return a[1]>b[1]
 		end) local res,broke
 		for _,v in pairs(Priory) do
 			for _,f in pairs(v[2]) do
-				local val = f(Player)
-				if val == false then
-					broke = true
-					break
-				elseif typeof(val) == "Color3" then
-					res = val
-					break
+				local s,val = pcall(f,Player)
+				if s then
+					if val == false then
+						broke = true
+						break
+					elseif typeof(val) == "Color3" then
+						res = val
+						break
+					end
 				end
 			end if broke or res then break end
 		end local highlight = HighlightsPlrs[Player]
@@ -118,10 +119,11 @@ API.Players.ForEveryone(function(Player)
 		board.Adornee = Character
 		highlight.Adornee = Character
 		task.spawn(function()
-			for k=1,20,1 do
-				if not Character.Parent then break end
-				task.wait(1.5)
-				highlight.Adornee = Character
+			while Character.Parent do
+				task.wait(2)
+				if highlight.Enabled then
+					highlight.Adornee = Character
+				end
 			end
 		end)
 		local hum = Character:FindFirstChildOfClass("Humanoid")or Character:WaitForChild("Humanoid")
