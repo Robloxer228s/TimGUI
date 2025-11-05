@@ -1342,251 +1342,42 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 end)
 
 -- ESP -------------------------------------------------------
-local ESP = Instance.new("Folder",_G.TimGui.Path.gui)
+local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP v2","Подсветка")
 local ESPB = {}
-local ESPG = _G.TimGui.Groups.CreateNewGroup("ESP","Подсветка")
-local sizeTexts = ESPG.Create(3,"SizeTxt","Size of text:","Размер текста")
-local enableTexts = ESPG.Create(2,"Txt","Enable text","Включить текст")
-local oldSizeText = 7
-enableTexts.CFGSave = true
-enableTexts.Main.Value = true
-sizeTexts.Main.Text = oldSizeText
-local MercyESP = ESPG.Create(2,"colorMercy","Change color for mercy","Заменять цвет для пощады")
-local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех")
-ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды")
-ESP.Name = "NOOOOTesp"
-MercyESP.CFGSave = true
-MercyESP.Main.Value = true
-local function updESPpl(v)
-    local highlight = ESP:FindFirstChild(v.Name)
-    if highlight then
-        highlight.Enabled = ESPB[v.Team or "NoTeam"].Value or allESP.Value
-        highlight.FillColor = v.TeamColor.Color
-        if MercyESP.Value then
-            if _G.TimGui.Values.Spare[v.Name] then
-                highlight.FillColor = Color3.new(0.25,1,0.25)
-            end
-        end
-	    highlight.OutlineColor = highlight.FillColor
-        highlight.Adornee = v.Character
-	    local board = highlight:FindFirstChild("board")
-	    if board then
-	        highlight.board.Adornee = v.Character
-	        highlight.board.nick.TextColor3 = v.TeamColor.Color
-	    end
-    end
-end
-local function updESP()
-    for k,v in pairs(game.Players:GetPlayers()) do
-        updESPpl(v)
-    end
-end
+ESPG.Create(3,"SizeTxt","Size of text:","Размер текста",function(val)
+	if tonumber(val.Value) then
+		_G.TimGui.Modules.ESP.SetBoardSize(val.Value)
+	end
+end).Main.Text = 7
+local enableBoards = ESPG.Create(2,"Txt","Enable text","Включить текст",function(val)
+	_G.TimGui.Modules.ESP.EnableBoards = val.Value
+	_G.TimGui.Modules.ESP.Refresh()
+end) enableBoards.CFGSave = true
+enableBoards.Main.Value = true
+local function refreshESP() _G.TimGui.Modules.ESP.Refresh() end
+local MercyESP = ESPG.Create(2,"colorMercy","Change color for mercy","Заменять цвет для пощады",refreshESP)
+local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех",refreshESP)
+ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды",refreshESP)
+_G.TimGui.Modules.ESP.Bind(1,function(Player)
+	if allESP.Value or ESPB[Player.Team or"NoTeam"].Value then
+		if MercyESP.Value then
+            if _G.TimGui.Values.Spare[Player.Name] then
+				return Color3.new(0.25,1,0.25)
+			end
+		end return Player.TeamColor.Color
+	end
+end) _G.TimGui.Modules.Players.ForEveryone(function(Player)
+	Player:GetPropertyChangedSignal("Team"):Connect(function()
+		_G.TimGui.Modules.ESP.Refresh(Player)
+	end)
+end,false)
 local NoTeamEnabled
 for k,v in pairs(game.Teams:GetChildren()) do
-    ESPB[v] = ESPG.Create(2,v.Name,"Esp to "..v.Name,"Подсветить "..v.Name,updESP)
+    ESPB[v] = ESPG.Create(2,v.Name,"Esp to "..v.Name,"Подсветить "..v.Name,refreshESP)
     NoTeamEnabled = true
-end
-if not NoTeamEnabled then
+end if not NoTeamEnabled then
     ESPB["NoTeam"].Visible = false
 end
-allESP.OnChange(updESP)
-local function createHighlight(v)
-    local highlight = Instance.new("Highlight",ESP)
-    highlight.Name = v.Name
-    highlight.FillTransparency = 0.5
-    highlight.OutlineTransparency = 0
-    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-    highlight.Enabled = false
-    if enableTexts.Value then
-	    local board = Instance.new("BillboardGui",highlight)
-	    local size = tonumber(sizeTexts.Value)
-	    if not size then size = oldSizeText end
-	    board.Size = UDim2.new(size,0,size/3.3,0)
-	    board.Name = "board"
-	    board.AlwaysOnTop = true
-	    board.Enabled = false
-	    local name = Instance.new("TextLabel",board)
-	    name.Size = UDim2.new(1,0,0.6,0)
-	    name.BackgroundTransparency = 1
-	    name.TextStrokeTransparency = 0
-	    name.TextColor3 = v.TeamColor.Color
-	    name.TextScaled = true
-	    name.Text = v.Name
-	    name.Name = "nick"
-	    local dist = Instance.new("TextLabel",board)
-	    dist.Size = UDim2.new(0.6,0,0.4,0)
-	    dist.Position = UDim2.new(0,0,0.6,0)
-	    dist.BackgroundTransparency = 1
-	    dist.TextStrokeTransparency = 0
-	    dist.TextStrokeColor3 = Color3.new(1,1,1)
-	    dist.TextColor3 = Color3.new(0,0,0)
-	    dist.TextScaled = true
-	    dist.Text = 0
-	    local health = Instance.new("TextLabel",board)
-	    health.Size = UDim2.new(0.4,0,0.4,0)
-	    health.Position = UDim2.new(0.6,0,0.6,0)
-	    health.BackgroundTransparency = 1
-	    health.TextStrokeTransparency = 0
-	    health.TextColor3 = Color3.new(1,1,0)
-	    health.TextScaled = true
-	    health.Text = ".../..."
-	    highlight:GetPropertyChangedSignal("Enabled"):Connect(function()
-	        board.Enabled = highlight.Enabled
-	    end)
-	    task.spawn(function()
-	        while highlight.Parent do
-	            wait(0.2)
-	            if board.Enabled then
-	                if LocalPlayer.Character and v.Character then
-	                    local LHRP = LocalPlayer.Character.PrimaryPart
-	                    local HRP = v.Character.PrimaryPart
-	                    if LHRP and HRP then
-	                        local count = LHRP.Position - HRP.Position
-	                        local adding = math.abs(count.X) + math.abs(count.Y) + math.abs(count.Z)
-	                        dist.Text = math.floor(adding)
-	                    end
-	                    if v.Character:FindFirstChild("Humanoid") then
-	                        local HP = v.Character.Humanoid.Health
-	                        local MHP = v.Character.Humanoid.MaxHealth
-	                        local res = HP/MHP
-	                        health.Text = math.floor(HP).."/"..MHP
-	                        health.TextColor3 = Color3.new(res,1-res,0)
-	                    end
-	                end
-	            end
-	        end
-    	  end)
-    end
-    updESPpl(v)
-    return highlight,board
-end
-local function NewPlayer(v)
-    if not v.Character then
-        v.CharacterAdded:Wait()
-    end
-    createHighlight(v)
-    v.CharacterAdded:Connect(function()
-        wait()
-        updESPpl(v)
-    end)
-    v:GetPropertyChangedSignal("Team"):Connect(function()
-        wait()
-        updESPpl(v)
-    end)
-end
-for _,v in pairs(game.Players:GetPlayers()) do
-    if v ~= LocalPlayer then
-	task.spawn(function()
-        	NewPlayer(v)
-	end)
-    end
-end
-game.Players.PlayerAdded:Connect(NewPlayer)
-
-game.Players.PlayerRemoving:Connect(function(v)
-    local highlight = ESP:FindFirstChild(v.Name)
-    if highlight then highlight:Destroy() end
-end)
-local function reloadESP()
-    ESP:ClearAllChildren()
-    for k,v in pairs(game.Players:GetPlayers()) do
-        if v ~= LocalPlayer then
-            createHighlight(v)
-        end
-    end
-end
-ESPG.Create(1,"reload","Reload ESP","Перезагрузить",reloadESP)
-enableTexts.OnChange(function()
-    reloadESP()
-end)
-sizeTexts.OnChange(function(v)
-    local size = tonumber(v.Value)
-    if size ~= oldSizeText then
-        if size then
-            oldSizeText = size
-            reloadESP()
-        end
-    end
-end)
-MercyESP.OnChange(updESP)
--- Freeze players ---------------------------------------------------
-local FP = _G.TimGui.Groups.CreateNewGroup("Freeze players","Заморозка игроков")
-local teams = {}
-local teamsTP = {}
-local FPos = {}
-local FPosAll
-local function Freeze(but)
-	if type(but) == "table" then
-		local butName = but.Name
-		if string.sub(butName,1,1) == "T" then
-			butName = string.sub(butName,2)
-			if butName == "ALL" then
-				FPosAll = LocalPlayer.Character.PrimaryPart.CFrame
-			else
-				FPos[butName] = LocalPlayer.Character.PrimaryPart.CFrame
-			end
-		end
-	end
-	for k,pl in pairs(game.Players:GetPlayers()) do
-		if pl == LocalPlayer then continue end
-	        if not pl.Character then continue end
-		if not pl.Character.PrimaryPart then continue end
-		pl.Character.PrimaryPart.Anchored = false
-		if _G.TimGui.Values.Spare[pl.Name] then continue end
-		for t,b in pairs(teams) do
-			if b.Value then
-				if t == pl.Team.Name then
-					pl.Character.PrimaryPart.Anchored = true
-					break
-				end
-			end
-		end
-		for t,b in pairs(teamsTP) do
-			if b.Value then
-				if t == pl.Team.Name then
-					pl.Character.PrimaryPart.Anchored = true
-					pl.Character.PrimaryPart.CFrame = FPos[t]
-					break
-				end
-			end
-		end
-		if FP.Objects.FALL.Value then
-			pl.Character.PrimaryPart.Anchored = true
-		elseif FP.Objects.TALL.Value then
-			pl.Character.PrimaryPart.Anchored = true
-			pl.Character.PrimaryPart.CFrame = FPosAll
-		end
-	end
-end
-FP.Create(0,"Freeze","Freeze","Заморозка")
-FP.Create(2,"FALL","ALL","Все",Freeze)
-for k,v in pairs(game.Teams:GetChildren()) do
-	teams[v.name] = FP.Create(2,"F"..v.Name,v.Name,v.Name,Freeze)
-end
-FP.Create(0,"TPFreeze","TPFreeze","ТПЗаморозка")
-FP.Create(2,"TALL","TLL","Все",Freeze)
-for k,v in pairs(game.Teams:GetChildren()) do
-	teamsTP[v.name] = FP.Create(2,"T"..v.Name,v.Name,v.Name,Freeze)
-end
-
-game.Players.PlayerAdded:Connect(function(player)
-	local function rechar()
-		player.Character:WaitForChild("HumanoidRootPart")
-		Freeze()
-	end
-	player.CharacterAdded:Connect(rechar)
-	player:GetPropertyChangedSignal("Team"):Connect(rechar)
-end) 
-
-for k,player in pairs(game.Players:GetPlayers()) do
-	local function rechar()
-		player.Character:WaitForChild("HumanoidRootPart")
-		Freeze()
-	end
-	player.CharacterAdded:Connect(rechar)
-	player:GetPropertyChangedSignal("Team"):Connect(rechar)
-end
-
 -- FUN --------------------------------
 local FUN = _G.TimGui.Groups.CreateNewGroup("FUN","ВЕСЕЛЬЕ")
 
