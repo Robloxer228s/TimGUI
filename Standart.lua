@@ -545,7 +545,21 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 	end
 end)
 
-local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков") 
+local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков",function(val)
+	if NoCollideForOther.Value then
+		for _,v in pairs(game.Players:GetPlayers()) do
+			if v~= LocalPlayer then
+				if not v.Character then continue end
+				local clone = v.Character:FindFirstChild("Clone")
+				for _,i in pairs(v.Character:GetChildren()) do
+					if i:IsA("BasePart") and i.CanCollide then
+						i.CanCollide = false
+					end
+				end
+			end
+		end
+	end
+end) 
 RunService.PreSimulation:Connect(function()
 	if NoCollideForOther.Value then
 		for _,v in pairs(game.Players:GetPlayers()) do
