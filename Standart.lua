@@ -1357,7 +1357,7 @@ enableBoards.Main.Value = true
 local function refreshESP() _G.TimGui.Modules.ESP.Refresh() end
 local MercyESP = ESPG.Create(2,"colorMercy","Change color for mercy","Заменять цвет для пощады",refreshESP)
 local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех",refreshESP)
-ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral","Подсветить без команды",refreshESP)
+ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral(without team)","Подсветить без команды",refreshESP)
 _G.TimGui.Modules.ESP.Bind(1,function(Player)
 	if allESP.Value or ESPB[Player.Team or"NoTeam"].Value then
 		if MercyESP.Value then
