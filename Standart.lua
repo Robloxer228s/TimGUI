@@ -547,12 +547,14 @@ end)
 
 local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков") 
 RunService.PreSimulation:Connect(function()
-	for _,v in pairs(game.Players:GetPlayers()) do
-		if v~= LocalPlayer then
-			if not v.Character then continue end
-			for _,i in pairs(v.Character:GetDescendants()) do
-				if i:IsA("BasePart") and i.CanCollide then
-					i.CanCollide = false
+	if NoCollideForOther.Value then
+		for _,v in pairs(game.Players:GetPlayers()) do
+			if v~= LocalPlayer then
+				if not v.Character then continue end
+				for _,i in pairs(v.Character:GetChildren()) do
+					if i:IsA("BasePart") and i.CanCollide then
+						i.CanCollide = false
+					end
 				end
 			end
 		end
