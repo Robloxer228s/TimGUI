@@ -564,7 +564,6 @@ RunService.RenderStepped:connect(function()
 				for _,i in pairs(v.Character:GetDescendants()) do
 					if i:IsA("BasePart") and i.CanCollide then
 						i.CanCollide = false
-						table.insert(NoPlayersCollider,i)
 					end
 				end
 			end
