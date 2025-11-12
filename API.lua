@@ -265,8 +265,10 @@ API.Freeze.ThisRefreshIntTab = {}
 API.Freeze.Refresh = function(Player:Player?)
 	if not Player then
 		for k,v in pairs(game.Players:GetPlayers()) do
-			if v ~= LP then 
-				API.Freeze.Refresh(v)
+			if v ~= LP then
+				task.spawn(function()
+					API.Freeze.Refresh(v)
+				end)
 			end
 		end
 	else API.Freeze.ThisRefreshIntTab[Player] += 1
