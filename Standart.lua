@@ -545,7 +545,22 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 	end
 end)
 
-local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков") 
+local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков",function(val)
+	if val.Value then
+		while val.Value do
+			for _,v in pairs(game.Players:GetPlayers()) do
+				if v~= LocalPlayer then
+					for _,i in pairs(v.Character:GetDescendants()) do
+						if i:IsA("BasePart") and i.CanCollide then
+							i.CanCollide = false
+						end
+					end
+				end
+			end
+			task.wait(0.25)
+		end
+	end
+end) 
 RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		if not LocalPlayer.Character.PrimaryPart then return end
@@ -555,16 +570,6 @@ RunService.RenderStepped:connect(function()
 			for k,v in pairs(LocalPlayer.Character:GetChildren()) do
 				if v:IsA("BasePart") then
 					v.CanCollide = false
-				end
-			end
-		end
-	end if NoCollideForOther.Value then
-		for _,v in pairs(game.Players:GetPlayers()) do
-			if v~= LocalPlayer then
-				for _,i in pairs(v.Character:GetDescendants()) do
-					if i:IsA("BasePart") and i.CanCollide then
-						i.CanCollide = false
-					end
 				end
 			end
 		end
