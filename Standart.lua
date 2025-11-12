@@ -551,7 +551,8 @@ local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other play
 			if v~= LocalPlayer then
 				if not v.Character then continue end
 				local clone = v.Character:FindFirstChild("Clone")
-				for _,i in pairs(v.Character:GetChildren()) do
+				if not clone then continue end
+				for _,i in pairs(clone:GetChildren()) do
 					if i:IsA("BasePart") and i.CanCollide then
 						i.CanCollide = false
 					end
