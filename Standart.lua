@@ -1479,7 +1479,7 @@ game.Players.PlayerRemoving:Connect(function(Player)
 	end PlFreezeButtons[Player] = nil
 end)
 _G.TimGui.Modules.Freeze.Bind(1,function(Player)
-	local notForSpare = _G.TimGui.Values.Spare[Player.Name]and(FreezeReturn[Player.Team or NoTeamName]or FreezeReturn["All players"])
+	local notForSpare = (not _G.TimGui.Values.Spare[Player.Name])and(FreezeReturn[Player.Team or NoTeamName]or FreezeReturn["All players"])
 	return FreezeReturn[Player]or notForSpare or nil
 end)
 -- FUN --------------------------------
