@@ -218,8 +218,8 @@ API.Players.ForEveryone(function(Player)
 		local hum = Character:FindFirstChildOfClass("Humanoid")or Character:WaitForChild("Humanoid",math.huge)
 		local function refreshHP()
 			if hum.Parent == nil then return end
-			local HP = Player.Character.Humanoid.Health
-			local MHP = Player.Character.Humanoid.MaxHealth
+			local HP = hum.Health
+			local MHP = hum.MaxHealth
 			local res = HP/MHP
 			health.Text = math.floor(HP).."/"..MHP
 			health.TextColor3 = Color3.new(res,1-res,0)
