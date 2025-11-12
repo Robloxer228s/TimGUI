@@ -577,7 +577,7 @@ end) _G.TimGui.Modules.Players.ForEveryone(function(Player)
 				table.insert(NoPlayersCollider,i)
 			end
 		end)
-	end if Player.Character then NewCHar(Player.Character) end
+	end if Player.Character then NewChar(Player.Character) end
 	Player.CharacterAdded:Connect(NewChar)
 end)
 RunService.RenderStepped:connect(function()
