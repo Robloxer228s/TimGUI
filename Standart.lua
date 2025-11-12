@@ -545,7 +545,41 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 	end
 end)
 
-local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков")
+local NoPlayersCollider = {}
+local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков",function(val)
+	if val.Value then	
+		for _,v in pairs(game.Players:GetPlayers()) do
+			if v~=LocalPlayer then
+				for _,i in pairs(v.Character:GetDescendants()) do
+					if i:IsA("BasePart") and i.CanCollide then
+						i.CanCollide = false
+						table.insert(NoPlayersCollider,i)
+					end
+				end
+			end
+		end
+	else for _,i in pairs(NoPlayersCollider) do
+			i.CanCollide = true
+		end NoPlayerCollider = {}
+	end
+end) _G.TimGui.Modules.Players.ForEveryone(function(Player)
+	local function NewChar(Character)
+		if NoCollideForOther.Value then
+			for _,i in pairs(Character:GetDescendants()) do
+				if i:IsA("BasePart") and i.CanCollide then
+					i.CanCollide = false
+					table.insert(NoPlayersCollider,i)
+				end
+			end
+		end Character.DescendantAdded:Connect(function(i)
+			if i:IsA("BasePart") and i.CanCollide then
+				i.CanCollide = false
+				table.insert(NoPlayersCollider,i)
+			end
+		end)
+	end if Player.Character then NewCHar(Player.Character) end
+	Player.CharacterAdded:Connect(NewChar)
+end)
 RunService.RenderStepped:connect(function()
 	if LocalPlayer.Character then
 		if not LocalPlayer.Character.PrimaryPart then return end
@@ -558,19 +592,7 @@ RunService.RenderStepped:connect(function()
 				end
 			end
 		end
-	end if NoCollideForOther.Value then
-        for k,v in pairs(game.Players:GetPlayers()) do
-            if v ~= LocalPlayer then
-		if v.Character then
-	                for _,i in pairs(v.Character:GetDescendants()) do
-	                    if i:IsA("BasePart") then
-	                        i.CanCollide = false
-	                    end
-	                end
-		end
-            end
-        end
-    end
+	end
 end)
 
 local NoT = Player.Create(2,"Notouch","No CanTouch","Убрать косания",function(val)
