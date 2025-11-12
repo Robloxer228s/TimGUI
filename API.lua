@@ -52,7 +52,7 @@ API.Players.MakeCloneModules.MakeRepeatAnimator = function(Anim,RAnim)
 		CloneAT(v)
 	end Anim.AnimationPlayed:Connect(CloneAT)
 end API.Players.MakeCloneModules.MakeRepeatHumanoid = function(hum,cloneHum)
-	if not hum or not CloneHum then warn("Humanoid is nil") return end
+	if not hum or not cloneHum then warn("Humanoid is nil") return end
 	local function BindHumP(Param)
 		hum:GetPropertyChangedSignal(Param):Connect(function()
 			cloneHum[Param] = hum[Param]
@@ -60,7 +60,7 @@ end API.Players.MakeCloneModules.MakeRepeatHumanoid = function(hum,cloneHum)
 	end BindHumP("Health")
 	BindHumP("MaxHealth")
 	BindHumP("DisplayName")
-	BindHumP("Walkspeed")
+	BindHumP("WalkSpeed")
 	BindHumP("JumpPower")
 	BindHumP("JumpHeight")
 end
@@ -96,15 +96,15 @@ API.Players.MakeCloneR15 = function(Char:Model,cloneAnimators,welded)
 			API.Players.MakeCloneModules.MakeRepeatAnimator(anim,cloneAnim)
 		end
 	end API.Players.MakeCloneModules.MakeRepeatHumanoid(hum,cloneHum)
-	return clone,Root
+	return clone,Root,(Root and Root.Parent)
 end API.Players.MakeClone = function(Char:Model,cloneAnimators,welded)
 	local hum = Char:FindFirstChildOfClass("Humanoid")
 	if not hum then warn("Humanoid not founded") return end
-	if hum.RigType ~= Enum.HumanoidRigType.R5 then return API.Players.MakeCloneR15(Char,cloneAnimators,welded) end
+	if hum.RigType ~= Enum.HumanoidRigType.R6 then return API.Players.MakeCloneR15(Char,cloneAnimators,welded) end
 	Char.Archivable = true
 	local oldClone = Char:FindFirstChild("Clone")
 	local clone = oldClone or Char:Clone()
-	local Root = Char.PrimaryPart:FindFirstChild("RootJoint")
+	local Root = Char:WaitForChild("HumanoidRootPart"):FindFirstChild("RootJoint")
 	clone.Parent = Char
 	if not oldClone then
 		local RightHand = Char:FindFirstChild("Right Arm")
@@ -116,11 +116,12 @@ end API.Players.MakeClone = function(Char:Model,cloneAnimators,welded)
 				end
 			end)
 		end
-	end if welded and clone.PrimaryPart then
-		local CloneRoot = clone.PrimaryPart:FindFirstChild("RootJoint")
+	end local cloneHRP = clone:FindFirstChild("HumanoidRootPart")
+	if welded and cloneHRP then
+		local CloneRoot = cloneHRP:FindFirstChild("RootJoint")
 		CloneRoot.Parent = clone
-		CloneRoot.Part0 = Char.PrimaryPart
-		clone.PrimaryPart:Destroy()
+		CloneRoot.Part0 = Char:WaitForChild("HumanoidRootPart")
+		cloneHRP:Destroy()
 	end clone.Name = "Clone"
 	local cloneHum = clone:FindFirstChildOfClass("Humanoid")
 	if cloneAnimators then
@@ -129,8 +130,9 @@ end API.Players.MakeClone = function(Char:Model,cloneAnimators,welded)
 		if anim and cloneHum then
 			API.Players.MakeCloneModules.MakeRepeatAnimator(anim,cloneAnim)
 		end
-	end endAPI.Players.MakeCloneModules.MakeRepeatHumanoid(hum,cloneHum)
-	return clone,Root
+	end
+	API.Players.MakeCloneModules.MakeRepeatHumanoid(hum,cloneHum)
+	return clone,Root,Char:FindFirstChild("Torso")
 end API.Players.DelCloneR15 = function(Char:Model)
 	local clone = Char:FindFirstChild("Clone")
 	if not clone then return end
@@ -352,23 +354,23 @@ API.Freeze.Refresh = function(Player:Player?)
 		end 
 		if not res then
 			if character:FindFirstChild("Clone") then
-				local cloneChar,Root = API.Players.MakeClone(character)
+				local cloneChar,Root,AnchorPart = API.Players.MakeClone(character)
 				Root.Enabled = true
-				Root.Parent.Anchored = false
+				AnchorPart.Anchored = false
 			end character.PrimaryPart.Anchored = false
 			API.Players.DelClone(character)
 		else local RootPart = character.PrimaryPart
-			if not RootPart then character:GetPropertyChangedSignal("PrimaryPart") RootPart = character.PrimaryPart end
+			if not RootPart then character:GetPropertyChangedSignal("PrimaryPart"):Wait() RootPart = character.PrimaryPart end
 			RootPart.Anchored = not enableFakeChars
 			if enableFakeChars then
-				local cloneChar,Root = API.Players.MakeClone(character,true,true)
-				RootPart = Root.Parent
+				local cloneChar,Root,AnchorPart = API.Players.MakeClone(character,true,true)
+				RootPart = AnchorPart
 				Root.Enabled = false
-				Root.Parent.Anchored = true
+				RootPart.Anchored = true
 			elseif character:FindFirstChild("Clone") then
-				local cloneChar,Root = API.Players.MakeClone(character)
+				local cloneChar,Root,AnchorPart = API.Players.MakeClone(character)
 				Root.Enabled = true
-				Root.Parent.Anchored = false
+				AnchorPart.Anchored = false
 				API.Players.DelClone(character)
 			end if typeof(res)=="Vector3" then
 				res = CFrame.new(res)
@@ -383,7 +385,7 @@ end
 API.Players.ForEveryone(function(Player)
 	API.Freeze.ThisRefreshIntTab[Player] = 0
 	local function newChar(Character)
-		Character:GetPropertyChangedSignal("PrimaryPart"):Wait()
+		Character:WaitForChild("Humanoid")
 		task.wait(0.25)
 		API.Freeze.Refresh(Player)
 	end Player.CharacterAdded:Connect(newChar)
