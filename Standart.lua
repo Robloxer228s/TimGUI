@@ -1402,6 +1402,8 @@ local FreezeSettings = _G.TimGui.Groups.CreateNewGroup("FreezeSettings")
 local EnableFakeCharacters = FreezeSettings.Create(2,"EnableFakeCharacters","Enable clones for Freezing","Включить клонов для Заморозки",function(val)
 	_G.TimGui.Modules.Freeze.EnableFakeChars = val.Value
 end) EnableFakeCharacters.Main.Value = true
+
+
 FreezeSettings.Visible = false
 FreezeG.Create(0,"WhatIsIt","It's Freeze players/Killaura","Это Заморозка игроков/Killaura")
 FreezeG.Create(1,"Settings","Freeze settings","Настройки заморозки",function()
@@ -1414,7 +1416,7 @@ ZKillAura.Main.Text = "-3"
 local function KillauraF(Root,Player,PlInts)
 	local thisInt = PlInts[Player]
 	local LPCharacter = LocalPlayer.Character
-	local KillauraAdd = Vector3.new(tonumber(XKillAura.Value)or 0,tonumber(YKillAura.Value)or 0,tonumber(ZKillAura.Value)or -1.75)
+	local KillauraAdd = Vector3.new(tonumber(XKillAura.Value)or 0,tonumber(YKillAura.Value)or 0,tonumber(ZKillAura.Value)or -3)
 	while thisInt == PlInts[Player] do
 		if not LPCharacter or not LPCharacter.Parent then
 			LPCharacter = LocalPlayer.Character
@@ -1477,7 +1479,8 @@ game.Players.PlayerRemoving:Connect(function(Player)
 	end PlFreezeButtons[Player] = nil
 end)
 _G.TimGui.Modules.Freeze.Bind(1,function(Player)
-	return FreezeReturn[Player]or FreezeReturn[Player.Team or NoTeamName]or FreezeReturn["All players"]or nil
+	local notForSpare = _G.TimGui.Values.Spare[Player.Name]and(FreezeReturn[Player.Team or NoTeamName]or FreezeReturn["All players"])
+	return FreezeReturn[Player]or notForSpare or nil
 end)
 -- FUN --------------------------------
 local FUN = _G.TimGui.Groups.CreateNewGroup("FUN","ВЕСЕЛЬЕ")
