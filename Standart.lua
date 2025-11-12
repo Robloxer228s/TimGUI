@@ -559,10 +559,14 @@ RunService.RenderStepped:connect(function()
 			end
 		end
 	end if NoCollideForOther.Value then
-		for _,i in pairs(v.Character:GetDescendants()) do
-			if i:IsA("BasePart") and i.CanCollide then
-				i.CanCollide = false
-				table.insert(NoPlayersCollider,i)
+		for _,v in pairs(game.Players:GetPlayers()) do
+			if v~= LocalPlayer then
+				for _,i in pairs(v.Character:GetDescendants()) do
+					if i:IsA("BasePart") and i.CanCollide then
+						i.CanCollide = false
+						table.insert(NoPlayersCollider,i)
+					end
+				end
 			end
 		end
 	end
