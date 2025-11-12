@@ -70,7 +70,7 @@ API.Players.MakeCloneR15 = function(Char:Model,cloneAnimators,welded)
 		local cloneRightHand = clone:FindFirstChild("RightHand")
 		if RightHand and cloneRightHand then
 			RightHand.ChildAdded:Connect(function(weld)
-				if weld.Name == "RightGrip" then
+				if weld.Name == "RightGrip" and cloneRightHand.Parent then
 					weld.Part0 = cloneRightHand
 				end
 			end)
@@ -303,7 +303,8 @@ API.Freeze.Refresh = function(Player:Player?)
 			end character.PrimaryPart.Anchored = false
 			API.Players.DelCloneR15(character)
 		else local RootPart = character.PrimaryPart
-			character.PrimaryPart.Anchored = not enableFakeChars
+			if not RootPart then character:GetPropertyChangedSignal("PrimaryPart") RootPart = character.PrimaryPart end
+			RootPart.Anchored = not enableFakeChars
 			if enableFakeChars then
 				local cloneChar,Root = API.Players.MakeCloneR15(character,true,true)
 				RootPart = Root.Parent
