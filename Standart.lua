@@ -562,7 +562,7 @@ RunService.RenderStepped:connect(function()
         for k,v in pairs(game.Players:GetPlayers()) do
             if v ~= LocalPlayer then
 		if v.Character then
-	                for _,i in pairs(v.Character:GetChildren()) do
+	                for _,i in pairs(v.Character:GetDescendants()) do
 	                    if i:IsA("BasePart") then
 	                        i.CanCollide = false
 	                    end
@@ -1357,7 +1357,7 @@ enableBoards.Main.Value = true
 local function refreshESP() _G.TimGui.Modules.ESP.Refresh() end
 local MercyESP = ESPG.Create(2,"colorMercy","Change color for mercy","Заменять цвет для пощады",refreshESP)
 local allESP = ESPG.Create(2,"All","ESP to all","Подсветить всех",refreshESP)
-ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral(without team)","Подсветить без команды",refreshESP)
+ESPB["NoTeam"] = ESPG.Create(2,"NoTeam","ESP to neutral(without a team)","Подсветить без команды",refreshESP)
 _G.TimGui.Modules.ESP.Bind(1,function(Player)
 	if allESP.Value or ESPB[Player.Team or"NoTeam"].Value then
 		if MercyESP.Value then
@@ -1378,6 +1378,90 @@ for k,v in pairs(game.Teams:GetChildren()) do
 end if not NoTeamEnabled then
     ESPB["NoTeam"].Visible = false
 end
+-- Freeze -----------------------------
+local FreezeG = _G.TimGui.Groups.CreateNewGroup("Freeze","Заморозка")
+local FreezeReturn = {}
+local FreezeSettings = _G.TimGui.Groups.CreateNewGroup("FreezeSettings")
+local EnableFakeCharacters = FreezeSettings.Create(2,"EnableFakeCharacters","Enable clones for Freezing","Включить клонов для Заморозки",function(val)
+	_G.TimGui.Modules.Freeze.EnableFakeChars = val.Value
+end) EnableFakeCharacters.Main.Value = true
+FreezeSettings.Visible = false
+FreezeG.Create(0,"WhatIsIt","It's Freeze players/Killaura","Это Заморозка игроков/Killaura")
+FreezeG.Create(1,"Settings","Freeze settings","Настройки заморозки",function()
+	FreezeSettings.OpenGroup()
+end) FreezeSettings.Create(0,"KillAuraTxt","KillAura: position from you","KillAura: позиция от тебя")
+local XKillAura = FreezeSettings.Create(3,"XKillAura","X(right/left):","X(право/лево):")
+local YKillAura = FreezeSettings.Create(3,"YKillAura","Y(up/down):","Y(верх/низ):")
+local ZKillAura = FreezeSettings.Create(3,"ZKillAura","Z(back/front):","Z(зад/перед):")
+ZKillAura.Main.Text = "-3"
+local function KillauraF(Root,Player,PlInts)
+	local thisInt = PlInts[Player]
+	local LPCharacter = LocalPlayer.Character
+	local KillauraAdd = Vector3.new(tonumber(XKillAura.Value)or 0,tonumber(YKillAura.Value)or 0,tonumber(ZKillAura.Value)or -1.75)
+	while thisInt == PlInts[Player] do
+		if not LPCharacter or not LPCharacter.Parent then
+			LPCharacter = LocalPlayer.Character
+		elseif LPCharacter and LPCharacter.PrimaryPart then
+			local Pos = LPCharacter.PrimaryPart.CFrame
+			Pos += (Pos*KillauraAdd)-Pos.Position
+			Root.CFrame = Pos
+		end
+		RunService.PreRender:Wait()
+	end
+end
+local function NewFreezeButtons(Inst,Group,rusName)
+	local Buttons = {} 
+	local InstName = Inst
+	if typeof(Inst)=="Instance" then InstName = Inst.Name end
+	Buttons["Text"] = Group.Create(0,"Text"..InstName,InstName,rusName)
+	local function RefreshButtons(val,res)
+		if val.Value then
+			for k,v in pairs(Buttons) do
+				if v.Value and v ~= val then
+					v.Main.Value = false
+				end
+			end FreezeReturn[Inst] = res
+		else for k,v in pairs(Buttons) do
+				if v.Value then return false end
+			end FreezeReturn[Inst] = nil
+		end if res then _G.TimGui.Modules.Freeze.Refresh() end 
+		return true
+	end Buttons["Killaura"] = Group.Create(2,"Killaura"..InstName,"KillAura","KillAura",function(val)
+		RefreshButtons(val,KillauraF)
+	end) Buttons["TPFreeze"] = Group.Create(2,"TPFreeze"..InstName,"Freeze with TP","Заморозка с ТП",function(val)
+		if RefreshButtons(val) then
+			if val.Value then
+				local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+				if not Character.PrimaryPart then Character:GetPropertyChangedSignal("PrimaryPart"):Wait() end
+				FreezeReturn[Inst] = Character.PrimaryPart.CFrame
+			end	_G.TimGui.Modules.Freeze.Refresh()
+		end
+	end) Buttons["Freeze"] = Group.Create(2,"Freeze"..InstName,"Freeze","Заморозка",function(val)
+		RefreshButtons(val,true)
+	end) return Buttons
+end local NoTeamName,NoTeamNeeded = "Without a team",false
+NewFreezeButtons("All players",FreezeG,"Все игроки")
+FreezeG.Create(0,"FreezeCom","Freeze Commands","Заморозка Комманд")
+local NoTeamButtonsFreeze = NewFreezeButtons(NoTeamName,FreezeG,"Без комманды")
+for k,team in pairs(game.Teams:GetChildren()) do
+	NewFreezeButtons(team,FreezeG)
+	NoTeamNeeded = true
+end if NoTeamNeeded == false then
+	for k,v in pairs(NoTeamButtonsFreeze) do
+		v.Visible = false
+	end
+end local PlFreezeButtons = {}
+_G.TimGui.Modules.Players.ForEveryone(function(player)
+	PlFreezeButtons[player] = NewFreezeButtons(player,FreezeG)
+end,false)
+game.Players.PlayerRemoving:Connect(function(Player)
+	for k,v in pairs(PlFreezeButtons[Player]) do
+		v.Destroy()
+	end PlFreezeButtons[Player] = nil
+end)
+_G.TimGui.Modules.Freeze.Bind(1,function(Player)
+	return FreezeReturn[Player]or FreezeReturn[Player.Team or NoTeamName]or FreezeReturn["All players"]or nil
+end)
 -- FUN --------------------------------
 local FUN = _G.TimGui.Groups.CreateNewGroup("FUN","ВЕСЕЛЬЕ")
 
