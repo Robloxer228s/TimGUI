@@ -215,7 +215,7 @@ API.Players.ForEveryone(function(Player)
 				end
 			end
 		end)
-		local hum = Character:FindFirstChildOfClass("Humanoid")or Character:WaitForChild("Humanoid")
+		local hum = Character:FindFirstChildOfClass("Humanoid")or Character:WaitForChild("Humanoid",math.huge)
 		local function refreshHP()
 			if hum.Parent == nil then return end
 			local HP = Player.Character.Humanoid.Health
