@@ -1253,14 +1253,14 @@ end)
 task.spawn(function()
     while true do
         local KD = tonumber(AllTpCouldown.Value) or 1
-        wait(KD)
+        task.wait(KD)
         if AllTP.Value then
             for k,v in pairs(game.Players:GetPlayers()) do
                 if not _G.TimGui.Values.Spare[v.Name] and v ~= LocalPlayer then
                     AutoTPto = v.Name
                     AutoTP.Text = "Auto TP to "..AutoTPto
                     AutoTP.RusText = "Авто ТП к "..AutoTPto
-                    wait(KD)
+                    task.wait(KD)
                 end
             end
         end
@@ -1321,7 +1321,7 @@ game.Players.PlayerRemoving:Connect(function(player)
 	TPTP.Objects[player.Name].Destroy()
 end)
 
-RunService.RenderStepped:Connect(function()
+RunService.PreRender:Connect(function()
 	if AutoTPto ~= nil and AutoTP.Value then
 		local v = game.Players:FindFirstChild(AutoTPto)
 		if v then
