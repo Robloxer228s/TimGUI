@@ -309,6 +309,11 @@ API.Freeze.Refresh = function(Player:Player?)
 				RootPart = Root.Parent
 				Root.Enabled = false
 				Root.Parent.Anchored = true
+			elseif character:FindFirstChild("Clone") then
+				local cloneChar,Root = API.Players.MakeCloneR15(character)
+				Root.Enabled = true
+				Root.Parent.Anchored = false
+				API.Players.DelCloneR15(character)
 			end if typeof(res)=="Vector3" then
 				res = CFrame.new(res)
 			end if typeof(res)=="CFrame" then
