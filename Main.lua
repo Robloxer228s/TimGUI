@@ -12,7 +12,7 @@ end
 if type(_G.TimGui)~="table" then
     _G.TimGui = {}
     Open()
-else 
+else if not _G.TimGui.Modules or not _G.TimGui.Modules.AskYN then task.wait(2.5) end
   if _G.TimGui.Modules and _G.TimGui.Modules.AskYN then
     _G.TimGui.Modules.AskYN("TimGui is alredy running", "Do you want to continue? \n (This may break the script)", "TimGui уже запущен", "Вы хотите продолжить? \n (Это может сломать скрипт)", Open) 
   else Open()
