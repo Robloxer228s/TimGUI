@@ -28,7 +28,8 @@ if _G.TimGui.Configs.Enabled then
 		if result ~= val.Main.Text then
 			val.Main.Text = result
 		end
-	end) local function CreateCFGButton(path)
+	end) local SaveALL
+	local function CreateCFGButton(path)
 		local name = string.split(path,"/")
 		name = name[#name]
 		loadedCFG[name] = group.Create(2,name,name,name,function(val)
@@ -43,6 +44,8 @@ if _G.TimGui.Configs.Enabled then
 				end if OnlyOpen.Value then
 					_G.TimGui.Configs.Open(name)
 				else _G.TimGui.Configs.Load(name)
+				end if SaveALL then
+					SaveALL.Main.Value = _G.TimGui.Configs.Saves.Load("SaveAllValues")
 				end
 			elseif selected == name then
 				selected = nil
@@ -92,10 +95,10 @@ if _G.TimGui.Configs.Enabled then
 			SaveCFGData()
 		end
 	end) SaveDefGame.Main.Value = CFGData.Games[tostring(game.GameId)]~= nil
-	group.Create(2,9,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
+	SaveALL = group.Create(2,9,"Save ALL Values","Сохранять ВСЕ значения(может конфликтовать с игрой)",function(val)
 		_G.TimGui.Configs.IgnoreCFGSaveFuncs = val.Value
 		SaveCFGData()
-	end).Main.Value = _G.TimGui.Configs.Saves.Load("SaveAllValues")
+	end) SaveALL.Main.Value = _G.TimGui.Configs.Saves.Load("SaveAllValues")
 	group.Create(0,10,"Configs","Конфигурации")
 	for _,v in pairs(listfiles(path)) do
 		CreateCFGButton(v)
