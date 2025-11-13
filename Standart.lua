@@ -1390,7 +1390,9 @@ end) _G.TimGui.Modules.Players.ForEveryone(function(Player)
 end,false)
 local NoTeamEnabled
 for k,v in pairs(game.Teams:GetChildren()) do
-    ESPB[v] = ESPG.Create(2,v.Name,"Esp to "..v.Name,"Подсветить "..v.Name,refreshESP)
+    ESPB[v] = ESPG.Create(2,v.Name,"Esp to "..v.Name,"Подсветить "..v.Name,function()
+		_G.TimGui.Modules.ESP.Refresh(v)
+	end)
     NoTeamEnabled = true
 end if not NoTeamEnabled then
     ESPB["NoTeam"].Visible = false
@@ -1402,8 +1404,6 @@ local FreezeSettings = _G.TimGui.Groups.CreateNewGroup("FreezeSettings")
 local EnableFakeCharacters = FreezeSettings.Create(2,"EnableFakeCharacters","Enable clones for Freezing","Включить клонов для Заморозки",function(val)
 	_G.TimGui.Modules.Freeze.EnableFakeChars = val.Value
 end) EnableFakeCharacters.Main.Value = true
-
-
 FreezeSettings.Visible = false
 FreezeG.Create(0,"WhatIsIt","It's Freeze players/Killaura","Это Заморозка игроков/Killaura")
 FreezeG.Create(1,"Settings","Freeze settings","Настройки заморозки",function()
@@ -1412,21 +1412,50 @@ end) FreezeSettings.Create(0,"KillAuraTxt","KillAura: position from you","KillAu
 local XKillAura = FreezeSettings.Create(3,"XKillAura","X(right/left):","X(право/лево):")
 local YKillAura = FreezeSettings.Create(3,"YKillAura","Y(up/down):","Y(верх/низ):")
 local ZKillAura = FreezeSettings.Create(3,"ZKillAura","Z(back/front):","Z(зад/перед):")
+local DistanceForKillAura = FreezeSettings.Create(3,"KillAuraDistance","Distance for KillAura:","Дистанция KillAura'ы:")
+local EnableDistanceForKA = FreezeSettings.Create(2,"KillAuraDistanceEnable","Enable distance for KillAura","Включить дистанцию KillAura'ы")
 ZKillAura.Main.Text = "-3"
+DistanceForKillAura.Main.Text = "50"
 local function KillauraF(Root,Player,PlInts)
 	local thisInt = PlInts[Player]
 	local LPCharacter = LocalPlayer.Character
+	local Character = Player.Character
 	local KillauraAdd = Vector3.new(tonumber(XKillAura.Value)or 0,tonumber(YKillAura.Value)or 0,tonumber(ZKillAura.Value)or -3)
+	local inDistance = true
+	local LHRP = LPCharacter:FindFirstChild("HumanoidRootPart")or LPCharacter.PrimaryPart
+	local HRP = Character:FindFirstChild("HumanoidRootPart")or Character.PrimaryPart
+	task.spawn(function()
+		if EnableDistanceForKA.Value then
+			while thisInt == PlInts[Player] do
+				if not LHRP.Parent then
+					local newLHRP = LPCharacter:FindFirstChild("HumanoidRootPart")or LPCharacter.PrimaryPart
+					if not newLHRP then
+						task.wait(0.5)
+					continue end
+				end
+				local dist = (LHRP.Position-HRP.Position).Magnitude
+				local neededDist = tonumber(DistanceForKillAura.Value)or 50
+				if dist<neededDist then
+					inDistance = true
+				else inDistance = false
+				end
+				task.wait(0.25)
+			end
+		end
+	end) task.wait()
 	while thisInt == PlInts[Player] do
 		if not LPCharacter or not LPCharacter.Parent then
 			LPCharacter = LocalPlayer.Character
 		elseif LPCharacter and LPCharacter.PrimaryPart then
-			local Pos = LPCharacter.PrimaryPart.CFrame
-			Pos += (Pos*KillauraAdd)-Pos.Position
-			Root.CFrame = Pos
-		end
+			if inDistance then
+				local Pos = LPCharacter.PrimaryPart.CFrame
+				Pos += (Pos*KillauraAdd)-Pos.Position
+				Root.CFrame = Pos
+			else Root.CFrame = CFrame.new(0,100000,0)
+			end
+		end 
 		RunService.PreRender:Wait()
-	end
+	end return true
 end
 local function NewFreezeButtons(Inst,Group,rusName)
 	local Buttons = {} 
@@ -1443,7 +1472,7 @@ local function NewFreezeButtons(Inst,Group,rusName)
 		else for k,v in pairs(Buttons) do
 				if v.Value then return false end
 			end FreezeReturn[Inst] = nil
-		end if res then _G.TimGui.Modules.Freeze.Refresh() end 
+		end if res then _G.TimGui.Modules.Freeze.Refresh(Inst) end 
 		return true
 	end Buttons["Killaura"] = Group.Create(2,"Killaura"..InstName,"KillAura","KillAura",function(val)
 		RefreshButtons(val,KillauraF)
@@ -1453,7 +1482,7 @@ local function NewFreezeButtons(Inst,Group,rusName)
 				local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 				if not Character.PrimaryPart then Character:GetPropertyChangedSignal("PrimaryPart"):Wait() end
 				FreezeReturn[Inst] = Character.PrimaryPart.CFrame
-			end	_G.TimGui.Modules.Freeze.Refresh()
+			end	_G.TimGui.Modules.Freeze.Refresh(Inst)
 		end
 	end) Buttons["Freeze"] = Group.Create(2,"Freeze"..InstName,"Freeze","Заморозка",function(val)
 		RefreshButtons(val,true)
