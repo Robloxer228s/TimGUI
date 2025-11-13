@@ -134,11 +134,11 @@ end API.Players.MakeClone = function(Char:Model,cloneAnimators,welded)
 	API.Players.MakeCloneModules.MakeRepeatHumanoid(hum,cloneHum)
 	return clone,Root,Char:FindFirstChild("Torso")
 end API.Players.DelCloneR15 = function(Char:Model)
-	local clone = Char:FindFirstChild("Clone")
-	if not clone then return end
 	local hum = Char:FindFirstChildOfClass("Humanoid")
 	if not hum then warn("Humanoid not founded") return end
 	if hum.RigType ~= Enum.HumanoidRigType.R15 then warn("Character is not R15") return end
+	local clone = Char:FindFirstChild("Clone")
+	if not clone then return end
 	clone:Destroy()
 	local RightHand = Char:FindFirstChild("RightHand")
 	if not RightHand then return end
@@ -146,8 +146,8 @@ end API.Players.DelCloneR15 = function(Char:Model)
 	if RightGrip then RightGrip.Part0 = RightHand end
 end API.Players.DelClone = function(Char:Model)
 	local hum = Char:FindFirstChildOfClass("Humanoid")
-	if not hum then warn("Humanoid not founded") return API.Players.DelCloneR15(Char) end
-	if hum.RigType ~= Enum.HumanoidRigType.R6 then return end
+	if not hum then warn("Humanoid not founded") return end
+	if hum.RigType ~= Enum.HumanoidRigType.R6 then return API.Players.DelCloneR15(Char) end
 	local clone = Char:FindFirstChild("Clone")
 	if not clone then return end
 	local hum = Char:FindFirstChildOfClass("Humanoid")
@@ -175,11 +175,17 @@ API.ESP.Bind = function(PrioryN,func)
 	end table.insert(Priory,1,func)
 	API.ESP.Refresh()
 end API.ESP.EnableBoards = true
-API.ESP.Refresh = function(Player:Player?)
+API.ESP.Refresh = function(Inst)
+	local Player,Team
+	if typeof(Inst)~="Instance"then Inst = nil end
+	if Inst and Inst:IsA("Player") then Player=Inst end
+	if Inst and Inst:IsA("Team") then Team=Inst end
 	if not Player then
 		for k,v in pairs(game.Players:GetPlayers()) do
 			if v ~= LP then 
-				API.ESP.Refresh(v)
+				if not Team or v.Team==Team then
+					API.ESP.Refresh(v)
+				end
 			end
 		end
 	else 
@@ -317,13 +323,19 @@ API.Freeze.Bind = function(PrioryN,func)
 	API.Freeze.Refresh()
 end API.Freeze.EnableFakeChars = true
 API.Freeze.ThisRefreshIntTab = {}
-API.Freeze.Refresh = function(Player:Player?)
+API.Freeze.Refresh = function(Inst)
+	local Player,Team
+	if typeof(Inst)~="Instance"then Inst = nil end
+	if Inst and Inst:IsA("Player") then Player=Inst end
+	if Inst and Inst:IsA("Team") then Team=Inst end
 	if not Player then
 		for k,v in pairs(game.Players:GetPlayers()) do
 			if v ~= LP then
-				task.spawn(function()
-					API.Freeze.Refresh(v)
-				end)
+				if not Team or v.Team==Team then
+					task.spawn(function()
+						API.Freeze.Refresh(v)
+					end)
+				end
 			end
 		end
 	else API.Freeze.ThisRefreshIntTab[Player] += 1
@@ -351,18 +363,13 @@ API.Freeze.Refresh = function(Player:Player?)
 				else task.spawn(function() error(val) end)
 				end
 			end if broke or res then break end
-		end 
+		end local delChar = false
+		local RootPart = character.PrimaryPart
+		if not RootPart then character:GetPropertyChangedSignal("PrimaryPart"):Wait() RootPart = character.PrimaryPart end
+		RootPart.Anchored = res and not enableFakeChars
 		if not res then
-			if character:FindFirstChild("Clone") then
-				local cloneChar,Root,AnchorPart = API.Players.MakeClone(character)
-				Root.Enabled = true
-				AnchorPart.Anchored = false
-			end character.PrimaryPart.Anchored = false
-			API.Players.DelClone(character)
-		else local RootPart = character.PrimaryPart
-			if not RootPart then character:GetPropertyChangedSignal("PrimaryPart"):Wait() RootPart = character.PrimaryPart end
-			RootPart.Anchored = not enableFakeChars
-			if enableFakeChars then
+			delChar = true
+		else if enableFakeChars then
 				local cloneChar,Root,AnchorPart = API.Players.MakeClone(character,true,true)
 				RootPart = AnchorPart
 				Root.Enabled = false
@@ -377,9 +384,14 @@ API.Freeze.Refresh = function(Player:Player?)
 			end if typeof(res)=="CFrame" then
 				RootPart.CFrame = res
 			elseif type(res)=="function" then
-				res(RootPart,Player,API.Freeze.ThisRefreshIntTab)
-			end
-		end
+				delChar = res(RootPart,Player,API.Freeze.ThisRefreshIntTab)
+			end 
+		end if delChar and character:FindFirstChild("Clone") then
+			local cloneChar,Root,AnchorPart = API.Players.MakeClone(character)
+			Root.Enabled = true
+			AnchorPart.Anchored = false
+			API.Players.DelClone(character)
+		end RootPart.Anchored = not delChar
 	end
 end
 API.Players.ForEveryone(function(Player)
