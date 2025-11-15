@@ -1506,8 +1506,9 @@ if _G.Setup ~= nil then
 	if loader ~= nil then
 		loading[1] = loader.All
 		loading[2] = loader.Themes
-		loading[3] = loader.Game
-		loading[4] = loader.Configs
+		loading[3] = loader.Connector
+		loading[4] = loader.Game
+		loading[5] = loader.Configs
 	end
 end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/API.lua"))()
@@ -1517,6 +1518,10 @@ if loading[1] ~= false then
 end if loading[2] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
 end if loading[3] ~= false then
+	task.spawn(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Fun/JoinToOtherUsersTG.lua"))()
+	end)
+end if loading[4] ~= false then
 	local ok,gameScr = pcall(function()
 		return game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
 	end)
@@ -1535,7 +1540,7 @@ end if loading[3] ~= false then
 		end)
 		wait()
 	end
-end if loading[4] ~= false then
+end if loading[5] ~= false then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
 end if os.date("%m",os.time()) == "04" then
     if tonumber(os.date("%d",os.time())) < 4 then
