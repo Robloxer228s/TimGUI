@@ -22,6 +22,10 @@ P.S: day.month.year
 
 # Update logs:
 
+16.11.25 - join to other users timgui XD(P.S: you can off this in settings)
+
+13.11.25 - freeze/killaura updated
+
 05.11.25 - esp update (with use new api)
 
 04.11.25 - debug+update configurations, create separate api for games
