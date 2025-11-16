@@ -185,17 +185,15 @@ local function ESPUpd(char,color)--GunESP
 		ESPObj.OutlineColor = color
 	end
 end _G.TimGui.Modules.ESP.Bind(2,function(Player)
-	if not PlData or v.Dead then 
+	local PlData = Data[Player.Name]
+	if not PlData or PlData.Dead then 
 		if ESP.Killed.Value then return ESPColor.Killed end
-	elseif ESP[v.Role] then
-		if ESP[v.Role].Value then
-			active = true
-			return ESPColor[v.Role]
-		end
+	elseif ESP[PlData.Role] and ESP[PlData.Role].Value then
+		return ESPColor[PlData.Role]
 	end
 end) for k,v in pairs(ESP) do
 	v.OnChange(function()
-		_G.TimGui.ESP.Refresh()
+		_G.TimGui.Modules.ESP.Refresh()
 	end)
 end
 while task.wait(0.25) do
@@ -230,7 +228,7 @@ while task.wait(0.25) do
 	end if newMurder~=Murder then
 		_G.TimGui.Modules.ESP.Refresh()
 		Murder=newMurder
-	end
+	end 
 	if Sheriff then
 		SheriffNick.Text = "Sheriff: "..Sheriff.Name
 		SheriffNick.RusText = "Шериф: "..Sheriff.Name
