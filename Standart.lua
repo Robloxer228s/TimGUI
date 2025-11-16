@@ -6,7 +6,7 @@ local DefaultGravity = game.Workspace.Gravity
 local DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
 local clopGroup = _G.TimGui.Groups.CreateNewGroup("Clop")
 local Settings = _G.TimGui.Groups.Settings
-local function GetMoveDirection(v)
+function GetMoveDirection(v)
 	local move = LocalPlayer.Character.Humanoid.MoveDirection
 	local Camera = workspace.CurrentCamera
 	local CamPos = Camera.CFrame.Position
@@ -2284,7 +2284,6 @@ for k,v in pairs(Anims) do
 end
 -- Servers -------------------------------------------------
 local ServersG = _G.TimGui.Groups.CreateNewGroup("Servers")
-ServersG.Visible = false
 _G.TimGui.Groups.Settings.Create(1,"Servers","Servers","Сервера",function()
 	ServersG.OpenGroup()
 end) ServersG.Create(0,"Warn","It's may don't work(Test it)","Это может не работать(Проверь)")
@@ -2297,7 +2296,7 @@ if type(SavedServers)=="string"then
 	s,SavedServers=pcall(function()
 		return HttpService:JSONDecode(SavedServers)
 	end) if not s then SavedServers={} end
-end ServersG.Create(0,"TittleJFP","Join from server path(PlaceId@JobId)","Присоединиться с помощью пути к серверу(PlaceId@JobId)")
+end ServersG.Create(0,"TittleJFP","Join from server path(PlaceId"..Separator.."JobId)","Присоединиться с помощью пути к серверу(PlaceId"..Separator.."JobId)")
 local serverPath = ServersG.Create(3,"ServerPath","Server path:","Путь к серверу:")
 ServersG.Create(1,"JoinFromPath","Join from path","Зайти по пути к серверу",function()
 	if _G.TimGui.Modules.Servers.Join(serverPath.Value) then
@@ -2325,6 +2324,7 @@ end ServersG.Create(1,"SaveServer","Save server","Сохранить серве�
 	SavedServers[SPath] = {ServerCreateName.Value,os.time()}
 	if ServersG.Objects[SPath] then ServersG.Objects[SPath].Destroy() end
 	CreateSSButton(SPath)
+	_G.TimGui.Saves.Save("SavedServers",HttpService:JSONEncode(SavedServers))
 end) for k,v in pairs(SavedServers) do
 	if v[2]<ServersSavedLTime then
 		SavedServers[k]=nil
