@@ -8,7 +8,7 @@ Paste this in your executor and run:
 # Status:
 Maybe someday there will be documentation here.
 
-last games script update: 09.11.24
+last games script update: 16.11.25-?
 
 Use Right mouse button for keybinding! 
 
@@ -131,6 +131,8 @@ P.S: day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
++ = Script working
+
 Steal a brainrot
 
 [Troll rabit_cotten](https://www.roblox.com/share?code=5f3e57621c8c5b4b804eef1e5d1fd6f4&type=ExperienceDetails&stamp=1743797348517)
@@ -147,13 +149,13 @@ Eat huge waffle
 
 [Underground war 2.0](https://www.roblox.com/share?code=ea1067fa38ccab43b0f04fe6557ec29a&type=ExperienceDetails&stamp=1738617065522)
 
-[Murder Mystory 2](https://www.roblox.com/share?code=30095ada9095784a9722ce4419735b55&type=ExperienceDetails&stamp=1736553373981)
++[Murder Mystory 2](https://www.roblox.com/share?code=30095ada9095784a9722ce4419735b55&type=ExperienceDetails&stamp=1736553373981)
 
-Break in 
++Break in 
 
-Break in 2
++Break in 2
 
-Froggy 
++Froggy 
 
 [Build A Boat For Treasure](https://www.roblox.com/share?code=617b329e011981488239bee67a7713d7&type=ExperienceDetails&stamp=1736553405530)
 
