@@ -2282,3 +2282,53 @@ for k,v in pairs(Anims) do
         Update()
     end)
 end
+-- Servers -------------------------------------------------
+local ServersG = _G.TimGui.Groups.CreateNewGroup("Servers")
+ServersG.Visible = false
+_G.TimGui.Groups.Settings.Create(1,"Servers","Servers","Сервера",function()
+	ServersG.OpenGroup()
+end) ServersG.Create(0,"Warn","It's may don't work(Test it)","Это может не работать(Проверь)")
+local LP = game.Players.LocalPlayer
+ServersG.Create(1,"Rejoin","Rejoin on this server","Перезайти на этот сервер",function()
+	_G.TimGui.Modules.Servers.Rejoin()
+end) ServersG.Create(0,"Tip","Saved servers last for 12 hours, as they close when everyone leaves","Сохраненные сервера живут 12 часов, так как при выходе всех они закрываются")
+local SavedServers = _G.TimGui.Saves.Load("SavedServers")or{}
+local HttpService = game:GetService("HttpService")
+if type(SavedServers)=="string"then 
+	s,SavedServers=pcall(function()
+		return HttpService:JSONDecode(SavedServers)
+	end) if not s then SavedServers={} end
+end ServersG.Create(0,"TittleJFP","Join from server path(PlaceId"..Separator.."JobId)","Присоединиться с помощью пути к серверу(PlaceId"..Separator.."JobId)")
+local serverPath = ServersG.Create(3,"ServerPath","Server path:","Путь к серверу:")
+ServersG.Create(1,"JoinFromPath","Join from path","Зайти по пути к серверу",function()
+	if not _G.TimGui.Modules.Servers.Join(serverPath.Value) then
+		_G.TimGui.Print("Join","Path is not corrected","Зайти","Путь не корректный")
+	end
+end) if toclipboard then
+	ServersG.Create(1,"CopyServerPath","Copy this ServerPath","Копировать путь этого сервера",function()
+		toclipboard(_G.TimGui.Modules.Servers.GetThisServerPath())
+	end)
+end ServersG.Create(0,"TittleSS","Saving servers","Сохранение серверов")
+local serverTimeMax = 12*60*60 -- 12 hours
+local ServersSavedLTime = os.time()-serverTimeMax
+local ServerCreateName = ServersG.Create(3,"SNameFC","Name(for save server):","Имя(для сохранения сервера):")
+local USureWantJoinWarn = "The server was saved @n@ seconds ago"
+local USureWantJoinWarnRus = "Сервер был сохранён @n@ секунд назад"
+local function CreateSSButton(SPath)
+	local Tab = SavedServers[SPath]
+	ServersG.Create(1,SPath,Tab[1],Tab[1],function()
+		_G.TimGui.Modules.AskYN("You're sure want to join?",string.gsub(USureWantJoinWarn,"@n@",os.time()-Tab[2]),"Ты точно хочешь зайти?",string.gsub(USureWantJoinWarnRus,"@n@",os.time()-Tab[2]),function()
+			_G.TimGui.Modules.Servers.Join(SPath)
+		end)
+	end)
+end ServersG.Create(1,"SaveServer","Save server","Сохранить сервер",function()
+	local SPath = _G.TimGui.Modules.Servers.GetThisServerPath()
+	SavedServers[SPath] = {ServerCreateName.Value,os.time()}
+	if ServersG.Objects[SPath] then ServersG.Objects[SPath].Destroy() end
+	CreateSSButton(SPath)
+end) for k,v in pairs(SavedServers) do
+	if v[2]<ServersSavedLTime then
+		SavedServers[k]=nil
+	else CreateSSButton(k)
+	end
+end
