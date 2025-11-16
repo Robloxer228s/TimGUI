@@ -9,11 +9,13 @@ local LeftToUpdate = TimeForUpdate
 local AntiDDosBlock = false
 local OnUpdate = {}
 local Separator="@"
-local function UpdateTable()
-	if AntiDDosBlock then return false end
+local function UpdateTable(data)
+	if AntiDDosBlock and not data then return false end
 	AntiDDosBlock = true
-	local data = {game.PlaceId}
-	if EnableTPToMe then table.insert(data,game.JobId) end
+	if not data then
+		data = {game.PlaceId}
+		if EnableTPToMe then table.insert(data,game.JobId) end
+	end
 	local url = string.gsub(URL,"@DATA@",table.concat(data,Separator))
 	local result = game:HttpGet(url)
 	LastTab = HttpService:JSONDecode(result)
@@ -54,9 +56,10 @@ table.insert(OnUpdate,function()
 	local TimeOfUpd = IAm.time
 	for k,v in pairs(LastTab) do
 		if k == LP.Name then continue end
-		local lastUpdateTime = v.time-TimeOfUpd-10
+		local lastUpdateTime = TimeOfUpd-v.time-10
 		local LastButton = Buttons[k]
 		if LastButton then LastButton.Destroy() end
+		print(lastUpdateTime,TimeForUpdate)
 		if lastUpdateTime<TimeForUpdate then
 			if v.data[2] then
 				Buttons[k] = group.Create(1,"Pl:"..k,k,k,function()
@@ -65,8 +68,12 @@ table.insert(OnUpdate,function()
 						local teleportData = {
 							placeId = v.data[1],
 							jobId = v.data[2]
-						} LP:Kick("TimGui: TP to "..k.." :>")
-						game:GetService("TeleportService"):Teleport(teleportData.placeId, LP, teleportData)
+						} UpdateTable(v.data)
+						LP:Kick("TimGui: TP to "..k.." :>")
+						local s,r = pcall(function()
+							game:GetService("TeleportService"):Teleport(teleportData.placeId, LP, teleportData)
+						end) task.wait(1)
+						if not s then LP:Kick("Error: "..r) end
 					end)
 				end)
 			else Buttons[k] = group.Create(0,"Pl:"..k,k,k)
