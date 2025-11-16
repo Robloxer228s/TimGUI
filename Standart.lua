@@ -2300,7 +2300,7 @@ if type(SavedServers)=="string"then
 end ServersG.Create(0,"TittleJFP","Join from server path(PlaceId@JobId)","Присоединиться с помощью пути к серверу(PlaceId@JobId)")
 local serverPath = ServersG.Create(3,"ServerPath","Server path:","Путь к серверу:")
 ServersG.Create(1,"JoinFromPath","Join from path","Зайти по пути к серверу",function()
-	if not _G.TimGui.Modules.Servers.Join(serverPath.Value) then
+	if _G.TimGui.Modules.Servers.Join(serverPath.Value) then
 		_G.TimGui.Print("Join","Path is not corrected","Зайти","Путь не корректный")
 	end
 end) if toclipboard then
