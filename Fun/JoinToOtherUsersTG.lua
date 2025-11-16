@@ -80,7 +80,7 @@ table.insert(OnUpdate,function()
 	end
 end) game.Players.PlayerAdded:Connect(function(Player)
 	task.wait(5)
-	if LastTab[Player.Name] and not Player:IsFriendWith(LP.UserId) then
+	if LastTab[Player.Name] and not Player:IsFriendsWith(LP.UserId) then
 		UpdateTable()
 		if not LastTab[Player.Name] then return end
 		local plTab = LastTab[Player.Name].data
@@ -94,7 +94,7 @@ end)
 
 UpdateTable()
 for k,v in pairs(game.Players:GetPlayers()) do
-	if v~=LP and not v:IsFriendWith(LP.UserId) then
+	if v~=LP and not v:IsFriendsWith(LP.UserId) then
 		local tab = LastTab[v.Name]
 		if tab then
 			local tabData = tab.data
