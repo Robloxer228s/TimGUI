@@ -2288,7 +2288,6 @@ ServersG.Visible = false
 _G.TimGui.Groups.Settings.Create(1,"Servers","Servers","Сервера",function()
 	ServersG.OpenGroup()
 end) ServersG.Create(0,"Warn","It's may don't work(Test it)","Это может не работать(Проверь)")
-local LP = game.Players.LocalPlayer
 ServersG.Create(1,"Rejoin","Rejoin on this server","Перезайти на этот сервер",function()
 	_G.TimGui.Modules.Servers.Rejoin()
 end) ServersG.Create(0,"Tip","Saved servers last for 12 hours, as they close when everyone leaves","Сохраненные сервера живут 12 часов, так как при выходе всех они закрываются")
