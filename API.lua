@@ -2,7 +2,7 @@ local API
 if _G.TimGui and _G.TimGui.Modules then
 	API = _G.TimGui.Modules
 else API = {}
-end API.ApiVersion = 2
+end API.ApiVersion = 3
 --- Players --------------------------------------------------
 API.Players = {}
 local LP = game.Players.LocalPlayer
@@ -385,6 +385,9 @@ API.Freeze.Refresh = function(Inst)
 				RootPart.CFrame = res
 			elseif type(res)=="function" then
 				delChar = res(RootPart,Player,API.Freeze.ThisRefreshIntTab)
+				if delChar and thisInt == API.Freeze.ThisRefreshIntTab[Player] then
+					delChar = false
+				end
 			end 
 		end if delChar and character:FindFirstChild("Clone") then
 			local cloneChar,Root,AnchorPart = API.Players.MakeClone(character)
@@ -402,5 +405,26 @@ API.Players.ForEveryone(function(Player)
 		API.Freeze.Refresh(Player)
 	end Player.CharacterAdded:Connect(newChar)
 end,false)
+--- Servers ------------------------------------------------------------
+API.Servers = {}
+local ServerSeparator = "@"
+local WhatIs = (_G.TimGui~=nil and "TimGui")or"TimAPI"
+API.Servers.Join = function(TGServerName,TPText)
+	local data = string.split(TGServerName,ServerSeparator)
+	if #data~=2 then return true end
+	if (#string.split(data[2],"-"))~=4 then return true end
+	local teleportData = {
+		placeId = data[1],
+		jobId = data[2]
+	} LP:Kick(TPText or WhatIs..": TP to server!")
+	local s,r = pcall(function()
+		game:GetService("TeleportService"):Teleport(teleportData.placeId, LP, teleportData)
+	end) task.wait(1)
+	if not s then LP:Kick("Error: "..r) end
+end API.Servers.GetThisServerPath = function()
+	return game.PlaceId..ServerSeparator..game.JobId
+end API.Servers.Rejoin = function()
+	return API.Servers.Join(API.Servers.GetThisServerPath())
+end
 
 return API
