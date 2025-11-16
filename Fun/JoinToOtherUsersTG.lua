@@ -28,6 +28,7 @@ local function UpdateTable(data)
 	end LeftToUpdate = TimeForUpdate
 end URL = string.gsub(URL,"@NAME@",LP.Name)
 local group = _G.TimGui.Groups.CreateNewGroup("UsersConnector")
+group.CFGSave = false
 group.Visible = false
 _G.TimGui.Groups.Settings.Create(1,"UsersConnector","Join to other TimGui users","Присоединяться к другим TimGui пользователям",function()
 	group.OpenGroup()
