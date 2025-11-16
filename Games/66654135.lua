@@ -15,27 +15,9 @@ ESP.GunDrop = ESPGroup.Create(2,"Gun","ESP to dropped gun","ESP на писто�
 local ESPColor = {
 	Murderer = Color3.new(1,0,0),
 	Sheriff = Color3.new(0,0,1),
-	Innocent = Color3.new(0,1,0)
+	Innocent = Color3.new(0,1,0),
+	Killed = Color3.new(1,1,1)
 }
-
-local function ESPUpd(char,color)
-	if char then
-		local ESPObj = char:FindFirstChild("NotESP")
-		if not ESPObj then
-			ESPObj = Instance.new("Highlight")
-			ESPObj.Parent = char
-			ESPObj.Name = "NotESP"
-			ESPObj.Adornee = char
-			ESPObj.Archivable = true
-			ESPObj.Enabled = true
-			ESPObj.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-			ESPObj.FillTransparency = 0.5
-			ESPObj.OutlineTransparency = 0
-		end
-		ESPObj.FillColor = color
-		ESPObj.OutlineColor = color
-	end
-end
 
 local SheriffNick = group.Create(0,"SheriffNick","Sheriff: nobody","Шериф: никто")
 local MurderNick = group.Create(0,"MurderNick","Murder: nobody","Убийца: никто")
@@ -43,7 +25,7 @@ local GunDropName = "GunDrop"
 local Map
 local function NewMap(isMap)
 	if isMap then
-		wait()
+		task.wait()
 		if isMap:FindFirstChild("Base") or isMap:FindFirstChild("CoinContainer") then
 			Map = isMap
 		end
@@ -52,11 +34,10 @@ local function NewMap(isMap)
 			NewMap(v)
 		end
 	end
-end
-game.Workspace.ChildAdded:Connect(NewMap)
+end game.Workspace.ChildAdded:Connect(NewMap)
 while Map == nil do
 	NewMap()
-	wait()
+	task.wait()
 end
 
 local FirstAFK = true
@@ -186,7 +167,33 @@ game:GetService("RunService").RenderStepped:Connect(function()
 		end
 	end
 end)
-
+local function ESPUpd(char,color)--GunESP
+	if char then
+		local ESPObj = char:FindFirstChild("NotESP")
+		if not ESPObj then
+			ESPObj = Instance.new("Highlight")
+			ESPObj.Parent = char
+			ESPObj.Name = "NotESP"
+			ESPObj.Adornee = char
+			ESPObj.Archivable = true
+			ESPObj.Enabled = true
+			ESPObj.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			ESPObj.FillTransparency = 0.5
+			ESPObj.OutlineTransparency = 0
+		end
+		ESPObj.FillColor = color
+		ESPObj.OutlineColor = color
+	end
+end _G.TimGui.Modules.ESP.Bind(2,function(Player)
+	if not PlData or v.Dead then 
+		return (ESP.Killed.Value or nil) and ESPColor.Killed
+	elseif ESP[v.Role] then
+		if ESP[v.Role].Value then
+			active = true
+			ESPUpd(player.Character,ESPColor[v.Role])
+		end
+	end
+end)
 while task.wait(0.25) do
 	if not Map.Parent then
 		NewMap()
@@ -200,64 +207,35 @@ while task.wait(0.25) do
 			gundrop.NotESP:Destroy()
 		end
 	end
-	Murder = nil
-	Sheriff = nil
+	local newMurder,newSheriff
 	for _,player in pairs(game.Players:GetPlayers()) do
-		if player == game.Players.LocalPlayer then continue end
 		local v = Data[player.Name]
-		local active = false
-		if not v then
-			if ESP.Killed.Value then
-				active = true
-				ESPUpd(player.Character,Color3.new(1,1,1))
-			end
-		else
-			if v.Dead then
-				if ESP.Killed.Value then
-					active = true
-					ESPUpd(player.Character,Color3.new(1,1,1))
-				end
-			else
-				if ESP[v.Role] then
-					if ESP[v.Role].Value then
-						active = true
-						ESPUpd(player.Character,ESPColor[v.Role])
-					end
-					if v.Role == "Sheriff" then
-						Sheriff = player
-					elseif v.Role == "Murderer" then
-						Murder = player
-					end
-				elseif v.Role == "Hero" then
-					Sheriff = player
-					if ESP.Sheriff.Value then
-						active = true
-						ESPUpd(player.Character,ESPColor.Sheriff)
-					end
+		if v then
+			if not v.Dead then
+				if v.Role == "Hero" then v.Role = "Sheriff" end
+				if v.Role == "Sheriff" then
+					newSheriff = player
+				elseif v.Role == "Murderer" then
+					newMurder = player
 				end
 			end
 		end
-		if active == false then
-			local ESPObj = player.Character
-			if ESPObj then
-				ESPObj = ESPObj:FindFirstChild("NotESP")
-				if ESPObj then
-					ESPObj:Destroy()
-				end
-			end
-		end
+	end if newSheriff~=Sheriff then
+		_G.TimGui.Modules.ESP.Refresh()
+		Sheriff=newSheriff
+	end if newMurder~=Murder then
+		_G.TimGui.Modules.ESP.Refresh()
+		Murder=newMurder
 	end
 	if Sheriff then
 		SheriffNick.Text = "Sheriff: "..Sheriff.Name
 		SheriffNick.RusText = "Шериф: "..Sheriff.Name
-	else
-		SheriffNick.Text = "Sheriff: nobody"
+	else SheriffNick.Text = "Sheriff: nobody"
 		SheriffNick.RusText = "Шериф: никто"
 	end if Murder then
 		MurderNick.Text = "Murder: "..Murder.Name
 		MurderNick.RusText = "Убийца: "..Murder.Name
-	else
-		MurderNick.Text = "Murder: nobody"
+	else MurderNick.Text = "Murder: nobody"
 		MurderNick.RusText = "Убийца: никто"
 	end
 end
