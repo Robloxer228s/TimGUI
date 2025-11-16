@@ -60,7 +60,6 @@ table.insert(OnUpdate,function()
 		local lastUpdateTime = TimeOfUpd-v.time-10
 		local LastButton = Buttons[k]
 		if LastButton then LastButton.Destroy() end
-		print(lastUpdateTime,TimeForUpdate)
 		if lastUpdateTime<TimeForUpdate then
 			if v.data[2] then
 				Buttons[k] = group.Create(1,"Pl:"..k,k,k,function()
