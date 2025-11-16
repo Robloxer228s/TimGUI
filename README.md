@@ -22,7 +22,9 @@ P.S: day.month.year
 
 # Update logs:
 
-16.11.25 - join to other users timgui XD(P.S: you can off this in settings)
+16.11.25 - added servers in settings(save+share servers)
+
+15.11.25 - join to other users timgui XD(P.S: you can off this in settings)
 
 13.11.25 - freeze/killaura updated
 
