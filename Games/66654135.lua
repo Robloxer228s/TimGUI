@@ -186,14 +186,18 @@ local function ESPUpd(char,color)--GunESP
 	end
 end _G.TimGui.Modules.ESP.Bind(2,function(Player)
 	if not PlData or v.Dead then 
-		return (ESP.Killed.Value or nil) and ESPColor.Killed
+		if ESP.Killed.Value then return ESPColor.Killed end
 	elseif ESP[v.Role] then
 		if ESP[v.Role].Value then
 			active = true
-			ESPUpd(player.Character,ESPColor[v.Role])
+			return ESPColor[v.Role]
 		end
 	end
-end)
+end) for k,v in pairs(ESP) do
+	v.OnChange(function()
+		_G.TimGui.ESP.Refresh()
+	end)
+end
 while task.wait(0.25) do
 	if not Map.Parent then
 		NewMap()
