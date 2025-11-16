@@ -412,7 +412,7 @@ local WhatIs = (_G.TimGui~=nil and "TimGui")or"TimAPI"
 API.Servers.Join = function(TGServerName,TPText)
 	local data = string.split(TGServerName,ServerSeparator)
 	if #data~=2 then return true end
-	if (#string.split(data[2],"-"))~=4 then return true end
+	if (#string.split(data[2],"-"))~=5 then return true end
 	local teleportData = {
 		placeId = data[1],
 		jobId = data[2]
