@@ -97,8 +97,8 @@ for k,v in pairs(game.Players:GetPlayers()) do
 	if v~=LP and not v:IsFriendsWith(LP.UserId) then
 		local tab = LastTab[v.Name]
 		if tab then
-			local tabData = tab.data
-			if tabData then
+			local data = tab.data
+			if data then
 				if data[1]==tostring(game.PlaceId) then
 					if not data[2] or data[2]==game.JobId then
 						_G.TimGui.Print(v.Name,"Also with TimGui",v.Name,"Тоже с TimGui")
