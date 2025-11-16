@@ -2284,6 +2284,7 @@ for k,v in pairs(Anims) do
 end
 -- Servers -------------------------------------------------
 local ServersG = _G.TimGui.Groups.CreateNewGroup("Servers")
+ServersG.Visible = false
 _G.TimGui.Groups.Settings.Create(1,"Servers","Servers","Сервера",function()
 	ServersG.OpenGroup()
 end) ServersG.Create(0,"Warn","It's may don't work(Test it)","Это может не работать(Проверь)")
