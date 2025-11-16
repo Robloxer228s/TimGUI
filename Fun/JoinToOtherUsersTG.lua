@@ -66,13 +66,10 @@ table.insert(OnUpdate,function()
 				Buttons[k] = group.Create(1,"Pl:"..k,k,k,function()
 					local timeAgo = os.time()-v.time
 					_G.TimGui.Modules.AskYN(k,"You're sure want to join? "..string.gsub(warnOnJoin,"@s@",timeAgo),k,"Ты точно хочешь зайти? "..string.gsub(warnOnJoinRus,"@s@",timeAgo),function()
-						local teleportData = {
-							placeId = v.data[1],
-							jobId = v.data[2]
-						} UpdateTable(v.data)
+						UpdateTable(v.data)
 						LP:Kick("TimGui: TP to "..k.." :>")
 						local s,r = pcall(function()
-							game:GetService("TeleportService"):Teleport(teleportData.placeId, LP, teleportData)
+							game:GetService("TeleportService"):TeleportToPlaceInstance(v.data[1], v.data[2], LP)
 						end) task.wait(1)
 						if not s then LP:Kick("Error: "..r) end
 					end)
