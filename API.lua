@@ -409,16 +409,15 @@ end,false)
 API.Servers = {}
 local ServerSeparator = "@"
 local WhatIs = (_G.TimGui~=nil and "TimGui")or"TimAPI"
-API.Servers.Join = function(TGServerName,TPText)
+API.Servers.Join = function(TGServerName,TPText,TPdata)
 	local data = string.split(TGServerName,ServerSeparator)
 	if #data~=2 then return true end
 	if (#string.split(data[2],"-"))~=5 then return true end
-	local teleportData = {
-		placeId = data[1],
-		jobId = data[2]
-	} LP:Kick(TPText or WhatIs..": TP to server!")
+	LP:Kick(TPText or WhatIs..": TP to server!")
+	local TPOptions = Instance.new("TeleportOptions")
+	TPOptions.ServerInstanceId = data[2]
 	local s,r = pcall(function()
-		game:GetService("TeleportService"):Teleport(teleportData.placeId, LP, teleportData)
+		game:GetService("TeleportService"):TeleportToPlaceInstance(data[1],data[2],LP,nil,TPdata)
 	end) task.wait(1)
 	if not s then LP:Kick("Error: "..r) end
 end API.Servers.GetThisServerPath = function()
