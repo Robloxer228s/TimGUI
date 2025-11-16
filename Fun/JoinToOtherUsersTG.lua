@@ -85,7 +85,7 @@ end) game.Players.PlayerAdded:Connect(function(Player)
 		if not LastTab[Player.Name] then return end
 		local plTab = LastTab[Player.Name].data
 		if plTab then
-			if game.PlaceId == plTab[1] and game.JobId == plTab[2] then
+			if tostring(game.PlaceId) == plTab[1] and game.JobId == plTab[2] then
 				_G.TimGui.Print(Player.Name,"Joined with TimGui",Player.Name,"Зашел с TimGui")
 			end
 		end
@@ -99,7 +99,7 @@ for k,v in pairs(game.Players:GetPlayers()) do
 		if tab then
 			local tabData = tab.data
 			if tabData then
-				if data[1]==game.PlaceId then
+				if data[1]==tostring(game.PlaceId) then
 					if not data[2] or data[2]==game.JobId then
 						_G.TimGui.Print(v.Name,"Also with TimGui",v.Name,"Тоже с TimGui")
 					end
