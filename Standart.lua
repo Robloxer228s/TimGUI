@@ -2297,7 +2297,7 @@ if type(SavedServers)=="string"then
 	s,SavedServers=pcall(function()
 		return HttpService:JSONDecode(SavedServers)
 	end) if not s then SavedServers={} end
-end ServersG.Create(0,"TittleJFP","Join from server path(PlaceId"..Separator.."JobId)","Присоединиться с помощью пути к серверу(PlaceId"..Separator.."JobId)")
+end ServersG.Create(0,"TittleJFP","Join from server path(PlaceId@JobId)","Присоединиться с помощью пути к серверу(PlaceId@JobId)")
 local serverPath = ServersG.Create(3,"ServerPath","Server path:","Путь к серверу:")
 ServersG.Create(1,"JoinFromPath","Join from path","Зайти по пути к серверу",function()
 	if not _G.TimGui.Modules.Servers.Join(serverPath.Value) then
