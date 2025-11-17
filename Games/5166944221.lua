@@ -49,7 +49,7 @@ while task.wait() do
         local BallPos = BallShadow.Position
         if not LastBallPos then LastBallPos = BallPos end
         local moveDir = (LastBallPos-BallPos)
-        local speed = (moveDir.Magnitude-math.abs(moveDir.Y)+0.25)*SpeedMulty
+        local speed = (moveDir.Magnitude-math.abs(moveDir.Y)+0.5)*SpeedMulty
         if AutoParry.Value and Ball.Highlight.FillColor ~= WhiteB then
             local HRP = LP.Character.PrimaryPart
             local distance = (HRP.Position-BallPos).Magnitude
