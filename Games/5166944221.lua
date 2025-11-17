@@ -23,7 +23,7 @@ local function Parry()
         game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
     else mouse1click()
     end
-end local HPBar = LP.PlayerGui.HUD.HealthBar
+end local HPBar = LP.PlayerGui.HUD:WaitForChild("HealthBar")
 local function AFKTP()
     if not HPBar.Visible then
         LP.Character.PrimaryPart.CFrame = game.Workspace["New Lobby"].ReadyArea.ReadyZone.CFrame
