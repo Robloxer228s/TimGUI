@@ -8,11 +8,21 @@ group.Create(3,"AutoParrySpeedMulty","AutoParry distance multy:","Множите
     if tonumber(val.Value) then SpeedMulty=tonumber(val.Value) end
 end).Main.Text = SpeedMulty
 local AutoParry = group.Create(2,"AutoParry","AutoParry","Авто отбивать")
+local useClickF = pcall(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "W", false, game)
+    task.wait()
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
+end) if not useClickF then
+    group.Create(0,"WarnMouse","Using mouse clicks","Использует нажатия мыши")
+end
 local function Parry()
     print("Parry")
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
-    task.wait()
-    game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
+    if useClickF then
+        game:GetService("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
+        task.wait()
+        game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
+    else mouse1click()
+    end
 end local HPBar = LP.PlayerGui.HUD.HealthBar
 local function AFKTP()
     if not HPBar.Visible then
