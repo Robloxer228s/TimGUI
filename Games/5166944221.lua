@@ -23,16 +23,16 @@ local function Parry()
         game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
     else mouse1click()
     end
-end local HPBar = LP.PlayerGui.HUD:WaitForChild("HealthBar",math.huge)
+end local Interm = LP.PlayerGui.HUD.HolderBottom.IntermissionFrame
 local function AFKTP()
-    if not HPBar.Visible then
+    if Interm.Visible then
         LP.Character.PrimaryPart.CFrame = game.Workspace["New Lobby"].ReadyArea.ReadyZone.CFrame
     end
 end local TPToInter = group.Create(2,"AFK","TP to intermission","ТП в интермиссию",function(v)
     if v.Value then
         AFKTP()
     end
-end) HPBar:GetPropertyChangedSignal("Visible"):Connect(function()
+end) Interm:GetPropertyChangedSignal("Visible"):Connect(function()
     if TPToInter.Value then
         task.wait(5)
         AFKTP()
