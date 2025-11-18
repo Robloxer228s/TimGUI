@@ -9,8 +9,7 @@ local function Open()
 	if not _G.TimGui then
 		_G.TimGui = {}
     elseif _G.TimGui.Configs and _G.TimGui.Configs.ResetToDefault then
-			_G.TimGui.Configs.ResetToDefault()
-		end 
+		_G.TimGui.Configs.ResetToDefault()
     end if not _G.TimGui.HttpGet then
 		_G.TimGui.HttpGet = function(Path)
 			if not Path then return error("Is not URL") end
