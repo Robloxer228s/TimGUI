@@ -18,8 +18,8 @@ group.Create(3,"AutoParrySpeedMulty","AutoParry distance multy:","Множите
     if tonumber(val.Value) then SpeedMulty=tonumber(val.Value) end
 end).Main.Text = SpeedMulty
 local AutoParry = group.Create(2,"AutoParry","AutoParry","Авто отбивать")
-local EnableRaycast = group.Create(2,"RaycastEnable","Enable raycast","Включить raycast(проверка стен)")
-local TryToAnticipate = group.Create(2,"TryToAnticipate","try to anticipate speed changing","Попытаться предугадать следующую скорость")
+local EnableRaycast = group.Create(2,"RaycastEnable","Enable raycast BETA","Включить raycast(проверка стен) BETA")
+local TryToAnticipate = group.Create(2,"TryToAnticipate","try to anticipate speed changing BETA","Попытаться предугадать следующую скорость BETA")
 local useClickF = pcall(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "W", false, game)
     task.wait()
@@ -90,6 +90,7 @@ while task.wait() do
                             local AddingPos = BallPos+moveDir.Unit*speed
                             if (AddingPos-HRP.Position).Magnitude<MagnToChar then
                                 Parry()
+                            else print("Antifake")
                             end
                         else Parry()
                         end
