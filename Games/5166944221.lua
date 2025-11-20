@@ -20,8 +20,6 @@ end).Main.Text = SpeedMulty
 local AutoParry = group.Create(2,"AutoParry","AutoParry","Авто отбивать")
 local EnableRaycast = group.Create(2,"RaycastEnable","Enable raycast","Включить raycast(проверка стен)")
 local TryToAnticipate = group.Create(2,"TryToAnticipate","try to anticipate speed changing","Попытаться предугадать следующую скорость")
-EnableRaycast.CFGSave = true
-TryToAnticipate.CFGSave = true
 local useClickF = pcall(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "W", false, game)
     task.wait()
@@ -76,12 +74,16 @@ while task.wait() do
         if AutoParry.Value and Ball.Highlight.FillColor ~= WhiteB then
             local HRP = LP.Character.PrimaryPart
             local distance = (HRP.Position-BallPos).Magnitude-math.abs(HRP.Position.Y-BallPos.Y)
+            local skip = false
             if TryToAnticipate.Value then
-                if game.Workspace:Raycast(BallPos,moveDir,RaycastParam) then
+                local AddingPos = (BallPos+moveDir)
+                if (AddingPos-HRP.Position).Magnitude>(BallPos-HRP.Position).Magnitude then
+                    skip = true
+                elseif game.Workspace:Raycast(BallPos,moveDir,RaycastParam) then
                     speed = speed/2
                 end
             end local y = (BallShadow.Decal.Transparency-0.3)*400
-            if distance<speed then
+            if not skip and distance<speed then
                 if CheckRaycast(HRP.Position,BallPos) then
                     local yMagn = math.abs((BallPos.Y+y)-HRP.Position.Y)
                     if not LastYPos then LastYPos = y end
