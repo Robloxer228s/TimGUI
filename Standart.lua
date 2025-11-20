@@ -20,7 +20,7 @@ function GetMoveDirection(v)
 end
 AnticheatGroup.Visible = false
 clopGroup.Visible = false
-Settings.Create(1,"Clop","Bug","Клоп",function()
+Settings.Create(1,"Clop","Bug(/bug [all/Player name])","Клоп(/clop [all/имя игрока])",function()
      clopGroup.OpenGroup()
 end)
 Settings.Create(1,"Anticheat","Anticheat","Античит",function()
@@ -2288,7 +2288,15 @@ ServersG.Visible = false
 _G.TimGui.Groups.Settings.Create(1,"Servers","Servers","Сервера",function()
 	ServersG.OpenGroup()
 end) ServersG.Create(0,"Warn","It's may don't work(Test it)","Это может не работать(Проверь)")
-ServersG.Create(1,"Rejoin","Rejoin on this server","Перезайти на этот сервер",function()
+local AutoRejoin = ServersG.Create(2,"Autorejoin","Auto rejoin(on kick)","Авто перезаход(при кике)")
+AutoRejoin.CFGSave = true
+game.NetworkClient.ClientReplicator.Destroying:Connect(function()
+    if AutoRejoin.Value then
+        task.delay(10,function()
+            _G.TimGui.Modules.Servers.Rejoin()
+        end)
+    end
+end) ServersG.Create(1,"Rejoin","Rejoin on this server","Перезайти на этот сервер",function()
 	_G.TimGui.Modules.Servers.Rejoin()
 end) ServersG.Create(0,"Tip","Saved servers last for 12 hours, as they close when everyone leaves","Сохраненные сервера живут 12 часов, так как при выходе всех они закрываются")
 local SavedServers = _G.TimGui.Saves.Load("SavedServers")or{}
