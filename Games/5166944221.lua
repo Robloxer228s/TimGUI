@@ -1,4 +1,4 @@
-local group = _G.TimGui.Groups.CreateNewGroup("DeathBall")
+local group = _G.TimGui.Groups.CreateNewGroup("DeathBall18")
 local BallShadow,Ball
 local LP = game.Players.LocalPlayer
 local WhiteB = Color3.new(1, 1, 1)
@@ -10,6 +10,7 @@ local FilterRP = {game.Workspace.FX}
 RaycastParam.FilterDescendantsInstances = FilterRP
 local function AddToFilter(Inst)
     table.insert(FilterRP,Inst)
+    RaycastParam.FilterDescendantsInstances = FilterRP
 end _G.TimGui.Modules.Players.ForEveryone(function(Player)
     Player.CharacterAdded:Connect(AddToFilter)
     if Player.Character then AddToFilter(Player.Character) end
@@ -18,8 +19,10 @@ group.Create(3,"AutoParrySpeedMulty","AutoParry distance multy:","Множите
     if tonumber(val.Value) then SpeedMulty=tonumber(val.Value) end
 end).Main.Text = SpeedMulty
 local AutoParry = group.Create(2,"AutoParry","AutoParry","Авто отбивать")
-local EnableRaycast = group.Create(2,"RaycastEnable","Enable raycast BETA","Включить raycast(проверка стен) BETA")
-local TryToAnticipate = group.Create(2,"TryToAnticipate","try to anticipate speed changing BETA","Попытаться предугадать следующую скорость BETA")
+local EnableRaycast = group.Create(2,"RaycastEnable","Enable raycast","Включить raycast(проверка стен)")
+local TryToAnticipate = group.Create(2,"TryToAnticipate","try to anticipate speed changing","Попытаться предугадать следующую скорость")
+EnableRaycast.CFGSave = true
+TryToAnticipate.CFGSave = true
 local useClickF = pcall(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "W", false, game)
     task.wait()
@@ -75,8 +78,9 @@ while task.wait() do
             local HRP = LP.Character.PrimaryPart
             local distance = (HRP.Position-BallPos).Magnitude-math.abs(HRP.Position.Y-BallPos.Y)
             local skip = false
-            if TryToAnticipate.Value then
-                if game.Workspace:Raycast(BallPos,moveDir,RaycastParam) then
+            if TryToAnticipate.Value and moveDir~=Vector3.zero then
+                if game.Workspace:Raycast(BallPos,moveDir*SpeedMulty,RaycastParam) then
+                    print("SPEED/2")
                     speed = speed/2
                 end
             end local y = (BallShadow.Decal.Transparency-0.3)*400
@@ -85,12 +89,17 @@ while task.wait() do
                     local yMagn = math.abs((BallPos.Y+y)-HRP.Position.Y)
                     if not LastYPos then LastYPos = y end
                     if yMagn<(speed+math.abs(LastYPos-y)*SpeedMulty)+5 then
-                        if TryToAnticipate.Value then
+                        if TryToAnticipate.Value and moveDir~=Vector3.zero then
                             local MagnToChar = (BallPos-HRP.Position).Magnitude
-                            local AddingPos = BallPos+moveDir.Unit*speed
-                            if (AddingPos-HRP.Position).Magnitude<MagnToChar then
+                            local AddingPos = (BallPos+moveDir.Unit*MagnToChar*1.5)-HRP.Position
+                            local NOAP = (BallPos-HRP.Position)
+                            local MultyRes = NOAP.X+NOAP.Z
+                            if MultyRes>0 then MultyRes = 1 else MultyRes = -1 end
+                            local Res = (AddingPos.X+AddingPos.Z)*MultyRes
+                            if Res>0 then
                                 Parry()
-                            else print("Antifake")
+                            else print("Parry blocked, resV:",Res)
+                                print("AddingPosV:",AddingPos)
                             end
                         else Parry()
                         end
