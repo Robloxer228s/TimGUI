@@ -84,7 +84,7 @@ while task.wait() do
                 if CheckRaycast(HRP.Position,BallPos) then
                     local yMagn = math.abs((BallPos.Y+y)-HRP.Position.Y)
                     if not LastYPos then LastYPos = y end
-                    if yMagn<(speed+math.abs(LastYPos-y)*SpeedMulty) then
+                    if yMagn<(speed+math.abs(LastYPos-y)*SpeedMulty)+5 then
                         if TryToAnticipate.Value then
                             local MagnToChar = (BallPos-HRP.Position).Magnitude
                             local AddingPos = BallPos+moveDir.Unit*speed
