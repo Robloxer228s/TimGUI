@@ -1,4 +1,4 @@
-local group = _G.TimGui.Groups.CreateNewGroup("DeathBall18")
+local group = _G.TimGui.Groups.CreateNewGroup("DeathBall")
 local BallShadow,Ball
 local LP = game.Players.LocalPlayer
 local WhiteB = Color3.new(1, 1, 1)
