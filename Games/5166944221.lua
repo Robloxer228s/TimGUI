@@ -76,10 +76,7 @@ while task.wait() do
             local distance = (HRP.Position-BallPos).Magnitude-math.abs(HRP.Position.Y-BallPos.Y)
             local skip = false
             if TryToAnticipate.Value then
-                local AddingPos = (BallPos+moveDir)
-                if (AddingPos-HRP.Position).Magnitude>(BallPos-HRP.Position).Magnitude then
-                    skip = true
-                elseif game.Workspace:Raycast(BallPos,moveDir,RaycastParam) then
+                if game.Workspace:Raycast(BallPos,moveDir,RaycastParam) then
                     speed = speed/2
                 end
             end local y = (BallShadow.Decal.Transparency-0.3)*400
@@ -88,7 +85,14 @@ while task.wait() do
                     local yMagn = math.abs((BallPos.Y+y)-HRP.Position.Y)
                     if not LastYPos then LastYPos = y end
                     if yMagn<(speed+math.abs(LastYPos-y)*SpeedMulty) then
-                        Parry()
+                        if TryToAnticipate.Value then
+                            local MagnToChar = (BallPos-HRP.Position).Magnitude
+                            local AddingPos = BallPos+moveDir.Unit*speed
+                            if (AddingPos-HRP.Position).Magnitude<MagnToChar then
+                                Parry()
+                            end
+                        else Parry()
+                        end
                     else print("YMagnitude blocked, ymagn:",yMagn)
                     end
                 else print("Parry blocked!")
