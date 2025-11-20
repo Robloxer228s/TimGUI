@@ -20,6 +20,8 @@ end).Main.Text = SpeedMulty
 local AutoParry = group.Create(2,"AutoParry","AutoParry","Авто отбивать")
 local EnableRaycast = group.Create(2,"RaycastEnable","Enable raycast","Включить raycast(проверка стен)")
 local TryToAnticipate = group.Create(2,"TryToAnticipate","try to anticipate speed changing","Попытаться предугадать следующую скорость")
+EnableRaycast.CFGSave = true
+TryToAnticipate.CFGSave = true
 local useClickF = pcall(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "W", false, game)
     task.wait()
