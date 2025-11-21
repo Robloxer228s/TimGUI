@@ -9,7 +9,16 @@ print([[=============================================
 			|  |   |  | \/ |						    |
 			|  |   |  |    |       gui                  |
 			=============================================]])
-_G.TimGui = {}
+if not _G.TimGui then _G.TimGui = {} warn("Load not from Main.lua!") end
+if not _G.TimGui.HttpGet then 
+	local RepoURL = "https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/"
+	_G.TimGui.HttpGet = function(Path)
+		if not Path then return error("Is not URL") end
+		if string.sub(Path,1,2) == "./" then
+			Path = RepoURL..string.sub(Path,3,string.len(Path))
+		end return game:HttpGet(Path)
+	end
+end
 _G.TimGui.Configs = {}
 _G.TimGui.Modules = {}
 _G.TimGui.Groups = {}
@@ -1103,7 +1112,7 @@ _G.TimGui.Configs.Saves.Load = function(name)
 end
 -- Modules --------------------------------------
 _G.TimGui.Modules.AddChatCommand = function(com,funct)
-     Commands[com] = funct
+    Commands[com] = funct
 end _G.TimGui.AddCommand = _G.TimGui.Modules.AddChatCommand
 
 game.TextChatService.MessageReceived:Connect(function(Message)
@@ -1134,7 +1143,7 @@ local function NewPlayer(player)
 end
 
 for k,v in pairs(game.Players:GetPlayers()) do
-     NewPlayer(v)
+    NewPlayer(v)
 end
 game.Players.PlayerAdded:Connect(NewPlayer)
 
@@ -1178,9 +1187,12 @@ if _G.TimGui.Saves.Enabled then
 		{"Babka","tapka"},
 		{"Курица","на ножке"},
 		{"Роскомнадзор","Т#а#и"},
-		{"Ёпен","бобень"}
+		{"Ёпен","бобень"},
+		{"Мразотничаем","значит?"},
+		{"AAAAAAA","HACKER!!!!!"},
+		{"Тыгыдык","тыгыдык"}
 	}
-	if math.random(1,100) == 5 then
+	if (RusLang.Value and math.random(1,100) == 5)or math.random(1,500) == 5 then
 		local rand = Secret[math.random(1,#Secret)]
 		_G.TimGui.Path.Logo[1].Text = rand[1]
 		_G.TimGui.Path.Logo[3].Text = rand[2]
@@ -1511,19 +1523,19 @@ if _G.Setup ~= nil then
 		loading[5] = loader.Configs
 	end
 end
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/API.lua"))()
+loadstring(_G.TimGui.HttpGet("./API.lua"))()
 if loading[1] ~= false then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Standart.lua"))()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/MapLoader.lua"))()
+	loadstring(_G.TimGui.HttpGet("./Standart.lua"))()
+	loadstring(_G.TimGui.HttpGet("./TimExplorer/MapLoader.lua"))()
 end if loading[2] ~= false then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Themes.lua"))()
+	loadstring(_G.TimGui.HttpGet("./Themes.lua"))()
 end if loading[3] ~= false then
 	task.spawn(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Fun/JoinToOtherUsersTG.lua"))()
+		loadstring(_G.TimGui.HttpGet("./Fun/JoinToOtherUsersTG.lua"))()
 	end)
 end if loading[4] ~= false then
 	local ok,gameScr = pcall(function()
-		return game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Games/".. game.GameId ..".lua")
+		return _G.TimGui.HttpGet("./Games/".. game.GameId ..".lua")
 	end)
 	print("TimGui|"..game.GameId)
 	if not ok or string.sub(gameScr,1,3)=="404" then
@@ -1537,21 +1549,21 @@ end if loading[4] ~= false then
 			if not success then
 				error("TimGui|Error load game script:\n" .. response)
 			end
-		end)
-		wait()
+		end) task.wait()
 	end
 end if loading[5] ~= false then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Configs.lua"))()
+	loadstring(_G.TimGui.HttpGet("./Configs.lua"))()
 end if os.date("%m",os.time()) == "04" then
-    if tonumber(os.date("%d",os.time())) < 4 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/Fun/April.lua"))()
-	AprilFUN = true
+    if tonumber(os.date("%d",os.time())) == 1 then
+        loadstring(_G.TimGui.HttpGet("./April.lua"))()
+		AprilFUN = true
     end
 end
 _G.Setup = nil
 print("TimGui|Loaded!")
 if AprilFUN then
-	_G.TimGui.Print("Loaded","Happy 1 april","Загружено","С 1 апреля")
+	print("TimGui|1 April...")
+	_G.TimGui.Print("Loaded","Happy 1 april!!!!!!!!!1!11!1!!!11!!111","Загружено","С 1 апреля!!!11!!!!!!!!!!1!!!!!!111!!1!!!!1!11")
 elseif FoundScript then
 	_G.TimGui.Print("Loaded","TimGui is loaded!","Загружено","TimGui загружен!")
 else
