@@ -414,8 +414,6 @@ API.Servers.Join = function(TGServerName,TPText,TPdata)
 	if #data~=2 then return true end
 	if (#string.split(data[2],"-"))~=5 then return true end
 	LP:Kick(TPText or WhatIs..": TP to server!")
-	local TPOptions = Instance.new("TeleportOptions")
-	TPOptions.ServerInstanceId = data[2]
 	local s,r = pcall(function()
 		game:GetService("TeleportService"):TeleportToPlaceInstance(data[1],data[2],LP,nil,TPdata)
 	end) task.wait(1)
@@ -424,6 +422,12 @@ end API.Servers.GetThisServerPath = function()
 	return game.PlaceId..ServerSeparator..game.JobId
 end API.Servers.Rejoin = function()
 	return API.Servers.Join(API.Servers.GetThisServerPath())
+end API.Servers.JoinToPlace = function(PlaceId,jobId,TPText)
+	LP:Kick(TPText or WhatIs..": TP to place!")
+	local s,r = pcall(function()
+		game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceId,jobId,LP,nil,TPdata)
+	end) task.wait(1)
+	if not s then LP:Kick("Error: "..r) end
 end
 
 return API
