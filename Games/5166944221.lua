@@ -60,7 +60,16 @@ end) local function CheckRaycast(Pos,Pos2)
         return not ray
     else return true
     end
-end
+end group.Create(0,"ServersTittle","Servers","Сервера")
+group.Create(1,"PhoneServer","Mobile server","Сервер с телефона",function()
+    _G.TimGui.Modules.Servers.JoinToPlace(75566430380254)
+end) group.Create(1,"PCServer","PC server","Сервер с ПК",function()
+    _G.TimGui.Modules.Servers.JoinToPlace(71000936793663)
+end) group.Create(1,"NoobServer","Noob server","НУБ сервер",function()
+    _G.TimGui.Modules.Servers.JoinToPlace(83678792452277)
+end) group.Create(1,"TradeServer","Trade server","Трейд сервер",function()
+    _G.TimGui.Modules.Servers.JoinToPlace(119260352090770)
+end)
 while task.wait() do
     if not BallShadow or not Ball then
         BallShadow = game.Workspace.FX:WaitForChild("BallShadow",math.huge)
@@ -112,13 +121,3 @@ while task.wait() do
         LastBallPos = BallPos
     end 
 end
-group.Create(0,"ServersTittle","Servers","Сервера")
-group.Create(1,"PhoneServer","Mobile server","Сервер с телефона",function()
-    _G.TimGui.Modules.Servers.JoinToPlace(75566430380254)
-end) group.Create(1,"PCServer","PC server","Сервер с ПК",function()
-    _G.TimGui.Modules.Servers.JoinToPlace(71000936793663)
-end) group.Create(1,"NoobServer","Noob server","НУБ сервер",function()
-    _G.TimGui.Modules.Servers.JoinToPlace(83678792452277)
-end) group.Create(1,"TradeServer","Trade server","Трейд сервер",function()
-    _G.TimGui.Modules.Servers.JoinToPlace(119260352090770)
-end)
