@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/PasteTEObject.lua"))()
+loadstring(_G.TimGui.HttpGet("./TimExplorer/PasteTEObject.lua"))()
 local Group = _G.TimGui.Groups.CreateNewGroup("Map loader","Загрузка карт")
 local LocalPlayer = game.Players.LocalPlayer
 local pathYM = "TimGui/Maps/"
