@@ -2,13 +2,13 @@
 Paste this in your executor and run:
 
 ```
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/Main.lua"))()
 ```
 
 # Status:
 Maybe someday there will be documentation here.
 
-last games script update: 16.11.25-?
+last games script update: 16.11.25-21.11.25
 
 Use Right mouse button for keybinding! 
 Hold button on 2 sec for Flying button
@@ -136,9 +136,9 @@ P.S(for update logs): day.month.year
 22.07.24 - fix Zombie Lab
 
 # Suported Games:
-+ = Script working
+- = Script don't working
 
-Steal a brainrot
+- Steal a brainrot
 
 [Troll rabit_cotten](https://www.roblox.com/share?code=5f3e57621c8c5b4b804eef1e5d1fd6f4&type=ExperienceDetails&stamp=1743797348517)
 
@@ -148,19 +148,19 @@ Dead rails
 
 [Fling things and people](https://www.roblox.com/share?code=0c54fc0e833d7a4b954a5a44e262b4b6&type=ExperienceDetails&stamp=1741289771712)
 
-Eat huge waffle
+[Eat huge waffle](https://www.roblox.com/share?code=6c29c8d96aeef747a0f7d0a20a36fc66&type=ExperienceDetails&stamp=1763751843444)
 
 [Tower of hell](https://www.roblox.com/share?code=f74e6b36d1580d4dac97152a4fb1d4d1&type=ExperienceDetails&stamp=1739475720852) + hided funcs with anticheat
 
 [Underground war 2.0](https://www.roblox.com/share?code=ea1067fa38ccab43b0f04fe6557ec29a&type=ExperienceDetails&stamp=1738617065522)
 
-+[Murder Mystory 2](https://www.roblox.com/share?code=30095ada9095784a9722ce4419735b55&type=ExperienceDetails&stamp=1736553373981)
+[Murder Mystory 2](https://www.roblox.com/share?code=30095ada9095784a9722ce4419735b55&type=ExperienceDetails&stamp=1736553373981)
 
-+Break in 
+[Break in](https://www.roblox.com/share?code=3f4d6f08d3039543b241a7465e49e507&type=ExperienceDetails&stamp=1763751889073) 
 
-+Break in 2
+[Break in 2](https://www.roblox.com/share?code=ce513291938ff342a1df9fda2bf5885f&type=ExperienceDetails&stamp=1763751866227)
 
-+Froggy 
+[Froggy](https://www.roblox.com/share?code=9c8a759499daa140810ba2c6155fe626&type=ExperienceDetails&stamp=1763751956311) 
 
 [Build A Boat For Treasure](https://www.roblox.com/share?code=617b329e011981488239bee67a7713d7&type=ExperienceDetails&stamp=1736553405530)
 
@@ -172,37 +172,37 @@ Eat huge waffle
 
 [Zooo](https://www.roblox.com/share?code=b650d37cd1bc324d90e9802fbd5dae7b&type=ExperienceDetails&stamp=1736553612541)
 
-The Door 🚪 10M+ VISITS! 
+[The Door 🚪](https://www.roblox.com/share?code=6df318ef481b784a8f7f8f8cfdc63d2b&type=ExperienceDetails&stamp=1763751995759) 
 
 [Obby Leader](https://www.roblox.com/share?code=98d8aff63a0e434da939c26483f902d6&type=ExperienceDetails&stamp=1736109493032)
 
 [Rainbow Friends](https://www.roblox.com/share?code=0b0ac366934f394f8a180bb83f97213d&type=ExperienceDetails&stamp=1736553680670) -- not tested
 
-+[Death Ball](https://www.roblox.com/share?code=4ee05f950770e34798834b7a4a3e5842&type=ExperienceDetails&stamp=1736553634801)
+[Death Ball](https://www.roblox.com/share?code=4ee05f950770e34798834b7a4a3e5842&type=ExperienceDetails&stamp=1736553634801)
 
 [How Many](https://www.roblox.com/share?code=ad4cf9b1b98eac4989574e6855fda74c&type=ExperienceDetails&stamp=1736553571715)
 
-Musically chairs -- game is deleted
+[Blocks and props](https://www.roblox.com/share?code=007dc6d3ef8cd149a6f504778b0251bc&type=ExperienceDetails&stamp=1763752063975)
 
-Blocks and props
-
-Chaos Jenga
+[Chaos Jenga](https://www.roblox.com/share?code=3eb90695b0f2d644b5e4ed76aa15316b&type=ExperienceDetails&stamp=1763752075753)
 
 [Floor is lava](https://www.roblox.com/share?code=4bfb6bf8b862cd408da588f04b6af43a&type=ExperienceDetails&stamp=1736553297734)
 
 [Mega hide and seek](https://www.roblox.com/share?code=ffac4d0ce7032b48879920415c180615&type=ExperienceDetails&stamp=1736553250341)
 
-Zombie Attack
+[Zombie Attack](https://www.roblox.com/share?code=ef3263496c06dd419908b8230299f8ce&type=ExperienceDetails&stamp=1763752085990)
 
-[Washing simulator](https://www.roblox.com/share?code=ef3263496c06dd419908b8230299f8ce&type=ExperienceDetails&stamp=1736553327964)
+[Laundry simulator](https://www.roblox.com/share?code=ef3263496c06dd419908b8230299f8ce&type=ExperienceDetails&stamp=1736553327964)
 
-Cart ride into rdite
+[Cart ride into rdite](https://www.roblox.com/share?code=f47f6e1103763c4388a5f163cdf9a775&type=ExperienceDetails&stamp=1763752107180)
 
 [Cart + Car ride into GigaNoob](https://www.roblox.com/share?code=6b1c965025d9cc47b5579a6b7bfe980e&type=ExperienceDetails&stamp=1736109529864)
 
 [Imposible Squid Game! Glass bridge](https://www.roblox.com/share?code=5233ee6b5386f14cb0cfcd61469e7031&type=ExperienceDetails&stamp=1732876371319)
 
 [Musically chair](https://www.roblox.com/share?code=2337aebe00178e4eaea0d768769c9331&type=ExperienceDetails&stamp=1736109459355)
+
+Musically chairs -- game is deleted
 
 # Credits:
 
