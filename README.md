@@ -11,16 +11,21 @@ Maybe someday there will be documentation here.
 last games script update: 16.11.25-?
 
 Use Right mouse button for keybinding! 
-
 Hold button on 2 sec for Flying button
 
-TimControl don't work and hided
+themes don't work for ask Yes or No :(
 
-themes don't work for askYN :(
-
-P.S: day.month.year
+P.S(for update logs): day.month.year
 
 # Update logs:
+
+21.11.25 - Death ball added servers(Mobile or PC)+new HttpGet system (TimGui.lua update)
+
+20.11.25 - finally working Death ball script
+
+19.11.25 - new HttpGet system (Main.lua update)
+
+17.11.25 - 1 UPDATE Death ball script
 
 16.11.25 - added servers in settings(save+share servers)
 
@@ -173,7 +178,7 @@ The Door 🚪 10M+ VISITS!
 
 [Rainbow Friends](https://www.roblox.com/share?code=0b0ac366934f394f8a180bb83f97213d&type=ExperienceDetails&stamp=1736553680670) -- not tested
 
-[Death Ball](https://www.roblox.com/share?code=4ee05f950770e34798834b7a4a3e5842&type=ExperienceDetails&stamp=1736553634801)
++[Death Ball](https://www.roblox.com/share?code=4ee05f950770e34798834b7a4a3e5842&type=ExperienceDetails&stamp=1736553634801)
 
 [How Many](https://www.roblox.com/share?code=ad4cf9b1b98eac4989574e6855fda74c&type=ExperienceDetails&stamp=1736553571715)
 
