@@ -555,7 +555,7 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
 end)
 
 local NoCollideForOther = Player.Create(2,"NoCollide","No collide for other players","Проходка сквозь других игроков",function(val)
-	if NoCollideForOther.Value then
+	if val.Value then
 		for _,v in pairs(game.Players:GetPlayers()) do
 			if v~= LocalPlayer then
 				if not v.Character then continue end
@@ -636,7 +636,7 @@ Player.Create(1,"DashSettings","Dash settings","Настройки рывка",D
 local dashOffset,dashAdd = Vector3.new(0,0,0),Vector3.new(0,0,0)
 local UpdDSettings
 local function UpdateDashSettings()
-    UpdDSettings()
+    if UpdDSettings then UpdDSettings() end
 end
 local DefaultDashEnabled = DashSettings.Create(2,"DefDash","Default dash enabled","Рывок по умолчанию",UpdateDashSettings)
 DefaultDashEnabled.Main.Value = true
