@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimExplorer/Main.lua"))()
+loadstring(_G.TimGui.HttpGet("./TimExplorer/Main.lua"))()
 _G.TimGui.XTwo = false
 local MainFrame = game.CoreGui.TimEXPLORER:FindFirstChildOfClass("Frame")
 MainFrame.Position = UDim2.new(1,0,0,0)
