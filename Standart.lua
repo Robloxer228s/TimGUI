@@ -21,73 +21,82 @@ end
 AnticheatGroup.Visible = false
 clopGroup.Visible = false
 Settings.Create(1,"Clop","Bug(/bug [all/Player name])","Клоп(/clop [all/имя игрока])",function()
-     clopGroup.OpenGroup()
+    clopGroup.OpenGroup()
 end)
 Settings.Create(1,"Anticheat","Anticheat","Античит",function()
-     AnticheatGroup.OpenGroup()
+    AnticheatGroup.OpenGroup()
 end)
 local enable = clopGroup.Create(2,"Enable","Enable bug","Включить клопа")
 enable.Main.Value = true
 local all = clopGroup.Create(2,"All","Enable for all(disabled for friends)","Включить для всех(выключенный для друзей)")
 all.CFGSave = true
 local function clopFunct(who,i)
-     if i == game.Players.LocalPlayer.Name or i == "all" then
-          if not enable.Value then return end
-          if not all.Value then 
-               if not _G.TimGui.Values.Spare[who.Name] then
-                    if who ~= game.Players.LocalPlayer then
-                         return
-                    end
-               end
-          end
-          _G.TimGui.Print(who.Name,"Summoned bug",who.Name,"Призвал клопа")
-	  for ii=1,math.random(1,10) do
-               local Groups = _G.TimGui.Groups
-               local clop = {}
-               for k,v in pairs(Groups) do
-                    if type(v) ~= "function" then
-                         table.insert(clop,v)
-                    end
-               end
-               if math.random(1,25) == 4 then
-                    clop.OpenGroup()
-                    if math.random(1,100) == 1 then
-                         if math.random(1,1000) == 1 then
-                              clop.Destroy()
-                         end
-                         return
-                    end
-               end
-               clop = clop[math.random(1,#clop)].Objects
-               local newC = {}
-               for k,v in pairs(clop) do
-                    table.insert(newC,v)
-               end
-               clop = newC[math.random(1,#newC)]
-               if math.random(1,1000) == 5 then
-                    clop.Destroy()
-               elseif clop.Type == 0 or math.random(1,50) == 4 then
-                    clop.Visible = false
-                    wait(math.random(10,60))
-                    clop.Visible = true
-               elseif clop.Type == 1 then
-                    clop.EmulateClick()
-                    if math.random(1,100) == 5 then
-                          clop.OnClick(function()
-                              _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
-                          end)
-                    end
-               elseif clop.Type == 2 then
-                    clop.ChangeValue()
-                    if math.random(1,100) == 5 then
-                         clop.OnChange(function()
-                              _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
-                         end)
-                    end
-               elseif clop.Type == 3 then
-                    clop.ChangeValue("I'm clop")
-               end
-          end
+    if i == game.Players.LocalPlayer.Name or i == "all" then
+        if not enable.Value then return end
+        if not all.Value then 
+            if not _G.TimGui.Values.Spare[who.Name] then
+				if who ~= game.Players.LocalPlayer then
+				   return
+				end
+            end
+        end
+        _G.TimGui.Print(who.Name,"Summoned bug",who.Name,"Призвал клопа")
+		for ii=1,math.random(1,10) do
+            local Groups = _G.TimGui.Groups
+            local clop = {}
+            for k,v in pairs(Groups) do
+                if type(v) ~= "function" then
+                    table.insert(clop,v)
+				end
+            end
+            if math.random(1,25) == 4 then
+				clop.OpenGroup()
+				if math.random(1,100) == 1 then
+					if math.random(1,1000) == 1 then
+						clop.Destroy()
+					end
+					return
+				end
+			end
+			clop = clop[math.random(1,#clop)].Objects
+			local newC = {}
+			for k,v in pairs(clop) do
+				table.insert(newC,v)
+			end
+			clop = newC[math.random(1,#newC)]
+			if math.random(1,1000) == 5 then
+				clop.Destroy()
+			elseif clop.Type == 0 or math.random(1,50) == 4 then
+				clop.Visible = false
+				wait(math.random(10,60))
+				clop.Visible = true
+			elseif clop.Type == 1 then
+				clop.EmulateClick()
+				if math.random(1,100) == 5 then
+					clop.OnClick(function()
+						if math.random(1,1000)==1 then
+							_G.TimGui.Print("bug","The bug is annoyed","клоп","клоп РАЗДРАЖЕН")
+							if math.random(1,5)>1 then
+								clop.Destroy()
+							else for k=1,1000 do
+									clop.EmulateClick()
+								end
+							end
+						else _G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
+						end
+					end)
+				end
+			elseif clop.Type == 2 then
+				clop.ChangeValue()
+				if math.random(1,100) == 5 then
+					clop.OnChange(function()
+						_G.TimGui.Print("bug","The bug is unhappy","клоп","клоп НЕДОВОЛЕН")
+					end)
+				end
+			elseif clop.Type == 3 then
+				clop.ChangeValue("I'm clop")
+			end
+        end
      end
 end
 
@@ -1920,7 +1929,7 @@ if game:GetService("UserInputService").TouchEnabled then
     end
   end
 
-  LocalPlayer:GetMouse().Move:Connect(upd)
+  Mouse.Move:Connect(upd)
   RunService.RenderStepped:Connect(upd)
       workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(function(char)
         local char = workspace.CurrentCamera.CameraSubject.Parent
@@ -1953,7 +1962,7 @@ group.Create(1,"ToggleTE","Toggle TimExplorer","Переключить TExplorer
         game.CoreGui.TExplorer.Enabled = not game.CoreGui.TExplorer.Enabled
         return
     end 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/main/TimExplorer/Explorer.lua"))()
+    loadstring(_G.TimGui.HttpGet("./TimExplorer/Explorer.lua"))()
 end)
 group.Create(0,"Try hack game","Try hack game","Попытки взлома игры")
 local function CheckParent(v,name)
@@ -2230,7 +2239,7 @@ HideGui.OnChange(function(val)
 end)
 -- ANIMATIONS -----------------------------------------------
 local Animations = _G.TimGui.Groups.CreateNewGroup("Animations(R15)","Анимации(R15)")
-local Anims = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/AnimationsR15.json"))
+local Anims = game.HttpService:JSONDecode(_G.TimGui.HttpGet("./AnimationsR15.json"))
 local function Update()
     local Character = LocalPlayer.Character
     if not Character then return end
