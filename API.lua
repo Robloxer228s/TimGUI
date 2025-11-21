@@ -422,10 +422,10 @@ end API.Servers.GetThisServerPath = function()
 	return game.PlaceId..ServerSeparator..game.JobId
 end API.Servers.Rejoin = function()
 	return API.Servers.Join(API.Servers.GetThisServerPath())
-end API.Servers.JoinToPlace = function(PlaceId,jobId,TPText)
+end API.Servers.JoinToPlace = function(PlaceId,TPData,TPText)
 	LP:Kick(TPText or WhatIs..": TP to place!")
 	local s,r = pcall(function()
-		game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceId,jobId,LP,nil,TPdata)
+		game:GetService("TeleportService"):Teleport(PlaceId,LP,TPdata)
 	end) task.wait(1)
 	if not s then LP:Kick("Error: "..r) end
 end
