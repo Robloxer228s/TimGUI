@@ -29,11 +29,11 @@ local function CreateNew(path)
 	end).CFGSave = true
 end
 Group.Create(0,1,"Built-in Maps","Встроенные карты")
-local builtin = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/Maps/Maps.json"))
+local builtin = game.HttpService:JSONDecode(_G.TimGui.HttpGet("./TimExplorer/Maps/Maps.json"))
 for name,v in pairs(builtin) do
 	Group.Create(2,name,v[1],v[2],function(val)
 		if val.Value then
-			local map = loadMap(game:HttpGet("https://raw.githubusercontent.com/Robloxer228s/TimGUI/refs/heads/main/TimExplorer/Maps/"..name))
+			local map = loadMap(_G.TimGui.HttpGet("./TimExplorer/Maps/"..name))
 			map.Name = name
 			if map:FindFirstChild("StartTP") then
 				Group.Create(1,"TP/"..name,v[1],v[2],function()
