@@ -3,6 +3,9 @@ local LocalPlayer = game.Players.LocalPlayer
 local Clothing = game.Workspace.Debris.Clothing
 local Events = game.ReplicatedStorage.Events
 local MyPlot = LocalPlayer.NonSaveVars.OwnsPlot.Value
+LocalPlayer.NonSaveVars.OwnsPlot.Changed:Connect(function()
+	MyPlot = LocalPlayer.NonSaveVars.OwnsPlot.Value
+end)
 group.Create(2,"Speed","Donate: NitroSpeed","НитроСкорость",function(val)
     LocalPlayer.Gamepasses.NitroSpeed.Value = val.Value
 end)
@@ -19,6 +22,7 @@ local function MachineClick(isGrab)
 			return tonumber(a.Name) > tonumber(b.Name)
 		end)
 		for k,v in pairs(Machines) do
+			if not v:FindFirstChild("Config") then continue end
 			if v.Config.Started.Value or v.Config.CycleFinished.Value then
 				if isGrab then
 					Events.UnloadWashingMachine:FireServer(v)
