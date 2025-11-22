@@ -1,7 +1,7 @@
-local LocalPlayer = game.Players.LocalPlayer
-local RunService = game:GetService("RunService")
-local AnticheatGroup = _G.TimGui.Groups.CreateNewGroup("ACGroup")
-local Mouse = LocalPlayer:GetMouse()
+LocalPlayer = game.Players.LocalPlayer
+Mouse = LocalPlayer:GetMouse()
+RunService = game:GetService("RunService")
+AnticheatGroup = _G.TimGui.Groups.CreateNewGroup("ACGroup")
 local DefaultGravity = game.Workspace.Gravity
 local DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
 local clopGroup = _G.TimGui.Groups.CreateNewGroup("Clop")
@@ -30,7 +30,7 @@ local enable = clopGroup.Create(2,"Enable","Enable bug","Включить кло
 enable.Main.Value = true
 local all = clopGroup.Create(2,"All","Enable for all(disabled for friends)","Включить для всех(выключенный для друзей)")
 all.CFGSave = true
-local function clopFunct(who,i)
+function clopFunct(who,i)
     if i == game.Players.LocalPlayer.Name or i == "all" then
         if not enable.Value then return end
         if not all.Value then 
@@ -650,7 +650,6 @@ local XAddDash = DashSettings.Create(3,"XAdd","X:","X:",UpdateDashSettings)
 local YAddDash = DashSettings.Create(3,"YAdd","Y:","Y:",UpdateDashSettings)
 local ZAddDash = DashSettings.Create(3,"ZAdd","Z:","Z:",UpdateDashSettings)
 function UpdDSettings()
-    print(XDash.Value)
     dashOffset = Vector3.new(tonumber(XDash.Value)or 0,tonumber(YDash.Value)or 0,tonumber(ZDash.Value)or 0)
     dashAdd = Vector3.new(tonumber(XAddDash.Value)or 0,tonumber(YAddDash.Value)or 0,tonumber(ZAddDash.Value)or 0)
     if DefaultDashEnabled.Value then
@@ -690,7 +689,6 @@ Player.Create(1,"TPTool","TPTool","ТПВтулка",function(val)
 		end)
 	end)
 end)
-
 Player.Create(1,"GodMode","GodMode","Бессмертие",function()
 	_G.TimGui.Print("GodMode","It may not work!","Бессмертие","Может не работать")
 	local speaker = game.Players.LocalPlayer
@@ -713,7 +711,24 @@ Player.Create(1,"GodMode","GodMode","Бессмертие",function()
 	end
 	nHuman.Health = nHuman.MaxHealth
 end)
-
+local SecondLife = Player.Create(2,"TwoLife","Second life","Вторая жизнь",function(val)
+	if val.Value then
+		_G.TimGui.Print("SecondHand?","If your HP drops below 0, you won't die (One-time use)","Ты случайно не одежда?","Если ОЗ упадёт ниже 0, ты не умрёшь(Одноразовое)")
+	end LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Dead,not val.Value)
+end) 
+local DontFall = Player.Create(2,"DontFall","Don't FallingDown(lie down)","Не падай(валяйся)",function(val)
+	LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.FallingDown,not val.Value)
+end) 
+local function newLPCharacter(Char:Model)
+  local Humanoid = Char:FindFirstChildOfClass("Humanoid")or Char:WaitForChild("Humanoid")
+  if SecondLife.Value then
+    Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+  end if DontFall.Value then
+    Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+  end
+end if LocalPlayer.Character then
+  newLPCharacter(LocalPlayer.Character)
+end LocalPlayer.CharacterAdded:Connect(newLPCharacter)
 local Backpack = _G.TimGui.Groups.CreateNewGroup("BackpackControl")
 Backpack.Visible = false
 local count = 0
@@ -1306,6 +1321,7 @@ MyFly.OnChange(function(val)
 		end
 	else
 		FlyFolder.Parent = nil
+		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
 	end
 end)
 SeatOnFly.OnChange(function()
