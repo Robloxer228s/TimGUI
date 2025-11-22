@@ -1214,10 +1214,11 @@ TPTP.Create(1,5,"TP to random player","ТП к случайному игроку
 	AutoTPto = player.Name
 	AutoTP.Text = "Auto TP to "..AutoTPto
 	AutoTP.RusText = "Авто ТП к "..AutoTPto
+	local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
 	if TPRot.Value then
-		LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+		char.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
 	else
-		LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation)
+		char.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position,LocalPlayer.Character.HumanoidRootPart.Orientation)
 	end
 end)
 local TPSettings = _G.TimGui.Groups.CreateNewGroup("TPSettings")
@@ -1317,8 +1318,9 @@ local function AddedPlayer(v)
 		AutoTP.Text = "Auto TP to "..AutoTPto
 		AutoTP.RusText = "Авто ТП к "..AutoTPto
 		local HRP = v.Character:FindFirstChild("HumanoidRootPart")
+		local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
 		if HRP then
-			LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
+			char.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
 		else
 			_G.TimGui.Print("TP","Player not loaded.","ТП","Игрок не прогружен")
 		end
@@ -1333,13 +1335,14 @@ game.Players.PlayerRemoving:Connect(function(player)
 	TPTP.Objects[player.Name].Destroy()
 end)
 
-RunService.PreRender:Connect(function()
+RunService.RenderStepped:Connect(function()
 	if AutoTPto ~= nil and AutoTP.Value then
 		local v = game.Players:FindFirstChild(AutoTPto)
 		if v then
 			local HRP = v.Character:FindFirstChild("HumanoidRootPart")
+			local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
 			if HRP then
-				LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
+				char.HumanoidRootPart.CFrame = GetPosForTP(HRP,v.Character:FindFirstChildOfClass("Humanoid"))
 			end
 		end
 	end
