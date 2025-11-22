@@ -833,7 +833,7 @@ local walkfling = Player.Create(2,"WalkFling","Walkfling","Отпуливате�
 end)
 RunService.PostSimulation:Connect(function()
     if walkfling.Value then
-        local char = LocalPlayer.Character
+        local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
         if char then
             local HRP = char.PrimaryPart
             if HRP then
@@ -1225,15 +1225,15 @@ SeatOnFly.CFGSave = true
 SeatOnFly.Main.Value = true
 local LV, AV, AO, Pos, FlyFolder
 local function reloadMyFly()
-	MyFly.Main.Value = false
-	FlyFolder = Instance.new("Folder")
+	if MyFly.Value then
+		MyFly.Main.Value = false
+		task.wait()
+	end FlyFolder = Instance.new("Folder")
 	FlyFolder.Name = "VeryImportand"
-	
 	LV = Instance.new("LinearVelocity",FlyFolder)
 	AV = Instance.new("AngularVelocity",FlyFolder)
 	AO = Instance.new("AlignOrientation",FlyFolder)
 	Pos = Instance.new("Part",FlyFolder)
-
 	Pos.CanCollide = false
 	Pos.Anchored = true
 	Pos.Transparency = 1
@@ -1243,39 +1243,40 @@ local function reloadMyFly()
 	AV.AngularVelocity = Vector3.new(1000,1000,1000)
 	AV.MaxTorque = math.huge
 end reloadMyFly()
-Player.Create(1,"reloadFly","Reload fly v2","Перезапустить полёт",reloadMyFly)
-
+Player.Create(1,"reloadFly","Reload fly v2","Перезапустить полёт v2",reloadMyFly)
 RunService.RenderStepped:Connect(function()
-	if LocalPlayer.Character then
+	local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
+	if char then
 		if MyFly.Value then
 			Pos.CFrame = workspace.CurrentCamera.CFrame
-			Pos.Position = LocalPlayer.Character.PrimaryPart.Position
-			if LocalPlayer.Character.Humanoid.Sit then
-	                        local camera = game.Workspace.CurrentCamera
-	                        if camera.CameraSubject:IsA("Seat") or camera.CameraSubject:IsA("VehicleSeat") then
-	                                camera.CameraSubject = LocalPlayer.Character.Humanoid
+			Pos.Position = char.PrimaryPart.Position
+			if char.Humanoid.Sit then
+	            local camera = game.Workspace.CurrentCamera
+	            if camera.CameraSubject:IsA("Seat") or camera.CameraSubject:IsA("VehicleSeat") then
+	                camera.CameraSubject = char.Humanoid
 				end
 			end
-			if UsePS.Value and not LocalPlayer.Character.Humanoid.Sit then
-				LocalPlayer.Character.Humanoid.PlatformStand = true
+			if UsePS.Value and not char.Humanoid.Sit then
+				char.Humanoid.PlatformStand = true
 			end
-		elseif InvisFly.Value then
+		elseif InvisFly.Value and char==LocalPlayer.Character then
 			Pos.CFrame = workspace.CurrentCamera.CFrame
-			Pos.Position = LocalPlayer.Character.PrimaryPart.Position + GetMoveDirection(Speed/60)
-			LocalPlayer.Character.PrimaryPart.CFrame = Pos.CFrame
+			Pos.Position = char.PrimaryPart.Position + GetMoveDirection(Speed/60)
+			char.PrimaryPart.CFrame = Pos.CFrame
 		end
 	end
 end)
 
 local function StartFly(val)
-	LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,(not val) or SeatOnFly.Value)
+	local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
+	char.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,(not val) or SeatOnFly.Value)
 	Fly.Main.Value = false 
 	if UsePS.Value then
-		LocalPlayer.Character.Humanoid.PlatformStand = not (not val or (SeatOnFly.Value and LocalPlayer.Character.Humanoid.Sit))
+		char.Humanoid.PlatformStand = not (not val or (SeatOnFly.Value and LocalPlayer.Character.Humanoid.Sit))
 	else
-		LocalPlayer.Character.Animate.Enabled = not val
-		if not val then
-			for k,v in pairs(LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks()) do
+		char.Animate.Enabled = not val
+		if val then
+			for k,v in pairs(char.Humanoid.Animator:GetPlayingAnimationTracks()) do
 				v:Stop()
 			end
 		end
@@ -1284,26 +1285,27 @@ end
 
 local function getattachment()
 	local attach
-	if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-		attach = LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment")
-		attach = attach or LocalPlayer.Character.HumanoidRootPart:FindFirstChildOfClass("Attachment")
+	local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
+	if char:FindFirstChild("HumanoidRootPart") then
+		attach = char.HumanoidRootPart:FindFirstChild("RootAttachment")
+		attach = attach or char.HumanoidRootPart:FindFirstChildOfClass("Attachment")
 	else
-		for k,v in pairs(LocalPlayer.Character:GetChildren()) do
+		for k,v in pairs(char:GetChildren()) do
 			attach = v:FindFirstChildOfClass("Attachment")
 			if attach then break end
 		end
-		if not attach then attach = Instance.new("Attachment",LocalPlayer.Character.PrimaryPart) end
+		if not attach then attach = Instance.new("Attachment",char.PrimaryPart) end
 	end
 	return attach
 end
 
 MyFly.OnChange(function(val)
 	if val.Value then
-		--Fly.Main.Value = false
 		InvisFly.Main.Value = false
 		wait()
 	end
 	StartFly(val.Value)
+	local char = LocalPlayer.Character:FindFirstChild("FreecamClone")or LocalPlayer.Character
 	if val.Value then
 		local attach = getattachment()
 		LV.Attachment0 = attach
@@ -1311,7 +1313,7 @@ MyFly.OnChange(function(val)
 		AO.Enabled = not Fling.Value
 		AV.Attachment0 = attach
 		AV.Enabled = Fling.Value
-		LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+		char.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
 			LV.VectorVelocity = GetMoveDirection(Speed)
 		end)
 		if ParentCamera.Value then
@@ -1321,12 +1323,14 @@ MyFly.OnChange(function(val)
 		end
 	else
 		FlyFolder.Parent = nil
-		LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+		char.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
 	end
 end)
 SeatOnFly.OnChange(function()
 	if MyFly.Value then
-		_G.TimGui.Print("Fly","Restart fly","Полёт","Перезапусти полёт")
+		MyFly.Main.Value = false
+		task.wait()
+		MyFly.Main.Value = true
 	end
 end)
 Fling.OnChange(function()
@@ -1888,6 +1892,7 @@ Freecam = Camera.Create(2,"Freecam","Freecam","Свободная камера(F
   LocalPlayer.DevEnableMouseLock = not enableFreeCam
   if enableFreeCam then
     FreeCamChar = Instance.new("Model",LPChar)
+	FreeCamChar.Name = "FreecamClone"
     local PP = LPChar.PrimaryPart
 	AddingCamPos = cam.CFrame-PP.Position
     for k,v in pairs(LPChar:GetChildren()) do
@@ -1920,7 +1925,13 @@ Freecam = Camera.Create(2,"Freecam","Freecam","Свободная камера(F
     weld.Part1 = PP
     FHRP:ClearAllChildren()
 	CloneForFreecam = _G.TimGui.Modules.Players.MakeClone(FreeCamChar,true,true)
-	CloneForFreecam.Parent = cam
+	for k,v in pairs(CloneForFreecam:GetDescendants()) do
+		if v:IsA("BasePart") then
+			v.CanCollide = false
+			v.CanTouch = false
+			v.CanQuery = false
+		end
+	end CloneForFreecam.Parent = cam
   else for k,v in pairs(LPChar:GetChildren()) do
       if v==FreeCamChar then continue end
       v:Destroy()
