@@ -9,7 +9,7 @@ local LP = game.Players.LocalPlayer
 API.Players.ForEveryone = function(func,ignoreLP)
 	if not func then error("No function!") end
 	for k,v in pairs(game.Players:GetPlayers()) do 
-		if not ignoreLP or v ~= LP then
+		if ignoreLP or v ~= LP then
 			func(v)
 		end
 	end game.Players.PlayerAdded:Connect(func)
