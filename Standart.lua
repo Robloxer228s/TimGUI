@@ -2,10 +2,10 @@ LocalPlayer = game.Players.LocalPlayer
 Mouse = LocalPlayer:GetMouse()
 RunService = game:GetService("RunService")
 AnticheatGroup = _G.TimGui.Groups.CreateNewGroup("ACGroup")
-local DefaultGravity = game.Workspace.Gravity
-local DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
+DefaultGravity = game.Workspace.Gravity
+DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
+Settings = _G.TimGui.Groups.Settings
 local clopGroup = _G.TimGui.Groups.CreateNewGroup("Clop")
-local Settings = _G.TimGui.Groups.Settings
 function GetMoveDirection(v)
 	local move = LocalPlayer.Character.Humanoid.MoveDirection
 	local Camera = workspace.CurrentCamera
@@ -1812,8 +1812,7 @@ LRange.Main.Text = 100
 LBright.Main.Text = 1
 -- Camera -----------------------------------------------------------
 local Camera = _G.TimGui.Groups.CreateNewGroup("Camera","Камера")
-local gui = _G.TimGui.Path.gui
-local text = Instance.new("TextLabel",gui)
+local text = Instance.new("TextLabel",_G.TimGui.Path.gui)
 local plCount = 2
 Camera.Create(0,"Spectat","Speactate","Наблюдать")
 text.Position = UDim2.new(1,-300,0,-25)
@@ -1878,7 +1877,92 @@ end)
 Camera.Create(1,"MaxDistance","Max Zoom of camera","Максимальный зум камеры",function()
 	LocalPlayer.CameraMaxZoomDistance = math.huge
 end)
-
+local FreeCamChar,FreeCamPos,AddingCamPos,CloneForFreecam
+FreecamSpeed = Camera.Create(3,"FreecamSpeed","Freecam speed:","Скорость камеры:")
+FreecamSpeed.Main.Text = 1
+Freecam = Camera.Create(2,"Freecam","Freecam","Свободная камера(Freecam)",function(val)
+  local LPChar = LocalPlayer.Character
+  local enableFreeCam = not FreeCamChar or not FreeCamChar.Parent
+  if enableFreeCam~=val.Value then return end
+  local cam = game.Workspace.CurrentCamera
+  LocalPlayer.DevEnableMouseLock = not enableFreeCam
+  if enableFreeCam then
+    FreeCamChar = Instance.new("Model",LPChar)
+    local PP = LPChar.PrimaryPart
+	AddingCamPos = cam.CFrame-PP.Position
+    for k,v in pairs(LPChar:GetChildren()) do
+      if v==FreeCamChar then continue end
+      v.Parent = FreeCamChar
+    end FreeCamChar.PrimaryPart = PP
+    local hum = Instance.new("Humanoid",LPChar)
+    hum:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+    hum:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+    hum:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+	_G.TimGui.Modules.Players.MakeCloneModules.MakeRepeatHumanoid(FreeCamChar:FindFirstChildOfClass("Humanoid"),hum)
+    local FHRP = Instance.new("Part",LPChar)
+    FHRP.CanCollide = false
+    FHRP.CanTouch = false
+    FHRP.CanQuery = false
+    FHRP.Anchored = true
+    FHRP.Transparency = 1
+    FHRP.Name = "HumanoidRootPart"
+    FHRP.CFrame = cam.CFrame
+    FreeCamPos = FHRP
+    local FPP = Instance.new("Part",LPChar)
+    FPP.CanCollide = false
+    FPP.CanTouch = false
+    FPP.CanQuery = false
+    FPP.Transparency = 1
+    FPP.Name = "Head"
+    LPChar.PrimaryPart = FPP
+    local weld = Instance.new("Weld",FPP)
+    weld.Part0 = FPP
+    weld.Part1 = PP
+    FHRP:ClearAllChildren()
+	CloneForFreecam = _G.TimGui.Modules.Players.MakeClone(FreeCamChar,true,true)
+	CloneForFreecam.Parent = cam
+  else for k,v in pairs(LPChar:GetChildren()) do
+      if v==FreeCamChar then continue end
+      v:Destroy()
+    end _G.TimGui.Modules.Players.DelClone(FreeCamChar,CloneForFreecam)
+    local PP = FreeCamChar.PrimaryPart
+    for k,v in pairs(FreeCamChar:GetChildren()) do
+      v.Parent = LPChar
+    end LPChar.PrimaryPart = PP
+    FreeCamChar:Destroy()
+    FreeCamChar = nil
+	cam.CFrame = AddingCamPos+LPChar.PrimaryPart.Position
+  end cam.CameraSubject = LPChar:FindFirstChildOfClass("Humanoid")
+  LocalPlayer.CameraMode = (enableFreeCam and Enum.CameraMode.LockFirstPerson)or Enum.CameraMode.Classic
+  if not enableFreeCam then
+	local distance = LocalPlayer.CameraMinZoomDistance
+	LocalPlayer.CameraMinZoomDistance = AddingCamPos.Position.Magnitude
+	task.wait()
+	LocalPlayer.CameraMinZoomDistance = distance
+  end
+end) if game:GetService("UserInputService").KeyboardEnabled then
+	Camera.Create(0,"LCTRLTip","LeftCTRL to speed*2","Левый CTRL чтобы скорость*2")
+	Camera.Create(0,"LShiftTip","LeftShift to speed/2","Левый Shift чтобы скорость/2")
+end
+RunService.PreRender:Connect(function()
+  if FreeCamChar and FreeCamChar.Parent then
+	local speed = tonumber(FreecamSpeed.Value)or 1
+	if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then
+		speed = speed*2
+	end	if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftShift) then
+		speed = speed/2
+	end FreeCamPos.CFrame += GetMoveDirection(speed)
+  end
+end) LocalPlayer.CharacterAdded:Connect(function()
+	if Freecam.Value then
+		local CamPos = FreeCamPos.CFrame
+		Freecam.Main.Value = false
+		task.wait()
+		Freecam.Main.Value = true
+		task.wait()
+		FreeCamPos.CFrame = CamPos
+	end
+end)
 -- Other ------------------------------------------------------------------------------------
 local group = _G.TimGui.Groups.CreateNewGroup("Other","Другое")
 
