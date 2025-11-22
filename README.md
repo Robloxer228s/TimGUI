@@ -19,6 +19,8 @@ P.S(for update logs): day.month.year
 
 # Update logs:
 
+22.11.25 - SecondLife, Don't falling down
+
 21.11.25 - Death ball added servers(Mobile or PC)+new HttpGet system (TimGui.lua+Standart.lua update)
 
 20.11.25 - finally working Death ball script
