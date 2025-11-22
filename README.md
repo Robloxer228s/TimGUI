@@ -19,7 +19,7 @@ P.S(for update logs): day.month.year
 
 # Update logs:
 
-22.11.25 - SecondLife, Don't falling down
+22.11.25 - SecondLife, Don't falling down, Freecam
 
 21.11.25 - Death ball added servers(Mobile or PC)+new HttpGet system (TimGui.lua+Standart.lua update)
 
