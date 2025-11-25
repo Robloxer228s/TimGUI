@@ -30,6 +30,7 @@ local ZoneSphere = nil
 local Coordinates = group.Create(0,"Coordinates","X: 0.0 | Y: 0.0 | Z: 0.0\nSpeed: 0.0 | Height: 0.0 | Shadow: 0.0",nil)
 local Status = group.Create(0,"Status","Searching for ball...",nil)
 local Distance = group.Create(3,"Distance","Distance:","Дистанция")
+Distance.Main.Text = ParryDistance
 
 local useClickF = true
 
