@@ -70,6 +70,7 @@ end) group.Create(1,"NoobServer","Noob server","НУБ сервер",function()
 end) group.Create(1,"TradeServer","Trade server","Трейд сервер",function()
     _G.TimGui.Modules.Servers.JoinToPlace(119260352090770)
 end) local BallPos
+loadstring(_G.TimGui.HttpGet("./Games/DeathballV2.lua"))() 
 while task.wait() do
     if not BallShadow or not Ball then
         BallShadow = game.Workspace.FX:WaitForChild("BallShadow",math.huge)
