@@ -216,16 +216,7 @@ CreateZoneSphere()
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
-    
-    if input.KeyCode == Enum.KeyCode.K then
-        MainFrame.Visible = not MainFrame.Visible
-    
-    elseif input.KeyCode == Enum.KeyCode.E then
-        AutoClickerEnabled = not AutoClickerEnabled
-        ClickerButton.BackgroundColor3 = AutoClickerEnabled and Color3.new(0.2, 0.8, 0.2) or Color3.new(0.3, 0.3, 0.3)
-        ClickerButton.Text = AutoClickerEnabled and "Clicker ON" or "Clicker OFF"
-    
-    elseif input.KeyCode == Enum.KeyCode.F then
+    if input.KeyCode == Enum.KeyCode.F then
         Parry()
     end
 end)
