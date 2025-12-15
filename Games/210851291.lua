@@ -132,7 +132,7 @@ awf.CanCollide = WH.Value
 end
 end)
 
-local CustomAFK = babft.Create(2,"CustomAFK","TP for customAFR","ТП для своего АФК")
+local CustomAFK = babft.Create(2,"CustomAFK","TP for custom AFK","ТП для своего АФК")
 awf.Touched:Connect(function() 
 if AFK.Value or CustomAFK.Value then 
 local char = game.Players.LocalPlayer.Character
