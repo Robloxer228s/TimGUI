@@ -135,13 +135,13 @@ end)
 local CustomAFK = babft.Create(2,"CustomAFK","TP for customAFR","ТП для своего АФК")
 awf.Touched:Connect(function() 
 if AFK.Value or CustomAFK.Value then 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Final.CFrame
-wait(5) 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Final.CFrame
 local char = game.Players.LocalPlayer.Character
-wait(30) 
-if char then
-char.Humanoid:TakeDamage(100)
+char.HumanoidRootPart.CFrame = Final.CFrame
+wait(5) 
+char.HumanoidRootPart.CFrame = Final.CFrame
+task.wait(30) 
+if char and char.Parent then
+char.Humanoid:TakeDamage(math.huge)
 end
 end
 end) 
