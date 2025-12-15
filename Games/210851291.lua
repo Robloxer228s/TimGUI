@@ -132,9 +132,9 @@ awf.CanCollide = WH.Value
 end
 end)
 
-
+local CustomAFK = babft.Create(2,"CustomAFK","TP for customAFR","ТП для своего АФК")
 awf.Touched:Connect(function() 
-if AFK.Value then 
+if AFK.Value or CustomAFK.Value then 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Final.CFrame
 wait(5) 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Final.CFrame
@@ -147,7 +147,7 @@ end
 end) 
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 wait(5) 
-if AFK.Value then
+if AFK.Value or CustomAFK.Value then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Start.CFrame
 end
 end)
