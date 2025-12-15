@@ -1,6 +1,7 @@
 LocalPlayer = game.Players.LocalPlayer
 Mouse = LocalPlayer:GetMouse()
 RunService = game:GetService("RunService")
+VirtualInputManager = game:GetService("VirtualInputManager") 
 AnticheatGroup = _G.TimGui.Groups.CreateNewGroup("ACGroup")
 DefaultGravity = game.Workspace.Gravity
 DefaultFPDH = game.Workspace.FallenPartsDestroyHeight
@@ -851,6 +852,22 @@ RunService.PostSimulation:Connect(function()
 		end
             end
         end
+    end
+end)
+local AntiAFKKick = Player.Create(2,"AntiAFKKick","Anti kick for AFK","Не кикай за АФК",function(v)
+    local s = pcall(function()
+        VirtualInputManager:SendKeyEvent(true, "W", false, game)
+        task.wait(0)
+        VirtualInputManager:SendKeyEvent(false, "W", false, game)
+    end) if not s and v.Value then
+        _G.TimGui.Print("Unsupported","Your executor don't support this function","Не доступно","Твой экскютор не поддерживает эту функцию")
+    end
+end)
+LocalPlayer.Idled:Connect(function()
+    if AntiAFKKick.Value then
+        VirtualInputManager:SendKeyEvent(true, "W", false, game)
+        task.wait()
+        VirtualInputManager:SendKeyEvent(false, "W", false, game)
     end
 end)
 --Invisible
