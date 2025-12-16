@@ -27,13 +27,13 @@ local function AFKFunctionStart()
         Position=AFKEndPos
     }):Play()
     task.wait(timeForAFK-7.5)
-    for i=1,15 do
+    for i=1,20*4 do
         if not Char.Parent then return end
-        TakeFinalChest(1.5)
-        task.wait(1)
+        ChestTrigger.CFrame=LocalPlayer.Character.PrimaryPart.CFrame
+        task.wait(0.25)
     end if Char.Parent then
         Char:FindFirstChildOfClass("Humanoid").Health = 0
-    end
+    end ChestTrigger.CFrame=OriginalPosChest
 end
 group.Create(3,"AFKSpeed","AFK speed(seconds):","Скорость АФК(секунды):",function(val)
     local new = tonumber(val.Value)or-1
