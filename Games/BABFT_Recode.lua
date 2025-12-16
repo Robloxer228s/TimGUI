@@ -26,7 +26,7 @@ local function AFKFunctionStart()
     TweenService:Create(AlignPos,TweenInfo.new(timeForAFK,Enum.EasingStyle.Linear),{
         Position=AFKEndPos
     }):Play()
-    task.wait(timeForAFK-5)
+    task.wait(timeForAFK-7.5)
     for i=1,15 do
         if not Char.Parent then return end
         TakeFinalChest(1.5)
