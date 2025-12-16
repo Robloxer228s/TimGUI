@@ -160,6 +160,7 @@ Next(v)
 end
 end
 end
+loadstring(_G.TimGui.HttpGet("./Games/BABFT_Recode.lua"))()
 while true do
 wait(30) 
 if BDel.Value or AFK.Value then
