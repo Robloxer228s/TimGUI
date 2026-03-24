@@ -54,8 +54,12 @@ local warnOnJoinRus = "Игрок мог уже выйти, но он точно
 local Buttons = {}
 table.insert(OnUpdate,function()
 	local IAm = LastTab[LP.Name]
-	local TimeOfUpd = IAm.time
-	for k,v in pairs(LastTab) do
+	local TimeOfUpd
+	if IAm then
+		TimeOfUpd = IAm.time
+	end if not TimeOfUpd or os.time()-TimeOfUpd<30 then
+		TimeOfUpd = os.time()
+	end	for k,v in pairs(LastTab) do
 		if k == LP.Name then continue end
 		local lastUpdateTime = TimeOfUpd-v.time-10
 		local LastButton = Buttons[k]
