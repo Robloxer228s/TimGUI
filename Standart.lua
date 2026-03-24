@@ -2477,3 +2477,4 @@ end) for k,v in pairs(SavedServers) do
 	else CreateSSButton(k)
 	end
 end
+loadstring(_G.TimGui.HttpGet("./Visuals.lua"))()
