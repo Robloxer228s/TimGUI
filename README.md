@@ -19,6 +19,8 @@ P.S(for update logs): day.month.year
 
 # Update logs:
 
+26.03.25 - added group "Visuals": show invisible parts; destroy blockMesh
+
 16.12.25 - BABFT recode(V2)
 
 22.11.25 - SecondLife, Don't falling down, Freecam
