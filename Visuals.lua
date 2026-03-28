@@ -1,4 +1,4 @@
-local Visuals = _G.TimGui.Groups.CreateNewGroup("Visuals3","Визуалы")
+local Visuals = _G.TimGui.Groups.CreateNewGroup("Visuals","Визуалы")
 Visuals.Create(0,"Helpful","Helpful","Полезные")
 local InvsCanCollide = Visuals.Create(2,"InvsCanCollide","Show invisible blocks(can collide)","Показывать невидимые барьеры")
 local InvsCantCollide = Visuals.Create(2,"InvsCantCollide","Show invisible blocks(can't collide)","Показывать невидимые блоки(можно пройти сквозь них)")
